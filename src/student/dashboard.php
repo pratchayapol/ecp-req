@@ -60,6 +60,7 @@ session_start();
             </footer>
         </div>
     </div>
+    
 <!-- SweetAlert2 CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -71,15 +72,17 @@ session_start();
       text: 'คุณต้องการออกจากระบบหรือไม่',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Logout',
+      confirmButtonText: 'ตกลง',
       cancelButtonText: 'ยกเลิก',
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      allowOutsideClick: false, // ไม่ให้คลิกนอก popup เพื่อปิด
-      allowEscapeKey: false,   // ไม่ให้กด ESC เพื่อปิด
+      reverseButtons: true, // เพื่อสลับตำแหน่งให้ "ยกเลิก" อยู่ซ้าย
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      customClass: {
+        confirmButton: 'swal-confirm-btn',
+        cancelButton: 'swal-cancel-btn'
+      }
     }).then((result) => {
       if (result.isConfirmed) {
-        // ไปที่ URL ออกจากระบบ
         window.location.href = 'https://ecpreq.pcnone.com/google_auth?logout=true';
       }
     });
