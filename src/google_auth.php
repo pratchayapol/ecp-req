@@ -51,15 +51,28 @@
         // บันทึก access token ลงในไฟล์ token.json
         file_put_contents('token.json', json_encode($client->getAccessToken()));
 
-        // ถ้ามี access token ที่ถูกต้อง
         if ($client->getAccessToken()) {
             // ดึงข้อมูลจาก Google API
             $oauth2 = new Google_Service_Oauth2($client);
             $userInfo = $oauth2->userinfo->get();
-
+        
+            // JavaScript ป้องกันการรีเฟรช
+            echo "<script>
+                document.addEventListener('keydown', function(e) {
+                    if ((e.key === 'F5') || (e.ctrlKey && e.key === 'r')) {
+                        e.preventDefault();
+                        alert('ไม่สามารถรีเฟรชหน้านี้ได้');
+                    }
+                });
+        
+                window.onbeforeunload = function () {
+                    return 'หากคุณรีเฟรช หน้านี้จะโหลดใหม่ทั้งหมด';
+                };
+            </script>";
+        
             // แสดงข้อมูลผู้ใช้
             echo '<div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
-            <div class="flex flex-col items-center">';
+                    <div class="flex flex-col items-center">';
             echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ</h1>';
             echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">'. $userInfo->name . '</h1>';
             echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . $userInfo->email . '</span></div>';
@@ -69,7 +82,8 @@
             echo '<div class="text-gray-600">';
             echo '<p class="text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
             echo '</div></div></div>';
-        } 
+        }
+        
 
     } else {
         // แสดงลิงก์สำหรับให้ผู้ใช้อนุมัติการเข้าถึง
