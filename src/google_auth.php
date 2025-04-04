@@ -50,4 +50,25 @@ if (isset($_GET['code'])) {
     // แสดงลิงก์สำหรับให้ผู้ใช้อนุมัติการเข้าถึง
     $authUrl = $client->createAuthUrl();
     echo '<div class="flex justify-center items-center min-h-screen bg-gray-100">';
-    echo '<div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w
+    echo '<div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full text-center">';
+    echo "<a href='$authUrl' class='text-blue-500 hover:underline'>Authorize</a>";
+    echo '</div>';
+    echo '</div>';
+}
+
+// ตรวจสอบว่า token.json มีค่า
+if (file_exists('token.json')) {
+    // อ่าน token จากไฟล์
+    $token = json_decode(file_get_contents('token.json'), true);
+
+    // เช็คว่า token หมดอายุหรือไม่
+    if ($client->isAccessTokenExpired()) {
+        // ถ้า access token หมดอายุ ใช้ refresh token เพื่อขอใหม่
+        $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
+        file_put_contents('token.json', json_encode($client->getAccessToken()));
+    }
+
+    // ตั้งค่า access token
+    $client->setAccessToken($token);
+}
+?>
