@@ -52,5 +52,7 @@ sudo systemctl reload nginx
 10. สร้างไฟล์ .env ใน server
 
 GOOGLE_CLIENT_ID=YOUR_CLIENT_ID
+
 GOOGLE_CLIENT_SECRET=YOUR_CLIENT_SECRET
+
 GOOGLE_REDIRECT_URI=https://ecpreq.pcnone.com/google_auth
