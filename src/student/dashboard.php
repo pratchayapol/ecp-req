@@ -32,8 +32,8 @@ session_start();
                 <img src="/image/logo.png" class="w-32 h-32 rounded-full shadow-lg mx-auto" alt="Logo">
                 <button class="w-full bg-orange-500 text-white py-2 rounded mt-4">Dashboard</button>
                 <div class="mt-4 space-y-2">
-                    <button class="w-full text-left py-2 px-4 bg-gray-200 rounded hover:bg-gray-300">คำร้องขอเพิ่มที่นั่ง RE.06</button>
-                    <button class="w-full text-left py-2 px-4 bg-gray-200 rounded hover:bg-gray-300">คำร้องขอเปิดดอกแนน RE.07</button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 bg-gray-200 rounded hover:bg-gray-300">คำร้องขอเพิ่มที่นั่ง RE.06</button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 bg-gray-200 rounded hover:bg-gray-300">คำร้องขอเปิดดอกแนน RE.07</button>
                 </div>
             </div>
             <div class="text-center">
