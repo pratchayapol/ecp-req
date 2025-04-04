@@ -107,21 +107,21 @@ include 'connect/dbcon.php';
                     // ถ้าอีเมลไม่มีในฐานข้อมูล
                     echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
                     echo '<script>
-            Swal.fire({
-                icon: "error",
-                title: "อีเมลของคุณไม่พบในฐานข้อมูล",
-                showCancelButton: false,  // ซ่อนปุ่ม Cancel
-                confirmButtonText: "Logout",
-                backdrop: "rgba(0,0,0,0.4)",  // ป้องกันการคลิกนอก popup
-                allowOutsideClick: false,  // ไม่ให้คลิกนอก popup
-                allowEscapeKey: false  // ไม่ให้กด Escape เพื่อปิด popup
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // ถ้ากดปุ่ม Logout
-                    window.location.href = "?logout=true";  // เปลี่ยน URL ให้ไปที่ logout
-                }
-            });
-        </script>';
+    Swal.fire({
+        icon: "error",
+        title: "อีเมลของคุณไม่พบในฐานข้อมูล",
+        text: "โปรดใช้เมลมหาวิทยาลัยของคุณในการเข้าสู่ระบบ",
+        showCancelButton: false,
+        confirmButtonText: "ตกลง",
+        backdrop: "rgba(0,0,0,0.4)",
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "?logout=true";
+        }
+    });
+</script>';
                 }
                 exit();
             }
