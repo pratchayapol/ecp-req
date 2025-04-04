@@ -75,42 +75,53 @@ include 'connect/dbcon.php';
 
                 if ($userAccount) {
                     // ถ้ามีข้อมูลในฐานข้อมูล
-                    $_SESSION['role'] = $userAccount['urole']; // เก็บสิทธิ์การใช้งานใน session
+                    $_SESSION['role'] = $userAccount['role'];
+                    $_SESSION['id'] = $userAccount['user_id'];
+                    $_SESSION['course_level'] = $userAccount['course_level'];
+      
+                    // อัปเดตภาพโปรไฟล์ในฐานข้อมูล
+                    if ($userAccount['picture'] !== $userInfo->picture) {
+                        $updateStmt = $pdo->prepare("UPDATE accounts SET picture = :picture WHERE email = :email");
+                        $updateStmt->bindParam(':picture', $userInfo->picture);
+                        $updateStmt->bindParam(':email', $email);
+                        $updateStmt->execute();
+                    }
 
-                    // รอ 3 วินาที
-                    header("Refresh: 3; url=dashboard.php"); // เปลี่ยน URL ไปที่หน้า Dashboard
-                    echo '<div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105 mx-auto mt-10">
-                    <div class="flex flex-col items-center">';
-                    echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ</h1>';
-                    echo '<div class="mb-6">';
-                    echo '<img src="' . htmlspecialchars($userInfo->picture) . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
-                    echo '</div>';
-                    echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">' . htmlspecialchars($userInfo->name) . '</h1>';
-                    echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . htmlspecialchars($userInfo->email) . '</span></div>';
-                    echo '<p class="text-gray-600 text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
-
-                    echo '<p class="mt-6 text-gray-600 text-xl">ระบบกำลังนำคุณไปยังหน้า Dashboard...</p>';
-                    echo '</div></div>';
+                    // ตรวจสอบ role และ redirect ไปที่หน้า Dashboard ที่เหมาะสม
+                    switch ($_SESSION['role']) {
+                        case 'admin':
+                            header("Location: admin/dashboard.php");
+                            exit();
+                        case 'Teacher':
+                            header("Location: teacher/dashboard.php");
+                            exit();
+                        case 'Student':
+                            header("Location: student/dashboard.php");
+                            exit();
+                        default:
+                            // ถ้า role ไม่ตรงกับที่คาดหวัง
+                            header("Location: index");
+                            exit();
+                    }
                 } else {
-
                     // ถ้าอีเมลไม่มีในฐานข้อมูล
                     echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
                     echo '<script>
-                            Swal.fire({
-                                icon: "error",
-                                title: "อีเมลของคุณไม่พบในฐานข้อมูล",
-                                showCancelButton: false,  // ซ่อนปุ่ม Cancel
-                                confirmButtonText: "Logout",
-                                backdrop: "rgba(0,0,0,0.4)",  // ป้องกันการคลิกนอก popup
-                                allowOutsideClick: false,  // ไม่ให้คลิกนอก popup
-                                allowEscapeKey: false  // ไม่ให้กด Escape เพื่อปิด popup
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    // ถ้ากดปุ่ม Logout
-                                    window.location.href = "?logout=true";  // เปลี่ยน URL ให้ไปที่ logout
-                                }
-                            });
-                        </script>';
+                    Swal.fire({
+                        icon: "error",
+                        title: "อีเมลของคุณไม่พบในฐานข้อมูล",
+                        showCancelButton: false,  // ซ่อนปุ่ม Cancel
+                        confirmButtonText: "Logout",
+                        backdrop: "rgba(0,0,0,0.4)",  // ป้องกันการคลิกนอก popup
+                        allowOutsideClick: false,  // ไม่ให้คลิกนอก popup
+                        allowEscapeKey: false  // ไม่ให้กด Escape เพื่อปิด popup
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // ถ้ากดปุ่ม Logout
+                            window.location.href = "?logout=true";  // เปลี่ยน URL ให้ไปที่ logout
+                        }
+                    });
+                </script>';
                 }
                 exit();
             }
@@ -120,14 +131,13 @@ include 'connect/dbcon.php';
             $role = $_SESSION['role'];
 
             echo '<div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105 mx-auto mt-10">
-            <div class="flex flex-col items-center">';
+    <div class="flex flex-col items-center">';
             echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ</h1>';
             echo '<div class="mb-6">';
             echo '<img src="' . htmlspecialchars($user['picture']) . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
             echo '</div>';
             echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">' . htmlspecialchars($user['name']) . '</h1>';
             echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . htmlspecialchars($user['email']) . '</span></div>';
-            echo '<p class="text-gray-600 text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
             echo '<a href="?logout=true" class="mt-6 bg-red-500 hover:bg-red-600 text-white py-2 px-6 rounded-lg transition">Logout</a>';
             echo '</div></div>';
         } else {
