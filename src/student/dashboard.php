@@ -42,7 +42,7 @@ $course_level = $_SESSION['course_level'] ?? '';
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg');">
     <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
-        <div class="w-full sm:w-1/6 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
+        <div class="w-full sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
             <div class="text-center">
                 <img src="/image/logo.png" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg mx-auto" alt="Logo">
                 <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] mt-4 shadow-md">Dashboard</button>
