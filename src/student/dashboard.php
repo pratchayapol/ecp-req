@@ -55,7 +55,7 @@ session_start();
                 <h1 class="text-orange-500 text-xl font-bold">ประชาสัมพันธ์</h1>
                 <div class="bg-white p-4 rounded-lg shadow-lg h-96 mt-4"></div>
             </div>
-            <footer class="text-center py-4 bg-orange-500 text-white mb-2">
+            <footer class="text-center py-4 bg-orange-500 text-white m-4">
                 2025 All rights reserved by Software Engineering 3/67
             </footer>
         </div>
