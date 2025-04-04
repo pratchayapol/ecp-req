@@ -111,9 +111,11 @@ session_start();
 
     if (isset($_GET['logout'])) {
         session_destroy();
-        header("Location: index");
+        $logoutRedirect = 'https://ecpreq.pcnone.com';
+        header('Location: https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=' . urlencode($logoutRedirect));
         exit();
     }
+    
     
     ?>
 
