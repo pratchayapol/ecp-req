@@ -60,7 +60,7 @@
 
                     // แสดงข้อมูลผู้ใช้
                  
-                    echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ, ' . $userInfo->name . '</h1>';
+                    echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ <br>' . $userInfo->name . '</h1>';
                     echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . $userInfo->email . '</span></div>';
                     echo '<div class="mb-6">';
                     echo '<img src="' . $userInfo->picture . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
