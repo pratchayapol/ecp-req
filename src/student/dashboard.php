@@ -29,7 +29,7 @@ session_start();
     <!-- Sidebar -->
     <div class="w-1/4 bg-white shadow-lg p-4 flex flex-col justify-between">
         <div class="text-center">
-            <img src="/image/logo.png" class="mx-auto w-24" alt="Logo">
+            <img src="/image/logo.png" class="w-32 h-32 rounded-full shadow-lg" alt="Logo">
             <button class="w-full bg-orange-500 text-white py-2 rounded mt-4">Dashboard</button>
             <div class="mt-4 space-y-2">
                 <button class="w-full text-left py-2 px-4 bg-gray-200 rounded hover:bg-gray-300">คำร้องขอเพิ่มที่นั่ง RE.06</button>
