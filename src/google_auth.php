@@ -60,7 +60,8 @@
             // แสดงข้อมูลผู้ใช้
             echo '<div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
             <div class="flex flex-col items-center">';
-            echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ <br>' . $userInfo->name . '</h1>';
+            echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ</h1>';
+            echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">'. $userInfo->name . '</h1>';
             echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . $userInfo->email . '</span></div>';
             echo '<div class="mb-6">';
             echo '<img src="' . $userInfo->picture . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
@@ -69,7 +70,7 @@
             echo '<p class="text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
             echo '</div></div></div>';
         } 
-        
+
     } else {
         // แสดงลิงก์สำหรับให้ผู้ใช้อนุมัติการเข้าถึง
         $authUrl = $client->createAuthUrl();
