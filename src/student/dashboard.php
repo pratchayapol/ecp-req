@@ -65,7 +65,7 @@ $course_level = $_SESSION['course_level'] ?? '';
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 mb-6 sm:mt-0 sm:me-6 rounded-[20px]">
+        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 mb-6 sm:mt-6 sm:me-6 rounded-[20px]">
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-96">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
