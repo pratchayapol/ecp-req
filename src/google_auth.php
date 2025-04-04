@@ -89,14 +89,14 @@ include 'connect/dbcon.php';
 
                     // ตรวจสอบ role และ redirect ไปที่หน้า Dashboard ที่เหมาะสม
                     switch ($_SESSION['role']) {
-                        case 'admin':
-                            header("Location: admin/dashboard.php");
+                        case 'Admin':
+                            header("Location: admin/dashboard");
                             exit();
                         case 'Teacher':
-                            header("Location: teacher/dashboard.php");
+                            header("Location: teacher/dashboard");
                             exit();
                         case 'Student':
-                            header("Location: student/dashboard.php");
+                            header("Location: student/dashboard");
                             exit();
                         default:
                             // ถ้า role ไม่ตรงกับที่คาดหวัง
@@ -140,12 +140,12 @@ include 'connect/dbcon.php';
             echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . htmlspecialchars($user['email']) . '</span></div>';
 
             // เพิ่มปุ่มเข้าใช้งานตาม role ของผู้ใช้
-            if ($role == 'admin') {
-                echo '<a href="admin/dashboard.php" class="mt-6 bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg transition">ไปยังแผงควบคุมผู้ดูแลระบบ</a>';
+            if ($role == 'Admin') {
+                echo '<a href="admin/dashboard" class="mt-6 bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg transition">ไปยังแผงควบคุมผู้ดูแลระบบ</a>';
             } elseif ($role == 'Teacher') {
-                echo '<a href="teacher/dashboard.php" class="mt-6 bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-lg transition">ไปยังแผงควบคุมอาจารย์</a>';
+                echo '<a href="teacher/dashboard" class="mt-6 bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-lg transition">ไปยังแผงควบคุมอาจารย์</a>';
             } elseif ($role == 'Student') {
-                echo '<a href="student/dashboard.php" class="mt-6 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-6 rounded-lg transition">ไปยังแผงควบคุมของนักเรียน</a>';
+                echo '<a href="student/dashboard" class="mt-6 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-6 rounded-lg transition">ไปยังแผงควบคุมของนักเรียน</a>';
             }
 
             echo '<a href="?logout=true" class="mt-6 bg-red-500 hover:bg-red-600 text-white py-2 px-6 rounded-lg transition">Logout</a>';
