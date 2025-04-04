@@ -41,7 +41,6 @@ $course_level = $_SESSION['course_level'] ?? '';
     <link rel="stylesheet" href="./css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); position: sticky; top: 0;">
     <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
@@ -139,11 +138,14 @@ $course_level = $_SESSION['course_level'] ?? '';
         .swal-cancel-btn:hover {
             background-color: #BD0D0D !important;
         }
+
+        /* ทำให้ภาพพื้นหลังเป็น Sticky */
         body {
             position: sticky;
             top: 0;
         }
     </style>
 </body>
+
 
 </html>
