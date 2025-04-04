@@ -42,7 +42,7 @@ $course_level = $_SESSION['course_level'] ?? '';
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="bg-cover flex bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg');">
+<body class="bg-cover sticky bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg');">
     <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
         <div id="sidebar" class="sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
