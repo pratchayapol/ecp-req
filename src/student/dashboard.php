@@ -43,7 +43,10 @@ session_start();
                     </div>
                     <span>Student Ecp</span>
                 </div>
-                <button class="w-full mt-4 bg-red-500 text-white py-2 rounded">ออกจากระบบ</button>
+                <button class="w-full mt-4 bg-white text-[#2C2C2C] py-2 rounded hover:bg-[#2C2C2C] hover:text-white transition-colors duration-200">
+  ออกจากระบบ
+</button>
+
             </div>
         </div>
 
