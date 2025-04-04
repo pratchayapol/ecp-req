@@ -50,7 +50,7 @@ session_start();
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col justify-between bg-white/60">
+        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 mb-6 me-6">
             <div class="p-8">
                 <h1 class="text-orange-500 text-xl font-bold">ประชาสัมพันธ์</h1>
                 <div class="bg-white p-4 rounded-lg shadow-lg h-96 mt-4"></div>
