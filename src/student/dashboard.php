@@ -1,23 +1,3 @@
-<?php
-session_start();
-// echo '<pre>';
-// print_r($_SESSION);
-// echo '</pre>';
-
-// ตรวจสอบว่ามีข้อมูลใน session หรือไม่
-if (isset($_SESSION['user'])) {
-    $name = $_SESSION['user']['name'];
-    $email = $_SESSION['user']['email'];
-    $picture = $_SESSION['user']['picture'];
-} else {
-    $name = $email = $picture = null;
-}
-
-$logged_in = $_SESSION['logged_in'] ?? 0;
-$role = $_SESSION['role'] ?? '';
-$id = $_SESSION['id'] ?? '';
-$course_level = $_SESSION['course_level'] ?? '';
-?>
 <!DOCTYPE html>
 <html lang="th">
 
@@ -40,23 +20,23 @@ $course_level = $_SESSION['course_level'] ?? '';
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg');">
-    <div class="flex h-screen">
+    <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
-        <div class="w-1/6 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
+        <div class="w-full sm:w-1/6 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
             <div class="text-center">
-                <img src="/image/logo.png" class="w-32 h-32 rounded-full shadow-lg mx-auto" alt="Logo">
+                <img src="/image/logo.png" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg mx-auto" alt="Logo">
                 <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] mt-4 shadow-md">Dashboard</button>
                 <div class="mt-4 space-y-2">
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md">คำร้องขอเพิ่มที่นั่ง RE.06</button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md">คำร้องขอเปิดดอกแนน RE.07</button>
                 </div>
             </div>
-            <div class="text-center">
-                <div class="flex items-center space-x-2">
+            <div class="text-center mt-4">
+                <div class="flex items-center justify-center sm:justify-start space-x-2">
                     <div class="bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center">
-                    <img src="<?= $picture ?>" alt="Profile Picture" class="w-10 h-10 rounded-full object-cover">
+                        <img src="<?= $picture ?>" alt="Profile Picture" class="w-10 h-10 rounded-full object-cover">
                     </div>
-                    <span><?php echo $name;?></span>
+                    <span class="text-sm sm:text-base"><?= $name; ?></span>
                 </div>
                 <button id="logoutBtn" class="w-full mt-4 bg-white text-[#2C2C2C] py-2 rounded-[12px] hover:bg-[#2C2C2C] hover:text-white transition-colors duration-200 shadow-md">
                     ออกจากระบบ
@@ -65,7 +45,7 @@ $course_level = $_SESSION['course_level'] ?? '';
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 mb-6 me-6 rounded-[20px]">
+        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 mb-6 sm:mt-0 sm:me-6 rounded-[20px]">
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-96">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
@@ -77,53 +57,54 @@ $course_level = $_SESSION['course_level'] ?? '';
         </div>
     </div>
 
-<!-- SweetAlert2 CDN -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- Script -->
-<script>
-  document.getElementById("logoutBtn").addEventListener("click", function () {
-    Swal.fire({
-      title: 'คุณแน่ใจหรือไม่?',
-      text: 'คุณต้องการออกจากระบบหรือไม่',
-      icon: 'warning',
-      showCancelButton: true,
-      cancelButtonText: 'ยกเลิก',
-      confirmButtonText: 'ตกลง',
-      reverseButtons: true, // เพื่อสลับตำแหน่งให้ "ยกเลิก" อยู่ซ้าย
-      allowOutsideClick: false,
-      allowEscapeKey: false,
-      customClass: {
-        confirmButton: 'swal-confirm-btn',
-        cancelButton: 'swal-cancel-btn'
-      }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.href = 'https://ecpreq.pcnone.com/google_auth?logout=true';
-      }
-    });
-  });
-</script>
-<!-- Custom Style -->
-<style>
-  .swal-confirm-btn {
-    background-color: #0059FF !important;
-    color: white !important;
-  }
+    <!-- Script -->
+    <script>
+        document.getElementById("logoutBtn").addEventListener("click", function () {
+            Swal.fire({
+                title: 'คุณแน่ใจหรือไม่?',
+                text: 'คุณต้องการออกจากระบบหรือไม่',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'ตกลง',
+                reverseButtons: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                customClass: {
+                    confirmButton: 'swal-confirm-btn',
+                    cancelButton: 'swal-cancel-btn'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'https://ecpreq.pcnone.com/google_auth?logout=true';
+                }
+            });
+        });
+    </script>
 
-  .swal-confirm-btn:hover {
-    background-color: #0D4ABD !important;
-  }
+    <!-- Custom Style -->
+    <style>
+        .swal-confirm-btn {
+            background-color: #0059FF !important;
+            color: white !important;
+        }
 
-  .swal-cancel-btn {
-    background-color: #EC2828 !important;
-    color: white !important;
-  }
+        .swal-confirm-btn:hover {
+            background-color: #0D4ABD !important;
+        }
 
-  .swal-cancel-btn:hover {
-    background-color: #BD0D0D !important;
-  }
-</style>
+        .swal-cancel-btn {
+            background-color: #EC2828 !important;
+            color: white !important;
+        }
+
+        .swal-cancel-btn:hover {
+            background-color: #BD0D0D !important;
+        }
+    </style>
 </body>
 
 </html>
