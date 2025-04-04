@@ -24,7 +24,8 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="bg-cover bg-center bg-no-repeat bg">
+<body class="bg-cover bg-center bg-no-repeat" style="background-image: url('/image/bg.jpg');">
+
 
 <div class="flex h-screen">
     <!-- Sidebar -->
