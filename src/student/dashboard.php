@@ -60,7 +60,7 @@ session_start();
             </footer>
         </div>
     </div>
-    
+
 <!-- SweetAlert2 CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -88,6 +88,26 @@ session_start();
     });
   });
 </script>
+<!-- Custom Style -->
+<style>
+  .swal-confirm-btn {
+    background-color: #0059FF !important;
+    color: white !important;
+  }
+
+  .swal-confirm-btn:hover {
+    background-color: #0D4ABD !important;
+  }
+
+  .swal-cancel-btn {
+    background-color: #EC2828 !important;
+    color: white !important;
+  }
+
+  .swal-cancel-btn:hover {
+    background-color: #BD0D0D !important;
+  }
+</style>
 </body>
 
 </html>
