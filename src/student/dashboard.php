@@ -144,8 +144,6 @@ $course_level = $_SESSION['course_level'] ?? '';
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
             z-index: -1; /* ให้ภาพพื้นหลังอยู่หลังเนื้อหา */
         }
 
