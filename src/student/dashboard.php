@@ -30,10 +30,10 @@ session_start();
         <div class="w-1/6 bg-white shadow-lg p-4 mt-6 mb-6 ms-6 me-6 flex flex-col justify-between rounded-[20px]">
             <div class="text-center">
                 <img src="/image/logo.png" class="w-32 h-32 rounded-full shadow-lg mx-auto" alt="Logo">
-                <button class="w-full bg-orange-500 text-white py-2 rounded mt-4">Dashboard</button>
+                <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] mt-4 shadow-md">Dashboard</button>
                 <div class="mt-4 space-y-2">
-                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded">คำร้องขอเพิ่มที่นั่ง RE.06</button>
-                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded">คำร้องขอเปิดดอกแนน RE.07</button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md">คำร้องขอเพิ่มที่นั่ง RE.06</button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md">คำร้องขอเปิดดอกแนน RE.07</button>
                 </div>
             </div>
             <div class="text-center">
@@ -43,7 +43,7 @@ session_start();
                     </div>
                     <span>Student Ecp</span>
                 </div>
-                <button class="w-full mt-4 bg-white text-[#2C2C2C] py-2 rounded hover:bg-[#2C2C2C] hover:text-white transition-colors duration-200">
+                <button class="w-full mt-4 bg-white text-[#2C2C2C] py-2 rounded hover:bg-[#2C2C2C] hover:text-white transition-colors duration-200 shadow-md">
   ออกจากระบบ
 </button>
 
