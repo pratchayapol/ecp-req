@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="th">
 
@@ -53,32 +53,33 @@
 
         if ($client->getAccessToken()) {
             // ดึงข้อมูลจาก Google API
-            $oauth2 = new Google_Service_Oauth2($client);
-            $userInfo = $oauth2->userinfo->get();
+            if (!isset($_SESSION['logged_in'])) {
+                $oauth2 = new Google_Service_Oauth2($client);
+                $userInfo = $oauth2->userinfo->get();
         
-            // JavaScript ป้องกันการรีเฟรช
-            echo "<script>
-                document.addEventListener('keydown', function(e) {
-                    if ((e.key === 'F5') || (e.ctrlKey && e.key === 'r')) {
-                        e.preventDefault();
-                        alert('ไม่สามารถรีเฟรชหน้านี้ได้');
-                    }
-                });
+                $_SESSION['user'] = [
+                    'name' => $userInfo->name,
+                    'email' => $userInfo->email,
+                    'picture' => $userInfo->picture
+                ];
+                $_SESSION['logged_in'] = true;
         
-                window.onbeforeunload = function () {
-                    return 'หากคุณรีเฟรช หน้านี้จะโหลดใหม่ทั้งหมด';
-                };
-            </script>";
+                // Redirect เพื่อไม่ให้โหลดซ้ำ
+                header("Location: welcome.php");
+                exit();
+            }
+            
         
             // แสดงข้อมูลผู้ใช้
             echo '<div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
                     <div class="flex flex-col items-center">';
             echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ</h1>';
-            echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">'. $userInfo->name . '</h1>';
-            echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . $userInfo->email . '</span></div>';
+           
             echo '<div class="mb-6">';
             echo '<img src="' . $userInfo->picture . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
             echo '</div>';
+            echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">'. $userInfo->name . '</h1>';
+            echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . $userInfo->email . '</span></div>';
             echo '<div class="text-gray-600">';
             echo '<p class="text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
             echo '</div></div></div>';
