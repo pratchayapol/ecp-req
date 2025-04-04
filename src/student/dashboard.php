@@ -42,10 +42,10 @@ $course_level = $_SESSION['course_level'] ?? '';
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg');">
+<body class="bg-cover flex bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg');">
     <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
-        <div id="sidebar" class=" sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
+        <div id="sidebar" class="sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
             <div class="text-center">
                 <img src="/image/logo.png" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg mx-auto" alt="Logo">
                 <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] mt-4 shadow-md">Dashboard</button>
@@ -73,7 +73,7 @@ $course_level = $_SESSION['course_level'] ?? '';
         </button>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 mb-6 sm:mt-6 sm:me-6 rounded-[20px]">
+        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 rounded-[20px]">
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-96">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
