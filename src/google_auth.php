@@ -82,13 +82,11 @@
             } else {
                 // แสดงลิงก์สำหรับให้ผู้ใช้อนุมัติการเข้าถึง
                 $authUrl = $client->createAuthUrl();
-                echo '<div class="flex justify-center items-center min-h-screen bg-gray-100">';
-                echo '<div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full text-center">';
+               
                 echo '<h2 class="text-xl font-semibold mb-4">เพื่อดำเนินการต่อ กรุณาอนุมัติการเข้าถึงข้อมูลของคุณ</h2>';
                 echo '<p class="text-gray-600 mb-6">เราต้องการเข้าถึงข้อมูลพื้นฐานของคุณจาก Google เพื่อให้คุณสามารถใช้งานระบบได้</p>';
                 echo "<a href='$authUrl' class='bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105'>อนุมัติ</a>";
-                echo '</div>';
-                echo '</div>';
+              
             }
             ?>
         </div>
