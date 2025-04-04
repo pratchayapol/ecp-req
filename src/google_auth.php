@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <!-- ติดตั้ง Tailwind CSS ผ่าน CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body>
     <?php
     // โหลดไฟล์ให้ครบทุกตัว
@@ -23,6 +25,7 @@
     $client->setClientSecret($_ENV['GOOGLE_CLIENT_SECRET']);
     $client->setRedirectUri($_ENV['GOOGLE_REDIRECT_URI']);
     $client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
+    $client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);  // เพิ่มขอบเขตสำหรับอีเมล
 
     // ตรวจสอบการรับ code จาก URL
     if (isset($_GET['code'])) {
@@ -32,6 +35,7 @@
 
         // บันทึก access token ลงในไฟล์ token.json
         file_put_contents('token.json', json_encode($client->getAccessToken()));
+
         // ถ้ามี access token ที่ถูกต้อง
         if ($client->getAccessToken()) {
             // ดึงข้อมูลจาก Google API
@@ -66,21 +70,7 @@
         echo '</div>';
     }
 
-    // ตรวจสอบว่า token.json มีค่า
-    if (file_exists('token.json')) {
-        // อ่าน token จากไฟล์
-        $token = json_decode(file_get_contents('token.json'), true);
-
-        // เช็คว่า token หมดอายุหรือไม่
-        if ($client->isAccessTokenExpired()) {
-            // ถ้า access token หมดอายุ ใช้ refresh token เพื่อขอใหม่
-            $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
-            file_put_contents('token.json', json_encode($client->getAccessToken()));
-        }
-
-        // ตั้งค่า access token
-        $client->setAccessToken($token);
-    }
     ?>
 </body>
+
 </html>
