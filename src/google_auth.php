@@ -24,81 +24,80 @@
 </head>
 
 <body class="flex items-center justify-center min-h-screen bg">
-    <div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
-        <div class="flex flex-col items-center">
-            <?php
-            // โหลดไฟล์ให้ครบทุกตัว
-            require_once 'vendor/autoload.php'; // โหลด Google Client
-            use Dotenv\Dotenv;
 
-            // โหลดไฟล์ .env
-            $dotenv = Dotenv::createImmutable(__DIR__);
-            $dotenv->load();
+    <?php
+    // โหลดไฟล์ให้ครบทุกตัว
+    require_once 'vendor/autoload.php'; // โหลด Google Client
+    use Dotenv\Dotenv;
 
-            // สร้างอ็อบเจ็กต์ของ Google_Client
-            $client = new Google_Client();
-            $client->setClientId($_ENV['GOOGLE_CLIENT_ID']);
-            $client->setClientSecret($_ENV['GOOGLE_CLIENT_SECRET']);
-            $client->setRedirectUri($_ENV['GOOGLE_REDIRECT_URI']);
-            $client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
-            $client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);  // เพิ่มขอบเขตสำหรับอีเมล
+    // โหลดไฟล์ .env
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
 
-            // ตรวจสอบการรับ code จาก URL
-            if (isset($_GET['code'])) {
-                // รับ authorization code และแลกเป็น access token
-                $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-                $client->setAccessToken($token);
+    // สร้างอ็อบเจ็กต์ของ Google_Client
+    $client = new Google_Client();
+    $client->setClientId($_ENV['GOOGLE_CLIENT_ID']);
+    $client->setClientSecret($_ENV['GOOGLE_CLIENT_SECRET']);
+    $client->setRedirectUri($_ENV['GOOGLE_REDIRECT_URI']);
+    $client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
+    $client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);  // เพิ่มขอบเขตสำหรับอีเมล
 
-                // บันทึก access token ลงในไฟล์ token.json
-                file_put_contents('token.json', json_encode($client->getAccessToken()));
+    // ตรวจสอบการรับ code จาก URL
+    if (isset($_GET['code'])) {
+        // รับ authorization code และแลกเป็น access token
+        $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+        $client->setAccessToken($token);
 
-                // ถ้ามี access token ที่ถูกต้อง
-                if ($client->getAccessToken()) {
-                    // ดึงข้อมูลจาก Google API
-                    $oauth2 = new Google_Service_Oauth2($client);
-                    $userInfo = $oauth2->userinfo->get();
+        // บันทึก access token ลงในไฟล์ token.json
+        file_put_contents('token.json', json_encode($client->getAccessToken()));
 
-                    // แสดงข้อมูลผู้ใช้
+        // ถ้ามี access token ที่ถูกต้อง
+        if ($client->getAccessToken()) {
+            // ดึงข้อมูลจาก Google API
+            $oauth2 = new Google_Service_Oauth2($client);
+            $userInfo = $oauth2->userinfo->get();
 
-                    echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ <br>' . $userInfo->name . '</h1>';
-                    echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . $userInfo->email . '</span></div>';
-                    echo '<div class="mb-6">';
-                    echo '<img src="' . $userInfo->picture . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
-                    echo '</div>';
-                    echo '<div class="text-gray-600">';
-                    echo '<p class="text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
-                    echo '</div>';
-                } else {
-                    echo '<script>
+            // แสดงข้อมูลผู้ใช้
+
+            echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ <br>' . $userInfo->name . '</h1>';
+            echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . $userInfo->email . '</span></div>';
+            echo '<div class="mb-6">';
+            echo '<img src="' . $userInfo->picture . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
+            echo '</div>';
+            echo '<div class="text-gray-600">';
+            echo '<p class="text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
+            echo '</div>';
+        } else {
+            echo '<script>
                     setTimeout(function() {
                         window.history.back();
                     }, 500); // 0.5 วินาที
                 </script>';
-                }
-            } else {
-                // แสดงลิงก์สำหรับให้ผู้ใช้อนุมัติการเข้าถึง
-                $authUrl = $client->createAuthUrl();
+        }
+    } else {
+        // แสดงลิงก์สำหรับให้ผู้ใช้อนุมัติการเข้าถึง
+        $authUrl = $client->createAuthUrl();
 
+        echo '<div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
+        <div class="flex flex-col items-center">';
 
-                
-                echo '  <h2 class="text-2xl font-bold text-gray-800 mb-3">เพื่อดำเนินการต่อ</h2>';
-                echo '  <h3 class="text-lg font-medium text-gray-700 mb-4">กรุณาอนุมัติการเข้าถึงข้อมูลของคุณ</h3>';
-                echo '  <p class="text-gray-600 mb-2">เราต้องการเข้าถึงข้อมูลพื้นฐานของคุณจาก Google</p>';
-                echo '  <p class="text-gray-600 mb-4">เพื่อให้คุณสามารถใช้งานระบบได้อย่างราบรื่น</p>';
-                echo '  <ul class="text-gray-700 text-left list-disc list-inside mb-6">';
-                echo '    <li>ชื่อ - สกุล</li>';
-                echo '    <li>Email</li>';
-                echo '    <li>ภาพโปรไฟล์</li>';
-                echo '  </ul>';
-                echo "  <a href='$authUrl' class='inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105'>";
-                echo "    <i class='fas fa-check-circle mr-2'></i>";
-                echo "    อนุมัติ";
-                echo '  </a>';
-             
-            }
-            ?>
-        </div>
-    </div>
+        echo '  <h2 class="text-2xl font-bold text-gray-800 mb-3">เพื่อดำเนินการต่อ</h2>';
+        echo '  <h3 class="text-lg font-medium text-gray-700 mb-4">กรุณาอนุมัติการเข้าถึงข้อมูลของคุณ</h3>';
+        echo '  <p class="text-gray-600 mb-2">เราต้องการเข้าถึงข้อมูลพื้นฐานของคุณจาก Google</p>';
+        echo '  <p class="text-gray-600 mb-4">เพื่อให้คุณสามารถใช้งานระบบได้อย่างราบรื่น</p>';
+        echo '  <ul class="text-gray-700 text-left list-disc list-inside mb-6">';
+        echo '    <li>ชื่อ - สกุล</li>';
+        echo '    <li>Email</li>';
+        echo '    <li>ภาพโปรไฟล์</li>';
+        echo '  </ul>';
+        echo "  <a href='$authUrl' class='inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105'>";
+        echo "    <i class='fas fa-check-circle mr-2'></i>";
+        echo "    อนุมัติ";
+        echo '  </a></div>
+    </div>';
+    }
+    ?>
+
 </body>
 
 </html>
