@@ -139,6 +139,10 @@ $course_level = $_SESSION['course_level'] ?? '';
         .swal-cancel-btn:hover {
             background-color: #BD0D0D !important;
         }
+        body {
+            position: sticky;
+            top: 0;
+        }
     </style>
 </body>
 
