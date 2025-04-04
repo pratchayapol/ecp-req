@@ -52,8 +52,8 @@ session_start();
         <!-- Main Content -->
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 mb-6 me-6 rounded-[20px]">
             <div class="p-8">
-                <div class="bg-white p-4 rounded-lg shadow-lg h-96 mt-4">
-                    <h1 class="text-orange-500 bg-white text-xl font-bold shadow-md rounded-[12px]">ประชาสัมพันธ์</h1>
+                <div class="bg-white p-4 rounded-lg shadow-lg h-96">
+                    <h1 class="text-orange-500 bg-white text-xl h-12 font-bold shadow-md rounded-[12px]">ประชาสัมพันธ์</h1>
                 </div>
             </div>
             <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
