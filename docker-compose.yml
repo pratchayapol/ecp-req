@@ -1,0 +1,49 @@
+services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    container_name: phpmyadmin-ecp-req
+    environment:
+      PMA_HOST: mariadb-ecp-req
+    depends_on:
+      - mariadb
+    ports:
+      - "81:80"
+    networks:
+      network_ecp_req:
+        ipv4_address: 192.168.201.2
+
+  mariadb:
+    image: mariadb:latest
+    restart: unless-stopped
+    container_name: mariadb-ecp-req
+    environment:
+      MYSQL_ROOT_PASSWORD: adminecp
+      MYSQL_DATABASE: ecp_req
+      MYSQL_USER: ecp
+      MYSQL_PASSWORD: ecppassword
+    networks:
+      network_ecp_req:
+        ipv4_address: 192.168.201.3
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - /etc/localtime:/etc/localtime:ro
+    command: --default-authentication-plugin=mysql_native_password
+        
+
+networks:
+  network_ecp_req:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.201.0/24
+
+volumes:
+  web_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/www/html'
