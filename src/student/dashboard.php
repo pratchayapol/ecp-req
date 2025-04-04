@@ -27,9 +27,6 @@ $course_level = $_SESSION['course_level'] ?? '';
     <title>Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- FontAwesome (สำหรับไอคอน) -->
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
     <!-- Custom fonts for this template-->
     <link rel="shortcut icon" href="../image/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,8 +42,8 @@ $course_level = $_SESSION['course_level'] ?? '';
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg');">
     <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
-        <div id="sidebar" class="w-full sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px] sm:block hidden">
-        <div class="text-center">
+        <div class="w-full sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
+            <div class="text-center">
                 <img src="/image/logo.png" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg mx-auto" alt="Logo">
                 <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] mt-4 shadow-md">Dashboard</button>
                 <div class="mt-4 space-y-2">
@@ -67,11 +64,6 @@ $course_level = $_SESSION['course_level'] ?? '';
             </div>
         </div>
 
-        <!-- Hamburger Menu Button (Mobile) -->
-        <button id="hamburgerBtn" class="sm:hidden absolute top-6 left-6 p-3 bg-[#EF6526] text-white rounded-full shadow-md">
-            <i class="fas fa-bars"></i>
-        </button>
-
         <!-- Main Content -->
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 mb-6 sm:mt-6 sm:me-6 rounded-[20px]">
             <div class="p-8">
@@ -90,13 +82,6 @@ $course_level = $_SESSION['course_level'] ?? '';
 
     <!-- Script -->
     <script>
-        // Handle the hamburger menu button
-        document.getElementById("hamburgerBtn").addEventListener("click", function() {
-            const sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("hidden");
-        });
-
-        // Handle logout button
         document.getElementById("logoutBtn").addEventListener("click", function () {
             Swal.fire({
                 title: 'คุณแน่ใจหรือไม่?',
