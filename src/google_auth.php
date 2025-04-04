@@ -43,12 +43,15 @@
             $userInfo = $oauth2->userinfo->get();
 
             // แสดงข้อมูลผู้ใช้
-            echo '<div class="flex justify-center items-center min-h-screen bg-gray-100">';
-            echo '<div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">';
-            echo '<h1 class="text-2xl font-semibold mb-4">Welcome, ' . $userInfo->name . '</h1>';
-            echo '<div class="mb-4 text-gray-600">Email: ' . $userInfo->email . '</div>';
-            echo '<div class="mb-4">';
-            echo '<img src="' . $userInfo->picture . '" alt="Profile Picture" class="w-32 h-32 rounded-full mx-auto">';
+            echo '<div class="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500">';
+            echo '<div class="bg-white p-10 rounded-lg shadow-xl max-w-md w-full text-center transform transition-transform duration-300 hover:scale-105">';
+            echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ, ' . $userInfo->name . '</h1>';
+            echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . $userInfo->email . '</span></div>';
+            echo '<div class="mb-6">';
+            echo '<img src="' . $userInfo->picture . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
+            echo '</div>';
+            echo '<div class="text-gray-600">';
+            echo '<p class="text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
             echo '</div>';
             echo '</div>';
             echo '</div>';
@@ -71,7 +74,7 @@
         echo '</div>';
         echo '</div>';
     }
-    
+
 
     ?>
 </body>
