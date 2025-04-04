@@ -59,7 +59,7 @@
                     $userInfo = $oauth2->userinfo->get();
 
                     // แสดงข้อมูลผู้ใช้
-                 
+
                     echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ <br>' . $userInfo->name . '</h1>';
                     echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . $userInfo->email . '</span></div>';
                     echo '<div class="mb-6">';
@@ -68,32 +68,33 @@
                     echo '<div class="text-gray-600">';
                     echo '<p class="text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
                     echo '</div>';
-                  
                 } else {
                     // ถ้าไม่มี access token หรือ expired
-                   
+
                     echo '<div class="bg-red-200 p-8 rounded-lg shadow-lg max-w-sm w-full text-center">';
                     echo 'ไม่มี access token หรือ expired';
                     echo '</div>';
-              
                 }
             } else {
                 // แสดงลิงก์สำหรับให้ผู้ใช้อนุมัติการเข้าถึง
                 $authUrl = $client->createAuthUrl();
-            
-               
-                echo '<h2 class="text-xl font-semibold mb-4 text-center">เพื่อดำเนินการต่อ</h2>';
-                echo '<h2 class="text-xl font-semibold mb-4 text-center">กรุณาอนุมัติการเข้าถึงข้อมูลของคุณ</h2>';
-                echo '<p class="text-gray-600 mb-6 text-center">เราต้องการเข้าถึงข้อมูลพื้นฐานของคุณจาก Google</p>';
-                echo '<p class="text-gray-600 mb-6 text-center">เพื่อให้คุณสามารถใช้งานระบบได้</p>';
-                echo '<p class="text-gray-600 mb-6 text-center">   - ชื่อ สกุล</p>';
-                echo '<p class="text-gray-600 mb-6 text-center">   - Email</p>';
-                echo '<p class="text-gray-600 mb-6 text-center">   - ภาพโปรไฟล์ขอบคุณ</p>';
-                echo "<a href='$authUrl' class='bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-all items-center duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 w-auto'>
-                        <i class='fas fa-check-circle'></i>
-                        <span>อนุมัติ</span>
-                      </a>";
-             
+
+
+                echo '<div class="max-w-xl mx-auto p-6 bg-white rounded-2xl shadow-lg mt-10 text-center">';
+                echo '  <h2 class="text-2xl font-bold text-gray-800 mb-3">เพื่อดำเนินการต่อ</h2>';
+                echo '  <h3 class="text-lg font-medium text-gray-700 mb-4">กรุณาอนุมัติการเข้าถึงข้อมูลของคุณ</h3>';
+                echo '  <p class="text-gray-600 mb-2">เราต้องการเข้าถึงข้อมูลพื้นฐานของคุณจาก Google</p>';
+                echo '  <p class="text-gray-600 mb-4">เพื่อให้คุณสามารถใช้งานระบบได้อย่างราบรื่น</p>';
+                echo '  <ul class="text-gray-700 text-left list-disc list-inside mb-6">';
+                echo '    <li>ชื่อ - สกุล</li>';
+                echo '    <li>Email</li>';
+                echo '    <li>ภาพโปรไฟล์</li>';
+                echo '  </ul>';
+                echo "  <a href='$authUrl' class='inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105'>";
+                echo "    <i class='fas fa-check-circle mr-2'></i>";
+                echo "    อนุมัติ";
+                echo '  </a>';
+                echo '</div>';
             }
             ?>
         </div>
