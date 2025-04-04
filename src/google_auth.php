@@ -170,7 +170,6 @@ include 'connect/dbcon.php';
         echo '    <li>ภาพโปรไฟล์</li>';
         echo '  </ul>';
         echo "  <a href='$authUrl' class='inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105'>";
-        echo "    <i class='fas fa-check-circle mr-2'></i>";
         echo "    อนุมัติ";
         echo '  </a></div>
     </div>';
