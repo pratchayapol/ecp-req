@@ -23,7 +23,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="flex items-center justify-center min-h-screen bg">
+<body class="flex items-center justify-center min-h-screen bg t1">
 
     <?php
     // โหลดไฟล์ให้ครบทุกตัว
