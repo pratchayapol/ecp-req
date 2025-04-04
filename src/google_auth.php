@@ -92,22 +92,27 @@ include 'connect/dbcon.php';
                     echo '<p class="mt-6 text-gray-600 text-xl">ระบบกำลังนำคุณไปยังหน้า Dashboard...</p>';
                     echo '</div></div>';
                 } else {
-                    // ถ้าอีเมลไม่มีในฐานข้อมูล
-                    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
-                    echo '<script>
-        Swal.fire({
-            icon: "error",
-            title: "อีเมลของคุณไม่พบในฐานข้อมูล",
-            showCancelButton: true,
-            confirmButtonText: "Logout",
-            cancelButtonText: "Cancel"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // ถ้ากดปุ่ม Logout
-                window.location.href = "?logout=true";  // เปลี่ยน URL ให้ไปที่ logout
-            }
-        });
-    </script>';
+                    else {
+                        // ถ้าอีเมลไม่มีในฐานข้อมูล
+                        echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                        echo '<script>
+                            Swal.fire({
+                                icon: "error",
+                                title: "อีเมลของคุณไม่พบในฐานข้อมูล",
+                                showCancelButton: false,  // ซ่อนปุ่ม Cancel
+                                confirmButtonText: "Logout",
+                                backdrop: "rgba(0,0,0,0.4)",  // ป้องกันการคลิกนอก popup
+                                allowOutsideClick: false,  // ไม่ให้คลิกนอก popup
+                                allowEscapeKey: false  // ไม่ให้กด Escape เพื่อปิด popup
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // ถ้ากดปุ่ม Logout
+                                    window.location.href = "?logout=true";  // เปลี่ยน URL ให้ไปที่ logout
+                                }
+                            });
+                        </script>';
+                    }
+                    
                 }
                 exit();
             }
