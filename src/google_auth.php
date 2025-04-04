@@ -65,7 +65,7 @@
         $authUrl = $client->createAuthUrl();
         echo '<div class="flex justify-center items-center min-h-screen bg-gray-100">';
         echo '<div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full text-center">';
-        echo "<a href='$authUrl' class='text-blue-500 hover:underline'>Authorize</a>";
+        echo "<a href='$authUrl' class='bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105'>Authorize</a>";
         echo '</div>';
         echo '</div>';
     }
