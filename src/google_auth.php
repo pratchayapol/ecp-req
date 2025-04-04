@@ -22,8 +22,20 @@ if (isset($_GET['code'])) {
 
     // บันทึก access token ลงในไฟล์ token.json
     file_put_contents('token.json', json_encode($client->getAccessToken()));
-    echo 'Authorization successful!';
-    exit;
+    // ถ้ามี access token ที่ถูกต้อง
+if ($client->getAccessToken()) {
+    // ดึงข้อมูลจาก Google API
+    $oauth2 = new Google_Service_Oauth2($client);
+    $userInfo = $oauth2->userinfo->get();
+
+    // แสดงข้อมูลผู้ใช้
+    echo 'Hello, ' . $userInfo->name;
+    echo '<br>Email: ' . $userInfo->email;
+    echo '<br><img src="' . $userInfo->picture . '" alt="Profile Picture">';
+} else {
+    // ถ้าไม่มี access token หรือ expired
+    echo 'No access token available.';
+}
 } else {
     // แสดงลิงก์สำหรับให้ผู้ใช้อนุมัติการเข้าถึง
     $authUrl = $client->createAuthUrl();
@@ -46,18 +58,5 @@ if (file_exists('token.json')) {
     $client->setAccessToken($token);
 }
 
-// ถ้ามี access token ที่ถูกต้อง
-if ($client->getAccessToken()) {
-    // ดึงข้อมูลจาก Google API
-    $oauth2 = new Google_Service_Oauth2($client);
-    $userInfo = $oauth2->userinfo->get();
 
-    // แสดงข้อมูลผู้ใช้
-    echo 'Hello, ' . $userInfo->name;
-    echo '<br>Email: ' . $userInfo->email;
-    echo '<br><img src="' . $userInfo->picture . '" alt="Profile Picture">';
-} else {
-    // ถ้าไม่มี access token หรือ expired
-    echo 'No access token available.';
-}
 ?>
