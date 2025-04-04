@@ -78,7 +78,7 @@ include 'connect/dbcon.php';
                     $_SESSION['role'] = $userAccount['role'];
                     $_SESSION['id'] = $userAccount['user_id'];
                     $_SESSION['course_level'] = $userAccount['course_level'];
-      
+
                     // อัปเดตภาพโปรไฟล์ในฐานข้อมูล
                     if ($userAccount['picture'] !== $userInfo->picture) {
                         $updateStmt = $pdo->prepare("UPDATE accounts SET picture = :picture WHERE email = :email");
@@ -107,21 +107,21 @@ include 'connect/dbcon.php';
                     // ถ้าอีเมลไม่มีในฐานข้อมูล
                     echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
                     echo '<script>
-                    Swal.fire({
-                        icon: "error",
-                        title: "อีเมลของคุณไม่พบในฐานข้อมูล",
-                        showCancelButton: false,  // ซ่อนปุ่ม Cancel
-                        confirmButtonText: "Logout",
-                        backdrop: "rgba(0,0,0,0.4)",  // ป้องกันการคลิกนอก popup
-                        allowOutsideClick: false,  // ไม่ให้คลิกนอก popup
-                        allowEscapeKey: false  // ไม่ให้กด Escape เพื่อปิด popup
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // ถ้ากดปุ่ม Logout
-                            window.location.href = "?logout=true";  // เปลี่ยน URL ให้ไปที่ logout
-                        }
-                    });
-                </script>';
+            Swal.fire({
+                icon: "error",
+                title: "อีเมลของคุณไม่พบในฐานข้อมูล",
+                showCancelButton: false,  // ซ่อนปุ่ม Cancel
+                confirmButtonText: "Logout",
+                backdrop: "rgba(0,0,0,0.4)",  // ป้องกันการคลิกนอก popup
+                allowOutsideClick: false,  // ไม่ให้คลิกนอก popup
+                allowEscapeKey: false  // ไม่ให้กด Escape เพื่อปิด popup
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // ถ้ากดปุ่ม Logout
+                    window.location.href = "?logout=true";  // เปลี่ยน URL ให้ไปที่ logout
+                }
+            });
+        </script>';
                 }
                 exit();
             }
@@ -138,6 +138,16 @@ include 'connect/dbcon.php';
             echo '</div>';
             echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">' . htmlspecialchars($user['name']) . '</h1>';
             echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . htmlspecialchars($user['email']) . '</span></div>';
+
+            // เพิ่มปุ่มเข้าใช้งานตาม role ของผู้ใช้
+            if ($role == 'admin') {
+                echo '<a href="admin/dashboard.php" class="mt-6 bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg transition">ไปยังแผงควบคุมผู้ดูแลระบบ</a>';
+            } elseif ($role == 'Teacher') {
+                echo '<a href="teacher/dashboard.php" class="mt-6 bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-lg transition">ไปยังแผงควบคุมอาจารย์</a>';
+            } elseif ($role == 'Student') {
+                echo '<a href="student/dashboard.php" class="mt-6 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-6 rounded-lg transition">ไปยังแผงควบคุมของนักเรียน</a>';
+            }
+
             echo '<a href="?logout=true" class="mt-6 bg-red-500 hover:bg-red-600 text-white py-2 px-6 rounded-lg transition">Logout</a>';
             echo '</div></div>';
         } else {
