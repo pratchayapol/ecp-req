@@ -42,7 +42,7 @@ session_start();
                     </div>
                     <span>Student Ecp</span>
                 </div>
-                <button class="w-full mt-4 bg-white text-[#2C2C2C] py-2 rounded-[12px] hover:bg-[#2C2C2C] hover:text-white transition-colors duration-200 shadow-md">
+                <button id="logoutBtn" class="w-full mt-4 bg-white text-[#2C2C2C] py-2 rounded-[12px] hover:bg-[#2C2C2C] hover:text-white transition-colors duration-200 shadow-md">
                     ออกจากระบบ
                 </button>
             </div>
@@ -60,7 +60,31 @@ session_start();
             </footer>
         </div>
     </div>
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!-- Script -->
+<script>
+  document.getElementById("logoutBtn").addEventListener("click", function () {
+    Swal.fire({
+      title: 'คุณแน่ใจหรือไม่?',
+      text: 'คุณต้องการออกจากระบบหรือไม่',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Logout',
+      cancelButtonText: 'ยกเลิก',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      allowOutsideClick: false, // ไม่ให้คลิกนอก popup เพื่อปิด
+      allowEscapeKey: false,   // ไม่ให้กด ESC เพื่อปิด
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // ไปที่ URL ออกจากระบบ
+        window.location.href = 'https://ecpreq.pcnone.com/google_auth?logout=true';
+      }
+    });
+  });
+</script>
 </body>
 
 </html>
