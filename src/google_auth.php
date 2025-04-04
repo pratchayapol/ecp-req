@@ -80,7 +80,7 @@
                 $authUrl = $client->createAuthUrl();
 
 
-                echo '<div class="max-w-xl mx-auto p-6 bg-white rounded-2xl shadow-lg mt-10 text-center">';
+                
                 echo '  <h2 class="text-2xl font-bold text-gray-800 mb-3">เพื่อดำเนินการต่อ</h2>';
                 echo '  <h3 class="text-lg font-medium text-gray-700 mb-4">กรุณาอนุมัติการเข้าถึงข้อมูลของคุณ</h3>';
                 echo '  <p class="text-gray-600 mb-2">เราต้องการเข้าถึงข้อมูลพื้นฐานของคุณจาก Google</p>';
@@ -94,7 +94,7 @@
                 echo "    <i class='fas fa-check-circle mr-2'></i>";
                 echo "    อนุมัติ";
                 echo '  </a>';
-                echo '</div>';
+             
             }
             ?>
         </div>
