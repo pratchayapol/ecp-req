@@ -72,8 +72,8 @@ session_start();
       text: 'คุณต้องการออกจากระบบหรือไม่',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'ตกลง',
       cancelButtonText: 'ยกเลิก',
+      confirmButtonText: 'ตกลง',
       reverseButtons: true, // เพื่อสลับตำแหน่งให้ "ยกเลิก" อยู่ซ้าย
       allowOutsideClick: false,
       allowEscapeKey: false,
