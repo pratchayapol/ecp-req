@@ -1,8 +1,22 @@
 <?php
 session_start();
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
+// echo '<pre>';
+// print_r($_SESSION);
+// echo '</pre>';
+
+// ตรวจสอบว่ามีข้อมูลใน session หรือไม่
+if (isset($_SESSION['user'])) {
+    $name = $_SESSION['user']['name'];
+    $email = $_SESSION['user']['email'];
+    $picture = $_SESSION['user']['picture'];
+} else {
+    $name = $email = $picture = null;
+}
+
+$logged_in = $_SESSION['logged_in'] ?? 0;
+$role = $_SESSION['role'] ?? '';
+$id = $_SESSION['id'] ?? '';
+$course_level = $_SESSION['course_level'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -40,9 +54,9 @@ echo '</pre>';
             <div class="text-center">
                 <div class="flex items-center space-x-2">
                     <div class="bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center">
-                        <span class="text-gray-600">👤</span>
+                    <img src="<?= $picture ?>" alt="Profile Picture" class="w-10 h-10 rounded-full object-cover">
                     </div>
-                    <span>Student Ecp</span>
+                    <span><?php echo $name;?></span>
                 </div>
                 <button id="logoutBtn" class="w-full mt-4 bg-white text-[#2C2C2C] py-2 rounded-[12px] hover:bg-[#2C2C2C] hover:text-white transition-colors duration-200 shadow-md">
                     ออกจากระบบ
