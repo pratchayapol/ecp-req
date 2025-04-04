@@ -64,7 +64,7 @@ session_start();
                 ];
                 $_SESSION['logged_in'] = true;
         
-                // Redirect เพื่อไม่ให้โหลดซ้ำหลัง login
+               
                 header("Location: google_auth");
                 exit();
             }

@@ -1,13 +1,19 @@
 <?php
-// vpn 
-$servername = "100.99.99.100:3341";
-$username = "kku";
-$password = "kku";
-$dbname = "nu_project";
+$servername = "100.99.99.99";
+$port = 3350;
+$username = "root";
+$password = "adminecp";
+$dbname = "ecp_req";
 
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+try {
+    $dsn = "mysql:host=$servername;port=$port;dbname=$dbname;charset=utf8mb4";
+    $pdo = new PDO($dsn, $username, $password);
+
+    // ตั้งค่า PDO ให้แสดงข้อผิดพลาดแบบ exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    echo "เชื่อมต่อฐานข้อมูลสำเร็จ!";
+} catch (PDOException $e) {
+    echo "เชื่อมต่อฐานข้อมูลล้มเหลว: " . $e->getMessage();
 }
-
 ?>
