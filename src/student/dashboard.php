@@ -41,7 +41,7 @@ $course_level = $_SESSION['course_level'] ?? '';
     <link rel="stylesheet" href="./css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); position: sticky; top: 0;">
+<body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
     <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
         <div id="sidebar" class="sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
@@ -72,7 +72,7 @@ $course_level = $_SESSION['course_level'] ?? '';
         </button>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 rounded-[20px]">
+        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 rounded-[20px] overflow-auto">
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg min-h-[900px]">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
@@ -139,10 +139,19 @@ $course_level = $_SESSION['course_level'] ?? '';
             background-color: #BD0D0D !important;
         }
 
-        /* ทำให้ภาพพื้นหลังเป็น Sticky */
+        /* ทำให้พื้นหลังคงที่ */
         body {
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* ให้ภาพพื้นหลังอยู่หลังเนื้อหา */
+        }
+
+        /* ทำให้เนื้อหาหลักเลื่อน */
+        .flex-1 {
+            overflow-y: auto;
         }
     </style>
 </body>
