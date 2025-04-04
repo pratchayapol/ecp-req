@@ -27,7 +27,7 @@ session_start();
 <body class="bg-cover bg-center bg-no-repeat" style="background-image: url('/image/bg.jpg');">
     <div class="flex h-screen">
         <!-- Sidebar -->
-        <div class="w-1/6 bg-white shadow-lg p-4 mt-6 mb-6 ms-6 me-6 flex flex-col justify-between rounded-[20px]">
+        <div class="w-1/6 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
             <div class="text-center">
                 <img src="/image/logo.png" class="w-32 h-32 rounded-full shadow-lg mx-auto" alt="Logo">
                 <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] mt-4 shadow-md">Dashboard</button>
@@ -50,12 +50,12 @@ session_start();
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 mb-6 me-6">
+        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 mb-6 me-6 rounded-[20px]">
             <div class="p-8">
                 <h1 class="text-orange-500 text-xl font-bold">ประชาสัมพันธ์</h1>
                 <div class="bg-white p-4 rounded-lg shadow-lg h-96 mt-4"></div>
             </div>
-            <footer class="text-center py-4 bg-orange-500 text-white">
+            <footer class="text-center py-4 bg-orange-500 text-white mb-2">
                 2025 All rights reserved by Software Engineering 3/67
             </footer>
         </div>
