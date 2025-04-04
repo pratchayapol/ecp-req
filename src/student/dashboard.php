@@ -24,7 +24,7 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="flex items-center justify-center min-h-screen bg">
+<body class="bg-cover bg-center bg-no-repeat bg">
 
 <div class="flex h-screen">
     <!-- Sidebar -->
