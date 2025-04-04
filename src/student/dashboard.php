@@ -1,3 +1,23 @@
+<?php
+session_start();
+// echo '<pre>';
+// print_r($_SESSION);
+// echo '</pre>';
+
+// ตรวจสอบว่ามีข้อมูลใน session หรือไม่
+if (isset($_SESSION['user'])) {
+    $name = $_SESSION['user']['name'];
+    $email = $_SESSION['user']['email'];
+    $picture = $_SESSION['user']['picture'];
+} else {
+    $name = $email = $picture = null;
+}
+
+$logged_in = $_SESSION['logged_in'] ?? 0;
+$role = $_SESSION['role'] ?? '';
+$id = $_SESSION['id'] ?? '';
+$course_level = $_SESSION['course_level'] ?? '';
+?>
 <!DOCTYPE html>
 <html lang="th">
 
