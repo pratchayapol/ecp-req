@@ -23,7 +23,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="flex items-center justify-center min-h-screen bg">
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500">
     <?php
     // โหลดไฟล์ให้ครบทุกตัว
     require_once 'vendor/autoload.php'; // โหลด Google Client
@@ -73,7 +73,7 @@
             // ถ้าไม่มี access token หรือ expired
             echo '<div class="flex justify-center items-center min-h-screen bg-gray-100">';
             echo '<div class="bg-red-200 p-8 rounded-lg shadow-lg max-w-sm w-full text-center">';
-            echo 'No access token available.';
+            echo 'ไม่มี access token หรือ expired';
             echo '</div>';
             echo '</div>';
         }
@@ -88,8 +88,6 @@
         echo '</div>';
         echo '</div>';
     }
-
-
     ?>
 </body>
 
