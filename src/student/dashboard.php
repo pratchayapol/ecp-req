@@ -27,7 +27,7 @@ session_start();
 <body class="bg-cover bg-center bg-no-repeat" style="background-image: url('/image/bg.jpg');">
     <div class="flex h-screen">
         <!-- Sidebar -->
-        <div class="w-1/4 bg-white shadow-lg p-4 flex flex-col justify-between rounded-[20px]">
+        <div class="w-1/4 bg-white shadow-lg p-4 mt-3 flex flex-col justify-between rounded-[20px]">
             <div class="text-center">
                 <img src="/image/logo.png" class="w-32 h-32 rounded-full shadow-lg mx-auto" alt="Logo">
                 <button class="w-full bg-orange-500 text-white py-2 rounded mt-4">Dashboard</button>
