@@ -42,7 +42,7 @@ $course_level = $_SESSION['course_level'] ?? '';
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="bg-cover sticky bg-center bg-no-repeat" style="background-image: url('/image/bg.jpg');">
+<body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg');">
     <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
         <div id="sidebar" class="sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
@@ -73,9 +73,9 @@ $course_level = $_SESSION['course_level'] ?? '';
         </button>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 rounded-[20px]">
+        <div class="flex-1 h-500 justify-between bg-white/60 mt-6 rounded-[20px]">
             <div class="p-8">
-                <div class="bg-white rounded-lg shadow-lg h-120">
+                <div class="bg-white rounded-lg shadow-lg h-96">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
                 </div>
             </div>
