@@ -24,7 +24,7 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="bg-cover bg-center bg-no-repeat" style="background-image: url('/image/bg.jpg');">
+<body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg');">
     <div class="flex h-screen">
         <!-- Sidebar -->
         <div class="w-1/6 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
@@ -52,8 +52,8 @@ session_start();
         <!-- Main Content -->
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 mb-6 me-6 rounded-[20px]">
             <div class="p-8">
-                <div class="bg-white p-4 rounded-lg shadow-lg h-96">
-                    <h1 class="text-orange-500 bg-white text-xl h-12 font-bold shadow-md rounded-[12px]">ประชาสัมพันธ์</h1>
+                <div class="bg-white rounded-lg shadow-lg h-96">
+                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
                 </div>
             </div>
             <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
