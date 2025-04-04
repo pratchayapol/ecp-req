@@ -69,11 +69,11 @@
                     echo '<p class="text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
                     echo '</div>';
                 } else {
-                    // ถ้าไม่มี access token หรือ expired
-
-                    echo '<div class="bg-red-200 p-8 rounded-lg shadow-lg max-w-sm w-full text-center">';
-                    echo 'ไม่มี access token หรือ expired';
-                    echo '</div>';
+                    echo '<script>
+                    setTimeout(function() {
+                        window.history.back();
+                    }, 500); // 0.5 วินาที
+                </script>';
                 }
             } else {
                 // แสดงลิงก์สำหรับให้ผู้ใช้อนุมัติการเข้าถึง
