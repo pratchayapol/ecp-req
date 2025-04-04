@@ -53,72 +53,83 @@ include 'connect/dbcon.php';
         file_put_contents('token.json', json_encode($client->getAccessToken()));
 
         // ตรวจสอบการล็อกอินจาก Google
-if ($client->getAccessToken()) {
-    if (!isset($_SESSION['logged_in'])) {
-        // ดึงข้อมูลจาก Google API
-        $oauth2 = new Google_Service_Oauth2($client);
-        $userInfo = $oauth2->userinfo->get();
-        
-        $_SESSION['user'] = [
-            'name' => $userInfo->name,
-            'email' => $userInfo->email,
-            'picture' => $userInfo->picture
-        ];
-        $_SESSION['logged_in'] = true;
+        if ($client->getAccessToken()) {
+            if (!isset($_SESSION['logged_in'])) {
+                // ดึงข้อมูลจาก Google API
+                $oauth2 = new Google_Service_Oauth2($client);
+                $userInfo = $oauth2->userinfo->get();
 
-        // ตรวจสอบว่าอีเมลมีในฐานข้อมูลหรือไม่
-        $email = $userInfo->email;
-        $stmt = $pdo->prepare("SELECT * FROM accounts WHERE email = :email");
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $userAccount = $stmt->fetch(PDO::FETCH_ASSOC);
+                $_SESSION['user'] = [
+                    'name' => $userInfo->name,
+                    'email' => $userInfo->email,
+                    'picture' => $userInfo->picture
+                ];
+                $_SESSION['logged_in'] = true;
 
-        if ($userAccount) {
-            // ถ้ามีข้อมูลในฐานข้อมูล
-            $_SESSION['role'] = $userAccount['urole']; // เก็บสิทธิ์การใช้งานใน session
+                // ตรวจสอบว่าอีเมลมีในฐานข้อมูลหรือไม่
+                $email = $userInfo->email;
+                $stmt = $pdo->prepare("SELECT * FROM accounts WHERE email = :email");
+                $stmt->bindParam(':email', $email);
+                $stmt->execute();
+                $userAccount = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // รอ 3 วินาที
-            header("Refresh: 3; url=dashboard.php"); // เปลี่ยน URL ไปที่หน้า Dashboard
-            echo '<div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105 mx-auto mt-10">
+                if ($userAccount) {
+                    // ถ้ามีข้อมูลในฐานข้อมูล
+                    $_SESSION['role'] = $userAccount['urole']; // เก็บสิทธิ์การใช้งานใน session
+
+                    // รอ 3 วินาที
+                    header("Refresh: 3; url=dashboard.php"); // เปลี่ยน URL ไปที่หน้า Dashboard
+                    echo '<div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105 mx-auto mt-10">
                     <div class="flex flex-col items-center">';
+                    echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ</h1>';
+                    echo '<div class="mb-6">';
+                    echo '<img src="' . htmlspecialchars($userInfo->picture) . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
+                    echo '</div>';
+                    echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">' . htmlspecialchars($userInfo->name) . '</h1>';
+                    echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . htmlspecialchars($userInfo->email) . '</span></div>';
+                    echo '<p class="text-gray-600 text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
+
+                    echo '<p class="mt-6 text-gray-600 text-xl">ระบบกำลังนำคุณไปยังหน้า Dashboard...</p>';
+                    echo '</div></div>';
+                } else {
+                    // ถ้าอีเมลไม่มีในฐานข้อมูล
+                    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                    echo '<script>
+        Swal.fire({
+            icon: "error",
+            title: "อีเมลของคุณไม่พบในฐานข้อมูล",
+            showCancelButton: true,
+            confirmButtonText: "Logout",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // ถ้ากดปุ่ม Logout
+                window.location.href = "?logout=true";  // เปลี่ยน URL ให้ไปที่ logout
+            }
+        });
+    </script>';
+                }
+                exit();
+            }
+
+            // แสดงข้อมูลผู้ใช้ที่เก็บใน session (อยู่ได้จนกว่าจะ logout)
+            $user = $_SESSION['user'];
+            $role = $_SESSION['role'];
+
+            echo '<div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105 mx-auto mt-10">
+            <div class="flex flex-col items-center">';
             echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ</h1>';
             echo '<div class="mb-6">';
-            echo '<img src="' . htmlspecialchars($userInfo->picture) . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
+            echo '<img src="' . htmlspecialchars($user['picture']) . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
             echo '</div>';
-            echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">' . htmlspecialchars($userInfo->name) . '</h1>';
-            echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . htmlspecialchars($userInfo->email) . '</span></div>';
+            echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">' . htmlspecialchars($user['name']) . '</h1>';
+            echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . htmlspecialchars($user['email']) . '</span></div>';
             echo '<p class="text-gray-600 text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
-
-            echo '<p class="mt-6 text-gray-600 text-xl">ระบบกำลังนำคุณไปยังหน้า Dashboard...</p>';
+            echo '<a href="?logout=true" class="mt-6 bg-red-500 hover:bg-red-600 text-white py-2 px-6 rounded-lg transition">Logout</a>';
             echo '</div></div>';
         } else {
-            // ถ้าอีเมลไม่มีในฐานข้อมูล
-            echo "อีเมลของคุณไม่พบในฐานข้อมูล";
+            echo "ไม่สามารถเชื่อมต่อกับ Google API ได้";
         }
-        exit();
-    }
-
-    // แสดงข้อมูลผู้ใช้ที่เก็บใน session (อยู่ได้จนกว่าจะ logout)
-    $user = $_SESSION['user'];
-    $role = $_SESSION['role'];
-
-    echo '<div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105 mx-auto mt-10">
-            <div class="flex flex-col items-center">';
-    echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ</h1>';
-    echo '<div class="mb-6">';
-    echo '<img src="' . htmlspecialchars($user['picture']) . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
-    echo '</div>';
-    echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">' . htmlspecialchars($user['name']) . '</h1>';
-    echo '<div class="mb-4 text-gray-700 text-lg">อีเมล: <span class="font-semibold">' . htmlspecialchars($user['email']) . '</span></div>';
-    echo '<p class="text-gray-600 text-xl">ขอบคุณที่เข้าร่วมกับเรา!</p>';
-    echo '<a href="?logout=true" class="mt-6 bg-red-500 hover:bg-red-600 text-white py-2 px-6 rounded-lg transition">Logout</a>';
-    echo '</div></div>';
-
-} else {
-    echo "ไม่สามารถเชื่อมต่อกับ Google API ได้";
-}
-        
-
     } else {
         // แสดงลิงก์สำหรับให้ผู้ใช้อนุมัติการเข้าถึง
         $authUrl = $client->createAuthUrl();
@@ -148,8 +159,8 @@ if ($client->getAccessToken()) {
         header('Location: https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=' . urlencode($logoutRedirect));
         exit();
     }
-    
-    
+
+
     ?>
 
 </body>
