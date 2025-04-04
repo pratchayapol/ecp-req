@@ -46,7 +46,7 @@ $course_level = $_SESSION['course_level'] ?? '';
     <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
         <div id="sidebar" class="w-full sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px] sm:block hidden">
-            <div class="text-center">
+        <div class="text-center">
                 <img src="/image/logo.png" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg mx-auto" alt="Logo">
                 <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] mt-4 shadow-md">Dashboard</button>
                 <div class="mt-4 space-y-2">
