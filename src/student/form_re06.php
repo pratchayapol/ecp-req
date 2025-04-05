@@ -28,12 +28,11 @@ $stmt->execute();
 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // ตรวจสอบว่ามีการส่งคำขอจากการเลือกวิชา
-$courseInfo = null;
 if (isset($_GET['course_id'])) {
     $courseId = $_GET['course_id'];
 
     // ดึงข้อมูลของวิชาและอาจารย์จากฐานข้อมูล
-    $sql = "SELECT c.course_id, c.course_nameTH, a.email AS email
+    $sql = "SELECT c.course_id, c.course_nameTH, a.email AS instructor_email
             FROM course c
             LEFT JOIN accounts a ON a.email = c.email
             WHERE c.course_id = :course_id";
@@ -41,8 +40,11 @@ if (isset($_GET['course_id'])) {
     $stmt->bindParam(':course_id', $courseId, PDO::PARAM_STR);
     $stmt->execute();
     $courseInfo = $stmt->fetch(PDO::FETCH_ASSOC);
-}
 
+    // ส่งข้อมูลกลับในรูป JSON
+    echo json_encode($courseInfo);
+    exit; // ปิดสคริปต์หลังส่งข้อมูล
+}
 
 ?>
 <!DOCTYPE html>
