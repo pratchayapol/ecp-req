@@ -131,7 +131,7 @@ include 'connect/dbcon.php';
             $role = $_SESSION['role'];
 
             echo '<div class="w-full max-w-md p-8 m-6 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105 mx-auto mt-10">
-    <div class="flex flex-col items-center">';
+    <div class="flex flex-col items-center m-6">';
             echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ</h1>';
             echo '<div class="mb-6">';
             echo '<img src="' . htmlspecialchars($user['picture']) . '" alt="Profile Picture" class="w-36 h-36 rounded-full mx-auto border-4 border-indigo-500 shadow-lg transform transition-transform duration-300 hover:scale-110">';
