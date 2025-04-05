@@ -52,7 +52,8 @@ $course_level = $_SESSION['course_level'] ?? '';
                 <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] mt-4 shadow-md" id="dashboard-btn"> Dashboard </button>
                 <div class="mt-4 space-y-2">
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md">คำร้องขอเพิ่มที่นั่ง RE.06</button>
-                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md">คำร้องขอเปิดดอกแนน RE.07</button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md">คำร้องขอเปิดนอกแผน RE.07</button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md">คำร้องของนักศึกษา</button>
                 </div>
             </div>
             <div class="text-center mt-4">
