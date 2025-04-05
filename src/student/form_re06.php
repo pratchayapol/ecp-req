@@ -78,7 +78,7 @@ $course_level = $_SESSION['course_level'] ?? '';
         <!-- Main Content -->
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
             <div class="p-8">
-                <div class="bg-white rounded-lg shadow-lg h-auto mb-6">
+                <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">แบบฟอร์มคำร้องขอเพิ่มที่นั่ง RE.06</h1>
 
                     <form class="space-y-4 m-6">
@@ -157,7 +157,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                             </div>
                         </div>
 
-                        <div class="text-center pt-4">
+                        <div class="text-center pt-4 mb-6">
                             <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
                                 บันทึกคำร้อง
                             </button>
