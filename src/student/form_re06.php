@@ -32,7 +32,7 @@ if (isset($_GET['course_id'])) {
     $courseId = $_GET['course_id'];
 
     // ดึงข้อมูลของวิชาและอาจารย์จากฐานข้อมูล
-    $sql = "SELECT c.course_id, c.course_nameTH, a.email AS instructor_name
+    $sql = "SELECT c.course_id, c.course_nameTH, a.name AS instructor_name
             FROM course c
             LEFT JOIN accounts a ON a.email = c.email
             WHERE c.course_id = :course_id";
