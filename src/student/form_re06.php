@@ -144,22 +144,22 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                             <script>
                                 // Get the current year in the Buddhist Era (B.E.)
-                                const currentYearBE = new Date().getFullYear() + 543;
+                                const currentYearBE1 = new Date().getFullYear() + 543;
 
                                 // Get the select element
-                                const select = document.getElementById('academicGroup');
+                                const select1 = document.getElementById('academicGroup');
 
                                 // Group prefixes
                                 const groups = ['ECP/N', 'ECP/R', 'ECP/Q'];
 
                                 // Generate options for each group with years from current year back to 8 years ago
                                 for (let i = 0; i <= 8; i++) {
-                                    const yearBE = currentYearBE - i;
+                                    const yearBE = currentYearBE1 - i;
                                     groups.forEach(group => {
                                         const option = document.createElement('option');
                                         option.value = `${group}(${yearBE.toString().slice(-2)})`; // Get last 2 digits of the year
                                         option.textContent = `${group}(${yearBE.toString().slice(-2)})`;
-                                        select.appendChild(option);
+                                        select1.appendChild(option);
                                     });
                                 }
                             </script>
