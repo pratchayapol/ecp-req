@@ -73,15 +73,15 @@ $course_level = $_SESSION['course_level'] ?? '';
         </button>
 
         <!-- Main Content -->
-        <div class="flex flex-col min-h-screen bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-hidden">
-            <div class="flex-1 overflow-auto p-8">
+        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
+            <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg min-h-[900px]">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
                 </div>
             </div>
 
-            <!-- Footer -->
-            <footer class="bg-orange-500 text-white py-4 text-center rounded-[12px]">
+
+            <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
                 2025 All rights reserved by Software Engineering 3/67
             </footer>
         </div>
