@@ -114,7 +114,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 echo $row["article_content"];
 
                                 // Display the modified date
-                                echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . "    ".'</span>';
+                                echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
 
                             }
                         }
