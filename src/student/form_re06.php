@@ -167,7 +167,7 @@ if (isset($_GET['course_id'])) {
 
 
                             </div>
-                        </div>
+                        
 
                         <div>
                             <label class="block font-medium mb-1 text-red-600">รายวิชาที่ต้องการขอเพิ่มที่นั่ง *</label>
