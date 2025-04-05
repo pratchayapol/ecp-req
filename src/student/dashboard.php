@@ -162,6 +162,11 @@ $course_level = $_SESSION['course_level'] ?? '';
         .flex-1 {
             overflow-y: auto;
         }
+
+        /* ซ่อนแถบเลื่อน */
+        .flex-1::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </body>
 
