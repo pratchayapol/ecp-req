@@ -157,11 +157,12 @@ $course_level = $_SESSION['course_level'] ?? '';
                             </div>
                         </div>
 
-                        <div class="text-center pt-4 mb-6">
+                        <div class="text-center pt-4">
                             <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
                                 บันทึกคำร้อง
                             </button>
                         </div>
+                        <br>
                     </form>
                 </div>
 
