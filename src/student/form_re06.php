@@ -79,50 +79,90 @@ $course_level = $_SESSION['course_level'] ?? '';
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
-                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
+                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">แบบฟอร์มคำร้องขอเพิ่มที่นั่ง RE.06</h1>
 
-                    <?php
-                    try {
-                        // Query the database
-                        $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 1");
-                        $stmt->execute();
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-medium mb-1 text-red-600">คำร้องขอเพิ่มที่นั่ง ภาคเรียนที่ *</label>
+                                <select class="w-full border rounded px-3 py-2">
+                                    <option>เลือกภาคเรียน</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block font-medium mb-1 text-red-600">ปีการศึกษาที่ *</label>
+                                <select class="w-full border rounded px-3 py-2">
+                                    <option>เลือกปีการศึกษา</option>
+                                </select>
+                            </div>
+                        </div>
 
-                        // Check if any data is returned
-                        if ($stmt->rowCount() == 0) {
-                            echo '<center><br><br><h3 style="color:red">!!! ไม่พบข้อมูลการประกาศข่าว !!!</h3><br><br>';
-                        } else {
-                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                // วันภาษาไทย
-                                $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์");
-                                // เดือนภาษาไทย
-                                $ThMonth = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+                        <div>
+                            <label class="block font-medium mb-1 text-red-600">รายวิชาที่ต้องการขอเพิ่มที่นั่ง *</label>
+                            <select class="w-full border rounded px-3 py-2">
+                                <option>เลือกรหัสรายวิชา</option>
+                            </select>
+                        </div>
 
-                                // วันที่ ที่ต้องการเอามาเปลี่ยนฟอแมต
-                                $myDATE = $row['date_published']; // อาจมาจากฐานข้อมูล
-                                // กำหนดคุณสมบัติ
-                                $time = date("H:i:s", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-                                $week = date("w", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-                                $months = date("m", strtotime($myDATE)) - 1; // ค่าเดือน (1-12)
-                                $day = date("d", strtotime($myDATE)); // ค่าวันที่(1-31)
-                                $years = date("Y", strtotime($myDATE)) + 543; // ค่า ค.ศ.บวก 543 ทำให้เป็น ค.ศ.
-                                $datetime = "วัน $ThDay[$week] ที่ $day $ThMonth[$months] $years เวลา $time น.";
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-gray-600">รหัสรายวิชา: <span class="text-black">N/A</span></p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black">N/A</span></p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black">N/A</span></p>
+                            </div>
+                            <div>
+                                <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
+                                <select class="w-full border rounded px-3 py-2">
+                                    <option>เลือกกลุ่มเรียน</option>
+                                </select>
+                            </div>
+                        </div>
 
-                                // Display the article title
-                                echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
+                        <div>
+                            <label class="block font-medium mb-1 text-red-600">ขอเพิ่มที่นั่ง เนื่องจาก *</label>
+                            <select class="w-full border rounded px-3 py-2">
+                                <option>เลือกเหตุผลที่ขอเพิ่มที่นั่ง</option>
+                            </select>
+                        </div>
 
-                                // Display the article content with HTML tags
-                                // Use `htmlspecialchars` on the title to prevent XSS, but not on content to allow HTML rendering
-                                echo $row["article_content"];
+                        <div class="flex items-center gap-2">
+                            <label class="block font-medium text-red-600">ปัจจุบันรายวิชานี้มียอดลงทะเบียนแล้ว *</label>
+                            <input type="number" class="border rounded px-2 py-1 w-20" />
+                            <span>คน</span>
+                        </div>
 
-                                // Display the modified date
-                                echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
-                            }
-                        }
-                    } catch (PDOException $e) {
-                        // In case of error, output the error message
-                        echo 'Connection failed: ' . $e->getMessage();
-                    }
-                    ?>
+                        <div>
+                            <label class="block font-medium mb-2 text-red-600">สถานภาพการลงทะเบียนวิชาที่ขอเพิ่มที่นั่ง *</label>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="reg_status" />
+                                    ลงทะเบียนตามแผนการเรียน
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="reg_status" />
+                                    ลงทะเบียนเพิ่ม “ปกติ”
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="reg_status" />
+                                    ลงทะเบียนเพิ่ม “รีเกรด”
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="reg_status" />
+                                    ลงทะเบียนเพิ่ม “ซ่อม”
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="text-center pt-4">
+                            <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
+                                บันทึกคำร้อง
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
             </div>
