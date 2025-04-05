@@ -27,12 +27,12 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// ตรวจสอบข้อมูลหลังจากการดึงข้อมูล
+// ตรวจสอบว่ามีการส่งคำขอจากการเลือกวิชา
 if (isset($_GET['course_id'])) {
     $courseId = $_GET['course_id'];
 
     // ดึงข้อมูลของวิชาและอาจารย์จากฐานข้อมูล
-    $sql = "SELECT c.course_id, c.course_nameTH, a.name AS instructor_name
+    $sql = "SELECT c.course_id, c.course_nameTH, a.email AS instructor_name
             FROM course c
             LEFT JOIN accounts a ON a.email = c.email
             WHERE c.course_id = :course_id";
@@ -41,9 +41,9 @@ if (isset($_GET['course_id'])) {
     $stmt->execute();
     $courseInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // ตรวจสอบข้อมูลที่ดึงมา
-    var_dump($courseInfo);  // แสดงข้อมูลที่ดึงมา
-    exit; // ปิดสคริปต์หลังตรวจสอบ
+    // ส่งข้อมูลกลับในรูป JSON
+    echo json_encode($courseInfo);
+    exit; // ปิดสคริปต์หลังส่งข้อมูล
 }
 
 ?>
