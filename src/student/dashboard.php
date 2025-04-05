@@ -121,10 +121,8 @@ $course_level = $_SESSION['course_level'] ?? '';
 
 
         document.getElementById('dashboard-btn').addEventListener('click', function() {
-            // Perform the reface action here
-            alert('Refacing or performing a task...');
-            // Example: redirect to another page
-            // window.location.href = 'your-new-page.html';
+           
+            window.location.href = 'dashboard';
         });
     </script>
 
