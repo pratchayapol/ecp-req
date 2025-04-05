@@ -25,7 +25,7 @@ session_start();
 </head>
 
 <body class="flex items-center justify-center min-h-screen bg">
-    <div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
+    <div class="w-full max-w-md p-8 m-6 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
         <div class="flex flex-col items-center">
             <!-- Logo -->
             <img src="image/logo.png" alt="Logo" class="w-32 h-32 rounded-full shadow-lg">

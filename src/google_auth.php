@@ -130,7 +130,7 @@ include 'connect/dbcon.php';
             $user = $_SESSION['user'];
             $role = $_SESSION['role'];
 
-            echo '<div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105 mx-auto mt-10">
+            echo '<div class="w-full max-w-md p-8 m-6 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105 mx-auto mt-10">
     <div class="flex flex-col items-center">';
             echo '<h1 class="text-3xl font-semibold text-gray-800 mb-6">ยินดีต้อนรับ</h1>';
             echo '<div class="mb-6">';
@@ -157,7 +157,7 @@ include 'connect/dbcon.php';
         // แสดงลิงก์สำหรับให้ผู้ใช้อนุมัติการเข้าถึง
         $authUrl = $client->createAuthUrl();
 
-        echo '<div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
+        echo '<div class="w-full max-w-md p-8 m-6 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
         <div class="flex flex-col items-center">';
 
         echo '  <h2 class="text-2xl font-bold text-gray-800 mb-3">เพื่อดำเนินการต่อ</h2>';
