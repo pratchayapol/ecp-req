@@ -46,6 +46,28 @@ if (isset($_GET['course_id'])) {
     exit; // ปิดสคริปต์หลังส่งข้อมูล
 }
 
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // รับค่าจากฟอร์ม
+    $semester = $_POST['semester'] ?? '';
+    $academicYear = $_POST['academicYear'] ?? '';
+    $courseId = $_POST['course_id'] ?? '';
+    $group = $_POST['academicGroup'] ?? '';
+    $reason = $_POST['reason'] ?? '';
+    $registrations = $_POST['registrations'] ?? '';
+    $regStatus = $_POST['reg_status'] ?? '';
+
+    // ทำการประมวลผลข้อมูลหรือบันทึกในฐานข้อมูล
+    // ตัวอย่างการแสดงผลค่าที่ได้รับ
+    echo "ภาคเรียน: " . htmlspecialchars($semester) . "<br>";
+    echo "ปีการศึกษา: " . htmlspecialchars($academicYear) . "<br>";
+    echo "รหัสรายวิชา: " . htmlspecialchars($courseId) . "<br>";
+    echo "กลุ่มเรียน: " . htmlspecialchars($group) . "<br>";
+    echo "เหตุผล: " . htmlspecialchars($reason) . "<br>";
+    echo "ยอดลงทะเบียน: " . htmlspecialchars($registrations) . " คน<br>";
+    echo "สถานภาพการลงทะเบียน: " . htmlspecialchars($regStatus) . "<br>";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -135,7 +157,7 @@ if (isset($_GET['course_id'])) {
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">แบบฟอร์มคำร้องขอเพิ่มที่นั่ง RE.06</h1>
 
-                    <form class="space-y-4 m-6">
+                    <form class="space-y-4 m-6" action="" method="POST">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">คำร้องขอเพิ่มที่นั่ง ภาคเรียนที่ *</label>
@@ -167,8 +189,6 @@ if (isset($_GET['course_id'])) {
                                         select.appendChild(option);
                                     }
                                 </script>
-
-
                             </div>
                         </div>
 
