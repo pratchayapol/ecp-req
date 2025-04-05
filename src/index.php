@@ -33,7 +33,7 @@ session_start();
             <!-- Title -->
             <h2 class="mt-4 text-3xl font-extrabold text-gray-800 t1">ECP-REQUIRES</h2>
             <p class="text-gray-500 mt-2 text-sm text-center t1">
-                ระบบยื่นคำร้องสาขาคอมพิวเตอร์ 555555555555555555555555555555555555
+                ระบบยื่นคำร้องสาขาคอมพิวเตอร์
             </p>
             <p class="text-gray-500 mt-2 text-sm text-center t1">
                 คณะวิศวกรรมศาสตร์
