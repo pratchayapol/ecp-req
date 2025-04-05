@@ -48,39 +48,43 @@ if (isset($_GET['course_id'])) {
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // รับค่าจากฟอร์ม
-    $semester = $_POST['semester'] ?? '';
-    $academicYear = $_POST['academicYear'] ?? '';
-    $courseId = $_POST['course_id'] ?? '';
-    $group = $_POST['academicGroup'] ?? '';
-    $reason = $_POST['reason'] ?? '';
-    $registrations = $_POST['registrations'] ?? '';
-    $regStatus = $_POST['reg_status'] ?? '';
-    $status = "1"; //สถานะรออนุมัติ
-    $timestamp = date('Y-m-d H:i:s');
-    // ทำการประมวลผลข้อมูลหรือบันทึกในฐานข้อมูล
+    try {
+        // รับค่าจากฟอร์ม
+        $semester = $_POST['semester'] ?? '';
+        $academicYear = $_POST['academicYear'] ?? '';
+        $courseId = $_POST['course_id'] ?? '';
+        $group = $_POST['academicGroup'] ?? '';
+        $reason = $_POST['reason'] ?? '';
+        $registrations = $_POST['registrations'] ?? '';
+        $regStatus = $_POST['reg_status'] ?? '';
+        $status = "1"; //สถานะรออนุมัติ
+        $timestamp = date('Y-m-d H:i:s');
+        // ทำการประมวลผลข้อมูลหรือบันทึกในฐานข้อมูล
 
 
-    // เตรียมคำสั่ง SQL
-    $stmt = $pdo->prepare("INSERT INTO form_re06 
+        // เตรียมคำสั่ง SQL
+        $stmt = $pdo->prepare("INSERT INTO form_re06 
         (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, time_stamp, email) 
         VALUES 
         (:term, :year, :reason, :group, :course_id, :coutter, :status, NULL, :time_stamp, :email)");
 
-    // Bind ค่าพารามิเตอร์
-    $stmt->execute([
-        ':term' => $semester,
-        ':year' => $academicYear,
-        ':reason' => $reason,
-        ':group' => $group,
-        ':course_id' => $courseId,
-        ':coutter' => $registrations,
-        ':status' => $status,
-        ':time_stamp' => $timestamp,
-        ':email' => $email
-    ]);
+        // Bind ค่าพารามิเตอร์
+        $stmt->execute([
+            ':term' => $semester,
+            ':year' => $academicYear,
+            ':reason' => $reason,
+            ':group' => $group,
+            ':course_id' => $courseId,
+            ':coutter' => $registrations,
+            ':status' => $status,
+            ':time_stamp' => $timestamp,
+            ':email' => $email
+        ]);
 
-    echo "บันทึกข้อมูลสำเร็จ!";
+        echo "บันทึกข้อมูลสำเร็จ!";
+    } catch (PDOException $e) {
+        echo "เกิดข้อผิดพลาด: " . $e->getMessage();
+    }
 }
 
 ?>
