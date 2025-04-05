@@ -167,7 +167,7 @@ if (isset($_GET['course_id'])) {
 
 
                             </div>
-                        
+                        </div>
 
                         <div>
                             <label class="block font-medium mb-1 text-red-600">รายวิชาที่ต้องการขอเพิ่มที่นั่ง *</label>
@@ -191,90 +191,88 @@ if (isset($_GET['course_id'])) {
                             <div>
                                 <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_email'] ?? 'N/A' ?></span></p>
                             </div>
+                            <div>
+                                <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
+                                <select class="w-full border rounded px-3 py-2" id="academicGroup">
+                                    <option value="" disabled selected>เลือกกลุ่มเรียน</option>
+                                </select>
+                            </div>
+
+                            <script>
+                                // Get the current year in the Buddhist Era (B.E.)
+                                const currentYearBE1 = new Date().getFullYear() + 543;
+
+                                // Get the select element
+                                const select1 = document.getElementById('academicGroup');
+
+                                // Group prefixes
+                                const groups = ['ECP/N', 'ECP/R', 'ECP/Q'];
+
+                                // Generate options for each group with years from current year back to 8 years ago
+                                for (let i = 0; i <= 8; i++) {
+                                    const yearBE = currentYearBE1 - i;
+                                    groups.forEach(group => {
+                                        const option = document.createElement('option');
+                                        option.value = `${group}(${yearBE.toString().slice(-2)})`; // Get last 2 digits of the year
+                                        option.textContent = `${group}(${yearBE.toString().slice(-2)})`;
+                                        select1.appendChild(option);
+                                    });
+                                }
+                            </script>
+
                         </div>
 
                         <div>
-                            <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
-                            <select class="w-full border rounded px-3 py-2" id="academicGroup">
-                                <option value="" disabled selected>เลือกกลุ่มเรียน</option>
+                            <label class="block font-medium mb-1 text-red-600">ขอเพิ่มที่นั่ง เนื่องจาก *</label>
+                            <select class="w-full border rounded px-3 py-2">
+                                <option>เลือกเหตุผลที่ขอเพิ่มที่นั่ง</option>
                             </select>
                         </div>
 
-                        <script>
-                            // Get the current year in the Buddhist Era (B.E.)
-                            const currentYearBE1 = new Date().getFullYear() + 543;
+                        <div class="flex items-center gap-2">
+                            <label class="block font-medium text-red-600">ปัจจุบันรายวิชานี้มียอดลงทะเบียนแล้ว *</label>
+                            <input type="number" class="border rounded px-2 py-1 w-20" />
+                            <span>คน</span>
+                        </div>
 
-                            // Get the select element
-                            const select1 = document.getElementById('academicGroup');
+                        <div>
+                            <label class="block font-medium mb-2 text-red-600">สถานภาพการลงทะเบียนวิชาที่ขอเพิ่มที่นั่ง *</label>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="reg_status" />
+                                    ลงทะเบียนตามแผนการเรียน
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="reg_status" />
+                                    ลงทะเบียนเพิ่ม “ปกติ”
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="reg_status" />
+                                    ลงทะเบียนเพิ่ม “รีเกรด”
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="reg_status" />
+                                    ลงทะเบียนเพิ่ม “ซ่อม”
+                                </label>
+                            </div>
+                        </div>
 
-                            // Group prefixes
-                            const groups = ['ECP/N', 'ECP/R', 'ECP/Q'];
-
-                            // Generate options for each group with years from current year back to 8 years ago
-                            for (let i = 0; i <= 8; i++) {
-                                const yearBE = currentYearBE1 - i;
-                                groups.forEach(group => {
-                                    const option = document.createElement('option');
-                                    option.value = `${group}(${yearBE.toString().slice(-2)})`; // Get last 2 digits of the year
-                                    option.textContent = `${group}(${yearBE.toString().slice(-2)})`;
-                                    select1.appendChild(option);
-                                });
-                            }
-                        </script>
-
+                        <div class="text-center pt-4">
+                            <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
+                                บันทึกคำร้อง
+                            </button>
+                        </div>
+                        <br>
+                    </form>
                 </div>
 
-                <div>
-                    <label class="block font-medium mb-1 text-red-600">ขอเพิ่มที่นั่ง เนื่องจาก *</label>
-                    <select class="w-full border rounded px-3 py-2">
-                        <option>เลือกเหตุผลที่ขอเพิ่มที่นั่ง</option>
-                    </select>
-                </div>
-
-                <div class="flex items-center gap-2">
-                    <label class="block font-medium text-red-600">ปัจจุบันรายวิชานี้มียอดลงทะเบียนแล้ว *</label>
-                    <input type="number" class="border rounded px-2 py-1 w-20" />
-                    <span>คน</span>
-                </div>
-
-                <div>
-                    <label class="block font-medium mb-2 text-red-600">สถานภาพการลงทะเบียนวิชาที่ขอเพิ่มที่นั่ง *</label>
-                    <div class="space-y-2">
-                        <label class="flex items-center gap-2">
-                            <input type="radio" name="reg_status" />
-                            ลงทะเบียนตามแผนการเรียน
-                        </label>
-                        <label class="flex items-center gap-2">
-                            <input type="radio" name="reg_status" />
-                            ลงทะเบียนเพิ่ม “ปกติ”
-                        </label>
-                        <label class="flex items-center gap-2">
-                            <input type="radio" name="reg_status" />
-                            ลงทะเบียนเพิ่ม “รีเกรด”
-                        </label>
-                        <label class="flex items-center gap-2">
-                            <input type="radio" name="reg_status" />
-                            ลงทะเบียนเพิ่ม “ซ่อม”
-                        </label>
-                    </div>
-                </div>
-
-                <div class="text-center pt-4">
-                    <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
-                        บันทึกคำร้อง
-                    </button>
-                </div>
-                <br>
-                </form>
             </div>
 
+
+            <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
+                2025 All rights reserved by Software Engineering 3/67
+            </footer>
         </div>
-
-
-        <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
-            2025 All rights reserved by Software Engineering 3/67
-        </footer>
-    </div>
     </div>
 
     <!-- SweetAlert2 CDN -->
