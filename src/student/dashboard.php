@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'connect/dbcon.php';
+include '/connect/dbcon.php';
 // echo '<pre>';
 // print_r($_SESSION);
 // echo '</pre>';
