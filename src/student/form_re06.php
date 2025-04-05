@@ -228,16 +228,31 @@ if (isset($_GET['course_id'])) {
                         <div>
                             <label class="block font-medium mb-1 text-red-600">ขอเพิ่มที่นั่ง เนื่องจาก *</label>
                             <select class="w-full border rounded px-3 py-2">
-                                <option>เลือกเหตุผลที่ขอเพิ่มที่นั่ง</option>
+                                <option value="" disabled selected>เลือกเหตุผลที่ขอเพิ่มที่นั่ง</option>
+                                <option value="เป็นรายวิชาตามแผนการเรียนที่ต้องเรียนในภาคการศึกษานี้เพื่อสำเร็จการศึกษา">เป็นรายวิชาตามแผนการเรียนที่ต้องเรียนในภาคการศึกษานี้เพื่อสำเร็จการศึกษา</option>
+                                <option value="ต้องการเรียนเพื่อเสริมความรู้และทักษะที่จำเป็นสำหรับการทำงานในอนาคต">ต้องการเรียนเพื่อเสริมความรู้และทักษะที่จำเป็นสำหรับการทำงานในอนาคต</option>
+                                <option value="วิชานี้เป็นพื้นฐานสำหรับการเรียนวิชาอื่นๆ ที่สำคัญในหลักสูตร">วิชานี้เป็นพื้นฐานสำหรับการเรียนวิชาอื่นๆ ที่สำคัญในหลักสูตร</option>
+                                <option value="ไม่สามารถลงเรียนในภาคเรียนอื่นได้ เนื่องจากการวางแผนการเรียนให้สอดคล้องกับการจบการศึกษา">ไม่สามารถลงเรียนในภาคเรียนอื่นได้ เนื่องจากการวางแผนการเรียนให้สอดคล้องกับการจบการศึกษา</option>
+                                <option value="มีความจำเป็นต้องเรียนในวิชานี้เพื่อไม่ให้การศึกษาล่าช้าและสำเร็จการศึกษาในเวลาที่กำหนด">มีความจำเป็นต้องเรียนในวิชานี้เพื่อไม่ให้การศึกษาล่าช้าและสำเร็จการศึกษาในเวลาที่กำหนด</option>
+
                             </select>
                         </div>
 
                         <div class="flex items-center gap-2">
                             <label class="block font-medium text-red-600">ปัจจุบันรายวิชานี้มียอดลงทะเบียนแล้ว *</label>
-                            <input type="number" class="border rounded px-2 py-1 w-20" />
+                            <input type="number" id="registrations" class="border rounded px-2 py-1 w-20" min="1" />
                             <span>คน</span>
                         </div>
 
+                        <script>
+                            const input = document.getElementById('registrations');
+
+                            input.addEventListener('input', function() {
+                                if (input.value <= 0) {
+                                    input.value = 1; // กำหนดค่าเริ่มต้นที่ 1 ถ้าค่าต่ำกว่าหรือเท่ากับ 0
+                                }
+                            });
+                        </script>
                         <div>
                             <label class="block font-medium mb-2 text-red-600">สถานภาพการลงทะเบียนวิชาที่ขอเพิ่มที่นั่ง *</label>
                             <div class="space-y-2">
