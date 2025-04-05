@@ -95,7 +95,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">ปีการศึกษาที่ *</label>
                                 <select class="w-full border rounded px-3 py-2" id="academicYear">
-                                <option value="" disabled selected>เลือกปีการศึกษา</option>
+                                    <option value="" disabled selected>เลือกปีการศึกษา</option>
                                 </select>
 
                                 <script>
@@ -137,10 +137,33 @@ $course_level = $_SESSION['course_level'] ?? '';
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
-                                <select class="w-full border rounded px-3 py-2">
-                                    <option>เลือกกลุ่มเรียน</option>
+                                <select class="w-full border rounded px-3 py-2" id="academicGroup">
+                                    <option value="" disabled selected>เลือกกลุ่มเรียน</option>
                                 </select>
                             </div>
+
+                            <script>
+                                // Get the current year in the Buddhist Era (B.E.)
+                                const currentYearBE = new Date().getFullYear() + 543;
+
+                                // Get the select element
+                                const select = document.getElementById('academicGroup');
+
+                                // Group prefixes
+                                const groups = ['ECP/N', 'ECP/R', 'ECP/Q'];
+
+                                // Generate options for each group with years from current year back to 8 years ago
+                                for (let i = 0; i <= 8; i++) {
+                                    const yearBE = currentYearBE - i;
+                                    groups.forEach(group => {
+                                        const option = document.createElement('option');
+                                        option.value = `${group}(${yearBE.toString().slice(-2)})`; // Get last 2 digits of the year
+                                        option.textContent = `${group}(${yearBE.toString().slice(-2)})`;
+                                        select.appendChild(option);
+                                    });
+                                }
+                            </script>
+
                         </div>
 
                         <div>
