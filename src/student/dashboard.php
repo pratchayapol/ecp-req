@@ -82,7 +82,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                     try {
                         
                         // Query the database
-                        $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 1");
+                        $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 0");
                         $stmt->execute();
 
                         // Check if any data is returned
