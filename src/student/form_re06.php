@@ -86,7 +86,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">คำร้องขอเพิ่มที่นั่ง ภาคเรียนที่ *</label>
                                 <select class="w-full border rounded px-3 py-2">
-                                    <option>เลือกภาคเรียน</option>
+                                    <option value="" disabled selected>เลือกภาคเรียน</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -95,24 +95,25 @@ $course_level = $_SESSION['course_level'] ?? '';
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">ปีการศึกษาที่ *</label>
                                 <select class="w-full border rounded px-3 py-2" id="academicYear">
-                                    <option>เลือกปีการศึกษา</option>
+                                <option value="" disabled selected>เลือกปีการศึกษา</option>
                                 </select>
 
                                 <script>
-                                    // Get the current year
-                                    const currentYear = new Date().getFullYear();
+                                    // Get the current year in the Buddhist Era (B.E.)
+                                    const currentYearBE = new Date().getFullYear() + 543;
 
                                     // Get the select element
                                     const select = document.getElementById('academicYear');
 
-                                    // Generate the academic years: 1 year before, current year, and 1 year after
-                                    for (let i = currentYear - 1; i <= currentYear + 1; i++) {
+                                    // Generate the academic years: 1 year before, current year, and 1 year after (in B.E.)
+                                    for (let i = currentYearBE - 1; i <= currentYearBE + 1; i++) {
                                         const option = document.createElement('option');
                                         option.value = i;
                                         option.textContent = i;
                                         select.appendChild(option);
                                     }
                                 </script>
+
 
                             </div>
                         </div>
