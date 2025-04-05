@@ -78,45 +78,45 @@ $course_level = $_SESSION['course_level'] ?? '';
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
-                    <div class="card-body">
-                        <?php
-                        try {
 
-                            // Query the database
-                            $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 1");
-                            $stmt->execute();
+                    <?php
+                    try {
 
-                            // Check if any data is returned
-                            if ($stmt->rowCount() == 0) {
-                                echo '<center><br><br><h3 style="color:red">!!! ไม่พบข้อมูลการประกาศข่าว !!!</h3><br><br>';
-                            } else {
-                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                    // วันภาษาไทย
-                                    $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์");
-                                    // เดือนภาษาไทย
-                                    $ThMonth = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+                        // Query the database
+                        $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 1");
+                        $stmt->execute();
 
-                                    // วันที่ ที่ต้องการเอามาเปลี่ยนฟอแมต
-                                    $myDATE = $row['date_published']; // อาจมาจากฐานข้อมูล
-                                    // กำหนดคุณสมบัติ
-                                    $time = date("H:i:s", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-                                    $week = date("w", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-                                    $months = date("m", strtotime($myDATE)) - 1; // ค่าเดือน (1-12)
-                                    $day = date("d", strtotime($myDATE)); // ค่าวันที่(1-31)
-                                    $years = date("Y", strtotime($myDATE)) + 543; // ค่า ค.ศ.บวก 543 ทำให้เป็น ค.ศ.
-                                    $datetime = "วัน $ThDay[$week] ที่ $day $ThMonth[$months] $years เวลา $time น.";
+                        // Check if any data is returned
+                        if ($stmt->rowCount() == 0) {
+                            echo '<center><br><br><h3 style="color:red">!!! ไม่พบข้อมูลการประกาศข่าว !!!</h3><br><br>';
+                        } else {
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                // วันภาษาไทย
+                                $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์");
+                                // เดือนภาษาไทย
+                                $ThMonth = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
 
-                                    echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
-                                    echo $row["article_content"];
-                                    echo '<span>แก้ไขเมื่อ : ' . $datetime . '</span>';
-                                }
+                                // วันที่ ที่ต้องการเอามาเปลี่ยนฟอแมต
+                                $myDATE = $row['date_published']; // อาจมาจากฐานข้อมูล
+                                // กำหนดคุณสมบัติ
+                                $time = date("H:i:s", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
+                                $week = date("w", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
+                                $months = date("m", strtotime($myDATE)) - 1; // ค่าเดือน (1-12)
+                                $day = date("d", strtotime($myDATE)); // ค่าวันที่(1-31)
+                                $years = date("Y", strtotime($myDATE)) + 543; // ค่า ค.ศ.บวก 543 ทำให้เป็น ค.ศ.
+                                $datetime = "วัน $ThDay[$week] ที่ $day $ThMonth[$months] $years เวลา $time น.";
+
+                                echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
+                                echo $row["article_content"];
+                                echo '<span>แก้ไขเมื่อ : ' . $datetime . '</span>';
                             }
-                        } catch (PDOException $e) {
-                            // In case of error, output the error message
-                            echo 'Connection failed: ' . $e->getMessage();
                         }
-                        ?>
-                    </div>
+                    } catch (PDOException $e) {
+                        // In case of error, output the error message
+                        echo 'Connection failed: ' . $e->getMessage();
+                    }
+                    ?>
+
                 </div>
             </div>
 
