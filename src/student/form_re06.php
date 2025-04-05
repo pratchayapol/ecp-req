@@ -47,9 +47,11 @@ if (isset($_GET['course_id'])) {
 }
 
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
-        // รับค่าจากฟอร์ม
+        
+
         $semester = $_POST['semester'] ?? '';
         $academicYear = $_POST['academicYear'] ?? '';
         $courseId = $_POST['course_id'] ?? '';
@@ -57,18 +59,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $reason = $_POST['reason'] ?? '';
         $registrations = $_POST['registrations'] ?? '';
         $regStatus = $_POST['reg_status'] ?? '';
-        $status = "1"; //สถานะรออนุมัติ
+        $status = "1";
         $timestamp = date('Y-m-d H:i:s');
-        // ทำการประมวลผลข้อมูลหรือบันทึกในฐานข้อมูล
+        $email = $_POST['email'] ?? '';
 
-
-        // เตรียมคำสั่ง SQL
         $stmt = $pdo->prepare("INSERT INTO form_re06 
         (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, time_stamp, email) 
         VALUES 
         (:term, :year, :reason, :group, :course_id, :coutter, :status, NULL, :time_stamp, :email)");
 
-        // Bind ค่าพารามิเตอร์
         $stmt->execute([
             ':term' => $semester,
             ':year' => $academicYear,
@@ -81,25 +80,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ':email' => $email
         ]);
 
+        // ทำให้แน่ใจว่ายังไม่มีการแสดง HTML ก่อนหน้านี้
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
         echo "
-<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-<script>
-Swal.fire({
-    title: 'สำเร็จ!',
-    text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-    icon: 'success',
-    confirmButtonText: 'ตกลง'
-}).then((result) => {
-    if (result.isConfirmed) {
-        window.location.href = 'form_re06'; // เปลี่ยนเส้นทางตามที่ต้องการ
-    }
-});
-</script>
-";
+        <script>
+        Swal.fire({
+            title: 'สำเร็จ!',
+            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            icon: 'success',
+            confirmButtonText: 'ตกลง'
+        }).then(() => {
+            window.location.href = 'form_re06';
+        });
+        </script>
+        ";
+        echo "</body></html>";
     } catch (PDOException $e) {
-        echo "เกิดข้อผิดพลาด: " . $e->getMessage();
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'เกิดข้อผิดพลาด!',
+            text: '" . $e->getMessage() . "',
+        });
+        </script>";
     }
 }
+?>
+
 
 ?>
 <!DOCTYPE html>
