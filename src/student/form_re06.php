@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">คำร้องขอเพิ่มที่นั่ง ภาคเรียนที่ *</label>
-                                <select class="w-full border rounded px-3 py-2">
+                                <select class="w-full border rounded px-3 py-2" name="semester">
                                     <option value="" disabled selected>เลือกภาคเรียน</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
