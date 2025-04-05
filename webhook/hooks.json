@@ -1,0 +1,17 @@
+[
+    {
+      "id": "git-auto-pull",
+      "execute-command": "/home/ubuntu/git-pull.sh",
+      "command-working-directory": "/var/www/html/ecp-req",
+      "response-message": "Pulling latest code... OK",
+      "trigger-rule":
+      {
+        "match":
+        {
+          "type": "payload-hash-sha1",
+          "secret": "my_super_secret_key"
+        }
+      }
+    }
+  ]
+  
