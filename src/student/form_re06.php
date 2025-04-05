@@ -170,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">ปีการศึกษาที่ *</label>
-                                <select class="w-full border rounded px-3 py-2" id="academicYear">
+                                <select class="w-full border rounded px-3 py-2" name="academicYear" id="academicYear">
                                     <option value="" disabled selected>เลือกปีการศึกษา</option>
                                 </select>
 
@@ -194,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <div>
                             <label class="block font-medium mb-1 text-red-600">รายวิชาที่ต้องการขอเพิ่มที่นั่ง *</label>
-                            <select class="w-full border rounded px-3 py-2" id="courseSelect" onchange="loadCourseInfo(this.value)">
+                            <select class="w-full border rounded px-3 py-2" name="course_id" id="courseSelect" onchange="loadCourseInfo(this.value)">
                                 <option value="">เลือกรหัสรายวิชา</option>
                                 <?php foreach ($courses as $course): ?>
                                     <option value="<?= htmlspecialchars($course['course_id']) ?>">
@@ -216,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
-                                <select class="w-full border rounded px-3 py-2" id="academicGroup">
+                                <select class="w-full border rounded px-3 py-2"  name="academicGroup" id="academicGroup">
                                     <option value="" disabled selected>เลือกกลุ่มเรียน</option>
                                 </select>
                             </div>
@@ -247,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <div>
                             <label class="block font-medium mb-1 text-red-600">ขอเพิ่มที่นั่ง เนื่องจาก *</label>
-                            <select class="w-full border rounded px-3 py-2">
+                            <select class="w-full border rounded px-3 py-2" name="reason">
                                 <option value="" disabled selected>เลือกเหตุผลที่ขอเพิ่มที่นั่ง</option>
                                 <option value="เป็นรายวิชาตามแผนการเรียนที่ต้องเรียนในภาคการศึกษานี้เพื่อสำเร็จการศึกษา">เป็นรายวิชาตามแผนการเรียนที่ต้องเรียนในภาคการศึกษานี้เพื่อสำเร็จการศึกษา</option>
                                 <option value="ต้องการเรียนเพื่อเสริมความรู้และทักษะที่จำเป็นสำหรับการทำงานในอนาคต">ต้องการเรียนเพื่อเสริมความรู้และทักษะที่จำเป็นสำหรับการทำงานในอนาคต</option>
@@ -260,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <div class="flex items-center gap-2">
                             <label class="block font-medium text-red-600">ปัจจุบันรายวิชานี้มียอดลงทะเบียนแล้ว *</label>
-                            <input type="number" id="registrations" class="border rounded px-2 py-1 w-20" min="1" />
+                            <input type="number" name="registrations" id="registrations" class="border rounded px-2 py-1 w-20" min="1" />
                             <span>คน</span>
                         </div>
 
