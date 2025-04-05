@@ -41,13 +41,14 @@ $course_level = $_SESSION['course_level'] ?? '';
     <link rel="stylesheet" href="./css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
     <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
         <div id="sidebar" class="sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
             <div class="text-center">
                 <img src="/image/logo.png" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg mx-auto" alt="Logo">
-                <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] mt-4 shadow-md">Dashboard</button>
+                <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] mt-4 shadow-md" id="dashboard-btn"> Dashboard </button>
                 <div class="mt-4 space-y-2">
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md">คำร้องขอเพิ่มที่นั่ง RE.06</button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md">คำร้องขอเปิดดอกแนน RE.07</button>
@@ -96,7 +97,7 @@ $course_level = $_SESSION['course_level'] ?? '';
         });
 
         // Handle logout button
-        document.getElementById("logoutBtn").addEventListener("click", function () {
+        document.getElementById("logoutBtn").addEventListener("click", function() {
             Swal.fire({
                 title: 'คุณแน่ใจหรือไม่?',
                 text: 'คุณต้องการออกจากระบบหรือไม่',
@@ -116,6 +117,14 @@ $course_level = $_SESSION['course_level'] ?? '';
                     window.location.href = 'https://ecpreq.pcnone.com/google_auth?logout=true';
                 }
             });
+        });
+
+
+        document.getElementById('dashboard-btn').addEventListener('click', function() {
+            // Perform the reface action here
+            alert('Refacing or performing a task...');
+            // Example: redirect to another page
+            // window.location.href = 'your-new-page.html';
         });
     </script>
 
@@ -146,7 +155,8 @@ $course_level = $_SESSION['course_level'] ?? '';
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* ให้ภาพพื้นหลังอยู่หลังเนื้อหา */
+            z-index: -1;
+            /* ให้ภาพพื้นหลังอยู่หลังเนื้อหา */
         }
 
         /* ทำให้เนื้อหาหลักเลื่อน */
