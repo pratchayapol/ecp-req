@@ -57,7 +57,8 @@ if (isset($_GET['course_id'])) {
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- FontAwesome (สำหรับไอคอน) -->
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 
     <!-- Custom fonts for this template-->
     <link rel="shortcut icon" href="../image/favicon.ico" type="image/x-icon">
