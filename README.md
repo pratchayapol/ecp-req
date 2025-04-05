@@ -92,4 +92,55 @@ logout
 cd /var/www/html/ecp-req
 docker compose up -d
 
+การ pull code จาก git ลง server เมื่อมีการเปลี่ยนแปลง
+1. ติดตั้ง Webhook Listener บน Ubuntu Server
+
+sudo apt update
+sudo apt install webhook -y
+
+2. สร้างไฟล์ hook configuration 
+hooks.json
+[
+  {
+    "id": "git-auto-pull",
+    "execute-command": "/home/YOUR_USER/git-pull.sh",
+    "command-working-directory": "/path/to/your/project",
+    "response-message": "Pulling latest code...",
+    "trigger-rule":
+    {
+      "match":
+      {
+        "type": "payload-hash-sha1",
+        "secret": "YOUR_SECRET"
+      }
+    }
+  }
+]
+
+3. สร้าง shell script ที่จะถูกเรียก
+สร้างไฟล์ /home/YOUR_USER/git-pull.sh
+
+#!/bin/bash
+cd /path/to/your/project || exit
+git pull origin main
+
+จากนั้นให้สิทธิ์รัน:
+chmod +x /home/YOUR_USER/git-pull.sh
+
+4. รัน webhook server
+webhook -hooks /path/to/hooks.json -port 9000 -verbose
+
+5. สร้าง Webhook บน GitHub
+ไปที่หน้า Settings > Webhooks ของ Repository
+
+Payload URL: http://your-server-ip:9000/hooks/git-auto-pull
+
+Content type: application/json
+
+Secret: ใส่ YOUR_SECRET ให้ตรงกับ hook config
+
+✅ เลือก trigger ที่เป็น Just the push event
+
+
+
 จบแล้ว
