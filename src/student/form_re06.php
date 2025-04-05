@@ -81,7 +81,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ':email' => $email
         ]);
 
-        echo "บันทึกข้อมูลสำเร็จ!";
+        echo "
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script>
+Swal.fire({
+    title: 'สำเร็จ!',
+    text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+    icon: 'success',
+    confirmButtonText: 'ตกลง'
+}).then((result) => {
+    if (result.isConfirmed) {
+        window.location.href = 'form_re06'; // เปลี่ยนเส้นทางตามที่ต้องการ
+    }
+});
+</script>
+";
     } catch (PDOException $e) {
         echo "เกิดข้อผิดพลาด: " . $e->getMessage();
     }
