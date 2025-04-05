@@ -97,7 +97,7 @@ if (isset($_GET['course_id'])) {
 
 </head>
 
-<body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg');">
+<body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
     <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
         <div id="sidebar" class="sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
@@ -355,7 +355,7 @@ if (isset($_GET['course_id'])) {
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            /* z-index: -1; */
             /* ให้ภาพพื้นหลังอยู่หลังเนื้อหา */
         }
 
