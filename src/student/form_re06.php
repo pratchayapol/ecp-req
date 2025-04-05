@@ -32,7 +32,7 @@ if (isset($_GET['course_id'])) {
     $courseId = $_GET['course_id'];
 
     // ดึงข้อมูลของวิชาและอาจารย์จากฐานข้อมูล
-    $sql = "SELECT c.course_id, c.course_nameTH, a.email AS instructor_email
+    $sql = "SELECT c.course_id, c.course_nameTH, a.email AS name
             FROM course c
             LEFT JOIN accounts a ON a.email = c.email
             WHERE c.course_id = :course_id";
@@ -191,7 +191,7 @@ if (isset($_GET['course_id'])) {
                                 <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-                                <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_email'] ?? 'N/A' ?></span></p>
+                                <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['name'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
