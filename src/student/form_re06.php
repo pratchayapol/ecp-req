@@ -216,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
-                                <select class="w-full border rounded px-3 py-2"  name="academicGroup" id="academicGroup">
+                                <select class="w-full border rounded px-3 py-2" name="academicGroup" id="academicGroup">
                                     <option value="" disabled selected>เลือกกลุ่มเรียน</option>
                                 </select>
                             </div>
@@ -277,19 +277,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label class="block font-medium mb-2 text-red-600">สถานภาพการลงทะเบียนวิชาที่ขอเพิ่มที่นั่ง *</label>
                             <div class="space-y-2">
                                 <label class="flex items-center gap-2">
-                                    <input type="radio" name="reg_status" />
+                                    <input type="radio" name="reg_status" value="ลงทะเบียนตามแผนการเรียน" />
                                     ลงทะเบียนตามแผนการเรียน
                                 </label>
                                 <label class="flex items-center gap-2">
-                                    <input type="radio" name="reg_status" />
+                                    <input type="radio" name="reg_status" value="ลงทะเบียนเพิ่ม “ปกติ”" />
                                     ลงทะเบียนเพิ่ม “ปกติ”
                                 </label>
                                 <label class="flex items-center gap-2">
-                                    <input type="radio" name="reg_status" />
+                                    <input type="radio" name="reg_status" value="ลงทะเบียนเพิ่ม “รีเกรด”" />
                                     ลงทะเบียนเพิ่ม “รีเกรด”
                                 </label>
                                 <label class="flex items-center gap-2">
-                                    <input type="radio" name="reg_status" />
+                                    <input type="radio" name="reg_status" value="ลงทะเบียนเพิ่ม “ซ่อม”" />
                                     ลงทะเบียนเพิ่ม “ซ่อม”
                                 </label>
                             </div>
