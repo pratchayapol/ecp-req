@@ -18,6 +18,32 @@ $logged_in = $_SESSION['logged_in'] ?? 0;
 $role = $_SESSION['role'] ?? '';
 $id = $_SESSION['id'] ?? '';
 $course_level = $_SESSION['course_level'] ?? '';
+
+
+
+// ดึงข้อมูลรายวิชาทั้งหมดเพื่อแสดงใน <select>
+$sql = "SELECT course_id, course_nameTH FROM courses";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// ตรวจสอบว่ามีการส่งคำขอจากการเลือกวิชา
+$courseInfo = null;
+if (isset($_GET['course_id'])) {
+    $courseId = $_GET['course_id'];
+
+    // ดึงข้อมูลของวิชาและอาจารย์จากฐานข้อมูล
+    $sql = "SELECT c.course_id, c.course_nameTH, a.email AS instructor_email
+            FROM courses c
+            LEFT JOIN accounts a ON a.email = c.email
+            WHERE c.course_id = :course_id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':course_id', $courseId, PDO::PARAM_STR);
+    $stmt->execute();
+    $courseInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -41,6 +67,31 @@ $course_level = $_SESSION['course_level'] ?? '';
     <!-- animation -->
     <link rel="stylesheet" href="../css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // ฟังก์ชันสำหรับอัปเดตข้อมูลวิชาที่แสดง
+        function updateCourseInfo(course) {
+            document.getElementById('courseId').textContent = course.course_id || 'N/A';
+            document.getElementById('courseNameTH').textContent = course.course_nameTH || 'N/A';
+            document.getElementById('courseInstructor').textContent = course.instructor_name || 'N/A';
+        }
+
+        // เมื่อเลือกวิชาใน dropdown
+        function loadCourseInfo(courseId) {
+            if (courseId) {
+                fetch(`?course_id=${courseId}`)
+                    .then(response => response.json())
+                    .then(data => updateCourseInfo(data))
+                    .catch(error => console.error('Error fetching course data:', error));
+            } else {
+                updateCourseInfo({
+                    course_id: 'N/A',
+                    course_nameTH: 'N/A',
+                    instructor_name: 'N/A'
+                });
+            }
+        }
+    </script>
+
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
@@ -120,103 +171,110 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                         <div>
                             <label class="block font-medium mb-1 text-red-600">รายวิชาที่ต้องการขอเพิ่มที่นั่ง *</label>
-                            <select class="w-full border rounded px-3 py-2">
-                                <option>เลือกรหัสรายวิชา</option>
+                            <select class="w-full border rounded px-3 py-2" id="courseSelect" onchange="loadCourseInfo(this.value)">
+                                <option value="">เลือกรหัสรายวิชา</option>
+                                <?php foreach ($courses as $course): ?>
+                                    <option value="<?= htmlspecialchars($course['course_id']) ?>">
+                                        <?= htmlspecialchars($course['course_id']) ?> - <?= htmlspecialchars($course['course_nameTH']) ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <p class="text-gray-600">รหัสรายวิชา: <span class="text-black">N/A</span></p>
+                                <p class="text-gray-600">รหัสรายวิชา: <span class="text-black" id="courseId"><?= $courseInfo['course_id'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-                                <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black">N/A</span></p>
+                                <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-                                <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black">N/A</span></p>
+                                <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_email'] ?? 'N/A' ?></span></p>
                             </div>
-                            <div>
-                                <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
-                                <select class="w-full border rounded px-3 py-2" id="academicGroup">
-                                    <option value="" disabled selected>เลือกกลุ่มเรียน</option>
-                                </select>
-                            </div>
-
-                            <script>
-                                // Get the current year in the Buddhist Era (B.E.)
-                                const currentYearBE1 = new Date().getFullYear() + 543;
-
-                                // Get the select element
-                                const select1 = document.getElementById('academicGroup');
-
-                                // Group prefixes
-                                const groups = ['ECP/N', 'ECP/R', 'ECP/Q'];
-
-                                // Generate options for each group with years from current year back to 8 years ago
-                                for (let i = 0; i <= 8; i++) {
-                                    const yearBE = currentYearBE1 - i;
-                                    groups.forEach(group => {
-                                        const option = document.createElement('option');
-                                        option.value = `${group}(${yearBE.toString().slice(-2)})`; // Get last 2 digits of the year
-                                        option.textContent = `${group}(${yearBE.toString().slice(-2)})`;
-                                        select1.appendChild(option);
-                                    });
-                                }
-                            </script>
-
                         </div>
 
                         <div>
-                            <label class="block font-medium mb-1 text-red-600">ขอเพิ่มที่นั่ง เนื่องจาก *</label>
-                            <select class="w-full border rounded px-3 py-2">
-                                <option>เลือกเหตุผลที่ขอเพิ่มที่นั่ง</option>
+                            <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
+                            <select class="w-full border rounded px-3 py-2" id="academicGroup">
+                                <option value="" disabled selected>เลือกกลุ่มเรียน</option>
                             </select>
                         </div>
 
-                        <div class="flex items-center gap-2">
-                            <label class="block font-medium text-red-600">ปัจจุบันรายวิชานี้มียอดลงทะเบียนแล้ว *</label>
-                            <input type="number" class="border rounded px-2 py-1 w-20" />
-                            <span>คน</span>
-                        </div>
+                        <script>
+                            // Get the current year in the Buddhist Era (B.E.)
+                            const currentYearBE1 = new Date().getFullYear() + 543;
 
-                        <div>
-                            <label class="block font-medium mb-2 text-red-600">สถานภาพการลงทะเบียนวิชาที่ขอเพิ่มที่นั่ง *</label>
-                            <div class="space-y-2">
-                                <label class="flex items-center gap-2">
-                                    <input type="radio" name="reg_status" />
-                                    ลงทะเบียนตามแผนการเรียน
-                                </label>
-                                <label class="flex items-center gap-2">
-                                    <input type="radio" name="reg_status" />
-                                    ลงทะเบียนเพิ่ม “ปกติ”
-                                </label>
-                                <label class="flex items-center gap-2">
-                                    <input type="radio" name="reg_status" />
-                                    ลงทะเบียนเพิ่ม “รีเกรด”
-                                </label>
-                                <label class="flex items-center gap-2">
-                                    <input type="radio" name="reg_status" />
-                                    ลงทะเบียนเพิ่ม “ซ่อม”
-                                </label>
-                            </div>
-                        </div>
+                            // Get the select element
+                            const select1 = document.getElementById('academicGroup');
 
-                        <div class="text-center pt-4">
-                            <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
-                                บันทึกคำร้อง
-                            </button>
-                        </div>
-                        <br>
-                    </form>
+                            // Group prefixes
+                            const groups = ['ECP/N', 'ECP/R', 'ECP/Q'];
+
+                            // Generate options for each group with years from current year back to 8 years ago
+                            for (let i = 0; i <= 8; i++) {
+                                const yearBE = currentYearBE1 - i;
+                                groups.forEach(group => {
+                                    const option = document.createElement('option');
+                                    option.value = `${group}(${yearBE.toString().slice(-2)})`; // Get last 2 digits of the year
+                                    option.textContent = `${group}(${yearBE.toString().slice(-2)})`;
+                                    select1.appendChild(option);
+                                });
+                            }
+                        </script>
+
                 </div>
 
+                <div>
+                    <label class="block font-medium mb-1 text-red-600">ขอเพิ่มที่นั่ง เนื่องจาก *</label>
+                    <select class="w-full border rounded px-3 py-2">
+                        <option>เลือกเหตุผลที่ขอเพิ่มที่นั่ง</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <label class="block font-medium text-red-600">ปัจจุบันรายวิชานี้มียอดลงทะเบียนแล้ว *</label>
+                    <input type="number" class="border rounded px-2 py-1 w-20" />
+                    <span>คน</span>
+                </div>
+
+                <div>
+                    <label class="block font-medium mb-2 text-red-600">สถานภาพการลงทะเบียนวิชาที่ขอเพิ่มที่นั่ง *</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-2">
+                            <input type="radio" name="reg_status" />
+                            ลงทะเบียนตามแผนการเรียน
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="radio" name="reg_status" />
+                            ลงทะเบียนเพิ่ม “ปกติ”
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="radio" name="reg_status" />
+                            ลงทะเบียนเพิ่ม “รีเกรด”
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="radio" name="reg_status" />
+                            ลงทะเบียนเพิ่ม “ซ่อม”
+                        </label>
+                    </div>
+                </div>
+
+                <div class="text-center pt-4">
+                    <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
+                        บันทึกคำร้อง
+                    </button>
+                </div>
+                <br>
+                </form>
             </div>
 
-
-            <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
-                2025 All rights reserved by Software Engineering 3/67
-            </footer>
         </div>
+
+
+        <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
+            2025 All rights reserved by Software Engineering 3/67
+        </footer>
+    </div>
     </div>
 
     <!-- SweetAlert2 CDN -->
