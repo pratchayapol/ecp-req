@@ -22,7 +22,7 @@ $course_level = $_SESSION['course_level'] ?? '';
 
 
 // ดึงข้อมูลรายวิชาทั้งหมดเพื่อแสดงใน <select>
-$sql = "SELECT course_id, course_nameTH FROM courses";
+$sql = "SELECT course_id, course_nameTH FROM course";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
