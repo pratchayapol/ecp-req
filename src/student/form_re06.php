@@ -106,7 +106,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                     const select = document.getElementById('academicYear');
 
                                     // Generate the academic years: 1 year before, current year, and 1 year after (in B.E.)
-                                    for (let i = currentYearBE - 1; i <= currentYearBE + 1; i++) {
+                                    for (let i = currentYearBE - 1; i <= currentYearBE; i++) {
                                         const option = document.createElement('option');
                                         option.value = i;
                                         option.textContent = i;
