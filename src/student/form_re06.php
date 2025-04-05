@@ -56,16 +56,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $reason = $_POST['reason'] ?? '';
     $registrations = $_POST['registrations'] ?? '';
     $regStatus = $_POST['reg_status'] ?? '';
-
+    $status = "1"; //สถานะรออนุมัติ
+    $timestamp = date('Y-m-d H:i:s');
     // ทำการประมวลผลข้อมูลหรือบันทึกในฐานข้อมูล
-    // ตัวอย่างการแสดงผลค่าที่ได้รับ
-    echo "ภาคเรียน: " . htmlspecialchars($semester) . "<br>";
-    echo "ปีการศึกษา: " . htmlspecialchars($academicYear) . "<br>";
-    echo "รหัสรายวิชา: " . htmlspecialchars($courseId) . "<br>";
-    echo "กลุ่มเรียน: " . htmlspecialchars($group) . "<br>";
-    echo "เหตุผล: " . htmlspecialchars($reason) . "<br>";
-    echo "ยอดลงทะเบียน: " . htmlspecialchars($registrations) . " คน<br>";
-    echo "สถานภาพการลงทะเบียน: " . htmlspecialchars($regStatus) . "<br>";
+
+
+    // เตรียมคำสั่ง SQL
+    $stmt = $pdo->prepare("INSERT INTO form_re06 
+        (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, time_stamp, email) 
+        VALUES 
+        (:term, :year, :reason, :group, :course_id, :coutter, :status, NULL, :time_stamp, :email)");
+
+    // Bind ค่าพารามิเตอร์
+    $stmt->execute([
+        ':term' => $semester,
+        ':year' => $academicYear,
+        ':reason' => $reason,
+        ':group' => $group,
+        ':course_id' => $courseId,
+        ':coutter' => $registrations,
+        ':status' => $status,
+        ':time_stamp' => $timestamp,
+        ':email' => $email
+    ]);
+
+    echo "บันทึกข้อมูลสำเร็จ!";
 }
 
 ?>
