@@ -81,10 +81,12 @@ $course_level = $_SESSION['course_level'] ?? '';
             </div>
 
 
-            <footer class="flex text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
+            
+        </div>
+
+        <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
                 2025 All rights reserved by Software Engineering 3/67
             </footer>
-        </div>
     </div>
 
     <!-- SweetAlert2 CDN -->
