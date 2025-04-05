@@ -49,8 +49,9 @@ $course_level = $_SESSION['course_level'] ?? '';
         <div id="sidebar" class="sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
             <div class="text-center">
                 <img src="/image/logo.png" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg mx-auto" alt="Logo">
-                <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] mt-4 shadow-md" id="dashboard-btn"> Dashboard </button>
+
                 <div class="mt-4 space-y-2">
+                    <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] shadow-md" id="dashboard-btn"> Dashboard </button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="re6">คำร้องขอเพิ่มที่นั่ง RE.06</button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="re7">คำร้องขอเปิดนอกแผน RE.07</button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="form_all">คำร้องของนักศึกษา</button>
@@ -115,7 +116,6 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                                 // Display the modified date
                                 echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
-
                             }
                         }
                     } catch (PDOException $e) {
