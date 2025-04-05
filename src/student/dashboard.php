@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '/connect/dbcon.php';
+include 'connect/dbcon.php';
 // echo '<pre>';
 // print_r($_SESSION);
 // echo '</pre>';
@@ -39,7 +39,7 @@ $course_level = $_SESSION['course_level'] ?? '';
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="../css/fonts.css">
     <!-- animation -->
-    <link rel="stylesheet" href="./css/animation.css">
+    <link rel="stylesheet" href="../css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
