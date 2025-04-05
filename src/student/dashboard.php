@@ -76,13 +76,13 @@ $course_level = $_SESSION['course_level'] ?? '';
         <!-- Main Content -->
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
             <div class="p-8">
-                <div class="bg-white rounded-lg shadow-lg min-h-[900px]">
+                <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
                     <?php
                     try {
-                        
+
                         // Query the database
-                        $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 0");
+                        $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 1");
                         $stmt->execute();
 
                         // Check if any data is returned
