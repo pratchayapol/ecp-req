@@ -81,7 +81,6 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                     <?php
                     try {
-
                         // Query the database
                         $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 1");
                         $stmt->execute();
@@ -106,8 +105,14 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 $years = date("Y", strtotime($myDATE)) + 543; // ค่า ค.ศ.บวก 543 ทำให้เป็น ค.ศ.
                                 $datetime = "วัน $ThDay[$week] ที่ $day $ThMonth[$months] $years เวลา $time น.";
 
+                                // Display the article title
                                 echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
+
+                                // Display the article content with HTML tags
+                                // Use `htmlspecialchars` on the title to prevent XSS, but not on content to allow HTML rendering
                                 echo $row["article_content"];
+
+                                // Display the modified date
                                 echo '<span>แก้ไขเมื่อ : ' . $datetime . '</span>';
                             }
                         }
@@ -116,8 +121,8 @@ $course_level = $_SESSION['course_level'] ?? '';
                         echo 'Connection failed: ' . $e->getMessage();
                     }
                     ?>
-
                 </div>
+
             </div>
 
 
