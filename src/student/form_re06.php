@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $academicYear = $_POST['academicYear'] ?? '';
         $courseId = $_POST['course_id'] ?? '';
         $group = $_POST['academicGroup'] ?? '';
-        $reason = $_POST['reason'] ?? '';
+        $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
         $registrations = $_POST['registrations'] ?? '';
         $regStatus = $_POST['reg_status'] ?? '';
         $status = "1";
@@ -284,16 +284,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <div>
                             <label class="block font-medium mb-1 text-red-600">ขอเพิ่มที่นั่ง เนื่องจาก *</label>
-                            <select class="w-full border rounded px-3 py-2" name="reason" required>
+                            <select class="w-full border rounded px-3 py-2" name="reason" id="reason-select" required onchange="toggleOtherReason()">
                                 <option value="" disabled selected>เลือกเหตุผลที่ขอเพิ่มที่นั่ง</option>
                                 <option value="เป็นรายวิชาตามแผนการเรียนที่ต้องเรียนในภาคการศึกษานี้เพื่อสำเร็จการศึกษา">เป็นรายวิชาตามแผนการเรียนที่ต้องเรียนในภาคการศึกษานี้เพื่อสำเร็จการศึกษา</option>
                                 <option value="ต้องการเรียนเพื่อเสริมความรู้และทักษะที่จำเป็นสำหรับการทำงานในอนาคต">ต้องการเรียนเพื่อเสริมความรู้และทักษะที่จำเป็นสำหรับการทำงานในอนาคต</option>
                                 <option value="วิชานี้เป็นพื้นฐานสำหรับการเรียนวิชาอื่นๆ ที่สำคัญในหลักสูตร">วิชานี้เป็นพื้นฐานสำหรับการเรียนวิชาอื่นๆ ที่สำคัญในหลักสูตร</option>
                                 <option value="ไม่สามารถลงเรียนในภาคเรียนอื่นได้ เนื่องจากการวางแผนการเรียนให้สอดคล้องกับการจบการศึกษา">ไม่สามารถลงเรียนในภาคเรียนอื่นได้ เนื่องจากการวางแผนการเรียนให้สอดคล้องกับการจบการศึกษา</option>
                                 <option value="มีความจำเป็นต้องเรียนในวิชานี้เพื่อไม่ให้การศึกษาล่าช้าและสำเร็จการศึกษาในเวลาที่กำหนด">มีความจำเป็นต้องเรียนในวิชานี้เพื่อไม่ให้การศึกษาล่าช้าและสำเร็จการศึกษาในเวลาที่กำหนด</option>
-
+                                <option value="other">อื่นๆ (โปรดระบุ)</option>
                             </select>
+
+                            <!-- ช่องกรอกเหตุผลเพิ่มเติม -->
+                            <div id="other-reason-container" class="mt-2 hidden">
+                                <input type="text" name="other_reason" id="other-reason-input"
+                                    class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุเหตุผลอื่นๆ">
+                            </div>
                         </div>
+
+                        <script>
+                            function toggleOtherReason() {
+                                const select = document.getElementById('reason-select');
+                                const otherContainer = document.getElementById('other-reason-container');
+                                const otherInput = document.getElementById('other-reason-input');
+
+                                if (select.value === 'other') {
+                                    otherContainer.classList.remove('hidden');
+                                    otherInput.setAttribute('required', 'required');
+                                } else {
+                                    otherContainer.classList.add('hidden');
+                                    otherInput.removeAttribute('required');
+                                }
+                            }
+                        </script>
 
                         <div class="flex items-center gap-2">
                             <label class="block font-medium text-red-600">ปัจจุบันรายวิชานี้มียอดลงทะเบียนแล้ว *</label>
