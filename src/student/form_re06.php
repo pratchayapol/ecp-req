@@ -19,8 +19,6 @@ $role = $_SESSION['role'] ?? '';
 $id = $_SESSION['id'] ?? '';
 $course_level = $_SESSION['course_level'] ?? '';
 
-
-
 // ดึงข้อมูลรายวิชาทั้งหมดเพื่อแสดงใน <select>
 $sql = "SELECT course_id, course_nameTH FROM course";
 $stmt = $pdo->prepare($sql);
@@ -45,7 +43,6 @@ if (isset($_GET['course_id'])) {
     echo json_encode($courseInfo);
     exit; // ปิดสคริปต์หลังส่งข้อมูล
 }
-
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -118,7 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- FontAwesome (สำหรับไอคอน) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-
     <!-- Custom fonts for this template-->
     <link rel="shortcut icon" href="../image/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -153,7 +149,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     </script>
-
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
@@ -279,7 +274,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     });
                                 }
                             </script>
-
                         </div>
 
                         <div>
