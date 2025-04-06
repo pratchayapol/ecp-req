@@ -355,17 +355,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div>
                             <label class="block font-medium mb-1 text-red-600">ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา *</label>
                             <select class="w-full border rounded px-3 py-2" name="Yearend" id="Yearend" required>
-                                <option value="" disabled selected>เลือกปีการศึกษา</option>
+                                <option value="" disabled selected>เลือกภาคเรียน/ปีการศึกษา</option>
                             </select>
                         </div>
 
                         <script>
                             const yearEndSelect = document.getElementById('Yearend');
-                            for (let i = currentYearBE - 1; i <= currentYearBE + 2; i++) {
-                                const option = document.createElement('option');
-                                option.value = i;
-                                option.textContent = i;
-                                yearEndSelect.appendChild(option);
+                            const currentYear = new Date().getFullYear();
+                            const currentYearBE1 = currentYear + 543;
+
+                            for (let year = currentYearBE1 - 1; year <= currentYearBE1 + 2; year++) {
+                                for (let term = 1; term <= 3; term++) {
+                                    const option = document.createElement('option');
+                                    option.value = `${term}/${year}`;
+                                    option.textContent = `${term}/${year}`;
+                                    yearEndSelect.appendChild(option);
+                                }
                             }
                         </script>
 
