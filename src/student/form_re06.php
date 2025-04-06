@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             icon: 'success',
             confirmButtonText: 'ตกลง'
         }).then(() => {
-            window.location.href = 'form_re06';
+            window.location.href = 'form_all';
         });
         </script>
         ";
