@@ -130,7 +130,7 @@ if (isset($_GET['course_id'])) {
             ]);
 
             // ทำให้แน่ใจว่ายังไม่มีการแสดง HTML ก่อนหน้านี้
-            echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
+
             echo "
         <script>
         Swal.fire({
@@ -143,9 +143,8 @@ if (isset($_GET['course_id'])) {
         });
         </script>
         ";
-            echo "</body></html>";
         } catch (PDOException $e) {
-            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+
             echo "<script>
         Swal.fire({
             icon: 'error',
