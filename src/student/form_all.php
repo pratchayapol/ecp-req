@@ -86,11 +86,11 @@ $course_level = $_SESSION['course_level'] ?? '';
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">คำร้องที่ขอของนักศึกษา</h1>
 
 
+
+
+                    
                 </div>
-
             </div>
-
-
             <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
                 2025 All rights reserved by Software Engineering 3/67
             </footer>
