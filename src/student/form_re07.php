@@ -389,6 +389,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                         </div>
 
+                        <div>
+                                <label class="block font-medium mb-1 text-red-600">ภาคการศึกษาที่คาดว่าจะสําเร็จการศึกษา  *</label>
+                                <select class="w-full border rounded px-3 py-2" name="Yearend" id="Yearend" required>
+                                    <option value="" disabled selected>เลือกปีการศึกษา</option>
+                                </select>
+
+                                <script>
+                                    // Get the current year in the Buddhist Era (B.E.)
+                                    const currentYearBEs = new Date().getFullYear() + 543;
+
+                                    // Get the select element
+                                    const selects1 = document.getElementById('Yearend');
+
+                                    // Generate the academic years: 1 year before, current year, and 2 year after (in B.E.)
+                                    for (let i = currentYearBE - 1; i <= currentYearBE + 2; i++) {
+                                        const option = document.createElement('option');
+                                        option.value = i;
+                                        option.textContent = i;
+                                        selects1.appendChild(option);
+                                    }
+                                </script>
+                            </div>
+                        </div>
+
                         <div class="text-center pt-4">
                             <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
                                 บันทึกคำร้อง
