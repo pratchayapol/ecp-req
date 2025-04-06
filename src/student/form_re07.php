@@ -205,24 +205,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <select class="w-full border rounded px-3 py-2" name="academicYear" id="academicYear" required>
                                     <option value="" disabled selected>เลือกปีการศึกษา</option>
                                 </select>
-
-                                <script>
-                                    // Get the current year in the Buddhist Era (B.E.)
-                                    const currentYearBE = new Date().getFullYear() + 543;
-
-                                    // Get the select element
-                                    const select = document.getElementById('academicYear');
-
-                                    // Generate the academic years: 1 year before, current year, and 1 year after (in B.E.)
-                                    for (let i = currentYearBE - 1; i <= currentYearBE; i++) {
-                                        const option = document.createElement('option');
-                                        option.value = i;
-                                        option.textContent = i;
-                                        select.appendChild(option);
-                                    }
-                                </script>
                             </div>
                         </div>
+
+                        <script>
+                            const currentYearBE = new Date().getFullYear() + 543;
+                            const academicYearSelect = document.getElementById('academicYear');
+                            for (let i = currentYearBE - 1; i <= currentYearBE; i++) {
+                                const option = document.createElement('option');
+                                option.value = i;
+                                option.textContent = i;
+                                academicYearSelect.appendChild(option);
+                            }
+                        </script>
 
                         <div>
                             <label class="block font-medium mb-1 text-red-600">รายวิชาที่ต้องการขอเปิดนอกแผนการเรียน *</label>
@@ -252,29 +247,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <option value="" disabled selected>เลือกกลุ่มเรียน</option>
                                 </select>
                             </div>
-
-                            <script>
-                                // Get the current year in the Buddhist Era (B.E.)
-                                const currentYearBE1 = new Date().getFullYear() + 543;
-
-                                // Get the select element
-                                const select1 = document.getElementById('academicGroup');
-
-                                // Group prefixes
-                                const groups = ['ECP/N', 'ECP/R', 'ECP/Q'];
-
-                                // Generate options for each group with years from current year back to 8 years ago
-                                for (let i = 0; i <= 8; i++) {
-                                    const yearBE = currentYearBE1 - i;
-                                    groups.forEach(group => {
-                                        const option = document.createElement('option');
-                                        option.value = `${group}(${yearBE.toString().slice(-2)})`; // Get last 2 digits of the year
-                                        option.textContent = `${group}(${yearBE.toString().slice(-2)})`;
-                                        select1.appendChild(option);
-                                    });
-                                }
-                            </script>
                         </div>
+
+                        <script>
+                            const academicGroupSelect = document.getElementById('academicGroup');
+                            const groups = ['ECP/N', 'ECP/R', 'ECP/Q'];
+                            for (let i = 0; i <= 8; i++) {
+                                const yearBE = currentYearBE - i;
+                                groups.forEach(group => {
+                                    const option = document.createElement('option');
+                                    option.value = `${group}(${yearBE.toString().slice(-2)})`;
+                                    option.textContent = option.value;
+                                    academicGroupSelect.appendChild(option);
+                                });
+                            }
+                        </script>
 
                         <div>
                             <label class="block font-medium mb-1 text-red-600">ขอเปิดนอกแผนการเรียน เนื่องจาก *</label>
@@ -288,10 +275,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <option value="other">อื่นๆ (โปรดระบุ)</option>
                             </select>
 
-                            <!-- ช่องกรอกเหตุผลเพิ่มเติม -->
                             <div id="other-reason-container" class="mt-2 hidden">
-                                <input type="text" name="other_reason" id="other-reason-input"
-                                    class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุเหตุผลอื่นๆ">
+                                <input type="text" name="other_reason" id="other-reason-input" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุเหตุผลอื่นๆ">
                             </div>
                         </div>
 
@@ -313,60 +298,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <div class="flex items-center gap-2">
                             <label class="block font-medium text-red-600">หน่วยกิต GPA ปัจจุบัน *</label>
-                            <input
-                                type="number"
-                                name="GPA"
-                                id="GPA"
-                                required
-                                step="0.01"
-                                min="1.00"
-                                max="4.00"
-                                class="border rounded px-2 py-1 w-20" />
+                            <input type="number" name="GPA" id="GPA" required step="0.01" min="1.00" max="4.00" class="border rounded px-2 py-1 w-20" />
                         </div>
 
                         <script>
-                            const input = document.getElementById('GPA');
-
-                            input.addEventListener('input', function() {
-                                let value = parseFloat(input.value);
-
+                            const gpaInput = document.getElementById('GPA');
+                            gpaInput.addEventListener('input', function() {
+                                let value = parseFloat(gpaInput.value);
                                 if (isNaN(value) || value < 1.00) {
-                                    input.value = "1.00";
+                                    gpaInput.value = "1.00";
                                 } else if (value > 4.00) {
-                                    input.value = "4.00";
+                                    gpaInput.value = "4.00";
                                 } else {
-                                    // จำกัดทศนิยมไม่เกิน 2 ตำแหน่ง
-                                    input.value = value.toFixed(2);
+                                    gpaInput.value = value.toFixed(2);
                                 }
                             });
                         </script>
 
                         <div class="flex items-center gap-2">
-                            <label class="block font-medium text-red-600">จํานวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้(รวมรายวิชาที่ขอเปิดด้วย) *</label>
-                            <input
-                                type="number"
-                                name="GPA ALL"
-                                id="GPA ALL"
-                                required
-                                step="0.01"
-                                min="1.00"
-                                max="4.00"
-                                class="border rounded px-2 py-1 w-20" />
+                            <label class="block font-medium text-red-600">จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้ (รวมรายวิชาที่ขอเปิดด้วย) *</label>
+                            <input type="number" name="gpa_all" id="gpa_all" required step="0.01" min="1.00" max="4.00" class="border rounded px-2 py-1 w-20" />
                         </div>
 
                         <script>
-                            const input = document.getElementById('GPA ALL');
-
-                            input.addEventListener('input', function() {
-                                let value = parseFloat(input.value);
-
+                            const gpaAllInput = document.getElementById('gpa_all');
+                            gpaAllInput.addEventListener('input', function() {
+                                let value = parseFloat(gpaAllInput.value);
                                 if (isNaN(value) || value < 1.00) {
-                                    input.value = "1.00";
+                                    gpaAllInput.value = "1.00";
                                 } else if (value > 4.00) {
-                                    input.value = "4.00";
+                                    gpaAllInput.value = "4.00";
                                 } else {
-                                    // จำกัดทศนิยมไม่เกิน 2 ตำแหน่ง
-                                    input.value = value.toFixed(2);
+                                    gpaAllInput.value = value.toFixed(2);
                                 }
                             });
                         </script>
@@ -390,36 +353,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
 
                         <div>
-                                <label class="block font-medium mb-1 text-red-600">ภาคการศึกษาที่คาดว่าจะสําเร็จการศึกษา  *</label>
-                                <select class="w-full border rounded px-3 py-2" name="Yearend" id="Yearend" required>
-                                    <option value="" disabled selected>เลือกปีการศึกษา</option>
-                                </select>
-
-                                <script>
-                                    // Get the current year in the Buddhist Era (B.E.)
-                                    const currentYearBEs = new Date().getFullYear() + 543;
-
-                                    // Get the select element
-                                    const selects1 = document.getElementById('Yearend');
-
-                                    // Generate the academic years: 1 year before, current year, and 2 year after (in B.E.)
-                                    for (let i = currentYearBE - 1; i <= currentYearBE + 2; i++) {
-                                        const option = document.createElement('option');
-                                        option.value = i;
-                                        option.textContent = i;
-                                        selects1.appendChild(option);
-                                    }
-                                </script>
-                            </div>
+                            <label class="block font-medium mb-1 text-red-600">ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา *</label>
+                            <select class="w-full border rounded px-3 py-2" name="Yearend" id="Yearend" required>
+                                <option value="" disabled selected>เลือกปีการศึกษา</option>
+                            </select>
                         </div>
+
+                        <script>
+                            const yearEndSelect = document.getElementById('Yearend');
+                            for (let i = currentYearBE - 1; i <= currentYearBE + 2; i++) {
+                                const option = document.createElement('option');
+                                option.value = i;
+                                option.textContent = i;
+                                yearEndSelect.appendChild(option);
+                            }
+                        </script>
 
                         <div class="text-center pt-4">
                             <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
-                                บันทึกคำร้อง
+                                บันทึก
                             </button>
                         </div>
-                        <br>
                     </form>
+
                 </div>
 
             </div>
