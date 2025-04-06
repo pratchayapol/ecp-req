@@ -298,15 +298,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <div class="flex items-center gap-2">
                             <label class="block font-medium text-red-600">หน่วยกิต GPA ปัจจุบัน *</label>
-                            <input type="number" name="GPA" id="GPA" required step="0.01" min="1.00" max="4.00" class="border rounded px-2 py-1 w-20" />
+                            <input type="number" name="GPA" id="GPA" required step="0.01" min="1.75" max="4.00" class="border rounded px-2 py-1 w-20" />
                         </div>
 
                         <script>
                             const gpaInput = document.getElementById('GPA');
                             gpaInput.addEventListener('input', function() {
                                 let value = parseFloat(gpaInput.value);
-                                if (isNaN(value) || value < 1.00) {
-                                    gpaInput.value = "1.00";
+                                if (isNaN(value) || value < 1.75) {
+                                    gpaInput.value = "1.75";
                                 } else if (value > 4.00) {
                                     gpaInput.value = "4.00";
                                 } else {
@@ -317,15 +317,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <div class="flex items-center gap-2">
                             <label class="block font-medium text-red-600">จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้ (รวมรายวิชาที่ขอเปิดด้วย) *</label>
-                            <input type="number" name="gpa_all" id="gpa_all" required step="0.01" min="1.00" max="4.00" class="border rounded px-2 py-1 w-20" />
+                            <input type="number" name="gpa_all" id="gpa_all" required step="0.01" min="1.75" max="4.00" class="border rounded px-2 py-1 w-20" />
                         </div>
 
                         <script>
                             const gpaAllInput = document.getElementById('gpa_all');
                             gpaAllInput.addEventListener('input', function() {
                                 let value = parseFloat(gpaAllInput.value);
-                                if (isNaN(value) || value < 1.00) {
-                                    gpaAllInput.value = "1.00";
+                                if (isNaN(value) || value < 1.75) {
+                                    gpaAllInput.value = "1.75";
                                 } else if (value > 4.00) {
                                     gpaAllInput.value = "4.00";
                                 } else {
