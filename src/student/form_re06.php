@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt = $pdo->prepare("INSERT INTO form_re06 
         (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, reg_status, time_stamp, email) 
         VALUES 
-        (:term, :year, :reason, :group, :course_id, :coutter, :status, NULL, reg_status, :time_stamp, :email)");
+        (:term, :year, :reason, :group, :course_id, :coutter, :status, NULL, :reg_status, :time_stamp, :email)");
 
         $stmt->execute([
             ':term' => $semester,
