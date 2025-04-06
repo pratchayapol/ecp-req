@@ -85,10 +85,63 @@ $course_level = $_SESSION['course_level'] ?? '';
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">คำร้องที่ขอของนักศึกษา</h1>
 
+                    <!-- Filters -->
+                    <div class="flex items-center gap-4 mb-4 justify-center">
+                        <div>
+                            <label class="mr-2">ประเภทคำร้อง:</label>
+                            <select class="border px-3 py-2 rounded">
+                                <option>เลือกประเภทคำร้อง</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="mr-2">สถานะคำร้อง:</label>
+                            <select class="border px-3 py-2 rounded">
+                                <option>เลือกสถานะคำร้อง</option>
+                            </select>
+                        </div>
+                        <button class="bg-gray-600 text-white px-4 py-2 rounded">ล้างข้อมูล</button>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full table-auto border rounded overflow-hidden">
+                            <thead class="bg-orange-500 text-white text-left">
+                                <tr>
+                                    <th class="px-4 py-2">เลขคำร้อง</th>
+                                    <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
+                                    <th class="px-4 py-2">รายวิชา</th>
+                                    <th class="px-4 py-2">กลุ่มเรียน</th>
+                                    <th class="px-4 py-2">สถานะคำร้อง</th>
+                                    <th class="px-4 py-2">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-orange-100">
+                                    <td class="px-4 py-2">RE07-1</td>
+                                    <td class="px-4 py-2">2/2567</td>
+                                    <td class="px-4 py-2">31-407-102-302 วิศวกรรมซอฟต์แวร์</td>
+                                    <td class="px-4 py-2">ECP/R(64)</td>
+                                    <td class="px-4 py-2 text-orange-600">ไม่อนุมัติ</td>
+                                    <td class="px-4 py-2">
+                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="px-4 py-2">RE06-1</td>
+                                    <td class="px-4 py-2">1/2567</td>
+                                    <td class="px-4 py-2">31-407-104-201 วงจรดิจิทัลและแล็บ</td>
+                                    <td class="px-4 py-2">ECP/R(64)</td>
+                                    <td class="px-4 py-2 text-green-600">อนุมัติแล้ว</td>
+                                    <td class="px-4 py-2">
+                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
 
 
-                    
                 </div>
             </div>
             <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
