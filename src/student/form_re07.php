@@ -88,9 +88,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':email_advisor_comment' => $email_advisor_comment
         ]);
 
-        echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว'); window.location.href='form_all';</script>";
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
+        echo "
+        <script>
+        Swal.fire({
+            title: 'สำเร็จ!',
+            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            icon: 'success',
+            confirmButtonText: 'ตกลง'
+        }).then(() => {
+            window.location.href = 'form_all';
+        });
+        </script>
+        ";
+        echo "</body></html>";
     } catch (PDOException $e) {
-        die("เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล: " . $e->getMessage());
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'เกิดข้อผิดพลาด!',
+            text: '" . $e->getMessage() . "',
+        });
+        </script>";
     }
 }
 
@@ -388,7 +408,7 @@ $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <div class="text-center pt-4">
                             <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
-                                บันทึก
+                                บันทึกคำร้อง
                             </button>
                         </div>
                         <br>
