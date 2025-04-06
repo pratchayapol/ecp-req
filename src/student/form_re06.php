@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ':group' => $group,
             ':course_id' => $courseId,
             ':coutter' => $registrations,
-            ':reg_status' => $reg_status,
+            ':reg_status' => $regStatus,
             ':status' => $status,
             ':time_stamp' => $timestamp,
             ':email' => $email
