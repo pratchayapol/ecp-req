@@ -28,7 +28,7 @@ $course_level = $_SESSION['course_level'] ?? '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>คำร้องของนักศึกษา</title>
+    <title>คำร้องที่ขอของนักศึกษา</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- FontAwesome (สำหรับไอคอน) -->
