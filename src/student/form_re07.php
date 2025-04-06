@@ -312,38 +312,79 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </script>
 
                         <div class="flex items-center gap-2">
-                            <label class="block font-medium text-red-600">ปัจจุบันรายวิชานี้มียอดลงทะเบียนแล้ว *</label>
-                            <input type="number" name="registrations" id="registrations" required class="border rounded px-2 py-1 w-20" min="1" />
-                            <span>คน</span>
+                            <label class="block font-medium text-red-600">หน่วยกิต GPA ปัจจุบัน *</label>
+                            <input
+                                type="number"
+                                name="GPA"
+                                id="GPA"
+                                required
+                                step="0.01"
+                                min="1.00"
+                                max="4.00"
+                                class="border rounded px-2 py-1 w-20" />
                         </div>
 
                         <script>
-                            const input = document.getElementById('registrations');
+                            const input = document.getElementById('GPA');
 
                             input.addEventListener('input', function() {
-                                if (input.value <= 0) {
-                                    input.value = 1; // กำหนดค่าเริ่มต้นที่ 1 ถ้าค่าต่ำกว่าหรือเท่ากับ 0
+                                let value = parseFloat(input.value);
+
+                                if (isNaN(value) || value < 1.00) {
+                                    input.value = "1.00";
+                                } else if (value > 4.00) {
+                                    input.value = "4.00";
+                                } else {
+                                    // จำกัดทศนิยมไม่เกิน 2 ตำแหน่ง
+                                    input.value = value.toFixed(2);
                                 }
                             });
                         </script>
+
+                        <div class="flex items-center gap-2">
+                            <label class="block font-medium text-red-600">จํานวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้(รวมรายวิชาที่ขอเปิดด้วย) *</label>
+                            <input
+                                type="number"
+                                name="GPA ALL"
+                                id="GPA ALL"
+                                required
+                                step="0.01"
+                                min="1.00"
+                                max="4.00"
+                                class="border rounded px-2 py-1 w-20" />
+                        </div>
+
+                        <script>
+                            const input = document.getElementById('GPA ALL');
+
+                            input.addEventListener('input', function() {
+                                let value = parseFloat(input.value);
+
+                                if (isNaN(value) || value < 1.00) {
+                                    input.value = "1.00";
+                                } else if (value > 4.00) {
+                                    input.value = "4.00";
+                                } else {
+                                    // จำกัดทศนิยมไม่เกิน 2 ตำแหน่ง
+                                    input.value = value.toFixed(2);
+                                }
+                            });
+                        </script>
+
                         <div>
                             <label class="block font-medium mb-2 text-red-600">สถานภาพการลงทะเบียนวิชาที่ขอเพิ่มที่นั่ง *</label>
                             <div class="space-y-2">
                                 <label class="flex items-center gap-2">
-                                    <input type="radio" name="reg_status" value="ลงทะเบียนตามแผนการเรียน" required />
-                                    ลงทะเบียนตามแผนการเรียน
+                                    <input type="radio" name="reg_status" value="ลงปกติ" required />
+                                    ลงปกติ
                                 </label>
                                 <label class="flex items-center gap-2">
-                                    <input type="radio" name="reg_status" value="ลงทะเบียนเพิ่ม “ปกติ”" />
-                                    ลงทะเบียนเพิ่ม “ปกติ”
+                                    <input type="radio" name="reg_status" value="รีเกรด" />
+                                    รีเกรด
                                 </label>
                                 <label class="flex items-center gap-2">
-                                    <input type="radio" name="reg_status" value="ลงทะเบียนเพิ่ม “รีเกรด”" />
-                                    ลงทะเบียนเพิ่ม “รีเกรด”
-                                </label>
-                                <label class="flex items-center gap-2">
-                                    <input type="radio" name="reg_status" value="ลงทะเบียนเพิ่ม “ซ่อม”" />
-                                    ลงทะเบียนเพิ่ม “ซ่อม”
+                                    <input type="radio" name="reg_status" value="ซ่อม" />
+                                    ซ่อม
                                 </label>
                             </div>
                         </div>
