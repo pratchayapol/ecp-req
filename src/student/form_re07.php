@@ -187,12 +187,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
-                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">แบบฟอร์มคำร้องขอเพิ่มที่นั่ง RE.06</h1>
+                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">แบบฟอร์มคำร้องขอเปิดนอกแผน RE.07</h1>
 
                     <form class="space-y-4 m-6" action="" method="POST">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block font-medium mb-1 text-red-600">คำร้องขอเพิ่มที่นั่ง ภาคเรียนที่ *</label>
+                                <label class="block font-medium mb-1 text-red-600">คำร้องขอเปิดนอกแผนการเรียน ภาคเรียนที่ *</label>
                                 <select class="w-full border rounded px-3 py-2" name="semester" required>
                                     <option value="" disabled selected>เลือกภาคเรียน</option>
                                     <option value="1">1</option>
@@ -225,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
 
                         <div>
-                            <label class="block font-medium mb-1 text-red-600">รายวิชาที่ต้องการขอเพิ่มที่นั่ง *</label>
+                            <label class="block font-medium mb-1 text-red-600">รายวิชาที่ต้องการขอเปิดนอกแผนการเรียน *</label>
                             <select class="w-full border rounded px-3 py-2" name="course_id" id="courseSelect" required onchange="loadCourseInfo(this.value)">
                                 <option value="">เลือกรหัสรายวิชา</option>
                                 <?php foreach ($courses as $course): ?>
@@ -277,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
 
                         <div>
-                            <label class="block font-medium mb-1 text-red-600">ขอเพิ่มที่นั่ง เนื่องจาก *</label>
+                            <label class="block font-medium mb-1 text-red-600">ขอเปิดนอกแผนการเรียน เนื่องจาก *</label>
                             <select class="w-full border rounded px-3 py-2" name="reason" id="reason-select" required onchange="toggleOtherReason()">
                                 <option value="" disabled selected>เลือกเหตุผลที่ขอเพิ่มที่นั่ง</option>
                                 <option value="เป็นรายวิชาตามแผนการเรียนที่ต้องเรียนในภาคการศึกษานี้เพื่อสำเร็จการศึกษา">เป็นรายวิชาตามแผนการเรียนที่ต้องเรียนในภาคการศึกษานี้เพื่อสำเร็จการศึกษา</option>
