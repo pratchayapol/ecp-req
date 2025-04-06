@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $final_reason = ($reason === 'other') ? $other_reason : $reason;
 
         // เตรียมคำสั่ง SQL
-        $stmt = $pdo->prepare("INSERT INTO course_requests (
+        $stmt = $pdo->prepare("INSERT INTO form_re07 (
             semester, academic_year, course_id, academic_group, reason, gpa, gpa_all, reg_status, expected_graduation, email, email_advisor_comment
         ) VALUES (
             :semester, :academicYear, :course_id, :academicGroup, :reason, :GPA, :gpa_all, :reg_status, :Yearend, :email, :email_advisor_comment
