@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':email_advisor_comment' => $email_advisor_comment
         ]);
 
-        echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว'); window.location.href='form_page.php';</script>";
+        echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว'); window.location.href='form_all';</script>";
     } catch (PDOException $e) {
         die("เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล: " . $e->getMessage());
     }
