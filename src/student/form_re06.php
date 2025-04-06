@@ -59,12 +59,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $regStatus = $_POST['reg_status'] ?? '';
         $status = "1";
         $timestamp = date('Y-m-d H:i:s');
-        $email = $_POST['email'] ?? '';
 
         $stmt = $pdo->prepare("INSERT INTO form_re06 
-        (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, time_stamp, email) 
+        (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, reg_status, time_stamp, email) 
         VALUES 
-        (:term, :year, :reason, :group, :course_id, :coutter, :status, NULL, :time_stamp, :email)");
+        (:term, :year, :reason, :group, :course_id, :coutter, :status, NULL, reg_status, :time_stamp, :email)");
 
         $stmt->execute([
             ':term' => $semester,
@@ -73,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ':group' => $group,
             ':course_id' => $courseId,
             ':coutter' => $registrations,
+            ':reg_status' => $reg_status,
             ':status' => $status,
             ':time_stamp' => $timestamp,
             ':email' => $email
