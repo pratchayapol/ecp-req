@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // ดึงเฉพาะผู้ที่เป็นอาจารย์ (role = 'Teacher')
-$stmt = $pdo->prepare("SELECT name, email FROM account WHERE role = 'Teacher' ORDER BY name ASC");
+$stmt = $pdo->prepare("SELECT name, email FROM accounts WHERE role = 'Teacher' ORDER BY name ASC");
 $stmt->execute();
 $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
