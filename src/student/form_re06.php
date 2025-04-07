@@ -54,13 +54,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
         $registrations = $_POST['registrations'] ?? '';
         $regStatus = $_POST['reg_status'] ?? '';
-        $status = null;
+        
         $timestamp = date('Y-m-d H:i:s');
 
         $stmt = $pdo->prepare("INSERT INTO form_re06 
         (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, reg_status, time_stamp, email) 
         VALUES 
-        (:term, :year, :reason, :group, :course_id, :coutter, :status, NULL, :reg_status, :time_stamp, :email)");
+        (:term, :year, :reason, :group, :course_id, :coutter, NULL, NULL, :reg_status, :time_stamp, :email)");
 
         $stmt->execute([
             ':term' => $semester,
@@ -70,7 +70,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ':course_id' => $courseId,
             ':coutter' => $registrations,
             ':reg_status' => $regStatus,
-            ':status' => $status,
             ':time_stamp' => $timestamp,
             ':email' => $email
         ]);
