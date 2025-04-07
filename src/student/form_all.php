@@ -194,20 +194,27 @@ $course_level = $_SESSION['course_level'] ?? '';
                                     }
                                 }
 
-                                foreach ($requests as $request): ?>
-                                    <tr class="<?= $request['status'] == 'ไม่อนุมัติ' ? 'bg-orange-100' : 'bg-white' ?>">
-                                        <td class="px-4 py-2"><?= $request['code'] ?></td>
-                                        <td class="px-4 py-2"><?= $request['term'] ?></td>
-                                        <td class="px-4 py-2"><?= $request['subject'] ?></td>
-                                        <td class="px-4 py-2"><?= $request['section'] ?></td>
-                                        <td class="px-4 py-2 <?= $request['status'] == 'อนุมัติแล้ว' ? 'text-green-600' : ($request['status'] == 'ไม่อนุมัติ' ? 'text-orange-600' : 'text-gray-600') ?>">
-                                            <?= $request['status'] ?>
+                                foreach ($requests as $request):
+                                    $code = $request['req_id'];
+                                    $term = $request['term_year'];
+                                    $subject = $request['course_id'];
+                                    $section = $request['class_group'];
+                                    $status_text = $type === 're7' ? $request['reg_status'] : $request['status'];
+                                ?>
+                                    <tr class="<?= $status_text == 'ไม่อนุมัติ' ? 'bg-orange-100' : 'bg-white' ?>">
+                                        <td class="px-4 py-2"><?= $code ?></td>
+                                        <td class="px-4 py-2"><?= $term ?></td>
+                                        <td class="px-4 py-2"><?= $subject ?></td>
+                                        <td class="px-4 py-2"><?= $section ?></td>
+                                        <td class="px-4 py-2 <?= $status_text == 'อนุมัติ' ? 'text-green-600' : ($status_text == 'ไม่อนุมัติ' ? 'text-orange-600' : 'text-gray-600') ?>">
+                                            <?= $status_text ?>
                                         </td>
                                         <td class="px-4 py-2">
-                                            <a href="detail.php?id=<?= $request['id'] ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</a>
+                                            <a href="detail.php?id=<?= $request['req_id'] ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
+                                
 
                             </tbody>
                         </table>
