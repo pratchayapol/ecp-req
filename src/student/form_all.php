@@ -100,7 +100,7 @@ try {
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">คำร้องที่ขอของนักศึกษา</h1>
-
+<br>
                     <!-- Filters -->
                     <div class="flex items-center gap-4 mb-4 justify-center">
                         <div>
@@ -126,7 +126,7 @@ try {
 
 
                     <!-- Table -->
-                    <div class="overflow-x-auto w-full">
+                    <div class="overflow-x-auto w-full m-6">
                         <table class="min-w-full table-auto border rounded overflow-hidden">
                             <thead class="bg-orange-500 text-white text-left">
                                 <tr>
