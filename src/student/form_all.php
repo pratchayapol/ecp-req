@@ -38,10 +38,6 @@ try {
 }
 ?>
 
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="th">
 
