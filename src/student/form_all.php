@@ -91,8 +91,8 @@ $course_level = $_SESSION['course_level'] ?? '';
                             <label class="mr-2">ประเภทคำร้อง:</label>
                             <select id="typeFilter" class="border px-3 py-2 rounded">
                                 <option value="" disabled selected>เลือกประเภทคำร้อง</option>
-                                <option value="re6">คำร้องขอเพิ่มที่นั่ง</option>
-                                <option value="re7">คำร้องขอเปิดนอกแผนการเรียน</option>
+                                <option value="RE06">คำร้องขอเพิ่มที่นั่ง</option>
+                                <option value="RE07">คำร้องขอเปิดนอกแผนการเรียน</option>
                             </select>
                         </div>
                         <div>
