@@ -19,6 +19,27 @@ $role = $_SESSION['role'] ?? '';
 $id = $_SESSION['id'] ?? '';
 $course_level = $_SESSION['course_level'] ?? '';
 
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+
+    // รวมข้อมูลจากทั้ง 2 ตาราง
+    $stmt = $pdo->prepare("
+        SELECT 'RE06' as form_type, form_re06_id as form_id, term, year, course_id, `group`, status 
+        FROM form_re06 WHERE email = :email
+        UNION
+        SELECT 'RE07' as form_type, form_re07_id as form_id, semester, academic_year, course_id, academic_group, NULL
+        FROM form_re07 WHERE email = :email
+        ORDER BY form_type, form_id
+    ");
+    $stmt->execute(['email' => $email]);
+    $forms = $stmt->fetchAll();
+} catch (PDOException $e) {
+    echo "Database error: " . $e->getMessage();
+    exit;
+}
+?>
+
+
 ?>
 
 
@@ -104,35 +125,8 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 <option value="3">ไม่อนุมัติ</option>
                             </select>
                         </div>
-                        <button id="clearFilters" class="bg-gray-600 text-white px-4 py-2 rounded">ล้างข้อมูล</button>
-
-                        <script>
-                            document.getElementById('clearFilters').addEventListener('click', () => {
-                                document.getElementById('typeFilter').value = '';
-                                document.getElementById('statusFilter').value = '';
-                                const email = $email;
-                                window.location.href = `?email=${email}`;
-                            });
-                        </script>
-
+                        <button class="bg-gray-600 text-white px-4 py-2 rounded">ล้างข้อมูล</button>
                     </div>
-
-                    <script>
-                        document.querySelectorAll('#typeFilter, #statusFilter').forEach(select => {
-                            select.addEventListener('change', () => {
-                                const type = document.getElementById('typeFilter').value;
-                                const status = document.getElementById('statusFilter').value;
-                                const email = $email;
-
-                                const query = new URLSearchParams({
-                                    email,
-                                    type,
-                                    status
-                                }).toString();
-                                window.location.href = `?${query}`;
-                            });
-                        });
-                    </script>
 
 
 
@@ -150,72 +144,20 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-
-
-                                if ($type === 're6') {
-                                    $sql = "SELECT CONCAT('RE06-', form_re06_id) AS req_id, CONCAT(term, '/', year) AS term_year, 
-                   course_id, `group` AS class_group, status 
-            FROM form_re06 
-            WHERE email = :email";
-
-                                    if ($status !== '') {
-                                        $sql .= " AND status = :status";
-                                    }
-
-                                    $stmt = $pdo->prepare($sql);
-                                    $stmt->bindParam(':email', $email);
-                                    if ($status !== '') {
-                                        $stmt->bindParam(':status', $status, PDO::PARAM_INT);
-                                    }
-                                    $stmt->execute();
-                                    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                } elseif ($type === 're7') {
-                                    $sql = "SELECT CONCAT('RE07-', form_re07_id) AS req_id, CONCAT(semester, '/', academic_year) AS term_year, 
-                   course_id, academic_group AS class_group, reg_status 
-            FROM form_re07 
-            WHERE email = :email";
-
-                                    $stmt = $pdo->prepare($sql);
-                                    $stmt->bindParam(':email', $email);
-                                    $stmt->execute();
-                                    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                                    // Mapping reg_status string to status number if needed
-                                    if ($status !== '') {
-                                        $results = array_filter($results, function ($row) use ($status) {
-                                            $map = [
-                                                'รออนุมัติ' => 1,
-                                                'อนุมัติ' => 2,
-                                                'ไม่อนุมัติ' => 3
-                                            ];
-                                            return isset($map[$row['reg_status']]) && $map[$row['reg_status']] == $status;
-                                        });
-                                    }
-                                }
-
-                                foreach ($requests as $request):
-                                    $code = $request['req_id'];
-                                    $term = $request['term_year'];
-                                    $subject = $request['course_id'];
-                                    $section = $request['class_group'];
-                                    $status_text = $type === 're7' ? $request['reg_status'] : $request['status'];
-                                ?>
-                                    <tr class="<?= $status_text == 'ไม่อนุมัติ' ? 'bg-orange-100' : 'bg-white' ?>">
-                                        <td class="px-4 py-2"><?= $code ?></td>
-                                        <td class="px-4 py-2"><?= $term ?></td>
-                                        <td class="px-4 py-2"><?= $subject ?></td>
-                                        <td class="px-4 py-2"><?= $section ?></td>
-                                        <td class="px-4 py-2 <?= $status_text == 'อนุมัติ' ? 'text-green-600' : ($status_text == 'ไม่อนุมัติ' ? 'text-orange-600' : 'text-gray-600') ?>">
-                                            <?= $status_text ?>
+                                <?php foreach ($forms as $row): ?>
+                                    <tr class="<?= $row['form_type'] === 'RE06' ? 'bg-white' : 'bg-orange-100' ?>">
+                                        <td class="px-4 py-2"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
+                                        <td class="px-4 py-2"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
+                                        <td class="px-4 py-2"><?= htmlspecialchars($row['course_id']) ?></td>
+                                        <td class="px-4 py-2"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
+                                        <td class="px-4 py-2 text-<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
+                                            <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                         </td>
                                         <td class="px-4 py-2">
-                                            <a href="detail.php?id=<?= $request['req_id'] ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</a>
+                                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
-                                
-
                             </tbody>
                         </table>
                     </div>
@@ -228,9 +170,6 @@ $course_level = $_SESSION['course_level'] ?? '';
                 2025 All rights reserved by Software Engineering 3/67
             </footer>
         </div>
-
-
-
     </div>
 
     <!-- SweetAlert2 CDN -->
