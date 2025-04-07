@@ -200,11 +200,11 @@ $course_level = $_SESSION['course_level'] ?? '';
                             if (!empty($forms)): ?>
                                 <?php foreach ($forms as $row): ?>
                                     <tr class="<?= $row['form_type'] === 'RE06' ? 'bg-white' : 'bg-orange-100' ?>">
-                                        <td class="px-4 py-2"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
-                                        <td class="px-4 py-2"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
+                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
+                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
                                         <td class="px-4 py-2"><?= htmlspecialchars($row['course_id'] . ' ' . $row['course_nameTH'] . ' (' . $row['credits'] . ' หน่วยกิต)') ?></td>
-                                        <td class="px-4 py-2"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
-                                        <td class="px-4 py-2 text-<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
+                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
+                                        <td class="px-4 py-2 text-center<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
                                             <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                         </td>
                                         <td class="px-4 py-2">
