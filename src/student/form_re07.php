@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $Yearend = $_POST['Yearend'] ?? '';
         $email_advisor_comment = $_POST['email_advisor_comment'] ?? '';
         $email = $_POST['email'] ?? ''; // Assuming you have this field
-        $status = 0;  // Set default status to 0 if not provided
+        $status = NULL;  // Set default status to 0 if not provided
 
         // หากเลือกเหตุผล "อื่นๆ" ให้ใช้ค่าที่กรอกเพิ่ม
         $final_reason = ($reason === 'other') ? $other_reason : $reason;
