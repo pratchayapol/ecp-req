@@ -32,7 +32,7 @@ try {
            c.course_nameTH, c.credits
     FROM form_re07 AS f
     LEFT JOIN course AS c ON f.course_id = c.course_id
-    WHERE f.course_id = :course_id
+    WHERE f.email = :email
     ORDER BY form_type, form_id
 ");
     $stmt->execute(['email' => $email]);
@@ -145,11 +145,30 @@ try {
                             </thead>
                             <tbody>
                                 <?php if (!empty($forms)): ?>
-                                    <?php foreach ($forms as $row): ?>
+                                    <?php foreach ($forms as $row):
+
+                                        // ดึงค่า course_id จาก $row
+                                        $course_id = $row['course_id'];
+
+                                        // คิวรีข้อมูลจากตาราง course ตาม course_id
+                                        $query = "SELECT course_nameTH, credits FROM course WHERE course_id = ?";
+                                        $stmt = $mysqli->prepare($query);
+                                        $stmt->bind_param("s", $course_id);  // "s" สำหรับค่าที่เป็น string
+                                        $stmt->execute();
+                                        $stmt->store_result();
+
+                                        // ตรวจสอบว่ามีข้อมูลหรือไม่
+                                        if ($stmt->num_rows > 0) {
+                                            $stmt->bind_result($course_nameTH, $credits);
+                                            $stmt->fetch();
+
+                                        }
+
+                                        $stmt->close(); ?>
                                         <tr class="<?= $row['form_type'] === 'RE06' ? 'bg-white' : 'bg-orange-100' ?>">
                                             <td class="px-4 py-2"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
                                             <td class="px-4 py-2"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
-                                            <td class="px-4 py-2"><?= htmlspecialchars($row['course_id'].' '.$row['course_nameTH'].''.$row['credits']) ?></td>
+                                            <td class="px-4 py-2"><?= htmlspecialchars($row['course_id'].' '.$course_nameTH.''.$credits) ?></td>
                                             <td class="px-4 py-2"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
                                             <td class="px-4 py-2 text-<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
                                                 <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
