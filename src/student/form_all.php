@@ -112,6 +112,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                             const typeFilter = document.getElementById('typeFilter').value.toLowerCase();
                             const statusFilter = document.getElementById('statusFilter').value;
                             const rows = document.querySelectorAll('table tbody tr');
+                            let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
 
                             rows.forEach(row => {
                                 const formType = row.cells[0].textContent.toLowerCase();
@@ -132,10 +133,19 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 // ซ่อนหรือแสดงแถวตามผลการกรอง
                                 if (showRow) {
                                     row.style.display = '';
+                                    noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
                                 } else {
                                     row.style.display = 'none';
                                 }
                             });
+
+                            // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
+                            const noDataMessage = document.getElementById('noDataMessage');
+                            if (noDataFound) {
+                                noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
+                            } else {
+                                noDataMessage.style.display = 'none'; // ซ่อนข้อความ
+                            }
                         }
 
                         // ฟังก์ชันสำหรับล้างข้อมูล
@@ -152,7 +162,6 @@ $course_level = $_SESSION['course_level'] ?? '';
                     </script>
 
 
-
                     <!-- Table -->
                     <table class="min-w-full table-auto border-collapse">
                         <thead class="bg-orange-500 text-white text-left">
@@ -167,21 +176,20 @@ $course_level = $_SESSION['course_level'] ?? '';
                         </thead>
                         <tbody>
                             <?php
+                            // การดึงข้อมูลจากฐานข้อมูล
                             try {
-                                $stmt = $pdo->prepare("
-                SELECT 'RE06' as form_type, form_re06_id as form_id, term, year, f.course_id, `group`, status, 
-                       c.course_nameTH, c.credits
-                FROM form_re06 AS f
-                LEFT JOIN course AS c ON f.course_id = c.course_id
-                WHERE f.email = :email
-                UNION
-                SELECT 'RE07' as form_type, form_re07_id as form_id, semester, academic_year, f.course_id, academic_group, NULL, 
-                       c.course_nameTH, c.credits
-                FROM form_re07 AS f
-                LEFT JOIN course AS c ON f.course_id = c.course_id
-                WHERE f.email = :email
-                ORDER BY form_type, form_id
-                ");
+                                $stmt = $pdo->prepare("SELECT 'RE06' as form_type, form_re06_id as form_id, term, year, f.course_id, `group`, status, 
+                                   c.course_nameTH, c.credits
+                                   FROM form_re06 AS f
+                                   LEFT JOIN course AS c ON f.course_id = c.course_id
+                                   WHERE f.email = :email
+                                   UNION
+                                   SELECT 'RE07' as form_type, form_re07_id as form_id, semester, academic_year, f.course_id, academic_group, NULL, 
+                                   c.course_nameTH, c.credits
+                                   FROM form_re07 AS f
+                                   LEFT JOIN course AS c ON f.course_id = c.course_id
+                                   WHERE f.email = :email
+                                   ORDER BY form_type, form_id");
                                 $stmt->execute(['email' => $email]);
                                 $forms = $stmt->fetchAll();
                             } catch (PDOException $e) {
@@ -194,9 +202,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                     <tr class="<?= $row['form_type'] === 'RE06' ? 'bg-white' : 'bg-orange-100' ?>">
                                         <td class="px-4 py-2"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
                                         <td class="px-4 py-2"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
-                                        <td class="px-4 py-2">
-                                            <?= htmlspecialchars($row['course_id'] . ' ' . $row['course_nameTH'] . ' (' . $row['credits'] . ' หน่วยกิต)') ?>
-                                        </td>
+                                        <td class="px-4 py-2"><?= htmlspecialchars($row['course_id'] . ' ' . $row['course_nameTH'] . ' (' . $row['credits'] . ' หน่วยกิต)') ?></td>
                                         <td class="px-4 py-2"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
                                         <td class="px-4 py-2 text-<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
                                             <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
@@ -213,10 +219,15 @@ $course_level = $_SESSION['course_level'] ?? '';
                             <?php endif; ?>
                         </tbody>
                     </table>
+
+                    <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
+                    <div id="noDataMessage" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
                     <br>
 
                 </div>
             </div>
+
+
             <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
                 2025 All rights reserved by Software Engineering 3/67
             </footer>
