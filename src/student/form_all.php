@@ -20,8 +20,7 @@ $id = $_SESSION['id'] ?? '';
 $course_level = $_SESSION['course_level'] ?? '';
 
 try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-
+   
     // รวมข้อมูลจากทั้ง 2 ตาราง
     $stmt = $pdo->prepare("
         SELECT 'RE06' as form_type, form_re06_id as form_id, term, year, course_id, `group`, status 
