@@ -170,6 +170,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 <?php endif; ?>
                             </tbody>
                         </table>
+                        <br>
                     </div>
 
 
