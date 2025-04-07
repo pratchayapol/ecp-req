@@ -68,9 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // เตรียมคำสั่ง SQL
         $stmt = $pdo->prepare("INSERT INTO form_re07 (
-            semester, academic_year, course_id, academic_group, reason, gpa, gpa_all, reg_status, expected_graduation, email, email_advisor_comment, status
+            semester, academic_year, course_id, academic_group, reason, gpa, gpa_all, reg_status, expected_graduation, email, status, email_advisor_comment
         ) VALUES (
-            :semester, :academicYear, :course_id, :academicGroup, :reason, :GPA, :gpa_all, :reg_status, :Yearend, :email, :email_advisor_comment, :status
+            :semester, :academicYear, :course_id, :academicGroup, :reason, :GPA, :gpa_all, :reg_status, :Yearend, :email, :status, :email_advisor_comment
         )");
 
         // bindParam และ execute
