@@ -99,7 +99,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                             <label class="mr-2">สถานะคำร้อง:</label>
                             <select id="statusFilter" class="border px-3 py-2 rounded">
                                 <option value="" disabled selected>เลือกสถานะคำร้อง</option>
-                                <option value="">รออนุมัติ</option>
+                                <option value="">รอดำเนินการ</option>
                                 <option value="1">อนุมัติ</option>
                                 <option value="2">ไม่อนุมัติ</option>
                             </select>
