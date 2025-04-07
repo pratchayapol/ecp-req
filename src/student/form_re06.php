@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
         $registrations = $_POST['registrations'] ?? '';
         $regStatus = $_POST['reg_status'] ?? '';
-        $status = "1";
+        $status = null;
         $timestamp = date('Y-m-d H:i:s');
 
         $stmt = $pdo->prepare("INSERT INTO form_re06 

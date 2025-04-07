@@ -20,7 +20,7 @@ $id = $_SESSION['id'] ?? '';
 $course_level = $_SESSION['course_level'] ?? '';
 
 try {
-   
+
     // รวมข้อมูลจากทั้ง 2 ตาราง
     $stmt = $pdo->prepare("
         SELECT 'RE06' as form_type, form_re06_id as form_id, term, year, course_id, `group`, status 
@@ -143,20 +143,27 @@ try {
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($forms as $row): ?>
-                                    <tr class="<?= $row['form_type'] === 'RE06' ? 'bg-white' : 'bg-orange-100' ?>">
-                                        <td class="px-4 py-2"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
-                                        <td class="px-4 py-2"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
-                                        <td class="px-4 py-2"><?= htmlspecialchars($row['course_id']) ?></td>
-                                        <td class="px-4 py-2"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
-                                        <td class="px-4 py-2 text-<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
-                                            <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
-                                        </td>
-                                        <td class="px-4 py-2">
-                                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
-                                        </td>
+                                <?php if (!empty($forms)): ?>
+                                    <?php foreach ($forms as $row): ?>
+                                        <tr class="<?= $row['form_type'] === 'RE06' ? 'bg-white' : 'bg-orange-100' ?>">
+                                            <td class="px-4 py-2"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
+                                            <td class="px-4 py-2"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
+                                            <td class="px-4 py-2"><?= htmlspecialchars($row['course_id']) ?></td>
+                                            <td class="px-4 py-2"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
+                                            <td class="px-4 py-2 text-<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
+                                                <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
+                                            </td>
+                                            <td class="px-4 py-2">
+                                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php endif; ?>
+
                             </tbody>
                         </table>
                     </div>

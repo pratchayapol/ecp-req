@@ -62,15 +62,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $reg_status = $_POST['reg_status'] ?? '';
         $Yearend = $_POST['Yearend'] ?? '';
         $email_advisor_comment = $_POST['email_advisor_comment'] ?? '';
-
+        $status = null;
         // หากเลือกเหตุผล "อื่นๆ" ให้ใช้ค่าที่กรอกเพิ่ม
         $final_reason = ($reason === 'other') ? $other_reason : $reason;
 
         // เตรียมคำสั่ง SQL
         $stmt = $pdo->prepare("INSERT INTO form_re07 (
-            semester, academic_year, course_id, academic_group, reason, gpa, gpa_all, reg_status, expected_graduation, email, email_advisor_comment
+            semester, academic_year, course_id, academic_group, reason, gpa, gpa_all, reg_status, expected_graduation, email, email_advisor_comment, status
         ) VALUES (
-            :semester, :academicYear, :course_id, :academicGroup, :reason, :GPA, :gpa_all, :reg_status, :Yearend, :email, :email_advisor_comment
+            :semester, :academicYear, :course_id, :academicGroup, :reason, :GPA, :gpa_all, :reg_status, :Yearend, :email, :email_advisor_comment, :status
         )");
 
         // bindParam และ execute
@@ -85,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':reg_status' => $reg_status,
             ':Yearend' => $Yearend,
             ':email' => $email,
+            ':status' => $status,
             ':email_advisor_comment' => $email_advisor_comment
         ]);
 
