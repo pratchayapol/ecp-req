@@ -107,32 +107,48 @@ $course_level = $_SESSION['course_level'] ?? '';
                         <button class="bg-gray-600 text-white px-4 py-2 rounded">ล้างข้อมูล</button>
                     </div>
                     <script>
-                        // ฟังก์ชันการกรองข้อมูลในตาราง
+                        // ฟังก์ชันสำหรับกรองข้อมูล
                         function filterTable() {
                             const typeFilter = document.getElementById('typeFilter').value.toLowerCase();
                             const statusFilter = document.getElementById('statusFilter').value;
                             const rows = document.querySelectorAll('table tbody tr');
 
                             rows.forEach(row => {
-                                const formType = row.cells[0].textContent.toLowerCase(); // คอลัมน์ที่เก็บประเภทคำร้อง (เลขคำร้อง)
-                                const status = row.cells[4].textContent.toLowerCase(); // คอลัมน์ที่เก็บสถานะคำร้อง
+                                const formType = row.cells[0].textContent.toLowerCase();
+                                const status = row.cells[4].textContent;
 
-                                // การกรองข้อมูลตามประเภทคำร้องและสถานะคำร้อง
-                                let matchesType = typeFilter ? formType.includes(typeFilter) : true;
-                                let matchesStatus = statusFilter ? status.includes(statusFilter) : true;
+                                let showRow = true;
 
-                                // แสดง/ซ่อนแถวตามผลการกรอง
-                                if (matchesType && matchesStatus) {
-                                    row.style.display = ''; // แสดงแถว
+                                // ตรวจสอบประเภทคำร้อง
+                                if (typeFilter && !formType.includes(typeFilter)) {
+                                    showRow = false;
+                                }
+
+                                // ตรวจสอบสถานะคำร้อง
+                                if (statusFilter && statusFilter !== '' && !status.includes(statusFilter)) {
+                                    showRow = false;
+                                }
+
+                                // ซ่อนหรือแสดงแถวตามผลการกรอง
+                                if (showRow) {
+                                    row.style.display = '';
                                 } else {
-                                    row.style.display = 'none'; // ซ่อนแถว
+                                    row.style.display = 'none';
                                 }
                             });
                         }
 
-                        // เพิ่มการฟังเหตุการณ์เมื่อมีการเปลี่ยนแปลงฟิลเตอร์
+                        // ฟังก์ชันสำหรับล้างข้อมูล
+                        function clearFilters() {
+                            document.getElementById('typeFilter').value = '';
+                            document.getElementById('statusFilter').value = '';
+                            filterTable();
+                        }
+
+                        // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns และปุ่มล้างข้อมูล
                         document.getElementById('typeFilter').addEventListener('change', filterTable);
                         document.getElementById('statusFilter').addEventListener('change', filterTable);
+                        document.querySelector('button.bg-gray-600').addEventListener('click', clearFilters);
                     </script>
 
 
