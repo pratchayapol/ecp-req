@@ -110,7 +110,7 @@ $course_level = $_SESSION['course_level'] ?? '';
 
 
                     <!-- Table -->
-                    <div class="overflow-x-auto w-full ms-6 me-6 border border-gray-300 rounded-lg shadow-md">
+                   
                         <table class="min-w-full table-auto border-collapse">
                             <thead class="bg-orange-500 text-white text-left">
                                 <tr>
@@ -152,7 +152,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                             <td class="px-4 py-2"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
                                             <td class="px-4 py-2"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
                                             <td class="px-4 py-2">
-                                                <?= htmlspecialchars($row['course_id'] . ' ' . $row['course_nameTH']) ?>
+                                                <?= htmlspecialchars($row['course_id'] . ' ' . $row['course_nameTH'] . ' (' . $row['credits'] . ' หน่วยกิต)') ?>
                                             </td>
                                             <td class="px-4 py-2"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
                                             <td class="px-4 py-2 text-<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
@@ -171,7 +171,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                             </tbody>
                         </table>
                         <br>
-                    </div>
+                  
 
 
 
