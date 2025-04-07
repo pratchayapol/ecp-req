@@ -32,7 +32,7 @@ try {
            c.course_nameTH, c.credits
     FROM form_re07 AS f
     LEFT JOIN course AS c ON f.course_id = c.course_id
-    WHERE f.email = :email
+    WHERE f.course_id = :course_id
     ORDER BY form_type, form_id
 ");
     $stmt->execute(['email' => $email]);
