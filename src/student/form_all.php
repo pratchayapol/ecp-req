@@ -126,13 +126,13 @@ $course_level = $_SESSION['course_level'] ?? '';
     <?php
     try {
         $stmt = $pdo->prepare("
-        SELECT 'RE06' as form_type, form_re06_id as form_id, term, year, course_id, `group`, status, 
+        SELECT 'RE06' as form_type, form_re06_id as form_id, term, year, f.course_id, `group`, status, 
                c.course_nameTH, c.credits
         FROM form_re06 AS f
         LEFT JOIN course AS c ON f.course_id = c.course_id
         WHERE f.email = :email
         UNION
-        SELECT 'RE07' as form_type, form_re07_id as form_id, semester, academic_year, course_id, academic_group, NULL, 
+        SELECT 'RE07' as form_type, form_re07_id as form_id, semester, academic_year, f.course_id, academic_group, NULL, 
                c.course_nameTH, c.credits
         FROM form_re07 AS f
         LEFT JOIN course AS c ON f.course_id = c.course_id
