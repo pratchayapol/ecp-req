@@ -150,7 +150,51 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($requests as $request): ?>
+                                <?php
+
+
+                                if ($type === 're6') {
+                                    $sql = "SELECT CONCAT('RE06-', form_re06_id) AS req_id, CONCAT(term, '/', year) AS term_year, 
+                   course_id, `group` AS class_group, status 
+            FROM form_re06 
+            WHERE email = :email";
+
+                                    if ($status !== '') {
+                                        $sql .= " AND status = :status";
+                                    }
+
+                                    $stmt = $pdo->prepare($sql);
+                                    $stmt->bindParam(':email', $email);
+                                    if ($status !== '') {
+                                        $stmt->bindParam(':status', $status, PDO::PARAM_INT);
+                                    }
+                                    $stmt->execute();
+                                    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                } elseif ($type === 're7') {
+                                    $sql = "SELECT CONCAT('RE07-', form_re07_id) AS req_id, CONCAT(semester, '/', academic_year) AS term_year, 
+                   course_id, academic_group AS class_group, reg_status 
+            FROM form_re07 
+            WHERE email = :email";
+
+                                    $stmt = $pdo->prepare($sql);
+                                    $stmt->bindParam(':email', $email);
+                                    $stmt->execute();
+                                    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                    // Mapping reg_status string to status number if needed
+                                    if ($status !== '') {
+                                        $results = array_filter($results, function ($row) use ($status) {
+                                            $map = [
+                                                'รออนุมัติ' => 1,
+                                                'อนุมัติ' => 2,
+                                                'ไม่อนุมัติ' => 3
+                                            ];
+                                            return isset($map[$row['reg_status']]) && $map[$row['reg_status']] == $status;
+                                        });
+                                    }
+                                }
+
+                                foreach ($requests as $request): ?>
                                     <tr class="<?= $request['status'] == 'ไม่อนุมัติ' ? 'bg-orange-100' : 'bg-white' ?>">
                                         <td class="px-4 py-2"><?= $request['code'] ?></td>
                                         <td class="px-4 py-2"><?= $request['term'] ?></td>
