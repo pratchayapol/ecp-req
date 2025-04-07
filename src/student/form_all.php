@@ -89,21 +89,55 @@ $course_level = $_SESSION['course_level'] ?? '';
                     <div class="flex items-center gap-4 mb-4 justify-center">
                         <div>
                             <label class="mr-2">ประเภทคำร้อง:</label>
-                            <select class="border px-3 py-2 rounded">
-                                <option>เลือกประเภทคำร้อง</option>
+                            <select id="typeFilter" class="border px-3 py-2 rounded">
+                                <option value="">เลือกประเภทคำร้อง</option>
+                                <option value="re6">คำร้องขอเพิ่มที่นั่ง</option>
+                                <option value="re7">คำร้องขอเปิดนอกแผนการเรียน</option>
                             </select>
                         </div>
                         <div>
                             <label class="mr-2">สถานะคำร้อง:</label>
-                            <select class="border px-3 py-2 rounded">
-                                <option>เลือกสถานะคำร้อง</option>
+                            <select id="statusFilter" class="border px-3 py-2 rounded">
+                                <option value="">เลือกสถานะคำร้อง</option>
+                                <option value="1">รออนุมัติ</option>
+                                <option value="2">อนุมัติ</option>
+                                <option value="3">ไม่อนุมัติ</option>
                             </select>
                         </div>
-                        <button class="bg-gray-600 text-white px-4 py-2 rounded">ล้างข้อมูล</button>
+                        <button id="clearFilters" class="bg-gray-600 text-white px-4 py-2 rounded">ล้างข้อมูล</button>
+
+                        <script>
+                            document.getElementById('clearFilters').addEventListener('click', () => {
+                                document.getElementById('typeFilter').value = '';
+                                document.getElementById('statusFilter').value = '';
+                                const email = $email;
+                                window.location.href = `?email=${email}`;
+                            });
+                        </script>
+
                     </div>
 
+                    <script>
+                        document.querySelectorAll('#typeFilter, #statusFilter').forEach(select => {
+                            select.addEventListener('change', () => {
+                                const type = document.getElementById('typeFilter').value;
+                                const status = document.getElementById('statusFilter').value;
+                                const email = $email;
+
+                                const query = new URLSearchParams({
+                                    email,
+                                    type,
+                                    status
+                                }).toString();
+                                window.location.href = `?${query}`;
+                            });
+                        });
+                    </script>
+
+
+
                     <!-- Table -->
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto w-full">
                         <table class="min-w-full table-auto border rounded overflow-hidden">
                             <thead class="bg-orange-500 text-white text-left">
                                 <tr>
@@ -116,26 +150,21 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="bg-orange-100">
-                                    <td class="px-4 py-2">RE07-1</td>
-                                    <td class="px-4 py-2">2/2567</td>
-                                    <td class="px-4 py-2">31-407-102-302 วิศวกรรมซอฟต์แวร์</td>
-                                    <td class="px-4 py-2">ECP/R(64)</td>
-                                    <td class="px-4 py-2 text-orange-600">ไม่อนุมัติ</td>
-                                    <td class="px-4 py-2">
-                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
-                                    </td>
-                                </tr>
-                                <tr class="bg-white">
-                                    <td class="px-4 py-2">RE06-1</td>
-                                    <td class="px-4 py-2">1/2567</td>
-                                    <td class="px-4 py-2">31-407-104-201 วงจรดิจิทัลและแล็บ</td>
-                                    <td class="px-4 py-2">ECP/R(64)</td>
-                                    <td class="px-4 py-2 text-green-600">อนุมัติแล้ว</td>
-                                    <td class="px-4 py-2">
-                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
-                                    </td>
-                                </tr>
+                                <?php foreach ($requests as $request): ?>
+                                    <tr class="<?= $request['status'] == 'ไม่อนุมัติ' ? 'bg-orange-100' : 'bg-white' ?>">
+                                        <td class="px-4 py-2"><?= $request['code'] ?></td>
+                                        <td class="px-4 py-2"><?= $request['term'] ?></td>
+                                        <td class="px-4 py-2"><?= $request['subject'] ?></td>
+                                        <td class="px-4 py-2"><?= $request['section'] ?></td>
+                                        <td class="px-4 py-2 <?= $request['status'] == 'อนุมัติแล้ว' ? 'text-green-600' : ($request['status'] == 'ไม่อนุมัติ' ? 'text-orange-600' : 'text-gray-600') ?>">
+                                            <?= $request['status'] ?>
+                                        </td>
+                                        <td class="px-4 py-2">
+                                            <a href="detail.php?id=<?= $request['id'] ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+
                             </tbody>
                         </table>
                     </div>
@@ -148,6 +177,9 @@ $course_level = $_SESSION['course_level'] ?? '';
                 2025 All rights reserved by Software Engineering 3/67
             </footer>
         </div>
+
+
+
     </div>
 
     <!-- SweetAlert2 CDN -->
