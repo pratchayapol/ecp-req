@@ -62,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $reg_status = $_POST['reg_status'] ?? '';
         $Yearend = $_POST['Yearend'] ?? '';
         $email_advisor_comment = $_POST['email_advisor_comment'] ?? '';
-        $email = $_POST['email'] ?? ''; // Assuming you have this field
         $status = NULL;  // Set default status to 0 if not provided
 
         // หากเลือกเหตุผล "อื่นๆ" ให้ใช้ค่าที่กรอกเพิ่ม
