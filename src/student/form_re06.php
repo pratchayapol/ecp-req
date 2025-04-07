@@ -54,7 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
         $registrations = $_POST['registrations'] ?? '';
         $regStatus = $_POST['reg_status'] ?? '';
-        
+
+
         $timestamp = date('Y-m-d H:i:s');
 
         $stmt = $pdo->prepare("INSERT INTO form_re06 
@@ -74,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ':email' => $email
         ]);
 
-        // ทำให้แน่ใจว่ายังไม่มีการแสดง HTML ก่อนหน้านี้
+        // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน
         echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
         echo "
         <script>
@@ -84,11 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             icon: 'success',
             confirmButtonText: 'ตกลง'
         }).then(() => {
-            window.location.href = 'form_all';
+            window.location.href = 'form_all'; // กำหนดลิงก์ที่ถูกต้อง
+            exit; // ป้องกันไม่ให้มีการแสดงอะไรหลังจากนี้
         });
         </script>
         ";
         echo "</body></html>";
+        exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
     } catch (PDOException $e) {
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
         echo "<script>
@@ -100,6 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </script>";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
