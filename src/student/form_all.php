@@ -163,7 +163,7 @@ $course_level = $_SESSION['course_level'] ?? '';
 
 
                     <!-- Table -->
-                    <table class="min-w-full table-auto border-collapse m-6">
+                    <table class="min-w-full table-auto border-collapse">
                         <thead class="bg-orange-500 text-white text-left">
                             <tr>
                                 <th class="px-4 py-2">เลขคำร้อง</th>
