@@ -47,13 +47,13 @@ if (isset($_GET['course_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
-        echo $semester = $_POST['semester'] ?? '';
-        echo $academicYear = $_POST['academicYear'] ?? '';
-        echo $courseId = $_POST['course_id'] ?? '';
-        echo $group = $_POST['academicGroup'] ?? '';
-        echo $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
-        echo $registrations = $_POST['registrations'] ?? '';
-        echo $regStatus = $_POST['reg_status'] ?? '';
+        $semester = $_POST['semester'] ?? '';
+        $academicYear = $_POST['academicYear'] ?? '';
+        $courseId = $_POST['course_id'] ?? '';
+        $group = $_POST['academicGroup'] ?? '';
+        $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
+        $registrations = $_POST['registrations'] ?? '';
+        $regStatus = $_POST['reg_status'] ?? '';
 
 
         $timestamp = date('Y-m-d H:i:s');
