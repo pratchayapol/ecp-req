@@ -183,7 +183,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                    FROM form_re06 AS f
                                    LEFT JOIN course AS c ON f.course_id = c.course_id
                                    WHERE f.email = :email
-                                   UNION
+                                   UNION ALL
                                    SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, 
                                    c.course_nameTH, c.credits
                                    FROM form_re07 AS f
