@@ -62,7 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $reg_status = $_POST['reg_status'] ?? '';
         $Yearend = $_POST['Yearend'] ?? '';
         $email_advisor_comment = $_POST['email_advisor_comment'] ?? '';
-        $status = null;
+        $email = $_POST['email'] ?? ''; // Assuming you have this field
+        $status = 0;  // Set default status to 0 if not provided
+
         // หากเลือกเหตุผล "อื่นๆ" ให้ใช้ค่าที่กรอกเพิ่ม
         $final_reason = ($reason === 'other') ? $other_reason : $reason;
 
@@ -114,6 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </script>";
     }
 }
+
 
 // ดึงเฉพาะผู้ที่เป็นอาจารย์ (role = 'Teacher')
 $stmt = $pdo->prepare("SELECT name, email FROM accounts WHERE role = 'Teacher' ORDER BY name ASC");
