@@ -80,104 +80,108 @@ $course_level = $_SESSION['course_level'] ?? '';
         </button>
 
         <!-- Main Content -->
-<div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
-    <div class="p-8">
-        <div class="bg-white rounded-lg shadow-lg h-auto">
-            <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">คำร้องที่ขอของนักศึกษา</h1>
-            <br>
-            <!-- Filters -->
-            <div class="flex items-center gap-4 mb-4 justify-center">
-                <div>
-                    <label class="mr-2">ประเภทคำร้อง:</label>
-                    <select id="typeFilter" class="border px-3 py-2 rounded">
-                        <option value="" disabled selected>เลือกประเภทคำร้อง</option>
-                        <option value="re6">คำร้องขอเพิ่มที่นั่ง</option>
-                        <option value="re7">คำร้องขอเปิดนอกแผนการเรียน</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="mr-2">สถานะคำร้อง:</label>
-                    <select id="statusFilter" class="border px-3 py-2 rounded">
-                        <option value="" disabled selected>เลือกสถานะคำร้อง</option>
-                        <option value="">รออนุมัติ</option>
-                        <option value="1">อนุมัติ</option>
-                        <option value="2">ไม่อนุมัติ</option>
-                    </select>
-                </div>
-                <button class="bg-gray-600 text-white px-4 py-2 rounded">ล้างข้อมูล</button>
-            </div>
+        <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
+            <div class="p-8">
+                <div class="bg-white rounded-lg shadow-lg h-auto">
+                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">คำร้องที่ขอของนักศึกษา</h1>
+                    <br>
+                    <!-- Filters -->
+                    <div class="flex items-center gap-4 mb-4 justify-center">
+                        <div>
+                            <label class="mr-2">ประเภทคำร้อง:</label>
+                            <select id="typeFilter" class="border px-3 py-2 rounded">
+                                <option value="" disabled selected>เลือกประเภทคำร้อง</option>
+                                <option value="re6">คำร้องขอเพิ่มที่นั่ง</option>
+                                <option value="re7">คำร้องขอเปิดนอกแผนการเรียน</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="mr-2">สถานะคำร้อง:</label>
+                            <select id="statusFilter" class="border px-3 py-2 rounded">
+                                <option value="" disabled selected>เลือกสถานะคำร้อง</option>
+                                <option value="">รออนุมัติ</option>
+                                <option value="1">อนุมัติ</option>
+                                <option value="2">ไม่อนุมัติ</option>
+                            </select>
+                        </div>
+                        <button class="bg-gray-600 text-white px-4 py-2 rounded">ล้างข้อมูล</button>
+                    </div>
 
-            <!-- Table -->
-            <div class="overflow-x-auto w-full ms-6 me-6 border border-gray-300 rounded-lg shadow-md">
-                <table class="min-w-full table-auto border-collapse">
-                    <thead class="bg-orange-500 text-white text-left">
-                        <tr>
-                            <th class="px-4 py-2">เลขคำร้อง</th>
-                            <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
-                            <th class="px-4 py-2">รายวิชา</th>
-                            <th class="px-4 py-2">กลุ่มเรียน</th>
-                            <th class="px-4 py-2">สถานะคำร้อง</th>
-                            <th class="px-4 py-2">จัดการ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        try {
-                            $stmt = $pdo->prepare("
-                            SELECT 'RE06' as form_type, form_re06_id as form_id, term, year, f.course_id, `group`, status, 
-                                   c.course_nameTH, c.credits
-                            FROM form_re06 AS f
-                            LEFT JOIN course AS c ON f.course_id = c.course_id
-                            WHERE f.email = :email
-                            UNION
-                            SELECT 'RE07' as form_type, form_re07_id as form_id, semester, academic_year, f.course_id, academic_group, NULL, 
-                                   c.course_nameTH, c.credits
-                            FROM form_re07 AS f
-                            LEFT JOIN course AS c ON f.course_id = c.course_id
-                            WHERE f.email = :email
-                            ORDER BY form_type, form_id
-                            ");
-                            $stmt->execute(['email' => $email]);
-                            $forms = $stmt->fetchAll();
-                        } catch (PDOException $e) {
-                            echo "Database error: " . $e->getMessage();
-                            exit;
-                        }
 
-                        if (!empty($forms)): ?>
-                            <?php foreach ($forms as $row): ?>
-                                <tr class="<?= $row['form_type'] === 'RE06' ? 'bg-white' : 'bg-orange-100' ?>">
-                                    <td class="px-4 py-2"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
-                                    <td class="px-4 py-2"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
-                                    <td class="px-4 py-2">
-                                        <?= htmlspecialchars($row['course_id'] . ' ' . $row['course_nameTH'] . ' (' . $row['credits'] . ' หน่วยกิต)') ?>
-                                    </td>
-                                    <td class="px-4 py-2"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
-                                    <td class="px-4 py-2 text-<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
-                                        <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
-                                    </td>
-                                    <td class="px-4 py-2">
-                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
-                                    </td>
+
+                    <!-- Table -->
+                    <div class="overflow-x-auto w-full ms-6 me-6 border border-gray-300 rounded-lg shadow-md">
+                        <table class="min-w-full table-auto border-collapse">
+                            <thead class="bg-orange-500 text-white text-left">
+                                <tr>
+                                    <th class="px-4 py-2">เลขคำร้อง</th>
+                                    <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
+                                    <th class="px-4 py-2">รายวิชา</th>
+                                    <th class="px-4 py-2">กลุ่มเรียน</th>
+                                    <th class="px-4 py-2">สถานะคำร้อง</th>
+                                    <th class="px-4 py-2">จัดการ</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-                <br>
+                            </thead>
+                            <tbody>
+                                <?php
+                                try {
+                                    $stmt = $pdo->prepare("
+                SELECT 'RE06' as form_type, form_re06_id as form_id, term, year, f.course_id, `group`, status, 
+                       c.course_nameTH, c.credits
+                FROM form_re06 AS f
+                LEFT JOIN course AS c ON f.course_id = c.course_id
+                WHERE f.email = :email
+                UNION
+                SELECT 'RE07' as form_type, form_re07_id as form_id, semester, academic_year, f.course_id, academic_group, NULL, 
+                       c.course_nameTH, c.credits
+                FROM form_re07 AS f
+                LEFT JOIN course AS c ON f.course_id = c.course_id
+                WHERE f.email = :email
+                ORDER BY form_type, form_id
+                ");
+                                    $stmt->execute(['email' => $email]);
+                                    $forms = $stmt->fetchAll();
+                                } catch (PDOException $e) {
+                                    echo "Database error: " . $e->getMessage();
+                                    exit;
+                                }
+
+                                if (!empty($forms)): ?>
+                                    <?php foreach ($forms as $row): ?>
+                                        <tr class="<?= $row['form_type'] === 'RE06' ? 'bg-white' : 'bg-orange-100' ?>">
+                                            <td class="px-4 py-2"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
+                                            <td class="px-4 py-2"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
+                                            <td class="px-4 py-2">
+                                                <?= htmlspecialchars($row['course_id'] . ' ' . $row['course_nameTH']) ?>
+                                            </td>
+                                            <td class="px-4 py-2"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
+                                            <td class="px-4 py-2 text-<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
+                                                <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
+                                            </td>
+                                            <td class="px-4 py-2">
+                                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                        <br>
+                    </div>
+
+
+
+
+                </div>
             </div>
-
+            <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
+                2025 All rights reserved by Software Engineering 3/67
+            </footer>
         </div>
-    </div>
-    <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
-        2025 All rights reserved by Software Engineering 3/67
-    </footer>
-</div>
-
     </div>
 
     <!-- SweetAlert2 CDN -->
