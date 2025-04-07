@@ -21,15 +21,20 @@ $course_level = $_SESSION['course_level'] ?? '';
 
 try {
 
-    // รวมข้อมูลจากทั้ง 2 ตาราง
     $stmt = $pdo->prepare("
-        SELECT 'RE06' as form_type, form_re06_id as form_id, term, year, course_id, `group`, status 
-        FROM form_re06 WHERE email = :email
-        UNION
-        SELECT 'RE07' as form_type, form_re07_id as form_id, semester, academic_year, course_id, academic_group, NULL
-        FROM form_re07 WHERE email = :email
-        ORDER BY form_type, form_id
-    ");
+    SELECT 'RE06' as form_type, form_re06_id as form_id, term, year, course_id, `group`, status, 
+           c.course_nameTH, c.credits
+    FROM form_re06 AS f
+    LEFT JOIN course AS c ON f.course_id = c.course_id
+    WHERE f.email = :email
+    UNION
+    SELECT 'RE07' as form_type, form_re07_id as form_id, semester, academic_year, course_id, academic_group, NULL, 
+           c.course_nameTH, c.credits
+    FROM form_re07 AS f
+    LEFT JOIN course AS c ON f.course_id = c.course_id
+    WHERE f.email = :email
+    ORDER BY form_type, form_id
+");
     $stmt->execute(['email' => $email]);
     $forms = $stmt->fetchAll();
 } catch (PDOException $e) {
@@ -100,13 +105,13 @@ try {
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">คำร้องที่ขอของนักศึกษา</h1>
-<br>
+                    <br>
                     <!-- Filters -->
                     <div class="flex items-center gap-4 mb-4 justify-center">
                         <div>
                             <label class="mr-2">ประเภทคำร้อง:</label>
                             <select id="typeFilter" class="border px-3 py-2 rounded">
-                                <option value="">เลือกประเภทคำร้อง</option>
+                                <option value="" disabled selected>เลือกประเภทคำร้อง</option>
                                 <option value="re6">คำร้องขอเพิ่มที่นั่ง</option>
                                 <option value="re7">คำร้องขอเปิดนอกแผนการเรียน</option>
                             </select>
@@ -114,10 +119,10 @@ try {
                         <div>
                             <label class="mr-2">สถานะคำร้อง:</label>
                             <select id="statusFilter" class="border px-3 py-2 rounded">
-                                <option value="">เลือกสถานะคำร้อง</option>
-                                <option value="1">รออนุมัติ</option>
-                                <option value="2">อนุมัติ</option>
-                                <option value="3">ไม่อนุมัติ</option>
+                                <option value="" disabled selected>เลือกสถานะคำร้อง</option>
+                                <option value="">รออนุมัติ</option>
+                                <option value="1">อนุมัติ</option>
+                                <option value="2">ไม่อนุมัติ</option>
                             </select>
                         </div>
                         <button class="bg-gray-600 text-white px-4 py-2 rounded">ล้างข้อมูล</button>
@@ -144,7 +149,7 @@ try {
                                         <tr class="<?= $row['form_type'] === 'RE06' ? 'bg-white' : 'bg-orange-100' ?>">
                                             <td class="px-4 py-2"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
                                             <td class="px-4 py-2"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
-                                            <td class="px-4 py-2"><?= htmlspecialchars($row['course_id']) ?></td>
+                                            <td class="px-4 py-2"><?= htmlspecialchars($row['course_id'].' '.$row['course_nameTH'].''.$row['credits']) ?></td>
                                             <td class="px-4 py-2"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
                                             <td class="px-4 py-2 text-<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
                                                 <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
