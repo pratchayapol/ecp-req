@@ -11,7 +11,7 @@ if (isset($_SESSION['user'])) {
     $email = $_SESSION['user']['email'];
     $picture = $_SESSION['user']['picture'];
 } else {
-    $name = $email = $picture = null;
+    header('location: ../session_timeout');
 }
 
 $logged_in = $_SESSION['logged_in'] ?? 0;
