@@ -25,7 +25,7 @@ include 'connect/dbcon.php';
 </head>
 
 <body class="flex items-center justify-center min-h-screen bg t1">
-
+<?php include './loadtab/h.php'; ?>
     <?php
     // โหลดไฟล์ให้ครบทุกตัว
     require_once 'vendor/autoload.php'; // โหลด Google Client
@@ -211,7 +211,7 @@ include 'connect/dbcon.php';
     
 
     ?>
-
+<?php include './loadtab/f.php'; ?>
 </body>
 
 </html>

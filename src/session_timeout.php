@@ -25,7 +25,7 @@ session_start();
 </head>
 
 <body class="flex items-center justify-center min-h-screen bg t1">
-
+    <?php include './loadtab/h.php'; ?>
     <script>
         Swal.fire({
             icon: "error",
@@ -42,6 +42,7 @@ session_start();
             }
         });
     </script>';
+    <?php include './loadtab/f.php'; ?>
 </body>
 
 </html>
