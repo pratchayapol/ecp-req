@@ -38,7 +38,7 @@ session_start();
             allowEscapeKey: false
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "?logout=true";
+                window.location.href = "google_auth?logout=true";
             }
         });
     </script>';
