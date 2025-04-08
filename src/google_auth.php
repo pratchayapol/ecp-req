@@ -176,12 +176,39 @@ include 'connect/dbcon.php';
     }
 
     if (isset($_GET['logout'])) {
+        // เริ่มต้น session ถ้ายังไม่ได้เริ่ม
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    
+        // เคลียร์ตัวแปร session ทั้งหมด
+        $_SESSION = [];
+    
+        // ถ้ามีการใช้ session cookie ให้ลบ cookie ด้วย
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000, // ทำให้ cookie หมดอายุ
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
+            );
+        }
+    
+        // ทำลาย session
         session_destroy();
+    
+        // URL สำหรับ redirect หลัง logout
         $logoutRedirect = 'https://ecpreq.pcnone.com';
+    
+        // Redirect ไป logout ของ Google และกลับมายังระบบ
         header('Location: https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=' . urlencode($logoutRedirect));
         exit();
     }
-
+    
 
     ?>
 
