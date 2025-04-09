@@ -15,9 +15,16 @@ if (isset($_SESSION['user'])) {
 }
 
 $logged_in = $_SESSION['logged_in'] ?? 0;
+$iname = $_SESSION['iname'] ?? '';
 $role = $_SESSION['role'] ?? '';
 $id = $_SESSION['id'] ?? '';
 $course_level = $_SESSION['course_level'] ?? '';
+$faculty = $_SESSION['faculty'] ?? '';
+$field = $_SESSION['field'] ?? '';
+$dep = $_SESSION['dep'] ?? '';
+$role = $_SESSION['role'] ?? '';
+$id = $_SESSION['id'] ?? '';
+$course_level = $course_level = $_SESSION['course_level'] ?? '';
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -103,12 +110,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- animation -->
     <link rel="stylesheet" href="../css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   
+
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
-<?php include '../loadtab/h.php'; ?>    
-<div class="flex flex-col sm:flex-row h-screen">
+    <?php include '../loadtab/h.php'; ?>
+    <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
         <div id="sidebar" class="sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
             <div class="text-center">
@@ -169,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                         </div>
 
-                     
+
 
                         <div class="text-center pt-4">
                             <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
@@ -282,7 +289,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             display: none;
         }
     </style>
-        <?php include '../loadtab/f.php'; ?>
+    <?php include '../loadtab/f.php'; ?>
 </body>
 
 </html>
