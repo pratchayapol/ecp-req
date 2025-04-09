@@ -57,6 +57,7 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                 <div class="mt-4 space-y-2">
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-center py-2 px-4 rounded-[12px] shadow-md" id="dashboard-btn"> Dashboard </button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="re1">คำร้องทั่วไป RE.01</button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="re6">คำร้องขอเพิ่มที่นั่ง RE.06</button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="re7">คำร้องขอเปิดนอกแผน RE.07</button>
                     <button class="w-full bg-[#EF6526] text-white hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="form_all">คำร้องที่ขอของนักศึกษา</button>
@@ -273,7 +274,9 @@ $course_level = $_SESSION['course_level'] ?? '';
         document.getElementById('dashboard-btn').addEventListener('click', function() {
             window.location.href = 'dashboard';
         });
-
+        document.getElementById('re1').addEventListener('click', function() {
+            window.location.href = 'form_re01';
+        });
         document.getElementById('re6').addEventListener('click', function() {
             window.location.href = 'form_re06';
         });
