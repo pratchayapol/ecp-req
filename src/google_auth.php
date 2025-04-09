@@ -75,6 +75,7 @@ include 'connect/dbcon.php';
 
                 if ($userAccount) {
                     // ถ้ามีข้อมูลในฐานข้อมูล
+                    $_SESSION['iname'] = $userAccount['name'];
                     $_SESSION['role'] = $userAccount['role'];
                     $_SESSION['id'] = $userAccount['student_id'];
                     $_SESSION['course_level'] = $userAccount['course_level'];
