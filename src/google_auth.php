@@ -76,8 +76,11 @@ include 'connect/dbcon.php';
                 if ($userAccount) {
                     // ถ้ามีข้อมูลในฐานข้อมูล
                     $_SESSION['role'] = $userAccount['role'];
-                    $_SESSION['id'] = $userAccount['user_id'];
+                    $_SESSION['id'] = $userAccount['student_id'];
                     $_SESSION['course_level'] = $userAccount['course_level'];
+                    $_SESSION['faculty'] = $userAccount['faculty'];
+                    $_SESSION['field'] = $userAccount['field'];
+                    $_SESSION['dep'] = $userAccount['dep'];
 
                     // อัปเดตภาพโปรไฟล์ในฐานข้อมูล
                     if ($userAccount['picture'] !== $userInfo->picture) {

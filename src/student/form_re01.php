@@ -164,8 +164,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <input type="text" name="name" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุคำนำหน้า ชื่อ สกุล" value="<?php echo $name ?>">
                             </div>
                             <div>
-                                <label class="block font-medium mb-1 text-red-600">เรียน *</label>
-                                <input type="text" name="to" class="w-full border rounded px-3 py-2" placeholder="คณบดีคณะ, หัวหน้าสาขา, อาจารย์">
+                                <label class="block font-medium mb-1 text-red-600">รหัสประจำตัวนักศึกษา *</label>
+                                <input type="text" name="student_id" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุรหัสประจำตัวนักศึกษา">
                             </div>
                         </div>
 
