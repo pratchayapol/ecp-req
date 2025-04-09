@@ -8,7 +8,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECP-REQUIRES</title>
+    <title>ECP Online Petition</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Custom fonts for this template-->
@@ -32,9 +32,9 @@ session_start();
             <img src="image/logo.png" alt="Logo" class="w-32 h-32 rounded-full shadow-lg">
 
             <!-- Title -->
-            <h2 class="mt-4 text-3xl font-extrabold text-gray-800 t1">ECP-REQUIRES</h2>
+            <h2 class="mt-4 text-3xl font-extrabold text-gray-800 t1">ECP Online Petition</h2>
             <p class="text-gray-500 mt-2 text-sm text-center t1">
-                ระบบยื่นคำร้องสาขาคอมพิวเตอร์
+                ระบบยื่นคำร้อง สาขาคอมพิวเตอร์
             </p>
             <p class="text-gray-500 mt-2 text-sm text-center t1">
                 คณะวิศวกรรมศาสตร์
