@@ -179,15 +179,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">คณะ *</label>
-                                <input type="text" name="faculty" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุคำนำหน้า ชื่อ สกุล" value="<?php echo $iname ?>" required>
+                                <input type="text" name="faculty" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุคณะ" value="<?php echo $faculty ?>" required>
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">สาขาวิชา *</label>
-                                <input type="text" name="field" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุรหัสประจำตัวนักศึกษา" value="<?php echo $id ?>" required>
+                                <input type="text" name="field" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุสาขาวิชา" value="<?php echo $field ?>" required>
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">ชั้นปีที่ *</label>
-                                <input type="text" name="course_level" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุรหัสประจำตัวนักศึกษา" value="<?php echo $id ?>" required>
+                                <input type="text" name="course_level" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุรหัสชั้นปี" value="<?php echo $course_level ?>" required>
                             </div>
                         </div>
 
