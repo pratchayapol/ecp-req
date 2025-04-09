@@ -168,11 +168,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">ข้าพเจ้า *</label>
-                                <input type="text" name="name" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุคำนำหน้า ชื่อ สกุล" value="<?php echo $name ?>">
+                                <input type="text" name="name" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุคำนำหน้า ชื่อ สกุล" value="<?php echo $iname ?>">
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">รหัสประจำตัวนักศึกษา *</label>
-                                <input type="text" name="student_id" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุรหัสประจำตัวนักศึกษา">
+                                <input type="text" name="student_id" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุรหัสประจำตัวนักศึกษา" value="<?php echo $id ?>">
                             </div>
                         </div>
 
