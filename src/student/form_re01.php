@@ -19,31 +19,6 @@ $role = $_SESSION['role'] ?? '';
 $id = $_SESSION['id'] ?? '';
 $course_level = $_SESSION['course_level'] ?? '';
 
-// ดึงข้อมูลรายวิชาทั้งหมดเพื่อแสดงใน <select>
-$sql = "SELECT course_id, course_nameTH FROM course";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// ตรวจสอบว่ามีการส่งคำขอจากการเลือกวิชา
-if (isset($_GET['course_id'])) {
-    $courseId = $_GET['course_id'];
-
-    // ดึงข้อมูลของวิชาและอาจารย์จากฐานข้อมูล
-    $sql = "SELECT c.course_id, c.course_nameTH, a.name AS instructor_name
-            FROM course c
-            LEFT JOIN accounts a ON a.email = c.email
-            WHERE c.course_id = :course_id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':course_id', $courseId, PDO::PARAM_STR);
-    $stmt->execute();
-    $courseInfo = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // ส่งข้อมูลกลับในรูป JSON
-    echo json_encode($courseInfo);
-    exit; // ปิดสคริปต์หลังส่งข้อมูล
-}
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
@@ -112,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แบบฟอร์ม RE.06</title>
+    <title>แบบฟอร์ม RE.01</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- FontAwesome (สำหรับไอคอน) -->
@@ -128,30 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- animation -->
     <link rel="stylesheet" href="../css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        // ฟังก์ชันสำหรับอัปเดตข้อมูลวิชาที่แสดง
-        function updateCourseInfo(course) {
-            document.getElementById('courseId').textContent = course.course_id || 'N/A';
-            document.getElementById('courseNameTH').textContent = course.course_nameTH || 'N/A';
-            document.getElementById('courseInstructor').textContent = course.instructor_name || 'N/A';
-        }
-
-        // เมื่อเลือกวิชาใน dropdown
-        function loadCourseInfo(courseId) {
-            if (courseId) {
-                fetch(`?course_id=${courseId}`)
-                    .then(response => response.json())
-                    .then(data => updateCourseInfo(data))
-                    .catch(error => console.error('Error fetching course data:', error));
-            } else {
-                updateCourseInfo({
-                    course_id: 'N/A',
-                    course_nameTH: 'N/A',
-                    instructor_name: 'N/A'
-                });
-            }
-        }
-    </script>
+   
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
@@ -192,40 +144,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
-                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">แบบฟอร์มคำร้องขอเพิ่มที่นั่ง RE.06</h1>
+                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">แบบฟอร์มคำร้องทั่วไป RE.01</h1>
 
                     <form class="space-y-4 m-6" action="" method="POST">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block font-medium mb-1 text-red-600">คำร้องขอเพิ่มที่นั่ง ภาคเรียนที่ *</label>
-                                <select class="w-full border rounded px-3 py-2" name="semester" required>
-                                    <option value="" disabled selected>เลือกภาคเรียน</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                </select>
+                                <label class="block font-medium mb-1 text-red-600">เรื่อง *</label>
+                                <input type="text" name="title" />
                             </div>
                             <div>
-                                <label class="block font-medium mb-1 text-red-600">ปีการศึกษาที่ *</label>
-                                <select class="w-full border rounded px-3 py-2" name="academicYear" id="academicYear" required>
-                                    <option value="" disabled selected>เลือกปีการศึกษา</option>
-                                </select>
-
-                                <script>
-                                    // Get the current year in the Buddhist Era (B.E.)
-                                    const currentYearBE = new Date().getFullYear() + 543;
-
-                                    // Get the select element
-                                    const select = document.getElementById('academicYear');
-
-                                    // Generate the academic years: 1 year before, current year, and 1 year after (in B.E.)
-                                    for (let i = currentYearBE - 1; i <= currentYearBE; i++) {
-                                        const option = document.createElement('option');
-                                        option.value = i;
-                                        option.textContent = i;
-                                        select.appendChild(option);
-                                    }
-                                </script>
+                                <label class="block font-medium mb-1 text-red-600">เรียน *</label>
+                                <input type="text" name="to" />
                             </div>
                         </div>
 
