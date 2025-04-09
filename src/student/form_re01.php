@@ -191,6 +191,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                         </div>
 
+                        <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+                            <div>
+                                <label class="block font-medium mb-1 text-red-600">มีความประสงค์ *</label>
+                                <textarea name="request" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุเหตุผล..." required></textarea>
+                            </div>
+
+
+                        </div>
                         <div class="text-center pt-4">
                             <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
                                 บันทึกคำร้อง
