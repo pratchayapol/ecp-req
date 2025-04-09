@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">ข้าพเจ้า *</label>
                                 <input type="text" name="name" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุคำนำหน้า ชื่อ สกุล" value="<?php echo $iname ?>" required>
