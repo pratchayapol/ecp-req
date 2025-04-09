@@ -158,17 +158,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                         </div>
 
-                        <div>
-                            <label class="block font-medium mb-1 text-red-600">รายวิชาที่ต้องการขอเพิ่มที่นั่ง *</label>
-                            <select class="w-full border rounded px-3 py-2" name="course_id" id="courseSelect" required onchange="loadCourseInfo(this.value)">
-                                <option value="">เลือกรหัสรายวิชา</option>
-                                <?php foreach ($courses as $course): ?>
-                                    <option value="<?= htmlspecialchars($course['course_id']) ?>">
-                                        <?= htmlspecialchars($course['course_id']) ?> - <?= htmlspecialchars($course['course_nameTH']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-medium mb-1 text-red-600">ข้าพเจ้า *</label>
+                                <input type="text" name="name" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุคำนำหน้า ชื่อ สกุล" value="<?php echo $name ?>">
+                            </div>
+                            <div>
+                                <label class="block font-medium mb-1 text-red-600">เรียน *</label>
+                                <input type="text" name="to" class="w-full border rounded px-3 py-2" placeholder="คณบดีคณะ, หัวหน้าสาขา, อาจารย์">
+                            </div>
                         </div>
+
+                     
 
                         <div class="text-center pt-4">
                             <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
