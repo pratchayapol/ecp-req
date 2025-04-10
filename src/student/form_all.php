@@ -103,6 +103,68 @@ $course_level = $_SESSION['course_level'] ?? '';
                     </div>
                     <div id="default-tab-content">
                         <div class="hidden p-4 rounded-lg bg-gray-50" id="re01" role="tabpanel" aria-labelledby="re01-tab">
+                            <!-- Filters -->
+                            <div class="flex items-center gap-4 mb-4 justify-center">
+
+                                <div>
+                                    <label class="mr-2">สถานะคำร้อง:</label>
+                                    <select id="statusFilter" class="border px-3 py-2 rounded">
+                                        <option value="" disabled selected>เลือกสถานะคำร้อง</option>
+                                        <option value="">รอดำเนินการ</option>
+                                        <option value="1">อนุมัติ</option>
+                                        <option value="2">ไม่อนุมัติ</option>
+                                    </select>
+                                </div>
+                                <button class="bg-gray-600 text-white px-4 py-2 rounded">ล้างข้อมูล</button>
+                            </div>
+                            <script>
+                                // ฟังก์ชันสำหรับกรองข้อมูล
+                                function filterTable() {
+                                    const statusFilter = document.getElementById('statusFilter').value;
+                                    const rows = document.querySelectorAll('table tbody tr');
+                                    let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
+
+                                    rows.forEach(row => {
+                                        const formType = row.cells[0].textContent.toLowerCase();
+                                        const status = row.cells[4].textContent;
+
+                                        let showRow = true;
+
+                                        // ตรวจสอบสถานะคำร้อง
+                                        if (statusFilter && statusFilter !== '' && !status.includes(statusFilter)) {
+                                            showRow = false;
+                                        }
+
+                                        // ซ่อนหรือแสดงแถวตามผลการกรอง
+                                        if (showRow) {
+                                            row.style.display = '';
+                                            noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
+                                        } else {
+                                            row.style.display = 'none';
+                                        }
+                                    });
+
+                                    // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
+                                    const noDataMessage = document.getElementById('noDataMessage');
+                                    if (noDataFound) {
+                                        noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
+                                    } else {
+                                        noDataMessage.style.display = 'none'; // ซ่อนข้อความ
+                                    }
+                                }
+
+                                // ฟังก์ชันสำหรับล้างข้อมูล
+                                function clearFilters() {
+                                    document.getElementById('typeFilter').value = '';
+                                    document.getElementById('statusFilter').value = '';
+                                    filterTable();
+                                }
+
+                                // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns และปุ่มล้างข้อมูล
+                                document.getElementById('typeFilter').addEventListener('change', filterTable);
+                                document.getElementById('statusFilter').addEventListener('change', filterTable);
+                                document.querySelector('button.bg-gray-600').addEventListener('click', clearFilters);
+                            </script>
                             <!-- Table -->
                             <table class="min-w-full table-auto border-collapse rounded-[12px]">
                                 <thead class="bg-orange-500 text-white text-center shadow-md">
@@ -197,74 +259,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                         });
                     </script>
 
-                    <!-- Filters -->
-                    <div class="flex items-center gap-4 mb-4 justify-center">
 
-                        <div>
-                            <label class="mr-2">สถานะคำร้อง:</label>
-                            <select id="statusFilter" class="border px-3 py-2 rounded">
-                                <option value="" disabled selected>เลือกสถานะคำร้อง</option>
-                                <option value="">รอดำเนินการ</option>
-                                <option value="1">อนุมัติ</option>
-                                <option value="2">ไม่อนุมัติ</option>
-                            </select>
-                        </div>
-                        <button class="bg-gray-600 text-white px-4 py-2 rounded">ล้างข้อมูล</button>
-                    </div>
-                    <script>
-                        // ฟังก์ชันสำหรับกรองข้อมูล
-                        function filterTable() {
-                            const typeFilter = document.getElementById('typeFilter').value.toLowerCase();
-                            const statusFilter = document.getElementById('statusFilter').value;
-                            const rows = document.querySelectorAll('table tbody tr');
-                            let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
-
-                            rows.forEach(row => {
-                                const formType = row.cells[0].textContent.toLowerCase();
-                                const status = row.cells[4].textContent;
-
-                                let showRow = true;
-
-                                // ตรวจสอบประเภทคำร้อง
-                                if (typeFilter && !formType.includes(typeFilter)) {
-                                    showRow = false;
-                                }
-
-                                // ตรวจสอบสถานะคำร้อง
-                                if (statusFilter && statusFilter !== '' && !status.includes(statusFilter)) {
-                                    showRow = false;
-                                }
-
-                                // ซ่อนหรือแสดงแถวตามผลการกรอง
-                                if (showRow) {
-                                    row.style.display = '';
-                                    noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
-                                } else {
-                                    row.style.display = 'none';
-                                }
-                            });
-
-                            // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
-                            const noDataMessage = document.getElementById('noDataMessage');
-                            if (noDataFound) {
-                                noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
-                            } else {
-                                noDataMessage.style.display = 'none'; // ซ่อนข้อความ
-                            }
-                        }
-
-                        // ฟังก์ชันสำหรับล้างข้อมูล
-                        function clearFilters() {
-                            document.getElementById('typeFilter').value = '';
-                            document.getElementById('statusFilter').value = '';
-                            filterTable();
-                        }
-
-                        // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns และปุ่มล้างข้อมูล
-                        document.getElementById('typeFilter').addEventListener('change', filterTable);
-                        document.getElementById('statusFilter').addEventListener('change', filterTable);
-                        document.querySelector('button.bg-gray-600').addEventListener('click', clearFilters);
-                    </script>
 
 
 
