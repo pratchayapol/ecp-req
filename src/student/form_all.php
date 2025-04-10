@@ -210,13 +210,15 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
                                 <div id="noDataMessage" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
                                 <br>
+
+
                             </div>
 
 
 
 
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re06" role="tabpanel" aria-labelledby="re06-tab">
-                                <!-- Filters -->
+                                 <!-- Filters -->
                                 <div class="flex items-center gap-4 mb-4 justify-center">
                                     <div>
                                         <label class="mr-2">สถานะคำร้อง:</label>
@@ -280,9 +282,9 @@ $course_level = $_SESSION['course_level'] ?? '';
                                     <thead class="bg-orange-500 text-white text-center shadow-md">
                                         <tr>
                                             <th class="px-4 py-2">เลขคำร้อง</th>
-                                            <th class="px-4 py-2">เรื่อง</th>
-                                            <th class="px-4 py-2">เรียน</th>
-                                            <th class="px-4 py-2">เหตุผล</th>
+                                            <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
+                                            <th class="px-4 py-2">รายวิชา</th>
+                                            <th class="px-4 py-2">เนื่องจาก</th>
                                             <th class="px-4 py-2">สถานะคำร้อง</th>
                                             <th class="px-4 py-2">จัดการ</th>
                                         </tr>
@@ -324,69 +326,67 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
                                 <div id="noDataMessage" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
                                 <br>
+
                             </div>
+                            <div class="hidden p-4 rounded-lg bg-gray-50" id="re07" role="tabpanel" aria-labelledby="re07-tab">
+                                <p class="text-sm text-gray-500">This is some placeholder content the <strong class="font-medium text-gray-800">re07 tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+                            </div>
+
                         </div>
 
+                        <script>
+                            // Get all tab buttons
+                            const tabs = document.querySelectorAll('[role="tab"]');
 
-                        <div class="hidden p-4 rounded-lg bg-gray-50" id="re07" role="tabpanel" aria-labelledby="re07-tab">
-                            <p class="text-sm text-gray-500">This is some placeholder content the <strong class="font-medium text-gray-800">re07 tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
-                        </div>
+                            // Get all tab panels
+                            const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+                            // Function to switch active tab
+                            function switchTab(event) {
+                                // Remove the 'aria-selected' attribute and 'border-b-2' class from all tabs
+                                tabs.forEach(tab => {
+                                    tab.setAttribute('aria-selected', 'false');
+                                    tab.classList.remove('border-b-2', 'text-gray-800');
+                                    tab.classList.add('text-gray-500');
+                                });
+
+                                // Add the 'aria-selected' attribute and 'border-b-2' class to the clicked tab
+                                const clickedTab = event.target;
+                                clickedTab.setAttribute('aria-selected', 'true');
+                                clickedTab.classList.add('border-b-2', 'text-gray-800');
+                                clickedTab.classList.remove('text-gray-500');
+
+                                // Hide all tab panels
+                                tabPanels.forEach(panel => {
+                                    panel.classList.add('hidden');
+                                });
+
+                                // Show the clicked tab's corresponding panel
+                                const targetPanel = document.querySelector(clickedTab.dataset.tabsTarget);
+                                targetPanel.classList.remove('hidden');
+                            }
+
+                            // Add event listeners to all tabs
+                            tabs.forEach(tab => {
+                                tab.addEventListener('click', switchTab);
+                            });
+                        </script>
+
+
+
+
+
 
                     </div>
 
-                    <script>
-                        // Get all tab buttons
-                        const tabs = document.querySelectorAll('[role="tab"]');
-
-                        // Get all tab panels
-                        const tabPanels = document.querySelectorAll('[role="tabpanel"]');
-
-                        // Function to switch active tab
-                        function switchTab(event) {
-                            // Remove the 'aria-selected' attribute and 'border-b-2' class from all tabs
-                            tabs.forEach(tab => {
-                                tab.setAttribute('aria-selected', 'false');
-                                tab.classList.remove('border-b-2', 'text-gray-800');
-                                tab.classList.add('text-gray-500');
-                            });
-
-                            // Add the 'aria-selected' attribute and 'border-b-2' class to the clicked tab
-                            const clickedTab = event.target;
-                            clickedTab.setAttribute('aria-selected', 'true');
-                            clickedTab.classList.add('border-b-2', 'text-gray-800');
-                            clickedTab.classList.remove('text-gray-500');
-
-                            // Hide all tab panels
-                            tabPanels.forEach(panel => {
-                                panel.classList.add('hidden');
-                            });
-
-                            // Show the clicked tab's corresponding panel
-                            const targetPanel = document.querySelector(clickedTab.dataset.tabsTarget);
-                            targetPanel.classList.remove('hidden');
-                        }
-
-                        // Add event listeners to all tabs
-                        tabs.forEach(tab => {
-                            tab.addEventListener('click', switchTab);
-                        });
-                    </script>
-
-
-
-
-
-
                 </div>
-
             </div>
+
+
+            <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
+                2025 All rights reserved by Software Engineering 3/67
+            </footer>
         </div>
-
-
-        <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
-            2025 All rights reserved by Software Engineering 3/67
-        </footer>
-    </div>
     </div>
 
     <!-- SweetAlert2 CDN -->
