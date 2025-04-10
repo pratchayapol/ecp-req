@@ -84,12 +84,9 @@ $course_level = $_SESSION['course_level'] ?? '';
         <!-- Main Content -->
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
             <div class="p-8">
-                <div class="bg-white rounded-lg shadow-lg h-auto m-6">
+                <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">คำร้องที่ขอของนักศึกษา</h1>
                     <br>
-
-
-
 
                     <div class="mb-4 border-b border-gray-200">
                         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
@@ -106,7 +103,63 @@ $course_level = $_SESSION['course_level'] ?? '';
                     </div>
                     <div id="default-tab-content">
                         <div class="hidden p-4 rounded-lg bg-gray-50" id="re01" role="tabpanel" aria-labelledby="re01-tab">
-                            <p class="text-sm text-gray-500">This is some placeholder content the <strong class="font-medium text-gray-800">re01 tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+                            <!-- Table -->
+                            <table class="min-w-full table-auto border-collapse rounded-[12px]">
+                                <thead class="bg-orange-500 text-white text-center shadow-md">
+                                    <tr>
+                                        <th class="px-4 py-2">เลขคำร้อง</th>
+                                        <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
+                                        <th class="px-4 py-2">รายวิชา</th>
+                                        <th class="px-4 py-2">กลุ่มเรียน</th>
+                                        <th class="px-4 py-2">สถานะคำร้อง</th>
+                                        <th class="px-4 py-2">จัดการ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    // การดึงข้อมูลจากฐานข้อมูล
+                                    try {
+                                        $stmt = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, 
+                               c.course_nameTH, c.credits
+                               FROM form_re06 AS f
+                               LEFT JOIN course AS c ON f.course_id = c.course_id
+                               WHERE f.email = :email
+                               UNION ALL
+                               SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, 
+                               c.course_nameTH, c.credits
+                               FROM form_re07 AS f
+                               LEFT JOIN course AS c ON f.course_id = c.course_id
+                               WHERE f.email = :email
+                               ORDER BY FIELD(form_type, 'RE07', 'RE06') DESC, form_id DESC");
+                                        $stmt->execute(['email' => $email]);
+                                        $forms = $stmt->fetchAll();
+                                    } catch (PDOException $e) {
+                                        echo "Database error: " . $e->getMessage();
+                                        exit;
+                                    }
+
+                                    if (!empty($forms)): ?>
+                                        <?php foreach ($forms as $row): ?>
+                                            <tr class="<?= $row['form_type'] === 'RE06' ? 'bg-white' : 'bg-orange-100' ?>">
+                                                <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
+                                                <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
+                                                <td class="px-4 py-2"><?= htmlspecialchars($row['course_id'] . ' ' . $row['course_nameTH'] . ' (' . $row['credits'] . ' หน่วยกิต)') ?></td>
+                                                <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
+                                                <td class="px-4 py-2 text-center<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
+                                                    <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
+                                                </td>
+                                                <td class="px-4 py-2">
+                                                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="hidden p-4 rounded-lg bg-gray-50" id="re06" role="tabpanel" aria-labelledby="re06-tab">
                             <p class="text-sm text-gray-500">This is some placeholder content the <strong class="font-medium text-gray-800">re06 tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
@@ -114,7 +167,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                         <div class="hidden p-4 rounded-lg bg-gray-50" id="re07" role="tabpanel" aria-labelledby="re07-tab">
                             <p class="text-sm text-gray-500">This is some placeholder content the <strong class="font-medium text-gray-800">re07 tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
                         </div>
-                       
+
                     </div>
 
                     <script>
@@ -157,7 +210,7 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                     <!-- Filters -->
                     <div class="flex items-center gap-4 mb-4 justify-center">
-                      
+
                         <div>
                             <label class="mr-2">สถานะคำร้อง:</label>
                             <select id="statusFilter" class="border px-3 py-2 rounded">
@@ -225,63 +278,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                     </script>
 
 
-                    <!-- Table -->
-                    <table class="min-w-full table-auto border-collapse rounded-[12px]">
-                        <thead class="bg-orange-500 text-white text-center shadow-md">
-                            <tr>
-                                <th class="px-4 py-2">เลขคำร้อง</th>
-                                <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
-                                <th class="px-4 py-2">รายวิชา</th>
-                                <th class="px-4 py-2">กลุ่มเรียน</th>
-                                <th class="px-4 py-2">สถานะคำร้อง</th>
-                                <th class="px-4 py-2">จัดการ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            // การดึงข้อมูลจากฐานข้อมูล
-                            try {
-                                $stmt = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, 
-                               c.course_nameTH, c.credits
-                               FROM form_re06 AS f
-                               LEFT JOIN course AS c ON f.course_id = c.course_id
-                               WHERE f.email = :email
-                               UNION ALL
-                               SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, 
-                               c.course_nameTH, c.credits
-                               FROM form_re07 AS f
-                               LEFT JOIN course AS c ON f.course_id = c.course_id
-                               WHERE f.email = :email
-                               ORDER BY FIELD(form_type, 'RE07', 'RE06') DESC, form_id DESC");
-                                $stmt->execute(['email' => $email]);
-                                $forms = $stmt->fetchAll();
-                            } catch (PDOException $e) {
-                                echo "Database error: " . $e->getMessage();
-                                exit;
-                            }
 
-                            if (!empty($forms)): ?>
-                                <?php foreach ($forms as $row): ?>
-                                    <tr class="<?= $row['form_type'] === 'RE06' ? 'bg-white' : 'bg-orange-100' ?>">
-                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
-                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
-                                        <td class="px-4 py-2"><?= htmlspecialchars($row['course_id'] . ' ' . $row['course_nameTH'] . ' (' . $row['credits'] . ' หน่วยกิต)') ?></td>
-                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
-                                        <td class="px-4 py-2 text-center<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
-                                            <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
-                                        </td>
-                                        <td class="px-4 py-2">
-                                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
 
                     <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
                     <div id="noDataMessage" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
