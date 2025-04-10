@@ -29,8 +29,8 @@ $id = $_SESSION['id'] ?? '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
-        $title         = $_POST['title'];
-        $to            = $_POST['to'];
+        echo $title         = $_POST['title'];
+        echo $to            = $_POST['to'];
         $faculty       = $_POST['faculty'];
         $field         = $_POST['field'];
         $course_level  = $_POST['course_level'];
