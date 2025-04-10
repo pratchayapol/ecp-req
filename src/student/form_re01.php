@@ -42,8 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // คำสั่ง SQL สำหรับบันทึกข้อมูล
-        $sql = "INSERT INTO form_re01 (title, to, email, faculty, field, course_level, request_text)
-                VALUES (:title, :to, :email, :faculty, :field, :course_level, :request)";
+        $sql = "INSERT INTO form_re01 (title, `to`, email, faculty, field, course_level, request_text)
+        VALUES (:title, :to, :email, :faculty, :field, :course_level, :request)";
+
 
         // เตรียมการ query
         $stmt = $pdo->prepare($sql);
