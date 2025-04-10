@@ -191,7 +191,10 @@ $course_level = $_SESSION['course_level'] ?? '';
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row['form_id']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['title']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['to']) ?></td>
-                                                    <td class="px-4 py-2 text-center" style="width: 150px;"><?= htmlspecialchars($row['request_text']) ?></td> <!-- Adjusted width -->
+                                                    <td class="px-4 py-2 text-center" style="width: 150px;">
+                                                        <!-- ปุ่มสำหรับดูเหตุผล -->
+                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded view-reason" data-reason="<?= htmlspecialchars($row['request_text']) ?>">ดูเหตุผล</button>
+                                                    </td>
                                                     <td class="px-4 py-2 text-center<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
                                                         <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
@@ -199,6 +202,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
                                                     </td>
                                                 </tr>
+
 
                                             <?php endforeach; ?>
                                         <?php else: ?>
@@ -208,6 +212,23 @@ $course_level = $_SESSION['course_level'] ?? '';
                                         <?php endif; ?>
                                     </tbody>
                                 </table>
+                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                <script>
+                                    // เพิ่ม event listener ให้กับปุ่ม "ดูเหตุผล"
+                                    document.querySelectorAll('.view-reason').forEach(button => {
+                                        button.addEventListener('click', function() {
+                                            const reason = this.getAttribute('data-reason');
+                                            // ใช้ SweetAlert แสดงข้อความ
+                                            Swal.fire({
+                                                title: 'เหตุผลการขออนุมัติ',
+                                                text: reason,
+                                                icon: 'info',
+                                                confirmButtonText: 'ปิด'
+                                            });
+                                        });
+                                    });
+                                </script>
+
                                 <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
                                 <div id="noDataMessage" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
                                 <br>
