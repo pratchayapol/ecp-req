@@ -24,7 +24,6 @@ $field = $_SESSION['field'] ?? '';
 $dep = $_SESSION['dep'] ?? '';
 $role = $_SESSION['role'] ?? '';
 $id = $_SESSION['id'] ?? '';
-$course_level = $course_level = $_SESSION['course_level'] ?? '';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
