@@ -34,22 +34,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $course_level  = $_POST['course_level'];
     $request       = $_POST['request'];
 
-    $sql = "INSERT INTO form_re01 (title, to, email, faculty, field, course_level, request_text)
-            VALUES (:title, :to, :email, :faculty, :field, :course_level, :request)";
+    try {
+        $sql = "INSERT INTO form_re01 (title, to, email, faculty, field, course_level, request_text)
+                VALUES (:title, :to, :email, :faculty, :field, :course_level, :request)";
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':title'        => $title,
+            ':to'           => $to,
+            ':email'        => $email,
+            ':faculty'      => $faculty,
+            ':field'        => $field,
+            ':course_level' => $course_level,
+            ':request'      => $request
+        ]);
 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ':title'        => $title,
-        ':to'           => $to,
-        ':email'        => $email,
-        ':faculty'      => $faculty,
-        ':field'        => $field,
-        ':course_level' => $course_level,
-        ':request'      => $request
-    ]);
+        echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว'); window.location.href='form_all';</script>";
 
-    echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว'); window.location.href='form_all';</script>";
+    } catch (PDOException $e) {
+        // ในระบบจริง อาจใช้ log แทน echo
+        echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $e->getMessage() . "');</script>";
+    }
 }
+
 ?>
 
 <!DOCTYPE html>
