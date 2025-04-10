@@ -328,14 +328,7 @@ $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <div>
                             <label class="block font-medium mb-1 text-red-600">อาจารย์ที่ปรึกษา *</label>
-                            <select class="w-full border rounded px-3 py-2" name="email_advisor_comment" required>
-                                <option value="" disabled selected>เลือกอาจารย์ที่ปรึกษา</option>
-                                <?php foreach ($advisors as $advisor): ?>
-                                    <option value="<?= htmlspecialchars($advisor['email']) ?>">
-                                        <?= htmlspecialchars($advisor['name']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
+                            <input type="text" class="w-full border rounded px-3 py-2 bg-gray-100 text-gray-500 cursor-not-allowed" value="<?php echo $iname ?>" readonly>
                         </div>
 
 
