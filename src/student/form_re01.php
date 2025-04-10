@@ -27,65 +27,33 @@ $id = $_SESSION['id'] ?? '';
 $course_level = $course_level = $_SESSION['course_level'] ?? '';
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    try {
-        $semester = $_POST['semester'] ?? '';
-        $academicYear = $_POST['academicYear'] ?? '';
-        $courseId = $_POST['course_id'] ?? '';
-        $group = $_POST['academicGroup'] ?? '';
-        $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
-        $registrations = $_POST['registrations'] ?? '';
-        $regStatus = $_POST['reg_status'] ?? '';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title         = $_POST['title'];
+    $to            = $_POST['to'];
+    $name          = $_POST['name'];
+    $student_id    = $_POST['student_id'];
+    $faculty       = $_POST['faculty'];
+    $field         = $_POST['field'];
+    $course_level  = $_POST['course_level'];
+    $request       = $_POST['request'];
 
+    $sql = "INSERT INTO requests (title, to_whom, name, student_id, faculty, field, course_level, request_text)
+            VALUES (:title, :to, :name, :student_id, :faculty, :field, :course_level, :request)";
 
-        $timestamp = date('Y-m-d H:i:s');
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        ':title'        => $title,
+        ':to'           => $to,
+        ':name'         => $name,
+        ':student_id'   => $student_id,
+        ':faculty'      => $faculty,
+        ':field'        => $field,
+        ':course_level' => $course_level,
+        ':request'      => $request
+    ]);
 
-        $stmt = $pdo->prepare("INSERT INTO form_re06 
-        (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, reg_status, time_stamp, email) 
-        VALUES 
-        (:term, :year, :reason, :group, :course_id, :coutter, NULL, NULL, :reg_status, :time_stamp, :email)");
-
-        $stmt->execute([
-            ':term' => $semester,
-            ':year' => $academicYear,
-            ':reason' => $reason,
-            ':group' => $group,
-            ':course_id' => $courseId,
-            ':coutter' => $registrations,
-            ':reg_status' => $regStatus,
-            ':time_stamp' => $timestamp,
-            ':email' => $email
-        ]);
-
-        // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน
-        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
-        echo "
-        <script>
-        Swal.fire({
-            title: 'สำเร็จ!',
-            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-            icon: 'success',
-            confirmButtonText: 'ตกลง'
-        }).then(() => {
-            window.location.href = 'form_all'; // กำหนดลิงก์ที่ถูกต้อง
-            exit; // ป้องกันไม่ให้มีการแสดงอะไรหลังจากนี้
-        });
-        </script>
-        ";
-        echo "</body></html>";
-        exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
-    } catch (PDOException $e) {
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-        echo "<script>
-        Swal.fire({
-            icon: 'error',
-            title: 'เกิดข้อผิดพลาด!',
-            text: '" . $e->getMessage() . "',
-        });
-        </script>";
-    }
+    echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว'); window.location.href='form_all';</script>";
 }
-
 ?>
 
 <!DOCTYPE html>
