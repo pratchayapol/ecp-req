@@ -187,21 +187,22 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                                         if (!empty($forms1)): ?>
                                             <?php foreach ($forms1 as $row1): ?>
-                                                <tr>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row1['form_id']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
-                                                    <td class="px-4 py-2 text-center" style="width: 150px;">
+                                                <tr class="text-center">
+                                                    <td class="px-4 py-2 flex justify-center items-center"><?= htmlspecialchars('RE.01' . '-' . $row1['form_id']) ?></td>
+                                                    <td class="px-4 py-2 flex justify-center items-center"><?= htmlspecialchars($row1['title']) ?></td>
+                                                    <td class="px-4 py-2 flex justify-center items-center"><?= htmlspecialchars($row1['to']) ?></td>
+                                                    <td class="px-4 py-2 flex justify-center items-center" style="width: 150px;">
                                                         <!-- ปุ่มสำหรับดูเหตุผล -->
                                                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded view-reason" data-reason="<?= htmlspecialchars($row1['request_text']) ?>">ดูเหตุผล</button>
                                                     </td>
-                                                    <td class="px-4 py-2 text-center<?= $row1['status'] === null ? 'gray-600' : ($row1['status'] == 1 ? 'green-600' : 'orange-600') ?>">
+                                                    <td class="px-4 py-2 flex justify-center items-center <?= $row1['status'] === null ? 'text-gray-600' : ($row1['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
                                                         <?= $row1['status'] === null ? 'รอดำเนินการ' : ($row1['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
-                                                    <td class="px-4 py-2">
+                                                    <td class="px-4 py-2 flex justify-center items-center">
                                                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
                                                     </td>
                                                 </tr>
+
 
 
                                             <?php endforeach; ?>
@@ -325,18 +326,19 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                                         if (!empty($forms2)): ?>
                                             <?php foreach ($forms2 as $row2): ?>
-                                                <tr>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['title']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['to']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['request_text']) ?></td>
-                                                    <td class="px-4 py-2 text-center<?= $row2['status'] === null ? 'gray-600' : ($row2['status'] == 1 ? 'green-600' : 'orange-600') ?>">
+                                                <tr class="text-center">
+                                                    <td class="px-4 py-2 flex justify-center items-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
+                                                    <td class="px-4 py-2 flex justify-center items-center"><?= htmlspecialchars($row2['title']) ?></td>
+                                                    <td class="px-4 py-2 flex justify-center items-center"><?= htmlspecialchars($row2['to']) ?></td>
+                                                    <td class="px-4 py-2 flex justify-center items-center"><?= htmlspecialchars($row2['request_text']) ?></td>
+                                                    <td class="px-4 py-2 flex justify-center items-center <?= $row2['status'] === null ? 'text-gray-600' : ($row2['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
                                                         <?= $row2['status'] === null ? 'รอดำเนินการ' : ($row2['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
-                                                    <td class="px-4 py-2">
+                                                    <td class="px-4 py-2 flex justify-center items-center">
                                                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
                                                     </td>
                                                 </tr>
+
                                             <?php endforeach; ?>
                                         <?php else: ?>
                                             <tr>
