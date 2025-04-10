@@ -119,18 +119,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                     <?php
                                     // การดึงข้อมูลจากฐานข้อมูล
                                     try {
-                                        $stmt = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, 
-                               c.course_nameTH, c.credits
-                               FROM form_re06 AS f
-                               LEFT JOIN course AS c ON f.course_id = c.course_id
-                               WHERE f.email = :email
-                               UNION ALL
-                               SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, 
-                               c.course_nameTH, c.credits
-                               FROM form_re07 AS f
-                               LEFT JOIN course AS c ON f.course_id = c.course_id
-                               WHERE f.email = :email
-                               ORDER BY FIELD(form_type, 'RE07', 'RE06') DESC, form_id DESC");
+                                        $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE email = :email ORDER BY form_id DESC");
                                         $stmt->execute(['email' => $email]);
                                         $forms = $stmt->fetchAll();
                                     } catch (PDOException $e) {
