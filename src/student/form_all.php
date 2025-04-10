@@ -120,6 +120,43 @@ $course_level = $_SESSION['course_level'] ?? '';
                         </div>
                     </div>
 
+                    <script>
+                        // Get all tab buttons
+                        const tabs = document.querySelectorAll('[role="tab"]');
+
+                        // Get all tab panels
+                        const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+                        // Function to switch active tab
+                        function switchTab(event) {
+                            // Remove the 'aria-selected' attribute and 'border-b-2' class from all tabs
+                            tabs.forEach(tab => {
+                                tab.setAttribute('aria-selected', 'false');
+                                tab.classList.remove('border-b-2', 'text-gray-800', 'dark:text-white');
+                                tab.classList.add('text-gray-500', 'dark:text-gray-400');
+                            });
+
+                            // Add the 'aria-selected' attribute and 'border-b-2' class to the clicked tab
+                            const clickedTab = event.target;
+                            clickedTab.setAttribute('aria-selected', 'true');
+                            clickedTab.classList.add('border-b-2', 'text-gray-800', 'dark:text-white');
+                            clickedTab.classList.remove('text-gray-500', 'dark:text-gray-400');
+
+                            // Hide all tab panels
+                            tabPanels.forEach(panel => {
+                                panel.classList.add('hidden');
+                            });
+
+                            // Show the clicked tab's corresponding panel
+                            const targetPanel = document.querySelector(clickedTab.dataset.tabsTarget);
+                            targetPanel.classList.remove('hidden');
+                        }
+
+                        // Add event listeners to all tabs
+                        tabs.forEach(tab => {
+                            tab.addEventListener('click', switchTab);
+                        });
+                    </script>
                     <!-- Filters -->
                     <div class="flex items-center gap-4 mb-4 justify-center">
                         <div>
