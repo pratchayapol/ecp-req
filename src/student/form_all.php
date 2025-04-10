@@ -108,9 +108,9 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 <thead class="bg-orange-500 text-white text-center shadow-md">
                                     <tr>
                                         <th class="px-4 py-2">เลขคำร้อง</th>
-                                        <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
-                                        <th class="px-4 py-2">รายวิชา</th>
-                                        <th class="px-4 py-2">กลุ่มเรียน</th>
+                                        <th class="px-4 py-2">เรื่อง</th>
+                                        <th class="px-4 py-2">เรียน</th>
+                                        <th class="px-4 py-2">เหตุผล</th>
                                         <th class="px-4 py-2">สถานะคำร้อง</th>
                                         <th class="px-4 py-2">จัดการ</th>
                                     </tr>
@@ -129,7 +129,7 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                                     if (!empty($forms)): ?>
                                         <?php foreach ($forms as $row): ?>
-                                            <tr class="<?= $row['form_type'] === 'RE06' ? 'bg-white' : 'bg-orange-100' ?>">
+                                            <tr class="<?= $row['form_type'] === 'RE01' ? 'bg-white' : 'bg-orange-100' ?>">
                                                 <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
                                                 <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['term'] . '/' . $row['year']) ?></td>
                                                 <td class="px-4 py-2"><?= htmlspecialchars($row['course_id'] . ' ' . $row['course_nameTH'] . ' (' . $row['credits'] . ' หน่วยกิต)') ?></td>
