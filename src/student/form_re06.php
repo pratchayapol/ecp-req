@@ -44,66 +44,6 @@ if (isset($_GET['course_id'])) {
     exit; // ปิดสคริปต์หลังส่งข้อมูล
 }
 
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    try {
-        $semester = $_POST['semester'] ?? '';
-        $academicYear = $_POST['academicYear'] ?? '';
-        $courseId = $_POST['course_id'] ?? '';
-        $group = $_POST['academicGroup'] ?? '';
-        $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
-        $registrations = $_POST['registrations'] ?? '';
-        $regStatus = $_POST['reg_status'] ?? '';
-
-
-        $timestamp = date('Y-m-d H:i:s');
-
-        $stmt = $pdo->prepare("INSERT INTO form_re06 
-        (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, reg_status, time_stamp, email) 
-        VALUES 
-        (:term, :year, :reason, :group, :course_id, :coutter, NULL, NULL, :reg_status, :time_stamp, :email)");
-
-        $stmt->execute([
-            ':term' => $semester,
-            ':year' => $academicYear,
-            ':reason' => $reason,
-            ':group' => $group,
-            ':course_id' => $courseId,
-            ':coutter' => $registrations,
-            ':reg_status' => $regStatus,
-            ':time_stamp' => $timestamp,
-            ':email' => $email
-        ]);
-
-        // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน
-        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
-        echo "
-        <script>
-        Swal.fire({
-            title: 'สำเร็จ!',
-            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-            icon: 'success',
-            confirmButtonText: 'ตกลง'
-        }).then(() => {
-            window.location.href = 'form_all'; // กำหนดลิงก์ที่ถูกต้อง
-            exit; // ป้องกันไม่ให้มีการแสดงอะไรหลังจากนี้
-        });
-        </script>
-        ";
-        echo "</body></html>";
-        exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
-    } catch (PDOException $e) {
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-        echo "<script>
-        Swal.fire({
-            icon: 'error',
-            title: 'เกิดข้อผิดพลาด!',
-            text: '" . $e->getMessage() . "',
-        });
-        </script>";
-    }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -155,8 +95,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
-<?php include '../loadtab/h.php'; ?>    
-<div class="flex flex-col sm:flex-row h-screen">
+    <?php include '../loadtab/h.php'; ?>
+    <div class="flex flex-col sm:flex-row h-screen">
         <!-- Sidebar -->
         <div id="sidebar" class="sm:w-1/4 md:w-1/5 bg-white shadow-lg p-4 m-6 flex flex-col justify-between rounded-[20px]">
             <div class="text-center">
@@ -464,7 +404,69 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             display: none;
         }
     </style>
-        <?php include '../loadtab/f.php'; ?>
+    <?php include '../loadtab/f.php'; ?>
+    <?php
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        try {
+            $semester = $_POST['semester'] ?? '';
+            $academicYear = $_POST['academicYear'] ?? '';
+            $courseId = $_POST['course_id'] ?? '';
+            $group = $_POST['academicGroup'] ?? '';
+            $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
+            $registrations = $_POST['registrations'] ?? '';
+            $regStatus = $_POST['reg_status'] ?? '';
+
+
+            $timestamp = date('Y-m-d H:i:s');
+
+            $stmt = $pdo->prepare("INSERT INTO form_re06 
+        (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, reg_status, time_stamp, email) 
+        VALUES 
+        (:term, :year, :reason, :group, :course_id, :coutter, NULL, NULL, :reg_status, :time_stamp, :email)");
+
+            $stmt->execute([
+                ':term' => $semester,
+                ':year' => $academicYear,
+                ':reason' => $reason,
+                ':group' => $group,
+                ':course_id' => $courseId,
+                ':coutter' => $registrations,
+                ':reg_status' => $regStatus,
+                ':time_stamp' => $timestamp,
+                ':email' => $email
+            ]);
+
+            // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน
+            echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
+            echo "
+        <script>
+        Swal.fire({
+            title: 'สำเร็จ!',
+            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            icon: 'success',
+            confirmButtonText: 'ตกลง'
+        }).then(() => {
+            window.location.href = 'form_all'; // กำหนดลิงก์ที่ถูกต้อง
+            exit; // ป้องกันไม่ให้มีการแสดงอะไรหลังจากนี้
+        });
+        </script>
+        ";
+            echo "</body></html>";
+            exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
+        } catch (PDOException $e) {
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'เกิดข้อผิดพลาด!',
+            text: '" . $e->getMessage() . "',
+        });
+        </script>";
+        }
+    }
+
+    ?>
 </body>
 
 </html>
