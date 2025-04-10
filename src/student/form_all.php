@@ -216,67 +216,177 @@ $course_level = $_SESSION['course_level'] ?? '';
 
 
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re06" role="tabpanel" aria-labelledby="re06-tab">
-                                <p class="text-sm text-gray-500">This is some placeholder content the <strong class="font-medium text-gray-800">re06 tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
-                            </div>
-                            <div class="hidden p-4 rounded-lg bg-gray-50" id="re07" role="tabpanel" aria-labelledby="re07-tab">
-                                <p class="text-sm text-gray-500">This is some placeholder content the <strong class="font-medium text-gray-800">re07 tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
-                            </div>
+                                <!-- Filters -->
+                                <div class="flex items-center gap-4 mb-4 justify-center">
+                                    <div>
+                                        <label class="mr-2">สถานะคำร้อง:</label>
+                                        <select id="statusFilter" class="border px-3 py-2 rounded">
+                                            <option value="" disabled selected>เลือกสถานะคำร้อง</option>
+                                            <option value="">รอดำเนินการ</option>
+                                            <option value="1">อนุมัติ</option>
+                                            <option value="2">ไม่อนุมัติ</option>
+                                        </select>
+                                    </div>
+                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters()">ล้างข้อมูล</button>
+                                </div>
 
+                                <script>
+                                    // ฟังก์ชันสำหรับกรองข้อมูล
+                                    function filterTable() {
+                                        const statusFilter = document.getElementById('statusFilter').value;
+                                        const rows = document.querySelectorAll('table tbody tr');
+                                        let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
+
+                                        rows.forEach(row => {
+                                            const status = row.cells[4].textContent;
+
+                                            let showRow = true;
+
+                                            // ตรวจสอบสถานะคำร้อง
+                                            if (statusFilter && statusFilter !== '' && !status.includes(statusFilter)) {
+                                                showRow = false;
+                                            }
+
+                                            // ซ่อนหรือแสดงแถวตามผลการกรอง
+                                            if (showRow) {
+                                                row.style.display = '';
+                                                noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
+                                            } else {
+                                                row.style.display = 'none';
+                                            }
+                                        });
+
+                                        // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
+                                        const noDataMessage = document.getElementById('noDataMessage');
+                                        if (noDataFound) {
+                                            noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
+                                        } else {
+                                            noDataMessage.style.display = 'none'; // ซ่อนข้อความ
+                                        }
+                                    }
+
+                                    // ฟังก์ชันสำหรับล้างข้อมูล
+                                    function clearFilters() {
+                                        document.getElementById('statusFilter').value = '';
+                                        filterTable();
+                                    }
+
+                                    // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
+                                    document.getElementById('statusFilter').addEventListener('change', filterTable);
+                                </script>
+
+                                <!-- Table -->
+                                <table class="min-w-full table-auto border-collapse rounded-[12px]">
+                                    <thead class="bg-orange-500 text-white text-center shadow-md">
+                                        <tr>
+                                            <th class="px-4 py-2">เลขคำร้อง</th>
+                                            <th class="px-4 py-2">เรื่อง</th>
+                                            <th class="px-4 py-2">เรียน</th>
+                                            <th class="px-4 py-2">เหตุผล</th>
+                                            <th class="px-4 py-2">สถานะคำร้อง</th>
+                                            <th class="px-4 py-2">จัดการ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        // การดึงข้อมูลจากฐานข้อมูล
+                                        try {
+                                            $stmt = $pdo->prepare("SELECT * FROM form_re06 WHERE email = :email ORDER BY form_id DESC");
+                                            $stmt->execute(['email' => $email]);
+                                            $forms = $stmt->fetchAll();
+                                        } catch (PDOException $e) {
+                                            echo "Database error: " . $e->getMessage();
+                                            exit;
+                                        }
+
+                                        if (!empty($forms)): ?>
+                                            <?php foreach ($forms as $row): ?>
+                                                <tr>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row['form_id']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['title']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['to']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['request_text']) ?></td>
+                                                    <td class="px-4 py-2 text-center<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
+                                                        <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
+                                                    </td>
+                                                    <td class="px-4 py-2">
+                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                                <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
+                                <div id="noDataMessage" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
+                                <br>
+                            </div>
                         </div>
 
-                        <script>
-                            // Get all tab buttons
-                            const tabs = document.querySelectorAll('[role="tab"]');
 
-                            // Get all tab panels
-                            const tabPanels = document.querySelectorAll('[role="tabpanel"]');
-
-                            // Function to switch active tab
-                            function switchTab(event) {
-                                // Remove the 'aria-selected' attribute and 'border-b-2' class from all tabs
-                                tabs.forEach(tab => {
-                                    tab.setAttribute('aria-selected', 'false');
-                                    tab.classList.remove('border-b-2', 'text-gray-800');
-                                    tab.classList.add('text-gray-500');
-                                });
-
-                                // Add the 'aria-selected' attribute and 'border-b-2' class to the clicked tab
-                                const clickedTab = event.target;
-                                clickedTab.setAttribute('aria-selected', 'true');
-                                clickedTab.classList.add('border-b-2', 'text-gray-800');
-                                clickedTab.classList.remove('text-gray-500');
-
-                                // Hide all tab panels
-                                tabPanels.forEach(panel => {
-                                    panel.classList.add('hidden');
-                                });
-
-                                // Show the clicked tab's corresponding panel
-                                const targetPanel = document.querySelector(clickedTab.dataset.tabsTarget);
-                                targetPanel.classList.remove('hidden');
-                            }
-
-                            // Add event listeners to all tabs
-                            tabs.forEach(tab => {
-                                tab.addEventListener('click', switchTab);
-                            });
-                        </script>
-
-
-
-
-
+                        <div class="hidden p-4 rounded-lg bg-gray-50" id="re07" role="tabpanel" aria-labelledby="re07-tab">
+                            <p class="text-sm text-gray-500">This is some placeholder content the <strong class="font-medium text-gray-800">re07 tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+                        </div>
 
                     </div>
 
+                    <script>
+                        // Get all tab buttons
+                        const tabs = document.querySelectorAll('[role="tab"]');
+
+                        // Get all tab panels
+                        const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+                        // Function to switch active tab
+                        function switchTab(event) {
+                            // Remove the 'aria-selected' attribute and 'border-b-2' class from all tabs
+                            tabs.forEach(tab => {
+                                tab.setAttribute('aria-selected', 'false');
+                                tab.classList.remove('border-b-2', 'text-gray-800');
+                                tab.classList.add('text-gray-500');
+                            });
+
+                            // Add the 'aria-selected' attribute and 'border-b-2' class to the clicked tab
+                            const clickedTab = event.target;
+                            clickedTab.setAttribute('aria-selected', 'true');
+                            clickedTab.classList.add('border-b-2', 'text-gray-800');
+                            clickedTab.classList.remove('text-gray-500');
+
+                            // Hide all tab panels
+                            tabPanels.forEach(panel => {
+                                panel.classList.add('hidden');
+                            });
+
+                            // Show the clicked tab's corresponding panel
+                            const targetPanel = document.querySelector(clickedTab.dataset.tabsTarget);
+                            targetPanel.classList.remove('hidden');
+                        }
+
+                        // Add event listeners to all tabs
+                        tabs.forEach(tab => {
+                            tab.addEventListener('click', switchTab);
+                        });
+                    </script>
+
+
+
+
+
+
                 </div>
+
             </div>
-
-
-            <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
-                2025 All rights reserved by Software Engineering 3/67
-            </footer>
         </div>
+
+
+        <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
+            2025 All rights reserved by Software Engineering 3/67
+        </footer>
+    </div>
     </div>
 
     <!-- SweetAlert2 CDN -->
