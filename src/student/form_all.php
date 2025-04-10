@@ -307,7 +307,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                             <th class="px-4 py-2">เลขคำร้อง</th>
                                             <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
                                             <th class="px-4 py-2">รายวิชา</th>
-                                            <th class="px-4 py-2">เนื่องจาก</th>
+                                            <th class="px-4 py-2">กลุ่มเรียน</th>
                                             <th class="px-4 py-2">สถานะคำร้อง</th>
                                             <th class="px-4 py-2">จัดการ</th>
                                         </tr>
@@ -316,7 +316,12 @@ $course_level = $_SESSION['course_level'] ?? '';
                                         <?php
                                         // การดึงข้อมูลจากฐานข้อมูล
                                         try {
-                                            $stmt2 = $pdo->prepare("SELECT * FROM form_re06 WHERE email = :email ORDER BY form_id DESC");
+                                            $stmt2 = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, 
+                                            c.course_nameTH, c.credits
+                                            FROM form_re06 AS f
+                                            LEFT JOIN course AS c ON f.course_id = c.course_id
+                                            WHERE f.email = :email
+                                            ORDER BY form_id DESC");
                                             $stmt2->execute(['email' => $email]);
                                             $forms2 = $stmt2->fetchAll();
                                         } catch (PDOException $e) {
@@ -328,9 +333,9 @@ $course_level = $_SESSION['course_level'] ?? '';
                                             <?php foreach ($forms2 as $row2): ?>
                                                 <tr>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['title']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['to']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['request_text']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'].' / '.$row2['year']) ?></td>
+                                                    <td class="px-4 py-2"><?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['group'] ?? $row2['academic_group']) ?></td>
                                                     <td class="px-4 py-2 text-center <?= $row2['status'] === null ? 'text-gray-600' : ($row2['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
                                                         <?= $row2['status'] === null ? 'รอดำเนินการ' : ($row2['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
