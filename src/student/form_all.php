@@ -124,7 +124,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                         let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
 
                                         rows.forEach(row => {
-                                            const status = row.cells[4].textContent;
+                                            const status = row.cells[4].textContent.trim(); // ดึงข้อมูลสถานะคำร้อง
 
                                             let showRow = true;
 
@@ -154,11 +154,11 @@ $course_level = $_SESSION['course_level'] ?? '';
                                     // ฟังก์ชันสำหรับล้างข้อมูล
                                     function clearFilters() {
                                         document.getElementById('statusFilter1').value = '';
-                                        filterTable();
+                                        filterTable1(); // ใช้ฟังก์ชันกรองที่ถูกต้อง
                                     }
 
                                     // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
-                                    document.getElementById('statusFilter1').addEventListener('change', filterTable);
+                                    document.getElementById('statusFilter1').addEventListener('change', filterTable1);
                                 </script>
 
                                 <!-- Table -->
@@ -333,7 +333,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                             <?php foreach ($forms2 as $row2): ?>
                                                 <tr>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'].' / '.$row2['year']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'] . ' / ' . $row2['year']) ?></td>
                                                     <td class="px-4 py-2"><?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['group'] ?? $row2['academic_group']) ?></td>
                                                     <td class="px-4 py-2 text-center <?= $row2['status'] === null ? 'text-gray-600' : ($row2['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
