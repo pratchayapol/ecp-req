@@ -177,26 +177,26 @@ $course_level = $_SESSION['course_level'] ?? '';
                                         <?php
                                         // การดึงข้อมูลจากฐานข้อมูล
                                         try {
-                                            $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE email = :email ORDER BY form_id DESC");
-                                            $stmt->execute(['email' => $email]);
-                                            $forms = $stmt->fetchAll();
+                                            $stmt1 = $pdo->prepare("SELECT * FROM form_re01 WHERE email = :email ORDER BY form_id DESC");
+                                            $stmt1->execute(['email' => $email]);
+                                            $forms1 = $stmt1->fetchAll();
                                         } catch (PDOException $e) {
                                             echo "Database error: " . $e->getMessage();
                                             exit;
                                         }
 
-                                        if (!empty($forms)): ?>
-                                            <?php foreach ($forms as $row): ?>
+                                        if (!empty($forms1)): ?>
+                                            <?php foreach ($forms1 as $row1): ?>
                                                 <tr>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row['form_id']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['title']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['to']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row1['form_id']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
                                                     <td class="px-4 py-2 text-center" style="width: 150px;">
                                                         <!-- ปุ่มสำหรับดูเหตุผล -->
-                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded view-reason" data-reason="<?= htmlspecialchars($row['request_text']) ?>">ดูเหตุผล</button>
+                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded view-reason" data-reason="<?= htmlspecialchars($row1['request_text']) ?>">ดูเหตุผล</button>
                                                     </td>
-                                                    <td class="px-4 py-2 text-center<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
-                                                        <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
+                                                    <td class="px-4 py-2 text-center<?= $row1['status'] === null ? 'gray-600' : ($row1['status'] == 1 ? 'green-600' : 'orange-600') ?>">
+                                                        <?= $row1['status'] === null ? 'รอดำเนินการ' : ($row1['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
                                                     <td class="px-4 py-2">
                                                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
@@ -315,23 +315,23 @@ $course_level = $_SESSION['course_level'] ?? '';
                                         <?php
                                         // การดึงข้อมูลจากฐานข้อมูล
                                         try {
-                                            $stmt = $pdo->prepare("SELECT * FROM form_re06 WHERE email = :email ORDER BY form_id DESC");
-                                            $stmt->execute(['email' => $email]);
-                                            $forms = $stmt->fetchAll();
+                                            $stmt2 = $pdo->prepare("SELECT * FROM form_re06 WHERE email = :email ORDER BY form_id DESC");
+                                            $stmt2->execute(['email' => $email]);
+                                            $forms2 = $stmt2->fetchAll();
                                         } catch (PDOException $e) {
                                             echo "Database error: " . $e->getMessage();
                                             exit;
                                         }
 
-                                        if (!empty($forms)): ?>
-                                            <?php foreach ($forms as $row): ?>
+                                        if (!empty($forms2)): ?>
+                                            <?php foreach ($forms2 as $row2): ?>
                                                 <tr>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row['form_id']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['title']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['to']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['request_text']) ?></td>
-                                                    <td class="px-4 py-2 text-center<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
-                                                        <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['title']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['to']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['request_text']) ?></td>
+                                                    <td class="px-4 py-2 text-center<?= $row2['status'] === null ? 'gray-600' : ($row2['status'] == 1 ? 'green-600' : 'orange-600') ?>">
+                                                        <?= $row2['status'] === null ? 'รอดำเนินการ' : ($row2['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
                                                     <td class="px-4 py-2">
                                                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
