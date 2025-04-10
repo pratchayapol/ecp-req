@@ -27,18 +27,26 @@ $id = $_SESSION['id'] ?? '';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     try {
-        echo $title         = $_POST['title'];
-        echo $to            = $_POST['to'];
+        // รับค่าจากฟอร์ม
+        $title         = $_POST['title'];
+        $to            = $_POST['to'];
         $faculty       = $_POST['faculty'];
         $field         = $_POST['field'];
         $course_level  = $_POST['course_level'];
         $request       = $_POST['request'];
+        $email         = $_POST['email'];  // รับค่า email
 
+        // ตรวจสอบว่าค่าจากฟอร์มครบหรือไม่
+        if(empty($email)) {
+            throw new Exception("กรุณากรอกอีเมล");
+        }
+
+        // คำสั่ง SQL สำหรับบันทึกข้อมูล
         $sql = "INSERT INTO form_re01 (title, to, email, faculty, field, course_level, request_text)
                 VALUES (:title, :to, :email, :faculty, :field, :course_level, :request)";
 
+        // เตรียมการ query
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':title'        => $title,
@@ -50,13 +58,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':request'      => $request
         ]);
 
+        // ถ้าบันทึกสำเร็จ
         echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว'); window.location.href='form_all';</script>";
     } catch (PDOException $e) {
-        // ในระบบจริง อาจใช้ log แทน echo
+        // แสดงข้อผิดพลาดที่เกิดขึ้น
         echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $e->getMessage() . "');</script>";
+    } catch (Exception $e) {
+        // แสดงข้อความผิดพลาดทั่วไป
+        echo "<script>alert('ข้อผิดพลาด: " . $e->getMessage() . "');</script>";
     }
 }
-
 ?>
 
 <!DOCTYPE html>
