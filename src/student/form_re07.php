@@ -469,7 +469,6 @@ $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $gpa_all = $_POST['gpa_all'] ?? '';
             $reg_status = $_POST['reg_status'] ?? '';
             $Yearend = $_POST['Yearend'] ?? '';
-            $email_advisor_comment = $_POST['email_advisor_comment'] ?? '';
             $status = NULL;  // Set default status to 0 if not provided
 
             // หากเลือกเหตุผล "อื่นๆ" ให้ใช้ค่าที่กรอกเพิ่ม
@@ -477,9 +476,9 @@ $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             // เตรียมคำสั่ง SQL
             $stmt = $pdo->prepare("INSERT INTO form_re07 (
-            term, year, course_id, `Group`, reason, gpa, gpa_all, reg_status, expected_graduation, email, status, email_advisor_comment
+            term, year, course_id, `Group`, reason, gpa, gpa_all, reg_status, expected_graduation, email, status
         ) VALUES (
-            :term, :year, :course_id, :group, :reason, :GPA, :gpa_all, :reg_status, :Yearend, :email, :status, :email_advisor_comment
+            :term, :year, :course_id, :group, :reason, :GPA, :gpa_all, :reg_status, :Yearend, :email, :status
         )");
 
             // bindParam และ execute
@@ -494,8 +493,7 @@ $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 ':reg_status' => $reg_status,
                 ':Yearend' => $Yearend,
                 ':email' => $email,
-                ':status' => $status,
-                ':email_advisor_comment' => $email_advisor_comment
+                ':status' => $status
             ]);
 
             echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
