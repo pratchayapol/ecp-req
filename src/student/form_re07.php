@@ -15,9 +15,15 @@ if (isset($_SESSION['user'])) {
 }
 
 $logged_in = $_SESSION['logged_in'] ?? 0;
+$iname = $_SESSION['iname'] ?? '';
 $role = $_SESSION['role'] ?? '';
 $id = $_SESSION['id'] ?? '';
 $course_level = $_SESSION['course_level'] ?? '';
+$faculty = $_SESSION['faculty'] ?? '';
+$field = $_SESSION['field'] ?? '';
+$dep = $_SESSION['dep'] ?? '';
+$role = $_SESSION['role'] ?? '';
+$id = $_SESSION['id'] ?? '';
 
 // ดึงข้อมูลรายวิชาทั้งหมดเพื่อแสดงใน <select>
 $sql = "SELECT course_id, course_nameTH FROM course";
@@ -327,7 +333,7 @@ $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </script>
 
                         <div>
-                            <label class="block font-medium mb-1 text-red-600">อาจารย์ที่ปรึกษา *</label>
+                            <label class="block font-medium mb-1 text-red-600">อาจารย์ที่ปรึกษา</label>
                             <input type="text" class="w-full border rounded px-3 py-2 bg-gray-100 text-gray-500 cursor-not-allowed" value="<?php echo $iname ?>" readonly>
                         </div>
 

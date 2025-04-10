@@ -15,9 +15,15 @@ if (isset($_SESSION['user'])) {
 }
 
 $logged_in = $_SESSION['logged_in'] ?? 0;
+$iname = $_SESSION['iname'] ?? '';
 $role = $_SESSION['role'] ?? '';
 $id = $_SESSION['id'] ?? '';
 $course_level = $_SESSION['course_level'] ?? '';
+$faculty = $_SESSION['faculty'] ?? '';
+$field = $_SESSION['field'] ?? '';
+$dep = $_SESSION['dep'] ?? '';
+$role = $_SESSION['role'] ?? '';
+$id = $_SESSION['id'] ?? '';
 
 // ดึงข้อมูลรายวิชาทั้งหมดเพื่อแสดงใน <select>
 $sql = "SELECT course_id, course_nameTH FROM course";
