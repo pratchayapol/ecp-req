@@ -191,7 +191,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row['form_id']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['title']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['to']) ?></td>
-                                                    <td class="px-4 py-2 text-center style=width: 250px;"><?= htmlspecialchars($row['request_text']) ?></td>
+                                                    <td class="px-4 py-2 text-center" style="width: 300px;"><?= htmlspecialchars($row['request_text']) ?></td>
                                                     <td class="px-4 py-2 text-center<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
                                                         <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
