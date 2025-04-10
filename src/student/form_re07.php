@@ -45,78 +45,6 @@ if (isset($_GET['course_id'])) {
     exit; // ปิดสคริปต์หลังส่งข้อมูล
 }
 
-
-
-// ตรวจสอบการส่งแบบ POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    try {
-        // ดึงค่าจากฟอร์ม
-        $semester = $_POST['semester'] ?? '';
-        $academicYear = $_POST['academicYear'] ?? '';
-        $course_id = $_POST['course_id'] ?? '';
-        $academicGroup = $_POST['academicGroup'] ?? '';
-        $reason = $_POST['reason'] ?? '';
-        $other_reason = $_POST['other_reason'] ?? null;
-        $GPA = $_POST['GPA'] ?? '';
-        $gpa_all = $_POST['gpa_all'] ?? '';
-        $reg_status = $_POST['reg_status'] ?? '';
-        $Yearend = $_POST['Yearend'] ?? '';
-        $email_advisor_comment = $_POST['email_advisor_comment'] ?? '';
-        $status = NULL;  // Set default status to 0 if not provided
-
-        // หากเลือกเหตุผล "อื่นๆ" ให้ใช้ค่าที่กรอกเพิ่ม
-        $final_reason = ($reason === 'other') ? $other_reason : $reason;
-
-        // เตรียมคำสั่ง SQL
-        $stmt = $pdo->prepare("INSERT INTO form_re07 (
-            term, year, course_id, `Group`, reason, gpa, gpa_all, reg_status, expected_graduation, email, status, email_advisor_comment
-        ) VALUES (
-            :term, :year, :course_id, :group, :reason, :GPA, :gpa_all, :reg_status, :Yearend, :email, :status, :email_advisor_comment
-        )");
-
-        // bindParam และ execute
-        $stmt->execute([
-            ':term' => $semester,
-            ':year' => $academicYear,
-            ':course_id' => $course_id,
-            ':group' => $academicGroup,
-            ':reason' => $final_reason,
-            ':GPA' => $GPA,
-            ':gpa_all' => $gpa_all,
-            ':reg_status' => $reg_status,
-            ':Yearend' => $Yearend,
-            ':email' => $email,
-            ':status' => $status,
-            ':email_advisor_comment' => $email_advisor_comment
-        ]);
-
-        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
-        echo "
-        <script>
-        Swal.fire({
-            title: 'สำเร็จ!',
-            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-            icon: 'success',
-            confirmButtonText: 'ตกลง'
-        }).then(() => {
-            window.location.href = 'form_all';
-        });
-        </script>
-        ";
-        echo "</body></html>";
-    } catch (PDOException $e) {
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-        echo "<script>
-        Swal.fire({
-            icon: 'error',
-            title: 'เกิดข้อผิดพลาด!',
-            text: '" . $e->getMessage() . "',
-        });
-        </script>";
-    }
-}
-
-
 // ดึงเฉพาะผู้ที่เป็นอาจารย์ (role = 'Teacher')
 $stmt = $pdo->prepare("SELECT name, email FROM accounts WHERE role = 'Teacher' ORDER BY name ASC");
 $stmt->execute();
@@ -524,6 +452,79 @@ $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     </style>
     <?php include '../loadtab/f.php'; ?>
+    <?php
+
+
+    // ตรวจสอบการส่งแบบ POST
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        try {
+            // ดึงค่าจากฟอร์ม
+            $semester = $_POST['semester'] ?? '';
+            $academicYear = $_POST['academicYear'] ?? '';
+            $course_id = $_POST['course_id'] ?? '';
+            $academicGroup = $_POST['academicGroup'] ?? '';
+            $reason = $_POST['reason'] ?? '';
+            $other_reason = $_POST['other_reason'] ?? null;
+            $GPA = $_POST['GPA'] ?? '';
+            $gpa_all = $_POST['gpa_all'] ?? '';
+            $reg_status = $_POST['reg_status'] ?? '';
+            $Yearend = $_POST['Yearend'] ?? '';
+            $email_advisor_comment = $_POST['email_advisor_comment'] ?? '';
+            $status = NULL;  // Set default status to 0 if not provided
+
+            // หากเลือกเหตุผล "อื่นๆ" ให้ใช้ค่าที่กรอกเพิ่ม
+            $final_reason = ($reason === 'other') ? $other_reason : $reason;
+
+            // เตรียมคำสั่ง SQL
+            $stmt = $pdo->prepare("INSERT INTO form_re07 (
+            term, year, course_id, `Group`, reason, gpa, gpa_all, reg_status, expected_graduation, email, status, email_advisor_comment
+        ) VALUES (
+            :term, :year, :course_id, :group, :reason, :GPA, :gpa_all, :reg_status, :Yearend, :email, :status, :email_advisor_comment
+        )");
+
+            // bindParam และ execute
+            $stmt->execute([
+                ':term' => $semester,
+                ':year' => $academicYear,
+                ':course_id' => $course_id,
+                ':group' => $academicGroup,
+                ':reason' => $final_reason,
+                ':GPA' => $GPA,
+                ':gpa_all' => $gpa_all,
+                ':reg_status' => $reg_status,
+                ':Yearend' => $Yearend,
+                ':email' => $email,
+                ':status' => $status,
+                ':email_advisor_comment' => $email_advisor_comment
+            ]);
+
+            echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
+            echo "
+        <script>
+        Swal.fire({
+            title: 'สำเร็จ!',
+            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            icon: 'success',
+            confirmButtonText: 'ตกลง'
+        }).then(() => {
+            window.location.href = 'form_all';
+        });
+        </script>
+        ";
+            echo "</body></html>";
+        } catch (PDOException $e) {
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'เกิดข้อผิดพลาด!',
+            text: '" . $e->getMessage() . "',
+        });
+        </script>";
+        }
+    }
+
+    ?>
 </body>
 
 </html>
