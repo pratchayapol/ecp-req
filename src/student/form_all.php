@@ -208,6 +208,9 @@ $course_level = $_SESSION['course_level'] ?? '';
                                     <?php endif; ?>
                                 </tbody>
                             </table>
+                            <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
+                            <div id="noDataMessage" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
+                            <br>
                         </div>
 
 
@@ -265,9 +268,7 @@ $course_level = $_SESSION['course_level'] ?? '';
 
 
 
-                    <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
-                    <div id="noDataMessage" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
-                    <br>
+
 
                 </div>
             </div>
