@@ -129,8 +129,8 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                                     if (!empty($forms)): ?>
                                         <?php foreach ($forms as $row): ?>
-                                            <tr class="<?= $row['form_type'] === 'RE01' ? 'bg-white' : 'bg-orange-100' ?>">
-                                                <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['form_type'] . '-' . $row['form_id']) ?></td>
+                                            <tr>
+                                                <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row['form_id']) ?></td>
                                                 <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['title']) ?></td>
                                                 <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['to']) ?></td>
                                                 <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
