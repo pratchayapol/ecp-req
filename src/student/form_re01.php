@@ -30,22 +30,19 @@ $course_level = $course_level = $_SESSION['course_level'] ?? '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title         = $_POST['title'];
     $to            = $_POST['to'];
-    $name          = $_POST['name'];
-    $student_id    = $_POST['student_id'];
     $faculty       = $_POST['faculty'];
     $field         = $_POST['field'];
     $course_level  = $_POST['course_level'];
     $request       = $_POST['request'];
 
-    $sql = "INSERT INTO requests (title, to_whom, name, student_id, faculty, field, course_level, request_text)
-            VALUES (:title, :to, :name, :student_id, :faculty, :field, :course_level, :request)";
+    $sql = "INSERT INTO form_re01 (title, to, email, faculty, field, course_level, request_text)
+            VALUES (:title, :to, :email, :faculty, :field, :course_level, :request)";
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
         ':title'        => $title,
         ':to'           => $to,
-        ':name'         => $name,
-        ':student_id'   => $student_id,
+        ':email'        => $email,
         ':faculty'      => $faculty,
         ':field'        => $field,
         ':course_level' => $course_level,
