@@ -191,7 +191,9 @@ $course_level = $_SESSION['course_level'] ?? '';
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row['form_id']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['title']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['to']) ?></td>
-                                                    <td class="px-4 py-2 text-center" style="width: 150px;"><?= htmlspecialchars($row['request_text']) ?></td> <!-- Adjusted width -->
+                                                    <td class="px-4 py-2 text-center" style="width: 150px;">
+                                                        <?= htmlspecialchars(implode(', ', json_decode($row['request_text']))) ?>
+                                                    </td>
                                                     <td class="px-4 py-2 text-center<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
                                                         <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
@@ -199,6 +201,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
                                                     </td>
                                                 </tr>
+
 
                                             <?php endforeach; ?>
                                         <?php else: ?>
