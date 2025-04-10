@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $field         = $_POST['field'];
         $course_level  = $_POST['course_level'];
         $request       = $_POST['request'];
-
+        $email = $_SESSION['user']['email'];
         // ตรวจสอบว่าค่าจากฟอร์มครบหรือไม่
         if(empty($email)) {
             throw new Exception("กรุณากรอกอีเมล");
