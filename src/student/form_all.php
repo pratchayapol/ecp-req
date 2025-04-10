@@ -106,7 +106,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 <div class="flex items-center gap-4 mb-4 justify-center">
                                     <div>
                                         <label class="mr-2">สถานะคำร้อง:</label>
-                                        <select id="statusFilter" class="border px-3 py-2 rounded">
+                                        <select id="statusFilter1" class="border px-3 py-2 rounded">
                                             <option value="" disabled selected>เลือกสถานะคำร้อง</option>
                                             <option value="">รอดำเนินการ</option>
                                             <option value="1">อนุมัติ</option>
@@ -118,8 +118,8 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                                 <script>
                                     // ฟังก์ชันสำหรับกรองข้อมูล
-                                    function filterTable() {
-                                        const statusFilter = document.getElementById('statusFilter').value;
+                                    function filterTable1() {
+                                        const statusFilter1 = document.getElementById('statusFilter1').value;
                                         const rows = document.querySelectorAll('table tbody tr');
                                         let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
 
@@ -129,7 +129,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                             let showRow = true;
 
                                             // ตรวจสอบสถานะคำร้อง
-                                            if (statusFilter && statusFilter !== '' && !status.includes(statusFilter)) {
+                                            if (statusFilter1 && statusFilter1 !== '' && !status.includes(statusFilter1)) {
                                                 showRow = false;
                                             }
 
@@ -143,7 +143,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                         });
 
                                         // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
-                                        const noDataMessage = document.getElementById('noDataMessage');
+                                        const noDataMessage = document.getElementById('noDataMessage1');
                                         if (noDataFound) {
                                             noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
                                         } else {
@@ -153,12 +153,12 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                                     // ฟังก์ชันสำหรับล้างข้อมูล
                                     function clearFilters() {
-                                        document.getElementById('statusFilter').value = '';
+                                        document.getElementById('statusFilter1').value = '';
                                         filterTable();
                                     }
 
                                     // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
-                                    document.getElementById('statusFilter').addEventListener('change', filterTable);
+                                    document.getElementById('statusFilter1').addEventListener('change', filterTable);
                                 </script>
 
                                 <!-- Table -->
@@ -231,7 +231,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 </script>
 
                                 <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
-                                <div id="noDataMessage" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
+                                <div id="noDataMessage1" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
                                 <br>
 
 
@@ -245,7 +245,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 <div class="flex items-center gap-4 mb-4 justify-center">
                                     <div>
                                         <label class="mr-2">สถานะคำร้อง:</label>
-                                        <select id="statusFilter" class="border px-3 py-2 rounded">
+                                        <select id="statusFilter2" class="border px-3 py-2 rounded">
                                             <option value="" disabled selected>เลือกสถานะคำร้อง</option>
                                             <option value="">รอดำเนินการ</option>
                                             <option value="1">อนุมัติ</option>
@@ -257,8 +257,8 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                                 <script>
                                     // ฟังก์ชันสำหรับกรองข้อมูล
-                                    function filterTable() {
-                                        const statusFilter = document.getElementById('statusFilter').value;
+                                    function filterTable2() {
+                                        const statusFilter2 = document.getElementById('statusFilter2').value;
                                         const rows = document.querySelectorAll('table tbody tr');
                                         let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
 
@@ -268,7 +268,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                             let showRow = true;
 
                                             // ตรวจสอบสถานะคำร้อง
-                                            if (statusFilter && statusFilter !== '' && !status.includes(statusFilter)) {
+                                            if (statusFilter2 && statusFilter2 !== '' && !status.includes(statusFilter2)) {
                                                 showRow = false;
                                             }
 
@@ -282,7 +282,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                         });
 
                                         // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
-                                        const noDataMessage = document.getElementById('noDataMessage');
+                                        const noDataMessage = document.getElementById('noDataMessage2');
                                         if (noDataFound) {
                                             noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
                                         } else {
@@ -292,12 +292,12 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                                     // ฟังก์ชันสำหรับล้างข้อมูล
                                     function clearFilters() {
-                                        document.getElementById('statusFilter').value = '';
-                                        filterTable();
+                                        document.getElementById('statusFilter2').value = '';
+                                        filterTable2();
                                     }
 
                                     // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
-                                    document.getElementById('statusFilter').addEventListener('change', filterTable);
+                                    document.getElementById('statusFilter2').addEventListener('change', filterTable2);
                                 </script>
 
                                 <!-- Table -->
@@ -353,7 +353,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                     </tbody>
                                 </table>
                                 <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
-                                <div id="noDataMessage" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
+                                <div id="noDataMessage2" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
                                 <br>
 
                             </div>
