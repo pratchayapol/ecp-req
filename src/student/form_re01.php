@@ -58,14 +58,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':request'      => $request
         ]);
 
-        // ถ้าบันทึกสำเร็จ
-        echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว'); window.location.href='form_all';</script>";
+        // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
+        echo "
+        <script>
+        Swal.fire({
+            title: 'สำเร็จ!',
+            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            icon: 'success',
+            confirmButtonText: 'ตกลง'
+        }).then(() => {
+            window.location.href = 'form_all'; // กำหนดลิงก์ที่ถูกต้อง
+            exit; // ป้องกันไม่ให้มีการแสดงอะไรหลังจากนี้
+        });
+        </script>
+        ";
+        echo "</body></html>";
+        exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
     } catch (PDOException $e) {
-        // แสดงข้อผิดพลาดที่เกิดขึ้น
-        echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $e->getMessage() . "');</script>";
-    } catch (Exception $e) {
-        // แสดงข้อความผิดพลาดทั่วไป
-        echo "<script>alert('ข้อผิดพลาด: " . $e->getMessage() . "');</script>";
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'เกิดข้อผิดพลาด!',
+            text: '" . $e->getMessage() . "',
+        });
+        </script>";
     }
 }
 ?>
