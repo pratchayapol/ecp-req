@@ -105,7 +105,6 @@ $course_level = $_SESSION['course_level'] ?? '';
                         <div class="hidden p-4 rounded-lg bg-gray-50" id="re01" role="tabpanel" aria-labelledby="re01-tab">
                             <!-- Filters -->
                             <div class="flex items-center gap-4 mb-4 justify-center">
-
                                 <div>
                                     <label class="mr-2">สถานะคำร้อง:</label>
                                     <select id="statusFilter" class="border px-3 py-2 rounded">
@@ -115,8 +114,9 @@ $course_level = $_SESSION['course_level'] ?? '';
                                         <option value="2">ไม่อนุมัติ</option>
                                     </select>
                                 </div>
-                                <button class="bg-gray-600 text-white px-4 py-2 rounded">ล้างข้อมูล</button>
+                                <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters()">ล้างข้อมูล</button>
                             </div>
+
                             <script>
                                 // ฟังก์ชันสำหรับกรองข้อมูล
                                 function filterTable() {
@@ -125,7 +125,6 @@ $course_level = $_SESSION['course_level'] ?? '';
                                     let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
 
                                     rows.forEach(row => {
-                                        const formType = row.cells[0].textContent.toLowerCase();
                                         const status = row.cells[4].textContent;
 
                                         let showRow = true;
@@ -155,16 +154,14 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                                 // ฟังก์ชันสำหรับล้างข้อมูล
                                 function clearFilters() {
-                                    document.getElementById('typeFilter').value = '';
                                     document.getElementById('statusFilter').value = '';
                                     filterTable();
                                 }
 
-                                // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns และปุ่มล้างข้อมูล
-                                document.getElementById('typeFilter').addEventListener('change', filterTable);
+                                // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
                                 document.getElementById('statusFilter').addEventListener('change', filterTable);
-                                document.querySelector('button.bg-gray-600').addEventListener('click', clearFilters);
                             </script>
+
                             <!-- Table -->
                             <table class="min-w-full table-auto border-collapse rounded-[12px]">
                                 <thead class="bg-orange-500 text-white text-center shadow-md">
@@ -195,7 +192,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                                 <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row['form_id']) ?></td>
                                                 <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['title']) ?></td>
                                                 <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['to']) ?></td>
-                                                <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['group'] ?? $row['academic_group']) ?></td>
+                                                <td class="px-4 py-2 text-center"><?= htmlspecialchars($row['request_text']) ?></td>
                                                 <td class="px-4 py-2 text-center<?= $row['status'] === null ? 'gray-600' : ($row['status'] == 1 ? 'green-600' : 'orange-600') ?>">
                                                     <?= $row['status'] === null ? 'รอดำเนินการ' : ($row['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                 </td>
@@ -212,6 +209,10 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 </tbody>
                             </table>
                         </div>
+
+
+
+
                         <div class="hidden p-4 rounded-lg bg-gray-50" id="re06" role="tabpanel" aria-labelledby="re06-tab">
                             <p class="text-sm text-gray-500">This is some placeholder content the <strong class="font-medium text-gray-800">re06 tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
                         </div>
