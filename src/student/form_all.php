@@ -366,7 +366,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                                  <div class="flex items-center gap-4 mb-4 justify-center">
                                     <div>
                                         <label class="mr-2">สถานะคำร้อง:</label>
-                                        <select id="statusFilter2" class="border px-3 py-2 rounded">
+                                        <select id="statusFilter3" class="border px-3 py-2 rounded">
                                             <option value="" disabled selected>เลือกสถานะคำร้อง</option>
                                             <option value="">รอดำเนินการ</option>
                                             <option value="1">อนุมัติ</option>
