@@ -172,15 +172,6 @@ $course_level = $_SESSION['course_level'] ?? '';
         document.getElementById('dashboard-btn').addEventListener('click', function() {
             window.location.href = 'dashboard';
         });
-        document.getElementById('re1').addEventListener('click', function() {
-            window.location.href = 'form_re01';
-        });
-        document.getElementById('re6').addEventListener('click', function() {
-            window.location.href = 'form_re06';
-        });
-        document.getElementById('re7').addEventListener('click', function() {
-            window.location.href = 'form_re07';
-        });
         document.getElementById('form_all').addEventListener('click', function() {
             window.location.href = 'form_all';
         });
