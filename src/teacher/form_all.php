@@ -355,7 +355,120 @@ $course_level = $_SESSION['course_level'] ?? '';
 
                             </div>
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re07" role="tabpanel" aria-labelledby="re07-tab">
-                                <p class="text-sm text-gray-500">This is some placeholder content the <strong class="font-medium text-gray-800">re07 tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+                                 <!-- Filters -->
+                                 <div class="flex items-center gap-4 mb-4 justify-center">
+                                    <div>
+                                        <label class="mr-2">สถานะคำร้อง:</label>
+                                        <select id="statusFilter3" class="border px-3 py-2 rounded">
+                                            <option value="" disabled selected>เลือกสถานะคำร้อง</option>
+                                            <option value="">รอดำเนินการ</option>
+                                            <option value="1">อนุมัติ</option>
+                                            <option value="2">ไม่อนุมัติ</option>
+                                        </select>
+                                    </div>
+                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters()">ล้างข้อมูล</button>
+                                </div>
+
+                                <script>
+                                    // ฟังก์ชันสำหรับกรองข้อมูล
+                                    function filterTable3() {
+                                        const statusFilter3 = document.getElementById('statusFilter3').value;
+                                        const rows = document.querySelectorAll('table tbody tr');
+                                        let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
+
+                                        rows.forEach(row => {
+                                            const status = row.cells[4].textContent;
+
+                                            let showRow = true;
+
+                                            // ตรวจสอบสถานะคำร้อง
+                                            if (statusFilter3 && statusFilter3 !== '' && !status.includes(statusFilter3)) {
+                                                showRow = false;
+                                            }
+
+                                            // ซ่อนหรือแสดงแถวตามผลการกรอง
+                                            if (showRow) {
+                                                row.style.display = '';
+                                                noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
+                                            } else {
+                                                row.style.display = 'none';
+                                            }
+                                        });
+
+                                        // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
+                                        const noDataMessage = document.getElementById('noDataMessage3');
+                                        if (noDataFound) {
+                                            noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
+                                        } else {
+                                            noDataMessage.style.display = 'none'; // ซ่อนข้อความ
+                                        }
+                                    }
+
+                                    // ฟังก์ชันสำหรับล้างข้อมูล
+                                    function clearFilters() {
+                                        document.getElementById('statusFilter3').value = '';
+                                        filterTable3();
+                                    }
+
+                                    // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
+                                    document.getElementById('statusFilter3').addEventListener('change', filterTable3);
+                                </script>
+
+                                <!-- Table -->
+                                <table class="min-w-full table-auto border-collapse rounded-[12px]">
+                                    <thead class="bg-orange-500 text-white text-center shadow-md">
+                                        <tr>
+                                            <th class="px-4 py-2">เลขคำร้อง</th>
+                                            <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
+                                            <th class="px-4 py-2">รายวิชา</th>
+                                            <th class="px-4 py-2">กลุ่มเรียน</th>
+                                            <th class="px-4 py-2">สถานะคำร้อง</th>
+                                            <th class="px-4 py-2">จัดการ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        // การดึงข้อมูลจากฐานข้อมูล
+                                        try {
+                                            $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, 
+                                            c.course_nameTH, c.credits
+                                            FROM form_re07 AS f
+                                            LEFT JOIN course AS c ON f.course_id = c.course_id
+                                            WHERE f.email = :email
+                                            ORDER BY form_id DESC");
+                                            $stmt3->execute(['email' => $email]);
+                                            $forms3 = $stmt3->fetchAll();
+                                        } catch (PDOException $e) {
+                                            echo "Database error: " . $e->getMessage();
+                                            exit;
+                                        }
+
+                                        if (!empty($forms3)): ?>
+                                            <?php foreach ($forms3 as $row3): ?>
+                                                <tr>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
+                                                    <td class="px-4 py-2"><?= htmlspecialchars($row3['course_id'] . ' ' . $row3['course_nameTH'] . ' (' . $row3['credits'] . ' หน่วยกิต)') ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></td>
+                                                    <td class="px-4 py-2 text-center <?= $row3['status'] === null ? 'text-gray-600' : ($row3['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
+                                                        <?= $row3['status'] === null ? 'รอดำเนินการ' : ($row3['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
+                                                    </td>
+                                                    <td class="px-4 py-2 text-center">
+                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
+                                                    </td>
+
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                                <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
+                                <div id="noDataMessage3" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
+                                <br>
                             </div>
 
                         </div>
