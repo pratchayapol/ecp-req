@@ -98,12 +98,19 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 <li class="me-2" role="presentation">
                                     <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="re07-tab" data-tabs-target="#re07" type="button" role="tab" aria-controls="re07" aria-selected="false">คำร้องขอเปิดนอกแผนการเรียน RE.07</button>
                                 </li>
-                                <li class="me-2" role="presentation">
-                                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" role="tab" aria-controls="re07" aria-selected="false"><--- โปรดเลือก Tab</button>
-                                </li>
                             </ul>
                         </div>
                         <div id="default-tab-content">
+                            <p id="alert-message" class="text-red-500 font-bold">โปรดเลือก Tab คำร้อง</p>
+                            <script>
+                                function selectTab() {
+                                    // เมื่อมีการกดเลือก Tab ให้ซ่อนข้อความเตือน
+                                    const alertMessage = document.getElementById('alert-message');
+                                    if (alertMessage) {
+                                        alertMessage.style.display = 'none';
+                                    }
+                                }
+                            </script>
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re01" role="tabpanel" aria-labelledby="re01-tab">
                                 <!-- Filters -->
                                 <div class="flex items-center gap-4 mb-4 justify-center">
@@ -365,8 +372,8 @@ $course_level = $_SESSION['course_level'] ?? '';
 
 
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re07" role="tabpanel" aria-labelledby="re07-tab">
-                                 <!-- Filters -->
-                                 <div class="flex items-center gap-4 mb-4 justify-center">
+                                <!-- Filters -->
+                                <div class="flex items-center gap-4 mb-4 justify-center">
                                     <div>
                                         <label class="mr-2">สถานะคำร้อง:</label>
                                         <select id="statusFilter3" class="border px-3 py-2 rounded">
