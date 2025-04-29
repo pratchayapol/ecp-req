@@ -102,15 +102,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                         </div>
                         <div id="default-tab-content">
                             <p id="alert-message" class="text-red-500 font-bold">โปรดเลือก Tab คำร้อง</p>
-                            <script>
-                                function selectTab() {
-                                    // เมื่อมีการกดเลือก Tab ให้ซ่อนข้อความเตือน
-                                    const alertMessage = document.getElementById('alert-message');
-                                    if (alertMessage) {
-                                        alertMessage.style.display = 'none';
-                                    }
-                                }
-                            </script>
+                          
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re01" role="tabpanel" aria-labelledby="re01-tab">
                                 <!-- Filters -->
                                 <div class="flex items-center gap-4 mb-4 justify-center">
@@ -489,7 +481,15 @@ $course_level = $_SESSION['course_level'] ?? '';
                             </div>
 
                         </div>
-
+                        <script>
+                                function selectTab() {
+                                    // เมื่อมีการกดเลือก Tab ให้ซ่อนข้อความเตือน
+                                    const alertMessage = document.getElementById('alert-message');
+                                    if (alertMessage) {
+                                        alertMessage.style.display = 'none';
+                                    }
+                                }
+                            </script>
                         <script>
                             // Get all tab buttons
                             const tabs = document.querySelectorAll('[role="tab"]');
