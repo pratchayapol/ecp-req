@@ -98,12 +98,12 @@ $course_level = $_SESSION['course_level'] ?? '';
                                 <li class="me-2" role="presentation">
                                     <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="re07-tab" data-tabs-target="#re07" type="button" role="tab" aria-controls="re07" aria-selected="false">คำร้องขอเปิดนอกแผนการเรียน RE.07</button>
                                 </li>
+                                <li class="me-2" role="presentation">
+                                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" role="tab" aria-controls="re07" aria-selected="false"><--- โปรดเลือก Tab</button>
+                                </li>
                             </ul>
                         </div>
                         <div id="default-tab-content">
-                            <dir>
-                                โปรดเลือก Tab
-                            </dir>
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re01" role="tabpanel" aria-labelledby="re01-tab">
                                 <!-- Filters -->
                                 <div class="flex items-center gap-4 mb-4 justify-center">
