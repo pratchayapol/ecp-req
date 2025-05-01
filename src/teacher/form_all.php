@@ -185,19 +185,18 @@ $course_level = $_SESSION['course_level'] ?? '';
                                         if (!empty($forms1)): ?>
                                             <?php foreach ($forms1 as $row1): ?>
                                                 <tr>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row1['form_id']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
-                                                    <td class="px-4 py-2 text-center" style="width: 150px;">
-                                                        <!-- ปุ่มสำหรับดูเหตุผล -->
-                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded view-reason" data-reason="<?= htmlspecialchars($row1['request_text']) ?>">ดูเหตุผล</button>
-                                                    </td>
-                                                    <td class="px-4 py-2 text-center <?= $row1['status'] === null ? 'text-gray-600' : ($row1['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
-                                                        <?= $row1['status'] === null ? 'รอดำเนินการ' : ($row1['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
-                                                    </td>
-                                                    <td class="px-4 py-2 text-center">
-                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
-                                                    </td>
+                                                <td class="px-4 py-2 text-center">
+  <button
+    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded view-detail-btn"
+    data-id="<?= 'RE.06-' . $row2['form_id'] ?>"
+    data-term="<?= $row2['term'] ?>"
+    data-year="<?= $row2['year'] ?>"
+    data-course="<?= $row2['course_id'] . ' ' . $row2['course_nameTH'] ?>"
+    data-credit="<?= $row2['credits'] ?>"
+    data-group="<?= $row2['group'] ?>"
+    data-status="<?= $row2['status'] === null ? 'รอดำเนินการ' : ($row2['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>"
+  >ดูรายละเอียด</button>
+</td>
 
                                                 </tr>
 
@@ -622,6 +621,43 @@ $course_level = $_SESSION['course_level'] ?? '';
         }
     </style>
     <?php include '../loadtab/f.php'; ?>
+    <!-- ✅ Modal HTML (ใส่ไว้ก่อนจบ </body>) -->
+<div id="detailModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+  <div class="bg-white p-6 rounded-lg w-11/12 max-w-lg">
+    <h2 class="text-xl font-semibold mb-4 text-orange-600">รายละเอียดคำร้อง</h2>
+    <div class="space-y-2 text-gray-700" id="modalContent">
+      <!-- ข้อมูลจะถูกเติมจาก JS -->
+    </div>
+    <div class="text-right mt-4">
+      <button onclick="closeModal()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">ปิด</button>
+    </div>
+  </div>
+</div>
+<!-- ✅ JavaScript ใส่ก่อนปิด </body> -->
+<script>
+function openModal(contentHTML) {
+  document.getElementById('modalContent').innerHTML = contentHTML;
+  document.getElementById('detailModal').classList.remove('hidden');
+}
+
+function closeModal() {
+  document.getElementById('detailModal').classList.add('hidden');
+}
+
+document.querySelectorAll('.view-detail-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const html = `
+      <p><strong>เลขคำร้อง:</strong> ${btn.dataset.id}</p>
+      <p><strong>ภาคเรียน/ปี:</strong> ${btn.dataset.term} / ${btn.dataset.year}</p>
+      <p><strong>รายวิชา:</strong> ${btn.dataset.course}</p>
+      <p><strong>หน่วยกิต:</strong> ${btn.dataset.credit}</p>
+      <p><strong>กลุ่มเรียน:</strong> ${btn.dataset.group}</p>
+      <p><strong>สถานะ:</strong> ${btn.dataset.status}</p>
+    `;
+    openModal(html);
+  });
+});
+</script>
 </body>
 
 </html>
