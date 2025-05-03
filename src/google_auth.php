@@ -114,14 +114,15 @@ include 'connect/dbcon.php';
                         }
 
                         $yearLevel = $yearDiff + 1;
+                        $yearLevel2 = $yearDiff + 2;
 
                         if ($type === 'N') {
                             // ปี 1-4 ได้ทั้งหมด
                             return "ECP{$yearLevel}N";
                         }
 
-                        if (in_array($type, ['R', 'Q']) && $yearLevel >= 2 && $yearLevel <= 4) {
-                            return "ECP{$yearLevel}{$type}";
+                        if (in_array($type, ['R', 'Q']) && $yearLevel2 >= 2 && $yearLevel2 <= 4) {
+                            return "ECP{$yearLevel2}{$type}";
                         }
 
                         return null; // ไม่ตรงเงื่อนไข
