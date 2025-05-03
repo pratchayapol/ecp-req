@@ -108,6 +108,12 @@ $course_level = $_SESSION['course_level'] ?? '';
                     ];
                     ?>
 
+                    <div class="p-6 grid grid-cols-1 gap-4">
+                        <label>รูปภาพ</label>
+                        <img src="<?= $picture; ?>" alt="Profile Picture" class="w-32 h-32 object-cover rounded-full">
+                    </div>
+
+
                     <form class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" action="save_profile.php" method="POST">
                         <div>
                             <label>เลขประจำตัวนักศึกษา</label>
@@ -154,10 +160,7 @@ $course_level = $_SESSION['course_level'] ?? '';
                             <input type="text" name="advisor" value="<?= $student['advisor'] ?>" class="border p-2 w-full">
                         </div>
 
-                        <div>
-                            <label>รูปภาพ</label>
-                            <img src="<?= $student['picture'] ?>" alt="Profile Picture" class="w-32 h-32 object-cover rounded-full">
-                        </div>
+
 
                         <div class="col-span-2 text-center mt-4">
                             <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-md">บันทึกการเปลี่ยนแปลง</button>
