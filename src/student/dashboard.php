@@ -22,10 +22,6 @@ if (isset($_SESSION['user'])) {
     header('location: ../session_timeout');
 }
 
-$logged_in = $_SESSION['logged_in'] ?? 0;
-$role = $_SESSION['role'] ?? '';
-$id = $_SESSION['id'] ?? '';
-$course_level = $_SESSION['course_level'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="th">

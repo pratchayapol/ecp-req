@@ -22,10 +22,6 @@ if (isset($_SESSION['user'])) {
     header('location: ../session_timeout');
 }
 
-$logged_in = $_SESSION['logged_in'] ?? 0;
-$role = $_SESSION['role'] ?? '';
-$id = $_SESSION['id'] ?? '';
-$course_level = $_SESSION['course_level'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -118,44 +114,39 @@ $course_level = $_SESSION['course_level'] ?? '';
                     <form class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" action="save_profile.php" method="POST">
                         <div>
                             <label>เลขประจำตัวนักศึกษา</label>
-                            <input type="text" name="student_id" value="<?= $student['student_id'] ?>" class="border p-2 w-full" readonly>
+                            <input type="text" name="student_id" value="<?= $id; ?>" class="border p-2 w-full" readonly>
                         </div>
 
                         <div>
                             <label>ชื่อ - สกุล</label>
-                            <input type="text" name="name" value="<?= $student['name'] ?>" class="border p-2 w-full">
+                            <input type="text" name="name" value="<?= $iname; ?>" class="border p-2 w-full">
                         </div>
 
                         <div>
                             <label>คณะ</label>
-                            <input type="text" name="faculty" value="<?= $student['faculty'] ?>" class="border p-2 w-full">
+                            <input type="text" name="faculty" value="<?= $faculty; ?>" class="border p-2 w-full">
                         </div>
 
                         <div>
                             <label>สาขาวิชา</label>
-                            <input type="text" name="field" value="<?= $student['field'] ?>" class="border p-2 w-full">
+                            <input type="text" name="field" value="<?= $field; ?>" class="border p-2 w-full">
                         </div>
 
                         <div>
                             <label>ชั้นปี</label>
-                            <input type="text" name="course_level" value="<?= $student['course_level'] ?>" class="border p-2 w-full">
+                            <input type="text" name="course_level" value="<?= $course_level; ?>" class="border p-2 w-full">
                         </div>
 
                         <div>
                             <label>อีเมล</label>
-                            <input type="email" name="email" value="<?= $student['email'] ?>" class="border p-2 w-full">
+                            <input type="email" name="email" value="<?= $email; ?>" class="border p-2 w-full">
                         </div>
 
                         <div>
                             <label>สิทธิ์การใช้งาน</label>
                             <input type="text" name="role" value="<?= $student['role'] ?>" class="border p-2 w-full">
                         </div>
-
-                        <div>
-                            <label>หัวหน้าสาขา</label>
-                            <input type="text" name="dep" value="<?= $student['dep'] ?>" class="border p-2 w-full">
-                        </div>
-
+                        
                         <div>
                             <label>ที่ปรึกษา</label>
                             <input type="text" name="advisor" value="<?= $student['advisor'] ?>" class="border p-2 w-full">
