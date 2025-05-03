@@ -1,6 +1,29 @@
 <?php
 session_start();
 include 'connect/dbcon.php';
+
+<?php
+session_start();
+
+// ตัวอย่างข้อมูลจากผู้ใช้
+$userAccount['course_level'] = 'ECP/N (60)';
+
+/**
+ * ฟังก์ชันคำนวณปีการศึกษาอัตโนมัติ
+ */
+function getAcademicYear(): int {
+    $today = new DateTime();
+    $year = (int)$today->format('Y');
+    $month = (int)$today->format('m');
+    $day = (int)$today->format('d');
+
+    // ถ้า 15 มิ.ย. หรือหลังจากนั้น ถือเป็นปีการศึกษาใหม่
+    if ($month > 6 || ($month == 6 && $day >= 15)) {
+        return $year + 543;
+    } else {
+        return ($year - 1) + 543;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -78,7 +101,48 @@ include 'connect/dbcon.php';
                     $_SESSION['iname'] = $userAccount['name'];
                     $_SESSION['role'] = $userAccount['role'];
                     $_SESSION['id'] = $userAccount['id'];
-                    $_SESSION['course_level'] = $userAccount['course_level'];
+           
+function getAcademicLevel(string $courseLevel, int $academicYear): ?string {
+    if (!preg_match('/(ECP\/[A-Z])\s*\((\d+)\)/', $courseLevel, $matches)) {
+        return null;
+    }
+
+    $code = $matches[1]; // เช่น ECP/N
+    $batch = (int)$matches[2]; // เช่น 60
+    $batchYear = 2500 + $batch; // สมมุติ (60) = 2560
+    $yearDiff = $academicYear - $batch;
+
+    // ถ้ามากกว่า 4 ปี → จบหลักสูตรแล้ว
+    if ($yearDiff >= 4) {
+        return "ECP/Q ({$batch})";
+    }
+
+    // คำนวณปีที่ศึกษา เช่น ปี 1, 2, 3, 4
+    $yearNum = $yearDiff + 1;
+
+    // เงื่อนไขพิเศษตามคำอธิบาย
+    if ($code === 'ECP/N') {
+        return "ECP{$yearNum}N";
+    } elseif ($code === 'ECP/R' && $yearNum >= 2) {
+        return "ECP{$yearNum}R";
+    }
+
+    return null; // ไม่ตรงเงื่อนไข
+}
+
+// เรียกใช้ฟังก์ชัน
+$academicYear = getAcademicYear(); // คำนวณปีการศึกษา
+$academicLevel = getAcademicLevel($userAccount['course_level'], $academicYear);
+
+// เก็บใน session
+$_SESSION['course_level'] = $userAccount['course_level'];
+$_SESSION['academic_year'] = $academicYear;
+$_SESSION['academic_level'] = $academicLevel;
+
+// สำหรับ debug หรือแสดงผล (ลบออกตอน production)
+echo "ปีการศึกษา: " . $_SESSION['academic_year'] . "<br>";
+echo "ระดับชั้น: " . ($_SESSION['academic_level'] ?? 'ไม่ตรงเงื่อนไข');
+
                     $_SESSION['faculty'] = $userAccount['faculty'];
                     $_SESSION['field'] = $userAccount['field'];
                     $_SESSION['dep'] = $userAccount['dep'];
