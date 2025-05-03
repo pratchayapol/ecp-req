@@ -65,7 +65,7 @@ if (isset($_SESSION['user'])) {
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="profile.php" class="flex items-center justify-center sm:justify-start space-x-2 hover:opacity-80 transition">
+                <a href="profile" class="flex items-center justify-center sm:justify-start space-x-2 hover:opacity-80 transition">
                     <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-400">
                         <img src="<?= $picture ?>" alt="Profile Picture" class="w-full h-full object-cover">
                     </div>
