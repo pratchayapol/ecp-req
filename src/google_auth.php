@@ -94,7 +94,7 @@ include 'connect/dbcon.php';
                         }
                     }
 
-                    
+
                     function getAcademicLevel(string $courseLevel, int $academicYear): ?string
                     {
                         if (!preg_match('/(ECP\/[A-Z])\s*\((\d+)\)/', $courseLevel, $matches)) {
@@ -133,6 +133,8 @@ include 'connect/dbcon.php';
                     $_SESSION['academic_year'] = $academicYear;
                     $_SESSION['academic_level'] = $academicLevel;
 
+
+                    
                     $_SESSION['faculty'] = $userAccount['faculty'];
                     $_SESSION['field'] = $userAccount['field'];
                     $_SESSION['dep'] = $userAccount['dep'];
