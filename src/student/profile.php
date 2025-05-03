@@ -108,10 +108,11 @@ $course_level = $_SESSION['course_level'] ?? '';
                     ];
                     ?>
 
-                    <div class="p-6 grid grid-cols-1 gap-4">
+                    <div class="p-6 grid grid-cols-1 gap-4 place-items-center">
                         <label>รูปภาพ</label>
                         <img src="<?= $picture; ?>" alt="Profile Picture" class="w-32 h-32 object-cover rounded-full">
                     </div>
+
 
 
                     <form class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" action="save_profile.php" method="POST">
