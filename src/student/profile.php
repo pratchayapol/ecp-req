@@ -127,7 +127,7 @@ if (isset($_SESSION['user'])) {
 
                         <div>
                             <label>สิทธิ์การใช้งาน</label>
-                            <input type="text" name="role" value="<?= $student['role'] ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
+                            <input type="text" name="role" value="<?= $role; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
