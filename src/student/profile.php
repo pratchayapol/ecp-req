@@ -70,7 +70,7 @@ if (isset($_SESSION['user'])) {
     // เรียกใช้ฟังก์ชัน
     echo $academicYear = getAcademicYear(); // คำนวณปีการศึกษา
     // echo $academicLevel = getAcademicLevel($course_level, $academicYear);
-    echo $academicLevel = getAcademicLevel("ECP/R (64)", $academicYear);
+    echo $academicLevel = getAcademicLevel("ECP/R (63)", $academicYear);
 
 } else {
     header('location: ../session_timeout');
