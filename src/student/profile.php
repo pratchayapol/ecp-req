@@ -38,7 +38,7 @@ if (isset($_SESSION['user'])) {
     function getAcademicLevel(string $courseLevel, int $academicYear): ?string
     {
         if (!preg_match('/(ECP)\/([A-Z])\s*\((\d+)\)/', $courseLevel, $matches)) {
-            return null;
+            return "a";
         }
 
         $program = $matches[1]; // ECP
@@ -65,7 +65,7 @@ if (isset($_SESSION['user'])) {
             return "ECP{$yearLevel2}{$type}";
         }
 
-        return "a"; // ไม่ตรงเงื่อนไข
+        return null; // ไม่ตรงเงื่อนไข
     }
 
     // เรียกใช้ฟังก์ชัน
