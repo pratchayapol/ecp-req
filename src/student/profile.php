@@ -62,6 +62,8 @@ if (isset($_SESSION['user'])) {
 
         if (in_array($type, ['R', 'Q']) && $yearLevel2 >= 2 && $yearLevel2 <= 4) {
             return "ECP{$yearLevel2}{$type}";
+        } else {
+
         }
 
         return null; // ไม่ตรงเงื่อนไข
@@ -69,8 +71,8 @@ if (isset($_SESSION['user'])) {
 
     // เรียกใช้ฟังก์ชัน
     echo $academicYear = getAcademicYear(); // คำนวณปีการศึกษา
-    // echo $academicLevel = getAcademicLevel($course_level, $academicYear);
-    echo $academicLevel = getAcademicLevel("ECP/R (64)", $academicYear);
+    echo $academicLevel = getAcademicLevel($course_level, $academicYear);
+    // echo $academicLevel = getAcademicLevel("ECP/R (64)", $academicYear);
 
 } else {
     header('location: ../session_timeout');
