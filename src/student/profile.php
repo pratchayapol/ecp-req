@@ -90,53 +90,82 @@ $course_level = $_SESSION['course_level'] ?? '';
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
-                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
+                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ข้อมูลส่วนตัว</h1>
 
                     <?php
-                    try {
-                        // Query the database
-                        $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 1");
-                        $stmt->execute();
-
-                        // Check if any data is returned
-                        if ($stmt->rowCount() == 0) {
-                            echo '<center><br><br><h3 style="color:red">!!! ไม่พบข้อมูลการประกาศข่าว !!!</h3><br><br>';
-                        } else {
-                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                // วันภาษาไทย
-                                $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์");
-                                // เดือนภาษาไทย
-                                $ThMonth = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-
-                                // วันที่ ที่ต้องการเอามาเปลี่ยนฟอแมต
-                                $myDATE = $row['date_published']; // อาจมาจากฐานข้อมูล
-                                // กำหนดคุณสมบัติ
-                                $time = date("H:i:s", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-                                $week = date("w", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-                                $months = date("m", strtotime($myDATE)) - 1; // ค่าเดือน (1-12)
-                                $day = date("d", strtotime($myDATE)); // ค่าวันที่(1-31)
-                                $years = date("Y", strtotime($myDATE)) + 543; // ค่า ค.ศ.บวก 543 ทำให้เป็น ค.ศ.
-                                $datetime = "วัน $ThDay[$week] ที่ $day $ThMonth[$months] $years เวลา $time น.";
-
-                                // Display the article title
-                                echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
-
-                                // Display the article content with HTML tags
-                                // Use `htmlspecialchars` on the title to prevent XSS, but not on content to allow HTML rendering
-                                echo $row["article_content"];
-
-                                // Display the modified date
-                                echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
-                            }
-                        }
-                    } catch (PDOException $e) {
-                        // In case of error, output the error message
-                        echo 'Connection failed: ' . $e->getMessage();
-                    }
+                    // ตัวอย่างข้อมูลจำลอง (ควรดึงจากฐานข้อมูลจริง)
+                    $student = [
+                        'student_id' => '64332210283-1',
+                        'name' => 'นายปรัชญาพล จำปาลาด',
+                        'faculty' => 'คณะวิศวกรรมศาสตร์',
+                        'field' => 'วิศวกรรมคอมพิวเตอร์',
+                        'course_level' => 'ECP/R64',
+                        'email' => 'pratchayapol.ja@rmuti.ac.th',
+                        'role' => 'Student',
+                        'dep' => NULL,
+                        'advisor' => 'อ. ที่ปรึกษา',
+                        'picture' => 'https://lh3.googleusercontent.com/a/ACg8ocIcV5e5Jn...',
+                    ];
                     ?>
-                </div>
 
+                    <form class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" action="save_profile.php" method="POST">
+                        <div>
+                            <label>เลขประจำตัวนักศึกษา</label>
+                            <input type="text" name="student_id" value="<?= $student['student_id'] ?>" class="border p-2 w-full" readonly>
+                        </div>
+
+                        <div>
+                            <label>ชื่อ - สกุล</label>
+                            <input type="text" name="name" value="<?= $student['name'] ?>" class="border p-2 w-full">
+                        </div>
+
+                        <div>
+                            <label>คณะ</label>
+                            <input type="text" name="faculty" value="<?= $student['faculty'] ?>" class="border p-2 w-full">
+                        </div>
+
+                        <div>
+                            <label>สาขาวิชา</label>
+                            <input type="text" name="field" value="<?= $student['field'] ?>" class="border p-2 w-full">
+                        </div>
+
+                        <div>
+                            <label>ชั้นปี</label>
+                            <input type="text" name="course_level" value="<?= $student['course_level'] ?>" class="border p-2 w-full">
+                        </div>
+
+                        <div>
+                            <label>อีเมล</label>
+                            <input type="email" name="email" value="<?= $student['email'] ?>" class="border p-2 w-full">
+                        </div>
+
+                        <div>
+                            <label>สิทธิ์การใช้งาน</label>
+                            <input type="text" name="role" value="<?= $student['role'] ?>" class="border p-2 w-full">
+                        </div>
+
+                        <div>
+                            <label>หัวหน้าสาขา</label>
+                            <input type="text" name="dep" value="<?= $student['dep'] ?>" class="border p-2 w-full">
+                        </div>
+
+                        <div>
+                            <label>ที่ปรึกษา</label>
+                            <input type="text" name="advisor" value="<?= $student['advisor'] ?>" class="border p-2 w-full">
+                        </div>
+
+                        <div>
+                            <label>รูปภาพ</label>
+                            <img src="<?= $student['picture'] ?>" alt="Profile Picture" class="w-32 h-32 object-cover rounded-full">
+                        </div>
+
+                        <div class="col-span-2 text-center mt-4">
+                            <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-md">บันทึกการเปลี่ยนแปลง</button>
+                        </div>
+                    </form>
+                </div>
             </div>
+
 
 
             <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
