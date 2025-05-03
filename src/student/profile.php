@@ -119,7 +119,7 @@ if (isset($_SESSION['user'])) {
 
                         <div>
                             <label>ชั้นปี</label>
-                            <input type="text" name="academic_level" value="<?= $academic_level; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
+                            <input type="text" name="academic_level" value="<?= $academicLevel; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
