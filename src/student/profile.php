@@ -97,7 +97,7 @@ if (isset($_SESSION['user'])) {
                     <form class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" action="" method="POST">
                         <div>
                             <label>เลขประจำตัวนักศึกษา</label>
-                            <input type="text" name="student_id" value="<?= $id; ?>" class="border p-2 w-full" readonly>
+                            <input type="text" name="student_id" value="<?= $id; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
@@ -107,32 +107,32 @@ if (isset($_SESSION['user'])) {
 
                         <div>
                             <label>คณะ</label>
-                            <input type="text" name="faculty" value="<?= $faculty; ?>" class="border p-2 w-full" readonly>
+                            <input type="text" name="faculty" value="<?= $faculty; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
                             <label>สาขาวิชา</label>
-                            <input type="text" name="field" value="<?= $field; ?>" class="border p-2 w-full" readonly>
+                            <input type="text" name="field" value="<?= $field; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
                             <label>ชั้นปี</label>
-                            <input type="text" name="course_level" value="<?= $course_level; ?>" class="border p-2 w-full" readonly>
+                            <input type="text" name="course_level" value="<?= $course_level; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
                             <label>อีเมล</label>
-                            <input type="email" name="email" value="<?= $email; ?>" class="border p-2 w-full" readonly>
+                            <input type="email" name="email" value="<?= $email; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
                             <label>สิทธิ์การใช้งาน</label>
-                            <input type="text" name="role" value="<?= $student['role'] ?>" class="border p-2 w-full" readonly>
+                            <input type="text" name="role" value="<?= $student['role'] ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
                             <label>ที่ปรึกษา</label>
-                            <input type="text" name="advisor" value="<?= $student['advisor'] ?>" class="border p-2 w-full" readonly>
+                            <input type="text" name="advisor" value="<?= $student['advisor'] ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
 
