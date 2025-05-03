@@ -79,22 +79,7 @@ include 'connect/dbcon.php';
                     $_SESSION['iname'] = $userAccount['name'];
                     $_SESSION['role'] = $userAccount['role'];
                     $_SESSION['id'] = $userAccount['id'];
-                    function getAcademicYear(): int
-                    {
-                        $today = new DateTime();
-                        $year = (int)$today->format('Y');
-                        $month = (int)$today->format('m');
-                        $day = (int)$today->format('d');
-
-                        // ถ้า 15 มิ.ย. หรือหลังจากนั้น ถือเป็นปีการศึกษาใหม่
-                        if ($month > 6 || ($month == 6 && $day >= 15)) {
-                            return $year + 543;
-                        } else {
-                            return ($year - 1) + 543;
-                        }
-                    }
-
-
+                    
                     /**
                      * ฟังก์ชันคำนวณปีการศึกษาอัตโนมัติ
                      */
