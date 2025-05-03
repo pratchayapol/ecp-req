@@ -71,7 +71,6 @@ if (isset($_SESSION['user'])) {
                     </div>
                     <span class="text-sm sm:text-base text-gray-800"><?= $iname; ?></span>
                 </a>
-
                 <button id="logoutBtn" class="w-full mt-4 bg-white text-[#2C2C2C] py-2 rounded-[12px] hover:bg-[#2C2C2C] hover:text-white transition-colors duration-200 shadow-md">
                     ออกจากระบบ
                 </button>

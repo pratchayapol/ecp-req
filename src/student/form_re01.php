@@ -65,12 +65,12 @@ if (isset($_SESSION['user'])) {
                 </div>
             </div>
             <div class="text-center mt-4">
-                <div class="flex items-center justify-center sm:justify-start space-x-2">
-                    <div class="bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center">
-                        <img src="<?= $picture ?>" alt="Profile Picture" class="w-10 h-10 rounded-full object-cover">
+                <a href="profile.php" class="flex items-center justify-center sm:justify-start space-x-2 hover:opacity-80 transition">
+                    <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-400">
+                        <img src="<?= $picture ?>" alt="Profile Picture" class="w-full h-full object-cover">
                     </div>
-                    <span class="text-sm sm:text-base"><?= $iname; ?></span>
-                </div>
+                    <span class="text-sm sm:text-base text-gray-800"><?= $iname; ?></span>
+                </a>
                 <button id="logoutBtn" class="w-full mt-4 bg-white text-[#2C2C2C] py-2 rounded-[12px] hover:bg-[#2C2C2C] hover:text-white transition-colors duration-200 shadow-md">
                     ออกจากระบบ
                 </button>
