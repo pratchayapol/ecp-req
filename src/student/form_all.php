@@ -103,7 +103,6 @@ if (isset($_SESSION['user'])) {
                         </div>
                         <div id="default-tab-content">
                             <p id="alert-message" class="text-red-500 font-bold text-center">โปรดเลือก Tab คำร้อง</p>
-
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re01" role="tabpanel" aria-labelledby="re01-tab">
                                 <!-- Filters -->
                                 <div class="flex items-center gap-4 mb-4 justify-center">
@@ -118,52 +117,6 @@ if (isset($_SESSION['user'])) {
                                     </div>
                                     <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters()">ล้างข้อมูล</button>
                                 </div>
-
-                                <script>
-                                    // ฟังก์ชันสำหรับกรองข้อมูล
-                                    function filterTable1() {
-                                        const statusFilter1 = document.getElementById('statusFilter1').value;
-                                        const rows = document.querySelectorAll('table tbody tr');
-                                        let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
-
-                                        rows.forEach(row => {
-                                            const status = row.cells[4].textContent.trim(); // ดึงข้อมูลสถานะคำร้อง
-
-                                            let showRow = true;
-
-                                            // ตรวจสอบสถานะคำร้อง
-                                            if (statusFilter1 && statusFilter1 !== '' && !status.includes(statusFilter1)) {
-                                                showRow = false;
-                                            }
-
-                                            // ซ่อนหรือแสดงแถวตามผลการกรอง
-                                            if (showRow) {
-                                                row.style.display = '';
-                                                noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
-                                            } else {
-                                                row.style.display = 'none';
-                                            }
-                                        });
-
-                                        // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
-                                        const noDataMessage = document.getElementById('noDataMessage1');
-                                        if (noDataFound) {
-                                            noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
-                                        } else {
-                                            noDataMessage.style.display = 'none'; // ซ่อนข้อความ
-                                        }
-                                    }
-
-                                    // ฟังก์ชันสำหรับล้างข้อมูล
-                                    function clearFilters() {
-                                        document.getElementById('statusFilter1').value = '';
-                                        filterTable1(); // ใช้ฟังก์ชันกรองที่ถูกต้อง
-                                    }
-
-                                    // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
-                                    document.getElementById('statusFilter1').addEventListener('change', filterTable1);
-                                </script>
-
                                 <!-- Table -->
                                 <table class="min-w-full table-auto border-collapse rounded-[12px]">
                                     <thead class="bg-orange-500 text-white text-center shadow-md">
@@ -258,51 +211,6 @@ if (isset($_SESSION['user'])) {
                                     <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters()">ล้างข้อมูล</button>
                                 </div>
 
-                                <script>
-                                    // ฟังก์ชันสำหรับกรองข้อมูล
-                                    function filterTable2() {
-                                        const statusFilter2 = document.getElementById('statusFilter2').value;
-                                        const rows = document.querySelectorAll('table tbody tr');
-                                        let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
-
-                                        rows.forEach(row => {
-                                            const status = row.cells[4].textContent;
-
-                                            let showRow = true;
-
-                                            // ตรวจสอบสถานะคำร้อง
-                                            if (statusFilter2 && statusFilter2 !== '' && !status.includes(statusFilter2)) {
-                                                showRow = false;
-                                            }
-
-                                            // ซ่อนหรือแสดงแถวตามผลการกรอง
-                                            if (showRow) {
-                                                row.style.display = '';
-                                                noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
-                                            } else {
-                                                row.style.display = 'none';
-                                            }
-                                        });
-
-                                        // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
-                                        const noDataMessage = document.getElementById('noDataMessage2');
-                                        if (noDataFound) {
-                                            noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
-                                        } else {
-                                            noDataMessage.style.display = 'none'; // ซ่อนข้อความ
-                                        }
-                                    }
-
-                                    // ฟังก์ชันสำหรับล้างข้อมูล
-                                    function clearFilters() {
-                                        document.getElementById('statusFilter2').value = '';
-                                        filterTable2();
-                                    }
-
-                                    // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
-                                    document.getElementById('statusFilter2').addEventListener('change', filterTable2);
-                                </script>
-
                                 <!-- Table -->
                                 <table class="min-w-full table-auto border-collapse rounded-[12px]">
                                     <thead class="bg-orange-500 text-white text-center shadow-md">
@@ -379,50 +287,7 @@ if (isset($_SESSION['user'])) {
                                     <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters()">ล้างข้อมูล</button>
                                 </div>
 
-                                <script>
-                                    // ฟังก์ชันสำหรับกรองข้อมูล
-                                    function filterTable3() {
-                                        const statusFilter3 = document.getElementById('statusFilter3').value;
-                                        const rows = document.querySelectorAll('table tbody tr');
-                                        let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
 
-                                        rows.forEach(row => {
-                                            const status = row.cells[4].textContent;
-
-                                            let showRow = true;
-
-                                            // ตรวจสอบสถานะคำร้อง
-                                            if (statusFilter3 && statusFilter3 !== '' && !status.includes(statusFilter3)) {
-                                                showRow = false;
-                                            }
-
-                                            // ซ่อนหรือแสดงแถวตามผลการกรอง
-                                            if (showRow) {
-                                                row.style.display = '';
-                                                noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
-                                            } else {
-                                                row.style.display = 'none';
-                                            }
-                                        });
-
-                                        // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
-                                        const noDataMessage = document.getElementById('noDataMessage3');
-                                        if (noDataFound) {
-                                            noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
-                                        } else {
-                                            noDataMessage.style.display = 'none'; // ซ่อนข้อความ
-                                        }
-                                    }
-
-                                    // ฟังก์ชันสำหรับล้างข้อมูล
-                                    function clearFilters() {
-                                        document.getElementById('statusFilter3').value = '';
-                                        filterTable3();
-                                    }
-
-                                    // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
-                                    document.getElementById('statusFilter3').addEventListener('change', filterTable3);
-                                </script>
 
                                 <!-- Table -->
                                 <table class="min-w-full table-auto border-collapse rounded-[12px]">
@@ -530,8 +395,140 @@ if (isset($_SESSION['user'])) {
                         </script>
 
 
+                        <script>
+                            // ฟังก์ชันสำหรับกรองข้อมูล
+                            function filterTable1() {
+                                const statusFilter1 = document.getElementById('statusFilter1').value;
+                                const rows = document.querySelectorAll('table tbody tr');
+                                let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
 
+                                rows.forEach(row => {
+                                    const status = row.cells[4].textContent.trim(); // ดึงข้อมูลสถานะคำร้อง
 
+                                    let showRow = true;
+
+                                    // ตรวจสอบสถานะคำร้อง
+                                    if (statusFilter1 && statusFilter1 !== '' && !status.includes(statusFilter1)) {
+                                        showRow = false;
+                                    }
+
+                                    // ซ่อนหรือแสดงแถวตามผลการกรอง
+                                    if (showRow) {
+                                        row.style.display = '';
+                                        noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
+                                    } else {
+                                        row.style.display = 'none';
+                                    }
+                                });
+
+                                // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
+                                const noDataMessage = document.getElementById('noDataMessage1');
+                                if (noDataFound) {
+                                    noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
+                                } else {
+                                    noDataMessage.style.display = 'none'; // ซ่อนข้อความ
+                                }
+                            }
+
+                            // ฟังก์ชันสำหรับล้างข้อมูล
+                            function clearFilters() {
+                                document.getElementById('statusFilter1').value = '';
+                                filterTable1(); // ใช้ฟังก์ชันกรองที่ถูกต้อง
+                            }
+
+                            // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
+                            document.getElementById('statusFilter1').addEventListener('change', filterTable1);
+                        </script>
+
+                        <script>
+                            // ฟังก์ชันสำหรับกรองข้อมูล
+                            function filterTable2() {
+                                const statusFilter2 = document.getElementById('statusFilter2').value;
+                                const rows = document.querySelectorAll('table tbody tr');
+                                let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
+
+                                rows.forEach(row => {
+                                    const status = row.cells[4].textContent;
+
+                                    let showRow = true;
+
+                                    // ตรวจสอบสถานะคำร้อง
+                                    if (statusFilter2 && statusFilter2 !== '' && !status.includes(statusFilter2)) {
+                                        showRow = false;
+                                    }
+
+                                    // ซ่อนหรือแสดงแถวตามผลการกรอง
+                                    if (showRow) {
+                                        row.style.display = '';
+                                        noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
+                                    } else {
+                                        row.style.display = 'none';
+                                    }
+                                });
+
+                                // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
+                                const noDataMessage = document.getElementById('noDataMessage2');
+                                if (noDataFound) {
+                                    noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
+                                } else {
+                                    noDataMessage.style.display = 'none'; // ซ่อนข้อความ
+                                }
+                            }
+
+                            // ฟังก์ชันสำหรับล้างข้อมูล
+                            function clearFilters() {
+                                document.getElementById('statusFilter2').value = '';
+                                filterTable2();
+                            }
+
+                            // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
+                            document.getElementById('statusFilter2').addEventListener('change', filterTable2);
+                        </script>
+
+                        <script>
+                            // ฟังก์ชันสำหรับกรองข้อมูล
+                            function filterTable3() {
+                                const statusFilter3 = document.getElementById('statusFilter3').value;
+                                const rows = document.querySelectorAll('table tbody tr');
+                                let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
+
+                                rows.forEach(row => {
+                                    const status = row.cells[4].textContent;
+
+                                    let showRow = true;
+
+                                    // ตรวจสอบสถานะคำร้อง
+                                    if (statusFilter3 && statusFilter3 !== '' && !status.includes(statusFilter3)) {
+                                        showRow = false;
+                                    }
+
+                                    // ซ่อนหรือแสดงแถวตามผลการกรอง
+                                    if (showRow) {
+                                        row.style.display = '';
+                                        noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
+                                    } else {
+                                        row.style.display = 'none';
+                                    }
+                                });
+
+                                // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
+                                const noDataMessage = document.getElementById('noDataMessage3');
+                                if (noDataFound) {
+                                    noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
+                                } else {
+                                    noDataMessage.style.display = 'none'; // ซ่อนข้อความ
+                                }
+                            }
+
+                            // ฟังก์ชันสำหรับล้างข้อมูล
+                            function clearFilters() {
+                                document.getElementById('statusFilter3').value = '';
+                                filterTable3();
+                            }
+
+                            // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
+                            document.getElementById('statusFilter3').addEventListener('change', filterTable3);
+                        </script>
 
                         <br>
                     </div>
