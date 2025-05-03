@@ -18,6 +18,8 @@ if (isset($_SESSION['user'])) {
     $faculty = $_SESSION['faculty'] ?? '';
     $field = $_SESSION['field'] ?? '';
     $dep = $_SESSION['dep'] ?? '';
+    $academicYear = $_SESSION['academic_year'] ?? '';
+    $academicLevel = $_SESSION['academic_level'] ?? '';
 } else {
     header('location: ../session_timeout');
 }
@@ -117,7 +119,7 @@ if (isset($_SESSION['user'])) {
 
                         <div>
                             <label>ชั้นปี</label>
-                            <input type="text" name="course_level" value="<?= $course_level; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
+                            <input type="text" name="academic_level" value="<?= $academic_level; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
