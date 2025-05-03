@@ -59,6 +59,7 @@ if (isset($_SESSION['user'])) {
             // ปี 1-4 ได้ทั้งหมด
             return "ECP{$yearLevel}N";
         } else {
+            return "{$program}/{$type} ({$batch})";
         }
 
         if (in_array($type, ['R', 'Q']) && $yearLevel2 >= 2 && $yearLevel2 <= 4) {
