@@ -1,9 +1,9 @@
 <?php
 session_start();
 include '../connect/dbcon.php';
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
+// echo '<pre>';
+// print_r($_SESSION);
+// echo '</pre>';
 
 // ตรวจสอบว่ามีข้อมูลใน session หรือไม่
 if (isset($_SESSION['user'])) {
@@ -18,8 +18,60 @@ if (isset($_SESSION['user'])) {
     $faculty = $_SESSION['faculty'] ?? '';
     $field = $_SESSION['field'] ?? '';
     $dep = $_SESSION['dep'] ?? '';
-    $academicYear = $_SESSION['academic_year'] ?? '';
-    $academicLevel = $_SESSION['academic_level'] ?? '';
+
+    /**
+     * ฟังก์ชันคำนวณปีการศึกษาอัตโนมัติ
+     */
+    function getAcademicYear(): int
+    {
+        $today = new DateTime();
+        $year = (int)$today->format('Y');
+        $month = (int)$today->format('m');
+        $day = (int)$today->format('d');
+
+        return ($month > 6 || ($month == 6 && $day >= 15)) ? $year + 543 : ($year - 1) + 543;
+    }
+
+    /**
+     * ฟังก์ชันแปลงรหัสหลักสูตรเป็นระดับชั้น
+     */
+    function getAcademicLevel(string $courseLevel, int $academicYear): ?string
+    {
+        if (!preg_match('/(ECP)\/([A-Z])\s*\((\d+)\)/', $courseLevel, $matches)) {
+            return null;
+        }
+
+        $program = $matches[1]; // ECP
+        $type = $matches[2];    // N, R, Q
+        $batch = (int)$matches[3];
+        $batchYear = 2500 + $batch;
+        $yearDiff = $academicYear - $batchYear;
+
+        if ($yearDiff < 0 || $yearDiff >= 4) {
+            // ยังไม่เข้าเรียน หรือ เกิน 4 ปีแล้ว
+            return "{$program}/{$type} ({$batch})";
+        }
+
+        $yearLevel = $yearDiff + 1;
+        $yearLevel2 = $yearDiff + 2;
+
+        if ($type === 'N') {
+            // ปี 1-4 ได้ทั้งหมด
+            return "ECP{$yearLevel}N";
+        } else {
+        }
+
+        if (in_array($type, ['R', 'Q']) && $yearLevel2 >= 2 && $yearLevel2 <= 4) {
+            return "ECP{$yearLevel2}{$type}";
+        }
+
+        return null; // ไม่ตรงเงื่อนไข
+    }
+
+    // เรียกใช้ฟังก์ชัน
+    echo $academicYear = getAcademicYear(); // คำนวณปีการศึกษา
+    echo $academicLevel = getAcademicLevel($userAccount['course_level'], $academicYear);
+
 } else {
     header('location: ../session_timeout');
 }

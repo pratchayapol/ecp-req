@@ -79,64 +79,7 @@ include 'connect/dbcon.php';
                     $_SESSION['iname'] = $userAccount['name'];
                     $_SESSION['role'] = $userAccount['role'];
                     $_SESSION['id'] = $userAccount['id'];
-                    
-                    /**
-                     * ฟังก์ชันคำนวณปีการศึกษาอัตโนมัติ
-                     */
-                    function getAcademicYear(): int
-                    {
-                        $today = new DateTime();
-                        $year = (int)$today->format('Y');
-                        $month = (int)$today->format('m');
-                        $day = (int)$today->format('d');
-
-                        return ($month > 6 || ($month == 6 && $day >= 15)) ? $year + 543 : ($year - 1) + 543;
-                    }
-
-                    /**
-                     * ฟังก์ชันแปลงรหัสหลักสูตรเป็นระดับชั้น
-                     */
-                    function getAcademicLevel(string $courseLevel, int $academicYear): ?string
-                    {
-                        if (!preg_match('/(ECP)\/([A-Z])\s*\((\d+)\)/', $courseLevel, $matches)) {
-                            return null;
-                        }
-
-                        $program = $matches[1]; // ECP
-                        $type = $matches[2];    // N, R, Q
-                        $batch = (int)$matches[3];
-                        $batchYear = 2500 + $batch;
-                        $yearDiff = $academicYear - $batchYear;
-
-                        if ($yearDiff < 0 || $yearDiff >= 4) {
-                            // ยังไม่เข้าเรียน หรือ เกิน 4 ปีแล้ว
-                            return "{$program}/{$type} ({$batch})";
-                        }
-
-                        $yearLevel = $yearDiff + 1;
-                        $yearLevel2 = $yearDiff + 2;
-
-                        if ($type === 'N') {
-                            // ปี 1-4 ได้ทั้งหมด
-                            return "ECP{$yearLevel}N";
-                        }
-
-                        if (in_array($type, ['R', 'Q']) && $yearLevel2 >= 2 && $yearLevel2 <= 4) {
-                            return "ECP{$yearLevel2}{$type}";
-                        }
-
-                        return null; // ไม่ตรงเงื่อนไข
-                    }
-
-                    // เรียกใช้ฟังก์ชัน
-                    $academicYear = getAcademicYear(); // คำนวณปีการศึกษา
-                    $academicLevel = getAcademicLevel($userAccount['course_level'], $academicYear);
-
-                    // เก็บใน session
                     $_SESSION['course_level'] = $userAccount['course_level'];
-                    $_SESSION['academic_year'] = $academicYear;
-                    $_SESSION['academic_level'] = $academicLevel;
-
 
 
                     $_SESSION['faculty'] = $userAccount['faculty'];
