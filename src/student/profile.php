@@ -87,23 +87,6 @@ if (isset($_SESSION['user'])) {
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ข้อมูลส่วนตัว</h1>
-
-                    <?php
-                    // ตัวอย่างข้อมูลจำลอง (ควรดึงจากฐานข้อมูลจริง)
-                    $student = [
-                        'student_id' => '64332210283-1',
-                        'name' => 'นายปรัชญาพล จำปาลาด',
-                        'faculty' => 'คณะวิศวกรรมศาสตร์',
-                        'field' => 'วิศวกรรมคอมพิวเตอร์',
-                        'course_level' => 'ECP/R64',
-                        'email' => 'pratchayapol.ja@rmuti.ac.th',
-                        'role' => 'Student',
-                        'dep' => NULL,
-                        'advisor' => 'อ. ที่ปรึกษา',
-                        'picture' => 'https://lh3.googleusercontent.com/a/ACg8ocIcV5e5Jn...',
-                    ];
-                    ?>
-
                     <div class="p-6 grid grid-cols-1 gap-4 place-items-center">
                         <label>รูปภาพ</label>
                         <img src="<?= $picture; ?>" alt="Profile Picture" class="w-32 h-32 object-cover rounded-full">
@@ -111,7 +94,7 @@ if (isset($_SESSION['user'])) {
 
 
 
-                    <form class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" action="save_profile.php" method="POST">
+                    <form class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" action="" method="POST">
                         <div>
                             <label>เลขประจำตัวนักศึกษา</label>
                             <input type="text" name="student_id" value="<?= $id; ?>" class="border p-2 w-full" readonly>
@@ -124,38 +107,38 @@ if (isset($_SESSION['user'])) {
 
                         <div>
                             <label>คณะ</label>
-                            <input type="text" name="faculty" value="<?= $faculty; ?>" class="border p-2 w-full">
+                            <input type="text" name="faculty" value="<?= $faculty; ?>" class="border p-2 w-full" readonly>
                         </div>
 
                         <div>
                             <label>สาขาวิชา</label>
-                            <input type="text" name="field" value="<?= $field; ?>" class="border p-2 w-full">
+                            <input type="text" name="field" value="<?= $field; ?>" class="border p-2 w-full" readonly>
                         </div>
 
                         <div>
                             <label>ชั้นปี</label>
-                            <input type="text" name="course_level" value="<?= $course_level; ?>" class="border p-2 w-full">
+                            <input type="text" name="course_level" value="<?= $course_level; ?>" class="border p-2 w-full" readonly>
                         </div>
 
                         <div>
                             <label>อีเมล</label>
-                            <input type="email" name="email" value="<?= $email; ?>" class="border p-2 w-full">
+                            <input type="email" name="email" value="<?= $email; ?>" class="border p-2 w-full" readonly>
                         </div>
 
                         <div>
                             <label>สิทธิ์การใช้งาน</label>
-                            <input type="text" name="role" value="<?= $student['role'] ?>" class="border p-2 w-full">
+                            <input type="text" name="role" value="<?= $student['role'] ?>" class="border p-2 w-full" readonly>
                         </div>
-                        
+
                         <div>
                             <label>ที่ปรึกษา</label>
-                            <input type="text" name="advisor" value="<?= $student['advisor'] ?>" class="border p-2 w-full">
+                            <input type="text" name="advisor" value="<?= $student['advisor'] ?>" class="border p-2 w-full" readonly>
                         </div>
 
 
 
                         <div class="col-span-2 text-center mt-4">
-                            <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-md">บันทึกการเปลี่ยนแปลง</button>
+                            <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-md">บันทึก</button>
                         </div>
                     </form>
                 </div>
