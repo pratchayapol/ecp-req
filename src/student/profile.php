@@ -53,7 +53,6 @@ if (isset($_SESSION['user'])) {
         }
 
         $yearLevel = $yearDiff + 1;
-        $yearLevel2 = $yearDiff + 2;
 
         if ($type === 'N') {
             // ปี 1-4 ได้ทั้งหมด
@@ -62,8 +61,8 @@ if (isset($_SESSION['user'])) {
             return "{$program}/{$type} ({$batch})";
         }
 
-        if (in_array($type, ['R', 'Q']) && $yearLevel2 >= 2 && $yearLevel2 <= 4) {
-            return "ECP{$yearLevel2}{$type}";
+        if (in_array($type, ['R', 'Q']) && $yearLevel >= 2 && $yearLevel <= 4) {
+            return "ECP{$yearLevel}{$type}";
         } else {
             return "{$program}/{$type} ({$batch})";
         }
