@@ -63,6 +63,8 @@ if (isset($_SESSION['user'])) {
 
         if (in_array($type, ['R', 'Q']) && $yearLevel2 >= 2 && $yearLevel2 <= 4) {
             return "ECP{$yearLevel2}{$type}";
+        } else {
+            return "{$program}/{$type} ({$batch})";
         }
 
         return null; // ไม่ตรงเงื่อนไข
