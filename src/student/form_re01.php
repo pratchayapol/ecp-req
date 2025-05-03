@@ -10,22 +10,17 @@ if (isset($_SESSION['user'])) {
     $name = $_SESSION['user']['name'];
     $email = $_SESSION['user']['email'];
     $picture = $_SESSION['user']['picture'];
+    $logged_in = $_SESSION['logged_in'] ?? 0;
+    $iname = $_SESSION['iname'] ?? '';
+    $role = $_SESSION['role'] ?? '';
+    $id = $_SESSION['id'] ?? '';
+    $course_level = $_SESSION['course_level'] ?? '';
+    $faculty = $_SESSION['faculty'] ?? '';
+    $field = $_SESSION['field'] ?? '';
+    $dep = $_SESSION['dep'] ?? '';
 } else {
     header('location: ../session_timeout');
 }
-
-$logged_in = $_SESSION['logged_in'] ?? 0;
-$iname = $_SESSION['iname'] ?? '';
-$role = $_SESSION['role'] ?? '';
-$id = $_SESSION['id'] ?? '';
-$course_level = $_SESSION['course_level'] ?? '';
-$faculty = $_SESSION['faculty'] ?? '';
-$field = $_SESSION['field'] ?? '';
-$dep = $_SESSION['dep'] ?? '';
-$role = $_SESSION['role'] ?? '';
-$id = $_SESSION['id'] ?? '';
-
-
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +69,7 @@ $id = $_SESSION['id'] ?? '';
                     <div class="bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center">
                         <img src="<?= $picture ?>" alt="Profile Picture" class="w-10 h-10 rounded-full object-cover">
                     </div>
-                    <span class="text-sm sm:text-base"><?= $name; ?></span>
+                    <span class="text-sm sm:text-base"><?= $iname; ?></span>
                 </div>
                 <button id="logoutBtn" class="w-full mt-4 bg-white text-[#2C2C2C] py-2 rounded-[12px] hover:bg-[#2C2C2C] hover:text-white transition-colors duration-200 shadow-md">
                     ออกจากระบบ
@@ -249,42 +244,42 @@ $id = $_SESSION['id'] ?? '';
         }
     </style>
     <?php include '../loadtab/f.php'; ?>
-<?php
+    <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    try {
-        // รับค่าจากฟอร์ม
-        $title         = $_POST['title'];
-        $to            = $_POST['to'];
-        $faculty       = $_POST['faculty'];
-        $field         = $_POST['field'];
-        $course_level  = $_POST['course_level'];
-        $request       = $_POST['request'];
-        $email = $_SESSION['user']['email'];
-        // ตรวจสอบว่าค่าจากฟอร์มครบหรือไม่
-        if(empty($email)) {
-            throw new Exception("กรุณากรอกอีเมล");
-        }
+        try {
+            // รับค่าจากฟอร์ม
+            $title         = $_POST['title'];
+            $to            = $_POST['to'];
+            $faculty       = $_POST['faculty'];
+            $field         = $_POST['field'];
+            $course_level  = $_POST['course_level'];
+            $request       = $_POST['request'];
+            $email = $_SESSION['user']['email'];
+            // ตรวจสอบว่าค่าจากฟอร์มครบหรือไม่
+            if (empty($email)) {
+                throw new Exception("กรุณากรอกอีเมล");
+            }
 
-        // คำสั่ง SQL สำหรับบันทึกข้อมูล
-        $sql = "INSERT INTO form_re01 (title, `to`, email, faculty, field, course_level, request_text)
+            // คำสั่ง SQL สำหรับบันทึกข้อมูล
+            $sql = "INSERT INTO form_re01 (title, `to`, email, faculty, field, course_level, request_text)
         VALUES (:title, :to, :email, :faculty, :field, :course_level, :request)";
 
 
-        // เตรียมการ query
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':title'        => $title,
-            ':to'           => $to,
-            ':email'        => $email,
-            ':faculty'      => $faculty,
-            ':field'        => $field,
-            ':course_level' => $course_level,
-            ':request'      => $request
-        ]);
+            // เตรียมการ query
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ':title'        => $title,
+                ':to'           => $to,
+                ':email'        => $email,
+                ':faculty'      => $faculty,
+                ':field'        => $field,
+                ':course_level' => $course_level,
+                ':request'      => $request
+            ]);
 
-        // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน
-        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
-        echo "
+            // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน
+            echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
+            echo "
         <script>
         Swal.fire({
             title: 'สำเร็จ!',
@@ -297,20 +292,20 @@ $id = $_SESSION['id'] ?? '';
         });
         </script>
         ";
-        echo "</body></html>";
-        exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
-    } catch (PDOException $e) {
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-        echo "<script>
+            echo "</body></html>";
+            exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
+        } catch (PDOException $e) {
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
         Swal.fire({
             icon: 'error',
             title: 'เกิดข้อผิดพลาด!',
             text: '" . $e->getMessage() . "',
         });
         </script>";
+        }
     }
-}
-?>
+    ?>
 </body>
 
 </html>

@@ -10,16 +10,17 @@ if (isset($_SESSION['user'])) {
     $name = $_SESSION['user']['name'];
     $email = $_SESSION['user']['email'];
     $picture = $_SESSION['user']['picture'];
+    $logged_in = $_SESSION['logged_in'] ?? 0;
+    $iname = $_SESSION['iname'] ?? '';
+    $role = $_SESSION['role'] ?? '';
+    $id = $_SESSION['id'] ?? '';
+    $course_level = $_SESSION['course_level'] ?? '';
+    $faculty = $_SESSION['faculty'] ?? '';
+    $field = $_SESSION['field'] ?? '';
+    $dep = $_SESSION['dep'] ?? '';
 } else {
     header('location: ../session_timeout');
 }
-
-$logged_in = $_SESSION['logged_in'] ?? 0;
-$role = $_SESSION['role'] ?? '';
-$id = $_SESSION['id'] ?? '';
-$course_level = $_SESSION['course_level'] ?? '';
-
-
 ?>
 
 <!DOCTYPE html>
