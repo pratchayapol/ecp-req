@@ -65,7 +65,7 @@ if (isset($_SESSION['user'])) {
             return "ECP{$yearLevel2}{$type}";
         }
 
-        return null; // ไม่ตรงเงื่อนไข
+        return "a"; // ไม่ตรงเงื่อนไข
     }
 
     // เรียกใช้ฟังก์ชัน
