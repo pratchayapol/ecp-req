@@ -115,7 +115,7 @@ if (isset($_SESSION['user'])) {
                                             <option value="2">ไม่อนุมัติ</option>
                                         </select>
                                     </div>
-                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters()">ล้างข้อมูล</button>
+                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters1()">ล้างข้อมูล</button>
                                 </div>
                                 <!-- Table -->
                                 <table class="min-w-full table-auto border-collapse rounded-[12px]">
@@ -208,7 +208,7 @@ if (isset($_SESSION['user'])) {
                                             <option value="2">ไม่อนุมัติ</option>
                                         </select>
                                     </div>
-                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters()">ล้างข้อมูล</button>
+                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters2()">ล้างข้อมูล</button>
                                 </div>
 
                                 <!-- Table -->
@@ -284,7 +284,7 @@ if (isset($_SESSION['user'])) {
                                             <option value="2">ไม่อนุมัติ</option>
                                         </select>
                                     </div>
-                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters()">ล้างข้อมูล</button>
+                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters3()">ล้างข้อมูล</button>
                                 </div>
 
 
