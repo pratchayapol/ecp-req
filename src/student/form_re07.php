@@ -18,6 +18,8 @@ if (isset($_SESSION['user'])) {
     $faculty = $_SESSION['faculty'] ?? '';
     $field = $_SESSION['field'] ?? '';
     $dep = $_SESSION['dep'] ?? '';
+    $academicYear = $_SESSION['academic_year'] ?? '';
+    $academicLevel = $_SESSION['academic_level'] ?? '';
 } else {
     header('location: ../session_timeout');
 }
