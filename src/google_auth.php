@@ -2,28 +2,6 @@
 session_start();
 include 'connect/dbcon.php';
 
-<?php
-session_start();
-
-// ตัวอย่างข้อมูลจากผู้ใช้
-$userAccount['course_level'] = 'ECP/N (60)';
-
-/**
- * ฟังก์ชันคำนวณปีการศึกษาอัตโนมัติ
- */
-function getAcademicYear(): int {
-    $today = new DateTime();
-    $year = (int)$today->format('Y');
-    $month = (int)$today->format('m');
-    $day = (int)$today->format('d');
-
-    // ถ้า 15 มิ.ย. หรือหลังจากนั้น ถือเป็นปีการศึกษาใหม่
-    if ($month > 6 || ($month == 6 && $day >= 15)) {
-        return $year + 543;
-    } else {
-        return ($year - 1) + 543;
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -48,7 +26,7 @@ function getAcademicYear(): int {
 </head>
 
 <body class="flex items-center justify-center min-h-screen bg t1">
-<?php include './loadtab/h.php'; ?>
+    <?php include './loadtab/h.php'; ?>
     <?php
     // โหลดไฟล์ให้ครบทุกตัว
     require_once 'vendor/autoload.php'; // โหลด Google Client
@@ -101,43 +79,59 @@ function getAcademicYear(): int {
                     $_SESSION['iname'] = $userAccount['name'];
                     $_SESSION['role'] = $userAccount['role'];
                     $_SESSION['id'] = $userAccount['id'];
-           
-function getAcademicLevel(string $courseLevel, int $academicYear): ?string {
-    if (!preg_match('/(ECP\/[A-Z])\s*\((\d+)\)/', $courseLevel, $matches)) {
-        return null;
-    }
+                    function getAcademicYear(): int
+                    {
+                        $today = new DateTime();
+                        $year = (int)$today->format('Y');
+                        $month = (int)$today->format('m');
+                        $day = (int)$today->format('d');
 
-    $code = $matches[1]; // เช่น ECP/N
-    $batch = (int)$matches[2]; // เช่น 60
-    $batchYear = 2500 + $batch; // สมมุติ (60) = 2560
-    $yearDiff = $academicYear - $batch;
+                        // ถ้า 15 มิ.ย. หรือหลังจากนั้น ถือเป็นปีการศึกษาใหม่
+                        if ($month > 6 || ($month == 6 && $day >= 15)) {
+                            return $year + 543;
+                        } else {
+                            return ($year - 1) + 543;
+                        }
+                    }
 
-    // ถ้ามากกว่า 4 ปี → จบหลักสูตรแล้ว
-    if ($yearDiff >= 4) {
-        return "ECP/Q ({$batch})";
-    }
+                    
+                    function getAcademicLevel(string $courseLevel, int $academicYear): ?string
+                    {
+                        if (!preg_match('/(ECP\/[A-Z])\s*\((\d+)\)/', $courseLevel, $matches)) {
+                            return null;
+                        }
 
-    // คำนวณปีที่ศึกษา เช่น ปี 1, 2, 3, 4
-    $yearNum = $yearDiff + 1;
+                        $code = $matches[1]; // เช่น ECP/N
+                        $batch = (int)$matches[2]; // เช่น 60
+                        $batchYear = 2500 + $batch; // สมมุติ (60) = 2560
+                        $yearDiff = $academicYear - $batch;
 
-    // เงื่อนไขพิเศษตามคำอธิบาย
-    if ($code === 'ECP/N') {
-        return "ECP{$yearNum}N";
-    } elseif ($code === 'ECP/R' && $yearNum >= 2) {
-        return "ECP{$yearNum}R";
-    }
+                        // ถ้ามากกว่า 4 ปี → จบหลักสูตรแล้ว
+                        if ($yearDiff >= 4) {
+                            return "ECP/Q ({$batch})";
+                        }
 
-    return null; // ไม่ตรงเงื่อนไข
-}
+                        // คำนวณปีที่ศึกษา เช่น ปี 1, 2, 3, 4
+                        $yearNum = $yearDiff + 1;
 
-// เรียกใช้ฟังก์ชัน
-$academicYear = getAcademicYear(); // คำนวณปีการศึกษา
-$academicLevel = getAcademicLevel($userAccount['course_level'], $academicYear);
+                        // เงื่อนไขพิเศษตามคำอธิบาย
+                        if ($code === 'ECP/N') {
+                            return "ECP{$yearNum}N";
+                        } elseif ($code === 'ECP/R' && $yearNum >= 2) {
+                            return "ECP{$yearNum}R";
+                        }
 
-// เก็บใน session
-$_SESSION['course_level'] = $userAccount['course_level'];
-$_SESSION['academic_year'] = $academicYear;
-$_SESSION['academic_level'] = $academicLevel;
+                        return null; // ไม่ตรงเงื่อนไข
+                    }
+
+                    // เรียกใช้ฟังก์ชัน
+                    $academicYear = getAcademicYear(); // คำนวณปีการศึกษา
+                    $academicLevel = getAcademicLevel($userAccount['course_level'], $academicYear);
+
+                    // เก็บใน session
+                    $_SESSION['course_level'] = $userAccount['course_level'];
+                    $_SESSION['academic_year'] = $academicYear;
+                    $_SESSION['academic_level'] = $academicLevel;
 
                     $_SESSION['faculty'] = $userAccount['faculty'];
                     $_SESSION['field'] = $userAccount['field'];
@@ -244,10 +238,10 @@ $_SESSION['academic_level'] = $academicLevel;
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-    
+
         // เคลียร์ตัวแปร session ทั้งหมด
         $_SESSION = [];
-    
+
         // ถ้ามีการใช้ session cookie ให้ลบ cookie ด้วย
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
@@ -261,21 +255,21 @@ $_SESSION['academic_level'] = $academicLevel;
                 $params["httponly"]
             );
         }
-    
+
         // ทำลาย session
         session_destroy();
-    
+
         // URL สำหรับ redirect หลัง logout
         $logoutRedirect = 'https://ecpreq.pcnone.com';
-    
+
         // Redirect ไป logout ของ Google และกลับมายังระบบ
         header('Location: https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=' . urlencode($logoutRedirect));
         exit();
     }
-    
+
 
     ?>
-<?php include './loadtab/f.php'; ?>
+    <?php include './loadtab/f.php'; ?>
 </body>
 
 </html>
