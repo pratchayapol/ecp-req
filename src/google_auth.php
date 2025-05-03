@@ -139,10 +139,6 @@ $_SESSION['course_level'] = $userAccount['course_level'];
 $_SESSION['academic_year'] = $academicYear;
 $_SESSION['academic_level'] = $academicLevel;
 
-// สำหรับ debug หรือแสดงผล (ลบออกตอน production)
-echo "ปีการศึกษา: " . $_SESSION['academic_year'] . "<br>";
-echo "ระดับชั้น: " . ($_SESSION['academic_level'] ?? 'ไม่ตรงเงื่อนไข');
-
                     $_SESSION['faculty'] = $userAccount['faculty'];
                     $_SESSION['field'] = $userAccount['field'];
                     $_SESSION['dep'] = $userAccount['dep'];
