@@ -95,30 +95,48 @@ include 'connect/dbcon.php';
                     }
 
 
+                    /**
+                     * ฟังก์ชันคำนวณปีการศึกษาอัตโนมัติ
+                     */
+                    function getAcademicYear(): int
+                    {
+                        $today = new DateTime();
+                        $year = (int)$today->format('Y');
+                        $month = (int)$today->format('m');
+                        $day = (int)$today->format('d');
+
+                        return ($month > 6 || ($month == 6 && $day >= 15)) ? $year + 543 : ($year - 1) + 543;
+                    }
+
+                    /**
+                     * ฟังก์ชันแปลงรหัสหลักสูตรเป็นระดับชั้น
+                     */
                     function getAcademicLevel(string $courseLevel, int $academicYear): ?string
                     {
-                        if (!preg_match('/(ECP\/[A-Z])\s*\((\d+)\)/', $courseLevel, $matches)) {
+                        if (!preg_match('/(ECP)\/([A-Z])\s*\((\d+)\)/', $courseLevel, $matches)) {
                             return null;
                         }
 
-                        $code = $matches[1]; // เช่น ECP/N
-                        $batch = (int)$matches[2]; // เช่น 60
-                        $batchYear = 2500 + $batch; // สมมุติ (60) = 2560
-                        $yearDiff = $academicYear - $batch;
+                        $program = $matches[1]; // ECP
+                        $type = $matches[2];    // N, R, Q
+                        $batch = (int)$matches[3];
+                        $batchYear = 2500 + $batch;
+                        $yearDiff = $academicYear - $batchYear;
 
-                        // ถ้ามากกว่า 4 ปี → จบหลักสูตรแล้ว
-                        if ($yearDiff >= 4) {
-                            return "ECP/Q ({$batch})";
+                        if ($yearDiff < 0 || $yearDiff >= 4) {
+                            // ยังไม่เข้าเรียน หรือ เกิน 4 ปีแล้ว
+                            return "{$program}/{$type} ({$batch})";
                         }
 
-                        // คำนวณปีที่ศึกษา เช่น ปี 1, 2, 3, 4
-                        $yearNum = $yearDiff + 1;
+                        $yearLevel = $yearDiff + 1;
 
-                        // เงื่อนไขพิเศษตามคำอธิบาย
-                        if ($code === 'ECP/N') {
-                            return "ECP{$yearNum}N";
-                        } elseif ($code === 'ECP/R' && $yearNum >= 2) {
-                            return "ECP{$yearNum}R";
+                        if ($type === 'N') {
+                            // ปี 1-4 ได้ทั้งหมด
+                            return "ECP{$yearLevel}N";
+                        }
+
+                        if (in_array($type, ['R', 'Q']) && $yearLevel >= 2 && $yearLevel <= 4) {
+                            return "ECP{$yearLevel}{$type}";
                         }
 
                         return null; // ไม่ตรงเงื่อนไข
@@ -134,7 +152,7 @@ include 'connect/dbcon.php';
                     $_SESSION['academic_level'] = $academicLevel;
 
 
-                    
+
                     $_SESSION['faculty'] = $userAccount['faculty'];
                     $_SESSION['field'] = $userAccount['field'];
                     $_SESSION['dep'] = $userAccount['dep'];
