@@ -91,19 +91,19 @@ if (isset($_SESSION['user'])) {
                         <div class="mb-4 border-b border-gray-200">
                             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
                                 <li class="me-2" role="presentation">
-                                    <button class="inline-block p-4 border-b-2 rounded-t-lg" id="re01-tab" data-tabs-target="#re01" type="button" role="tab" aria-controls="re01" aria-selected="false">คำร้องทั่วไป RE.01</button>
+                                    <button class="inline-block p-4 border-b-2 rounded-t-lg" id="re01-tab" data-tabs-target="#re01" type="button" role="tab" aria-controls="re01" aria-selected="false" onclick="selectTab()">คำร้องทั่วไป RE.01</button>
                                 </li>
                                 <li class="me-2" role="presentation">
-                                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="re06-tab" data-tabs-target="#re06" type="button" role="tab" aria-controls="re06" aria-selected="false">คำร้องขอเพิ่มที่นั่ง RE.06</button>
+                                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="re06-tab" data-tabs-target="#re06" type="button" role="tab" aria-controls="re06" aria-selected="false" onclick="selectTab()">คำร้องขอเพิ่มที่นั่ง RE.06</button>
                                 </li>
                                 <li class="me-2" role="presentation">
-                                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="re07-tab" data-tabs-target="#re07" type="button" role="tab" aria-controls="re07" aria-selected="false">คำร้องขอเปิดนอกแผนการเรียน RE.07</button>
+                                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="re07-tab" data-tabs-target="#re07" type="button" role="tab" aria-controls="re07" aria-selected="false" onclick="selectTab()">คำร้องขอเปิดนอกแผนการเรียน RE.07</button>
                                 </li>
                             </ul>
                         </div>
                         <div id="default-tab-content">
                             <p id="alert-message" class="text-red-500 font-bold text-center">โปรดเลือก Tab คำร้อง</p>
-                          
+
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re01" role="tabpanel" aria-labelledby="re01-tab">
                                 <!-- Filters -->
                                 <div class="flex items-center gap-4 mb-4 justify-center">
@@ -483,14 +483,14 @@ if (isset($_SESSION['user'])) {
 
                         </div>
                         <script>
-                                function selectTab() {
-                                    // เมื่อมีการกดเลือก Tab ให้ซ่อนข้อความเตือน
-                                    const alertMessage = document.getElementById('alert-message');
-                                    if (alertMessage) {
-                                        alertMessage.style.display = 'none';
-                                    }
+                            function selectTab() {
+                                // เมื่อมีการกดเลือก Tab ให้ซ่อนข้อความเตือน
+                                const alertMessage = document.getElementById('alert-message');
+                                if (alertMessage) {
+                                    alertMessage.style.display = 'none';
                                 }
-                            </script>
+                            }
+                        </script>
                         <script>
                             // Get all tab buttons
                             const tabs = document.querySelectorAll('[role="tab"]');
