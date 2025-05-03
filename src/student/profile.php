@@ -57,14 +57,10 @@ if (isset($_SESSION['user'])) {
         if ($type === 'N') {
             // ปี 1-4 ได้ทั้งหมด
             return "ECP{$yearLevel}N";
-        } else {
-            return "{$program}/{$type} ({$batch})";
         }
 
         if (in_array($type, ['R', 'Q']) && $yearLevel >= 2 && $yearLevel <= 4) {
             return "ECP{$yearLevel}{$type}";
-        } else {
-            return "{$program}/{$type} ({$batch})";
         }
 
         return null; // ไม่ตรงเงื่อนไข
