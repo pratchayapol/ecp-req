@@ -214,9 +214,37 @@ if (isset($_GET['course_id'])) {
                             <div>
                                 <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
+                            <?php
+                            // เตรียม array ข้อมูลอาจารย์ที่ใช้ใน <select>
+                            $instructorOptions = [];
+                            if (!empty($courseInfo['instructor_name']) && !empty($courseData['email'])) {
+                                $emails = array_map('trim', explode(',', $courseData['email']));
+                                $names = array_map('trim', explode(',', $courseInfo['instructor_name']));
+
+                                foreach ($emails as $i => $email) {
+                                    $instructorOptions[] = [
+                                        'email' => $email,
+                                        'name' => $names[$i] ?? 'ไม่ทราบชื่อ'
+                                    ];
+                                }
+                            }
+                            ?>
+
                             <div>
-                                <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_name'] ?? 'N/A' ?></span></p>
+                                <label for="instructorSelect" class="text-gray-600">อาจารย์ผู้สอน:</label>
+                                <select id="instructorSelect" name="instructor_email" class="text-black border p-1 rounded">
+                                    <?php if (empty($instructorOptions)): ?>
+                                        <option value="">N/A</option>
+                                    <?php else: ?>
+                                        <?php foreach ($instructorOptions as $opt): ?>
+                                            <option value="<?= htmlspecialchars($opt['email']) ?>">
+                                                <?= htmlspecialchars($opt['name']) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
                             </div>
+
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
                                 <input type="text" name="academicGroup" id="other-reason-input"
