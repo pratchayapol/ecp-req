@@ -30,24 +30,45 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// ตรวจสอบว่ามีการส่งคำขอจากการเลือกวิชา
 if (isset($_GET['course_id'])) {
     $courseId = $_GET['course_id'];
 
-    // ดึงข้อมูลของวิชาและอาจารย์จากฐานข้อมูล
-    $sql = "SELECT c.course_id, c.course_nameTH, a.name AS instructor_name
-            FROM course c
-            LEFT JOIN accounts a ON a.email = c.email
-            WHERE c.course_id = :course_id";
+    // ดึงข้อมูลวิชา
+    $sql = "SELECT course_id, course_nameTH, email FROM course WHERE course_id = :course_id";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':course_id', $courseId, PDO::PARAM_STR);
     $stmt->execute();
-    $courseInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+    $courseData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // ส่งข้อมูลกลับในรูป JSON
+    $instructorNames = [];
+
+    if ($courseData && !empty($courseData['email'])) {
+        // แยกอีเมลด้วย comma (,)
+        $emails = array_map('trim', explode(',', $courseData['email']));
+
+        // สร้าง placeholders เช่น (?, ?, ?)
+        $placeholders = implode(',', array_fill(0, count($emails), '?'));
+
+        // ดึงชื่ออาจารย์จากอีเมล
+        $sql = "SELECT name FROM accounts WHERE email IN ($placeholders)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($emails);
+        $names = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        // รวมชื่อทั้งหมดเป็นสตริงเดียว
+        $instructorNames = implode(', ', $names);
+    }
+
+    $courseInfo = [
+        'course_id' => $courseData['course_id'] ?? 'N/A',
+        'course_nameTH' => $courseData['course_nameTH'] ?? 'N/A',
+        'instructor_name' => $instructorNames ?: 'N/A'
+    ];
+
     echo json_encode($courseInfo);
-    exit; // ปิดสคริปต์หลังส่งข้อมูล
+    exit;
 }
+
 
 ?>
 
