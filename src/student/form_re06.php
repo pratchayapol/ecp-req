@@ -44,41 +44,39 @@ if (isset($_GET['course_id'])) {
     $stmt->bindParam(':course_id', $courseId, PDO::PARAM_STR);
     $stmt->execute();
     $courseData = $stmt->fetch(PDO::FETCH_ASSOC);
-    $instructorNames = [];
-    $instructorEmails = [];
-    
+
+    $instructors = [];
+
     if ($courseData && !empty($courseData['email'])) {
         $emails = array_map('trim', explode(',', $courseData['email']));
         $placeholders = implode(',', array_fill(0, count($emails), '?'));
-    
+
         $sql = "SELECT email, name FROM accounts WHERE email IN ($placeholders)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute($emails);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-        // จัดเก็บ name ตาม email
+
         $emailNameMap = [];
         foreach ($results as $row) {
             $emailNameMap[$row['email']] = $row['name'];
         }
-    
-        // จัดเรียง name และ email ตามลำดับอีเมลเดิม
+
         foreach ($emails as $email) {
-            $instructorNames[] = $emailNameMap[$email] ?? 'N/A';
-            $instructorEmails[] = $email;
+            $instructors[] = [
+                'name' => $emailNameMap[$email] ?? 'N/A',
+                'email' => $email
+            ];
         }
     }
-    
+
     $courseInfo = [
         'course_id' => $courseData['course_id'] ?? 'N/A',
         'course_nameTH' => $courseData['course_nameTH'] ?? 'N/A',
-        'instructor_name' => implode(', ', $instructorNames) ?: 'N/A',
-        'instructor_email' => implode(', ', $instructorEmails) ?: 'N/A'
+        'instructors' => $instructors
     ];
-    
+
     echo json_encode($courseInfo);
     exit;
-    
 }
 
 
@@ -111,9 +109,20 @@ if (isset($_GET['course_id'])) {
         function updateCourseInfo(course) {
             document.getElementById('courseId').textContent = course.course_id || 'N/A';
             document.getElementById('courseNameTH').textContent = course.course_nameTH || 'N/A';
-            document.getElementById('courseInstructor').textContent = course.instructor_name || 'N/A';
-            document.getElementById('courseInstructorEmail').textContent = course.instructor_email || 'N/A';
+
+            const select = document.getElementById('courseInstructorSelect');
+            select.innerHTML = '<option value="">กรุณาเลือกอาจารย์</option>'; // เคลียร์รายการเก่า
+
+            if (course.instructors && course.instructors.length > 0) {
+                course.instructors.forEach(instructor => {
+                    const option = document.createElement('option');
+                    option.value = instructor.email;
+                    option.textContent = instructor.name;
+                    select.appendChild(option);
+                });
+            }
         }
+
 
         // เมื่อเลือกวิชาใน dropdown
         function loadCourseInfo(courseId) {
@@ -229,10 +238,12 @@ if (isset($_GET['course_id'])) {
                                 <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-                               
-                                    <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_name'] ?? 'N/A' ?></span></p>
-                                    <p class="text-gray-600">อีเมลของอาจารย์: <span class="text-black" id="courseInstructorEmail"><?= $courseInfo['instructor_email'] ?? 'N/A' ?></span></p>
-                            
+                                <div>
+                                    <p class="text-gray-600">อาจารย์ผู้สอน:</p>
+                                    <select id="courseInstructorSelect" class="text-black border border-gray-300 rounded px-2 py-1">
+                                        <option value="">กรุณาเลือกอาจารย์</option>
+                                    </select>
+                                </div>
 
                             </div>
                             <div>
