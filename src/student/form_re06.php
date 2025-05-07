@@ -29,34 +29,25 @@ $sql = "SELECT course_id, course_nameTH FROM course";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// ตรวจสอบว่ามีการส่งคำขอจากการเลือกวิชา
 if (isset($_GET['course_id'])) {
     $courseId = $_GET['course_id'];
 
-    // ดึงข้อมูลวิชาและอีเมลอาจารย์
-    $sql = "SELECT course_id, course_nameTH, email FROM course WHERE course_id = :course_id";
+    // ดึงข้อมูลของวิชาและอาจารย์จากฐานข้อมูล
+    $sql = "SELECT c.course_id, c.course_nameTH, a.name AS instructor_name
+            FROM course c
+            LEFT JOIN accounts a ON a.email = c.email
+            WHERE c.course_id = :course_id";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':course_id', $courseId, PDO::PARAM_STR);
     $stmt->execute();
     $courseInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($courseInfo && !empty($courseInfo['email'])) {
-        // แยกอีเมลและเตรียมดึงชื่อจาก accounts
-        $emails = array_map('trim', explode(',', $courseInfo['email']));
-        $placeholders = implode(',', array_fill(0, count($emails), '?'));
-
-        $stmt2 = $pdo->prepare("SELECT email, name FROM accounts WHERE email IN ($placeholders)");
-        $stmt2->execute($emails);
-        $instructors = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
-        $courseInfo['instructors'] = $instructors;
-    } else {
-        $courseInfo['instructors'] = [];
-    }
-
+    // ส่งข้อมูลกลับในรูป JSON
     echo json_encode($courseInfo);
-    exit;
+    exit; // ปิดสคริปต์หลังส่งข้อมูล
 }
-
 
 ?>
 
@@ -83,24 +74,26 @@ if (isset($_GET['course_id'])) {
     <link rel="stylesheet" href="../css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        // ฟังก์ชันสำหรับอัปเดตข้อมูลวิชาที่แสดง
         function updateCourseInfo(course) {
             document.getElementById('courseId').textContent = course.course_id || 'N/A';
             document.getElementById('courseNameTH').textContent = course.course_nameTH || 'N/A';
+            document.getElementById('courseInstructor').textContent = course.instructor_name || 'N/A';
+        }
 
-            const select = document.getElementById('courseInstructorSelect');
-            select.innerHTML = ''; // ล้างค่าเดิม
-
-            if (course.instructors && course.instructors.length > 0) {
-                course.instructors.forEach(ins => {
-                    const option = document.createElement('option');
-                    option.value = ins.email;
-                    option.textContent = ins.name + ' (' + ins.email + ')';
-                    select.appendChild(option);
-                });
+        // เมื่อเลือกวิชาใน dropdown
+        function loadCourseInfo(courseId) {
+            if (courseId) {
+                fetch(`?course_id=${courseId}`)
+                    .then(response => response.json())
+                    .then(data => updateCourseInfo(data))
+                    .catch(error => console.error('Error fetching course data:', error));
             } else {
-                const option = document.createElement('option');
-                option.textContent = 'ไม่พบข้อมูลอาจารย์';
-                select.appendChild(option);
+                updateCourseInfo({
+                    course_id: 'N/A',
+                    course_nameTH: 'N/A',
+                    instructor_name: 'N/A'
+                });
             }
         }
     </script>
@@ -201,12 +194,8 @@ if (isset($_GET['course_id'])) {
                                 <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-                                <label for="courseInstructorSelect" class="text-gray-600">เลือกอาจารย์ผู้สอน:</label>
-                                <select id="courseInstructorSelect" class="border px-2 py-1 rounded text-black w-full">
-                                    <option>กรุณาเลือกชื่ออาจารย์</option>
-                                </select>
+                                <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_name'] ?? 'N/A' ?></span></p>
                             </div>
-
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
                                 <input type="text" name="academicGroup" id="other-reason-input"
