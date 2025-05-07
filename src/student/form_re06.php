@@ -44,35 +44,41 @@ if (isset($_GET['course_id'])) {
     $stmt->bindParam(':course_id', $courseId, PDO::PARAM_STR);
     $stmt->execute();
     $courseData = $stmt->fetch(PDO::FETCH_ASSOC);
-
     $instructorNames = [];
-
+    $instructorEmails = [];
+    
     if ($courseData && !empty($courseData['email'])) {
-        // แยกอีเมลด้วย comma (,)
         $emails = array_map('trim', explode(',', $courseData['email']));
-
-        // สร้าง placeholders เช่น (?, ?, ?)
         $placeholders = implode(',', array_fill(0, count($emails), '?'));
-
-        // ดึงชื่ออาจารย์จากอีเมล
-        $sql = "SELECT name FROM accounts WHERE email IN ($placeholders)";
+    
+        $sql = "SELECT email, name FROM accounts WHERE email IN ($placeholders)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute($emails);
-        $names = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-        // รวมชื่อทั้งหมดเป็นสตริงเดียว
-        $instructorNames = implode(', ', $names);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // จัดเก็บ name ตาม email
+        $emailNameMap = [];
+        foreach ($results as $row) {
+            $emailNameMap[$row['email']] = $row['name'];
+        }
+    
+        // จัดเรียง name และ email ตามลำดับอีเมลเดิม
+        foreach ($emails as $email) {
+            $instructorNames[] = $emailNameMap[$email] ?? 'N/A';
+            $instructorEmails[] = $email;
+        }
     }
-
+    
     $courseInfo = [
         'course_id' => $courseData['course_id'] ?? 'N/A',
         'course_nameTH' => $courseData['course_nameTH'] ?? 'N/A',
-        'instructor_name' => $instructorNames ?: 'N/A',
-        'instructor_email' => $courseData['email'] ?: 'N/A'
+        'instructor_name' => implode(', ', $instructorNames) ?: 'N/A',
+        'instructor_email' => implode(', ', $instructorEmails) ?: 'N/A'
     ];
-
+    
     echo json_encode($courseInfo);
     exit;
+    
 }
 
 
@@ -223,10 +229,10 @@ if (isset($_GET['course_id'])) {
                                 <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-                                <div>
+                               
                                     <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_name'] ?? 'N/A' ?></span></p>
                                     <p class="text-gray-600">อีเมลของอาจารย์: <span class="text-black" id="courseInstructorEmail"><?= $courseInfo['instructor_email'] ?? 'N/A' ?></span></p>
-                                </div>
+                            
 
                             </div>
                             <div>
