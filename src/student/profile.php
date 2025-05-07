@@ -204,7 +204,7 @@ if (isset($_SESSION['user'])) {
                         </div>
 
                         <div>
-                            <label class="block font-medium mb-1">อาจารย์ที่ปรึกษา *</label>
+                            <label class="block font-medium mb-1">อาจารย์ที่ปรึกษา</label>
                             <select name="teacher_email" class="w-full border rounded px-3 py-2 bg-white text-gray-800" required>
 
                                 <?php foreach ($advisors as $advisor): ?>
