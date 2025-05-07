@@ -215,12 +215,9 @@ if (isset($_GET['course_id'])) {
                                 <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-
-                                <p class="text-gray-600">อาจารย์ผู้สอน:</p>
-                                <select id="instructorSelect" class="text-black border p-1 rounded">
-                                    <option value="">N/A</option> <!-- จะถูกลบตอนโหลดใหม่ -->
-                                </select>
-
+                                
+                                <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_name'] ?? 'N/A' ?></span></p>
+                           
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
@@ -251,32 +248,6 @@ if (isset($_GET['course_id'])) {
                         </div>
 
                         <script>
-                            function updateCourseInfo(course) {
-                                document.getElementById('courseId').textContent = course.course_id || 'N/A';
-                                document.getElementById('courseNameTH').textContent = course.course_nameTH || 'N/A';
-
-                                const instructorSelect = document.getElementById('instructorSelect');
-                                instructorSelect.innerHTML = ''; // ล้าง option เดิม
-
-                                if (course.instructor_name && course.instructor_email) {
-                                    const names = course.instructor_name.split(',');
-                                    const emails = course.instructor_email.split(',');
-
-                                    for (let i = 0; i < emails.length; i++) {
-                                        const opt = document.createElement('option');
-                                        opt.value = emails[i].trim();
-                                        opt.textContent = names[i]?.trim() || emails[i].trim();
-                                        instructorSelect.appendChild(opt);
-                                    }
-                                } else {
-                                    const opt = document.createElement('option');
-                                    opt.value = '';
-                                    opt.textContent = 'N/A';
-                                    instructorSelect.appendChild(opt);
-                                }
-                            }
-
-
                             function toggleOtherReason() {
                                 const select = document.getElementById('reason-select');
                                 const otherContainer = document.getElementById('other-reason-container');
