@@ -238,13 +238,10 @@ if (isset($_GET['course_id'])) {
                                 <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-                                <div>
-                                    <p class="text-red-600">อาจารย์ผู้สอน *</p>
-                                    <select id="courseInstructorSelect" class="w-full border rounded px-3 py-2" name="teacher_email" required>
-                                        <option value="">กรุณาเลือกอาจารย์</option>
-                                    </select>
-                                </div>
-
+                                <p class="text-red-600">อาจารย์ผู้สอน *</p>
+                                <select id="courseInstructorSelect" class="w-full border rounded px-3 py-2" name="teacher_email" required>
+                                    <option value="">กรุณาเลือกอาจารย์</option>
+                                </select>
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>

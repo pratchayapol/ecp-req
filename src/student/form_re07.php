@@ -24,38 +24,55 @@ if (isset($_SESSION['user'])) {
     header('location: ../session_timeout');
 }
 
-
 // ดึงข้อมูลรายวิชาทั้งหมดเพื่อแสดงใน <select>
 $sql = "SELECT course_id, course_nameTH FROM course";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-// ตรวจสอบว่ามีการส่งคำขอจากการเลือกวิชา
 if (isset($_GET['course_id'])) {
     $courseId = $_GET['course_id'];
 
-    // ดึงข้อมูลของวิชาและอาจารย์จากฐานข้อมูล
-    $sql = "SELECT c.course_id, c.course_nameTH, a.name AS instructor_name
-            FROM course c
-            LEFT JOIN accounts a ON a.email = c.email
-            WHERE c.course_id = :course_id";
+    // ดึงข้อมูลวิชา
+    $sql = "SELECT course_id, course_nameTH, email FROM course WHERE course_id = :course_id";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':course_id', $courseId, PDO::PARAM_STR);
     $stmt->execute();
-    $courseInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+    $courseData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // ส่งข้อมูลกลับในรูป JSON
+    $instructors = [];
+
+    if ($courseData && !empty($courseData['email'])) {
+        $emails = array_map('trim', explode(',', $courseData['email']));
+        $placeholders = implode(',', array_fill(0, count($emails), '?'));
+
+        $sql = "SELECT email, name FROM accounts WHERE email IN ($placeholders)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($emails);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $emailNameMap = [];
+        foreach ($results as $row) {
+            $emailNameMap[$row['email']] = $row['name'];
+        }
+
+        foreach ($emails as $email) {
+            $instructors[] = [
+                'name' => $emailNameMap[$email] ?? 'N/A',
+                'email' => $email
+            ];
+        }
+    }
+
+    $courseInfo = [
+        'course_id' => $courseData['course_id'] ?? 'N/A',
+        'course_nameTH' => $courseData['course_nameTH'] ?? 'N/A',
+        'instructors' => $instructors
+    ];
+
     echo json_encode($courseInfo);
-    exit; // ปิดสคริปต์หลังส่งข้อมูล
+    exit;
 }
-
-// ดึงเฉพาะผู้ที่เป็นอาจารย์ (role = 'Teacher')
-$stmt = $pdo->prepare("SELECT name, email FROM accounts WHERE role = 'Teacher' ORDER BY name ASC");
-$stmt->execute();
-$advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 
 
@@ -81,13 +98,26 @@ $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- animation -->
     <link rel="stylesheet" href="../css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // ฟังก์ชันสำหรับอัปเดตข้อมูลวิชาที่แสดง
         function updateCourseInfo(course) {
             document.getElementById('courseId').textContent = course.course_id || 'N/A';
             document.getElementById('courseNameTH').textContent = course.course_nameTH || 'N/A';
-            document.getElementById('courseInstructor').textContent = course.instructor_name || 'N/A';
+
+            const select = document.getElementById('courseInstructorSelect');
+            select.innerHTML = '<option value="">กรุณาเลือกอาจารย์</option>'; // เคลียร์รายการเก่า
+
+            if (course.instructors && course.instructors.length > 0) {
+                course.instructors.forEach(instructor => {
+                    const option = document.createElement('option');
+                    option.value = instructor.email;
+                    option.textContent = instructor.name;
+                    select.appendChild(option);
+                });
+            }
         }
+
 
         // เมื่อเลือกวิชาใน dropdown
         function loadCourseInfo(courseId) {
@@ -100,7 +130,8 @@ $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 updateCourseInfo({
                     course_id: 'N/A',
                     course_nameTH: 'N/A',
-                    instructor_name: 'N/A'
+                    instructor_name: 'N/A',
+                    instructor_email: 'N/A'
                 });
             }
         }
@@ -197,12 +228,15 @@ $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-                                <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_name'] ?? 'N/A' ?></span></p>
+                                <p class="text-red-600">อาจารย์ผู้สอน *</p>
+                                <select id="courseInstructorSelect" class="w-full border rounded px-3 py-2" name="teacher_email" required>
+                                    <option value="">กรุณาเลือกอาจารย์</option>
+                                </select>
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
                                 <input type="text" name="academicGroup" id="other-reason-input"
-                                class="w-full border rounded px-3 py-2" placeholder="กรุณากรอกกลุ่มเรียนของรายวิชา">
+                                    class="w-full border rounded px-3 py-2" placeholder="กรุณากรอกกลุ่มเรียนของรายวิชา">
                             </div>
                         </div>
 
