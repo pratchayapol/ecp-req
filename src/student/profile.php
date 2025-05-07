@@ -169,62 +169,62 @@ if (isset($_SESSION['user'])) {
 
                     <form class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" action="" method="POST">
                         <div>
-                            <label>เลขประจำตัวนักศึกษา</label>
+                            <label class="block font-medium mb-1">เลขประจำตัวนักศึกษา</label>
                             <input type="text" name="student_id" value="<?= $id; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
-                            <label>ชื่อ - สกุล</label>
+                            <label class="block font-medium mb-1">ชื่อ - สกุล</label>
                             <input type="text" name="name" value="<?= $iname; ?>" class="border p-2 w-full">
                         </div>
 
                         <div>
-                            <label>คณะ</label>
+                            <label class="block font-medium mb-1">คณะ</label>
                             <input type="text" name="faculty" value="<?= $faculty; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
-                            <label>สาขาวิชา</label>
+                            <label class="block font-medium mb-1">สาขาวิชา</label>
                             <input type="text" name="field" value="<?= $field; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
-                            <label>ชั้นปี</label>
+                            <label class="block font-medium mb-1">ชั้นปี</label>
                             <input type="text" name="academic_level" value="<?= $academicLevel; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
-                            <label>อีเมล</label>
+                            <label class="block font-medium mb-1">อีเมล</label>
                             <input type="email" name="email" value="<?= $email; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
-                            <label>สิทธิ์การใช้งาน</label>
+                            <label class="block font-medium mb-1">สิทธิ์การใช้งาน</label>
                             <input type="text" name="role" value="<?= $role; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
                         <div>
-                                <label class="block font-medium mb-1 text-red-600">อาจารย์ที่ปรึกษา *</label>
-                                <select name="teacher_email" class="w-full border rounded px-3 py-2 bg-white text-gray-800" required>
-                                    <option value="">กรุณาเลือกอาจารย์ที่ปรึกษา</option>
-                                    <?php foreach ($advisors as $advisor): ?>
-                                        <option value="<?php echo htmlspecialchars($advisor['email']); ?>">
-                                            <?php echo htmlspecialchars($advisor['name']); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
+                            <label class="block font-medium mb-1">อาจารย์ที่ปรึกษา *</label>
+                            <select name="teacher_email" class="w-full border rounded px-3 py-2 bg-white text-gray-800" required>
 
-                            <div>
-                                <label class="block font-medium mb-1 text-red-600">หัวหน้าสาขา</label>
-                                <select name="head_department" class="w-full border rounded px-3 py-2 bg-white text-gray-800">
-                                    <?php foreach ($heads as $head): ?>
-                                        <option value="<?php echo htmlspecialchars($head['email']); ?>" readonly>
-                                            <?php echo htmlspecialchars($head['name']); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
+                                <?php foreach ($advisors as $advisor): ?>
+                                    <option value="<?php echo htmlspecialchars($advisor['email']); ?>">
+                                        <?php echo htmlspecialchars($advisor['name']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block font-medium mb-1">หัวหน้าสาขา</label>
+                            <select name="head_department" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed">
+                                <?php foreach ($heads as $head): ?>
+                                    <option value="<?php echo htmlspecialchars($head['email']); ?>" readonly>
+                                        <?php echo htmlspecialchars($head['name']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
 
 
