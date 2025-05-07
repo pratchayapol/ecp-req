@@ -447,7 +447,8 @@ if (isset($_GET['course_id'])) {
             $academicYear = $_POST['academicYear'] ?? '';
             $courseId = $_POST['course_id'] ?? '';
             $group = $_POST['academicGroup'] ?? '';
-            $teacher_email = $_POST['teacher_email'] ?? '';
+            echo $teacher_email = $_POST['teacher_email'] ?? '';
+
             $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
             $registrations = $_POST['registrations'] ?? '';
             $regStatus = $_POST['reg_status'] ?? '';
