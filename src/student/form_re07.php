@@ -73,6 +73,12 @@ if (isset($_GET['course_id'])) {
     echo json_encode($courseInfo);
     exit;
 }
+
+// ดึงชื่อตัวเอง
+$sql = "SELECT name, email FROM accounts WHERE email = :email";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['email' => $email]);
+$profile = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -554,7 +560,7 @@ if (isset($_GET['course_id'])) {
             }
 
             $token = generateToken();
-            
+
             $status = NULL;  // Set default status to 0 if not provided
 
             // หากเลือกเหตุผล "อื่นๆ" ให้ใช้ค่าที่กรอกเพิ่ม

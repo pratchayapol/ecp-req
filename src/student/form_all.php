@@ -24,9 +24,14 @@ if (isset($_SESSION['user'])) {
     header('location: ../session_timeout');
 }
 
+// ดึงชื่อตัวเอง
+$sql = "SELECT name, email FROM accounts WHERE email = :email";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['email' => $email]);
+$profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
-function getNameByEmail($pdo, $email) {
+function getNameByEmail($pdo, $email)
+{
     $stmt2 = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
     $stmt2->execute(['email' => $email]);
     $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
@@ -147,7 +152,6 @@ function getNameByEmail($pdo, $email) {
                                             $stmt1 = $pdo->prepare("SELECT * FROM form_re01 WHERE email = :email ORDER BY form_id DESC");
                                             $stmt1->execute(['email' => $email]);
                                             $forms1 = $stmt1->fetchAll();
-
                                         } catch (PDOException $e) {
                                             echo "Database error: " . $e->getMessage();
                                             exit;
@@ -319,7 +323,7 @@ function getNameByEmail($pdo, $email) {
                                             <?php foreach ($forms3 as $row3): ?>
                                                 <tr>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
-                                                     <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td> -->
+                                                    <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
                                                     <td class="px-4 py-2"><?= htmlspecialchars($row3['course_id'] . ' ' . $row3['course_nameTH'] . ' (' . $row3['credits'] . ' หน่วยกิต)') ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></td>

@@ -88,11 +88,7 @@ if (isset($_SESSION['user'])) {
         $stmt->execute();
         $heads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // ดึงชื่อตัวเอง
-        $sql = "SELECT name, email FROM accounts WHERE email = :email";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(['email' => $email]);
-        $profile = $stmt->fetch(PDO::FETCH_ASSOC);
+
     } catch (PDOException $e) {
         // จัดการ error เช่น log หรือแสดงข้อความ
         $teacher_email = 'เกิดข้อผิดพลาด';
@@ -103,6 +99,11 @@ if (isset($_SESSION['user'])) {
     header('location: ../session_timeout');
 }
 
+// ดึงชื่อตัวเอง
+$sql = "SELECT name, email FROM accounts WHERE email = :email";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['email' => $email]);
+$profile = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="th">

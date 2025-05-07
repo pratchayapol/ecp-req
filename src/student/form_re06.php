@@ -79,7 +79,11 @@ if (isset($_GET['course_id'])) {
     exit;
 }
 
-
+// ดึงชื่อตัวเอง
+$sql = "SELECT name, email FROM accounts WHERE email = :email";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['email' => $email]);
+$profile = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
