@@ -374,7 +374,7 @@ if (isset($_SESSION['user'])) {
             icon: 'success',
             confirmButtonText: 'ตกลง'
         }).then(() => {
-            window.location.href = 'form_all';
+            window.location.href = 'profile';
         });
         </script>
         ";
