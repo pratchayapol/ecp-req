@@ -239,7 +239,7 @@ if (isset($_GET['course_id'])) {
                             </div>
                             <div>
                                 <div>
-                                    <p class="text-gray-600">อาจารย์ผู้สอน:</p>
+                                    <p class="text-red-600">อาจารย์ผู้สอน *</p>
                                     <select id="courseInstructorSelect" class="w-full border rounded px-3 py-2" name="teacher_email" required>
                                         <option value="">กรุณาเลือกอาจารย์</option>
                                     </select>
