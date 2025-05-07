@@ -202,7 +202,13 @@ if (isset($_SESSION['user'])) {
                                                     </td>
                                                     <td class="px-4 py-2 text-center">
                                                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
+                                                        <!-- ปุ่มเปลี่ยนสถานะ -->
+<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#statusModal" onclick="setRequestId('RE.06-3')">
+    เปลี่ยนสถานะ
+</button>
+
                                                     </td>
+                                                    
                                                 </tr>
 
 
@@ -474,6 +480,44 @@ if (isset($_SESSION['user'])) {
 
                         </div>
 
+                        <!-- Modal เปลี่ยนสถานะ -->
+<div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="change_status.php" method="POST">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="statusModalLabel">เปลี่ยนสถานะคำร้อง</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <input type="hidden" name="request_id" id="requestIdInput">
+          
+          <div class="mb-3">
+            <label for="statusSelect" class="form-label">เลือกสถานะ</label>
+            <select class="form-select" name="status" id="statusSelect" required>
+              <option value="">-- กรุณาเลือก --</option>
+              <option value="อนุมัติ">อนุมัติ</option>
+              <option value="ไม่อนุมัติ">ไม่อนุมัติ</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="remark" class="form-label">รายละเอียดเพิ่มเติม</label>
+            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="ระบุเหตุผล..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+          <button type="submit" class="btn btn-primary">บันทึก</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
                         <script>
                             // Get all tab buttons
                             const tabs = document.querySelectorAll('[role="tab"]');
@@ -511,10 +555,11 @@ if (isset($_SESSION['user'])) {
                                 tab.addEventListener('click', switchTab);
                             });
                         </script>
-
-
-
-
+<script>
+  function setRequestId(id) {
+    document.getElementById('requestIdInput').value = id;
+  }
+</script>
 
                         <br>
                     </div>
