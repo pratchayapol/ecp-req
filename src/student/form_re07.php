@@ -201,9 +201,8 @@ $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
-                                <select class="w-full border rounded px-3 py-2" name="academicGroup" id="academicGroup" required>
-                                    <option value="" disabled selected>เลือกกลุ่มเรียน</option>
-                                </select>
+                                <input type="text" name="academicGroup" id="other-reason-input"
+                                class="w-full border rounded px-3 py-2" placeholder="กรุณากรอกกลุ่มเรียนของรายวิชา">
                             </div>
                         </div>
 

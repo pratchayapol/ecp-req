@@ -198,32 +198,11 @@ if (isset($_GET['course_id'])) {
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
-                                <select class="w-full border rounded px-3 py-2" name="academicGroup" id="academicGroup" required>
-                                    <option value="" disabled selected>เลือกกลุ่มเรียน</option>
-                                </select>
+                                <input type="text" name="academicGroup" id="other-reason-input"
+                                    class="w-full border rounded px-3 py-2" placeholder="กรุณากรอกกลุ่มเรียนของรายวิชา">
+
                             </div>
 
-                            <script>
-                                // Get the current year in the Buddhist Era (B.E.)
-                                const currentYearBE1 = new Date().getFullYear() + 543;
-
-                                // Get the select element
-                                const select1 = document.getElementById('academicGroup');
-
-                                // Group prefixes
-                                const groups = ['ECP/N', 'ECP/R', 'ECP/Q'];
-
-                                // Generate options for each group with years from current year back to 8 years ago
-                                for (let i = 0; i <= 8; i++) {
-                                    const yearBE = currentYearBE1 - i;
-                                    groups.forEach(group => {
-                                        const option = document.createElement('option');
-                                        option.value = `${group}(${yearBE.toString().slice(-2)})`; // Get last 2 digits of the year
-                                        option.textContent = `${group}(${yearBE.toString().slice(-2)})`;
-                                        select1.appendChild(option);
-                                    });
-                                }
-                            </script>
                         </div>
 
                         <div>
