@@ -193,8 +193,17 @@ if (isset($_GET['course_id'])) {
                             <div>
                                 <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
+                            <?php
+                            $instructors = explode(',', $courseInfo['instructor_name'] ?? '');
+                            ?>
                             <div>
-                                <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_name'] ?? 'N/A' ?></span></p>
+                                <p class="text-gray-600">อาจารย์ผู้สอน:
+                                    <select name="courseInstructor" id="courseInstructor" class="text-black">
+                                        <?php foreach ($instructors as $instructor): ?>
+                                            <option value="<?= trim($instructor) ?>"><?= trim($instructor) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </p>
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
