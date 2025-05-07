@@ -214,37 +214,14 @@ if (isset($_GET['course_id'])) {
                             <div>
                                 <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
-                            <?php
-                            // เตรียม array ข้อมูลอาจารย์ที่ใช้ใน <select>
-                            $instructorOptions = [];
-                            if (!empty($courseInfo['instructor_name']) && !empty($courseData['email'])) {
-                                $emails = array_map('trim', explode(',', $courseData['email']));
-                                $names = array_map('trim', explode(',', $courseInfo['instructor_name']));
-
-                                foreach ($emails as $i => $email) {
-                                    $instructorOptions[] = [
-                                        'email' => $email,
-                                        'name' => $names[$i] ?? 'ไม่ทราบชื่อ'
-                                    ];
-                                }
-                            }
-                            ?>
-
                             <div>
-                                <label for="instructorSelect" class="text-gray-600">อาจารย์ผู้สอน:</label>
-                                <select id="instructorSelect" name="instructor_email" class="text-black border p-1 rounded">
-                                    <?php if (empty($instructorOptions)): ?>
-                                        <option value="">N/A</option>
-                                    <?php else: ?>
-                                        <?php foreach ($instructorOptions as $opt): ?>
-                                            <option value="<?= htmlspecialchars($opt['email']) ?>">
-                                                <?= htmlspecialchars($opt['name']) ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </select>
-                            </div>
 
+                                <p class="text-gray-600">อาจารย์ผู้สอน:</p>
+                                <select id="instructorSelect" class="text-black border p-1 rounded">
+                                    <option value="">N/A</option> <!-- จะถูกลบตอนโหลดใหม่ -->
+                                </select>
+
+                            </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
                                 <input type="text" name="academicGroup" id="other-reason-input"
@@ -274,6 +251,32 @@ if (isset($_GET['course_id'])) {
                         </div>
 
                         <script>
+                            function updateCourseInfo(course) {
+                                document.getElementById('courseId').textContent = course.course_id || 'N/A';
+                                document.getElementById('courseNameTH').textContent = course.course_nameTH || 'N/A';
+
+                                const instructorSelect = document.getElementById('instructorSelect');
+                                instructorSelect.innerHTML = ''; // ล้าง option เดิม
+
+                                if (course.instructor_name && course.instructor_email) {
+                                    const names = course.instructor_name.split(',');
+                                    const emails = course.instructor_email.split(',');
+
+                                    for (let i = 0; i < emails.length; i++) {
+                                        const opt = document.createElement('option');
+                                        opt.value = emails[i].trim();
+                                        opt.textContent = names[i]?.trim() || emails[i].trim();
+                                        instructorSelect.appendChild(opt);
+                                    }
+                                } else {
+                                    const opt = document.createElement('option');
+                                    opt.value = '';
+                                    opt.textContent = 'N/A';
+                                    instructorSelect.appendChild(opt);
+                                }
+                            }
+
+
                             function toggleOtherReason() {
                                 const select = document.getElementById('reason-select');
                                 const otherContainer = document.getElementById('other-reason-container');
