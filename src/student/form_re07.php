@@ -365,9 +365,53 @@ if (isset($_GET['course_id'])) {
                             }
                         </script>
 
-                        <div>
-                            <label class="block font-medium mb-1 text-red-600">อาจารย์ที่ปรึกษา</label>
-                            <input type="text" class="w-full border rounded px-3 py-2 bg-gray-100 text-gray-500 cursor-not-allowed" value="<?php echo $iname ?>" readonly>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <?php
+
+                            try {
+                                // ดึงอาจารย์ที่ปรึกษา
+                                $sql = "SELECT name, email FROM accounts WHERE role = 'Teacher' AND Advisor LIKE :course_level";
+                                $stmt = $pdo->prepare($sql);
+                                $courseLevelWildcard = "%$course_level%";
+                                $stmt->bindParam(':course_level', $courseLevelWildcard, PDO::PARAM_STR);
+                                $stmt->execute();
+                                $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                // ดึงหัวหน้าสาขา
+                                $sql = "SELECT name, email FROM accounts WHERE role = 'Teacher' AND dep = 'TRUE'";
+                                $stmt = $pdo->prepare($sql);
+                                $stmt->execute();
+                                $heads = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            } catch (PDOException $e) {
+                                // จัดการ error เช่น log หรือแสดงข้อความ
+                                $teacher_email = 'เกิดข้อผิดพลาด';
+                                $head_department = 'เกิดข้อผิดพลาด';
+                                error_log("PDO Error: " . $e->getMessage());
+                            }
+                            ?>
+
+                            <div>
+                                <label class="block font-medium mb-1 text-red-600">อาจารย์ที่ปรึกษา *</label>
+                                <select name="teacher_email" class="w-full border rounded px-3 py-2 bg-white text-gray-800" required>
+                                    <option value="">กรุณาเลือกอาจารย์ที่ปรึกษา</option>
+                                    <?php foreach ($advisors as $advisor): ?>
+                                        <option value="<?php echo htmlspecialchars($advisor['email']); ?>">
+                                            <?php echo htmlspecialchars($advisor['name']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-medium mb-1 text-red-600">หัวหน้าสาขา</label>
+                                <select name="head_department" class="w-full border rounded px-3 py-2 bg-white text-gray-800">
+                                    <?php foreach ($heads as $head): ?>
+                                        <option value="<?php echo htmlspecialchars($head['email']); ?>" readonly>
+                                            <?php echo htmlspecialchars($head['name']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                         </div>
 
 
