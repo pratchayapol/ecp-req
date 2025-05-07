@@ -553,7 +553,8 @@ if (isset($_GET['course_id'])) {
                 return implode('', array_slice($characters, 0, $length));
             }
 
-
+            $token = generateToken();
+            
             $status = NULL;  // Set default status to 0 if not provided
 
             // หากเลือกเหตุผล "อื่นๆ" ให้ใช้ค่าที่กรอกเพิ่ม
