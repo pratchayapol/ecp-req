@@ -70,8 +70,8 @@ if (isset($_SESSION['user'])) {
     }
 
     // เรียกใช้ฟังก์ชัน
-    echo $academicYear = getAcademicYear(); // คำนวณปีการศึกษา
-    echo $academicLevel = getAcademicLevel($course_level, $academicYear);
+    // echo $academicYear = getAcademicYear(); // คำนวณปีการศึกษา
+    // echo $academicLevel = getAcademicLevel($course_level, $academicYear);
     // echo $academicLevel = getAcademicLevel("ECP/R (64)", $academicYear);
 
 } else {
@@ -147,8 +147,6 @@ if (isset($_SESSION['user'])) {
                         <label>รูปภาพ</label>
                         <img src="<?= $picture; ?>" alt="Profile Picture" class="w-32 h-32 object-cover rounded-full">
                     </div>
-
-
 
                     <form class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" action="" method="POST">
                         <div>
