@@ -181,8 +181,8 @@ if (isset($_SESSION['user'])) {
 
                         <div>
                             <label class="block font-medium mb-1">ชื่อ - สกุล</label>
-                            <?php foreach ($heads as $head): ?>
-                                <input type="text" name="name" value="<?php echo htmlspecialchars($profile['profile']); ?>" class="border p-2 w-full">
+                            <?php foreach ($profile as $profiles): ?>
+                                <input type="text" name="name" value="<?php echo htmlspecialchars($profiles['name']); ?>" class="border p-2 w-full">
                                    
                                 <?php endforeach; ?>
                             
