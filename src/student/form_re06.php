@@ -240,7 +240,7 @@ if (isset($_GET['course_id'])) {
                             <div>
                                 <div>
                                     <p class="text-gray-600">อาจารย์ผู้สอน:</p>
-                                    <select id="courseInstructorSelect" class="text-black border border-gray-300 rounded px-2 py-1" name="email_teacher">
+                                    <select id="courseInstructorSelect" class="text-black border border-gray-300 rounded px-2 py-1" name="teacher_email">
                                         <option value="">กรุณาเลือกอาจารย์</option>
                                     </select>
                                 </div>
@@ -447,7 +447,7 @@ if (isset($_GET['course_id'])) {
             $academicYear = $_POST['academicYear'] ?? '';
             $courseId = $_POST['course_id'] ?? '';
             $group = $_POST['academicGroup'] ?? '';
-            $email_teacher = $_POST['email_teacher'] ?? '';
+            $teacher_email = $_POST['teacher_email'] ?? '';
             $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
             $registrations = $_POST['registrations'] ?? '';
             $regStatus = $_POST['reg_status'] ?? '';
@@ -474,9 +474,9 @@ if (isset($_GET['course_id'])) {
             $timestamp = date('Y-m-d H:i:s');
 
             $stmt = $pdo->prepare("INSERT INTO form_re06 
-        (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, reg_status, time_stamp, email, email_teacher, token) 
+        (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, reg_status, time_stamp, email, teacher_email, token) 
         VALUES 
-        (:term, :year, :reason, :group, :course_id, :coutter, NULL, NULL, :reg_status, :time_stamp, :email, :email_teacher, :token)");
+        (:term, :year, :reason, :group, :course_id, :coutter, NULL, NULL, :reg_status, :time_stamp, :email, :teacher_email, :token)");
 
             $stmt->execute([
                 ':term' => $semester,
@@ -488,7 +488,7 @@ if (isset($_GET['course_id'])) {
                 ':reg_status' => $regStatus,
                 ':time_stamp' => $timestamp,
                 ':email' => $email,
-                ':email_teacher' => $email_teacher,
+                ':teacher_email' => $teacher_email,
                 ':token' => $token
             ]);
 
