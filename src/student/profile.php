@@ -87,6 +87,12 @@ if (isset($_SESSION['user'])) {
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $heads = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // ดึงชื่อตัวเอง
+        $sql = "SELECT name, email FROM accounts WHERE email = $email";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $profile = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         // จัดการ error เช่น log หรือแสดงข้อความ
         $teacher_email = 'เกิดข้อผิดพลาด';
@@ -175,7 +181,7 @@ if (isset($_SESSION['user'])) {
 
                         <div>
                             <label class="block font-medium mb-1">ชื่อ - สกุล</label>
-                            <input type="text" name="name" value="<?= $iname; ?>" class="border p-2 w-full">
+                            <input type="text" name="name" value="<?= $profile['profile']; ?>" class="border p-2 w-full">
                         </div>
 
                         <div>
