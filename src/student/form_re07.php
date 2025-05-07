@@ -365,7 +365,7 @@ if (isset($_GET['course_id'])) {
                             }
                         </script>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <?php
 
                             try {
@@ -545,6 +545,28 @@ if (isset($_GET['course_id'])) {
             $gpa_all = $_POST['gpa_all'] ?? '';
             $reg_status = $_POST['reg_status'] ?? '';
             $Yearend = $_POST['Yearend'] ?? '';
+            $teacher_email       = $_POST['teacher_email'];
+            $head_department       = $_POST['head_department'];
+
+            //สุ่มสร้าง token 15 ตัว
+            function generateToken($length = 15)
+            {
+                $characters = array_merge(
+                    range('A', 'Z'),
+                    range('a', 'z'),
+                    range('0', '9'),
+                    ['-']
+                );
+
+                if ($length > count($characters)) {
+                    throw new Exception("ความยาวเกินจำนวนอักขระที่ไม่ซ้ำกันได้");
+                }
+
+                shuffle($characters);
+                return implode('', array_slice($characters, 0, $length));
+            }
+
+
             $status = NULL;  // Set default status to 0 if not provided
 
             // หากเลือกเหตุผล "อื่นๆ" ให้ใช้ค่าที่กรอกเพิ่ม
@@ -552,9 +574,9 @@ if (isset($_GET['course_id'])) {
 
             // เตรียมคำสั่ง SQL
             $stmt = $pdo->prepare("INSERT INTO form_re07 (
-            term, year, course_id, `Group`, reason, gpa, gpa_all, reg_status, expected_graduation, email, status
+            term, year, course_id, `Group`, reason, gpa, gpa_all, reg_status, expected_graduation, email, teacher_email, head_department, token, status
         ) VALUES (
-            :term, :year, :course_id, :group, :reason, :GPA, :gpa_all, :reg_status, :Yearend, :email, :status
+            :term, :year, :course_id, :group, :reason, :GPA, :gpa_all, :reg_status, :Yearend, :email, :teacher_email, :head_department, :token, :status
         )");
 
             // bindParam และ execute
@@ -569,6 +591,9 @@ if (isset($_GET['course_id'])) {
                 ':reg_status' => $reg_status,
                 ':Yearend' => $Yearend,
                 ':email' => $email,
+                ':teacher_email' => $teacher_email,
+                ':head_department' => $head_department,
+                ':token' => $token,
                 ':status' => $status
             ]);
 
