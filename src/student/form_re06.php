@@ -67,7 +67,8 @@ if (isset($_GET['course_id'])) {
     $courseInfo = [
         'course_id' => $courseData['course_id'] ?? 'N/A',
         'course_nameTH' => $courseData['course_nameTH'] ?? 'N/A',
-        'instructor_name' => $instructorNames ?: 'N/A'
+        'instructor_name' => $instructorNames ?: 'N/A',
+        'instructor_email' => $courseData['email'] ?: 'N/A'
     ];
 
     echo json_encode($courseInfo);
@@ -105,6 +106,7 @@ if (isset($_GET['course_id'])) {
             document.getElementById('courseId').textContent = course.course_id || 'N/A';
             document.getElementById('courseNameTH').textContent = course.course_nameTH || 'N/A';
             document.getElementById('courseInstructor').textContent = course.instructor_name || 'N/A';
+            document.getElementById('courseInstructorEmail').textContent = course.instructor_email || 'N/A';
         }
 
         // เมื่อเลือกวิชาใน dropdown
@@ -118,7 +120,8 @@ if (isset($_GET['course_id'])) {
                 updateCourseInfo({
                     course_id: 'N/A',
                     course_nameTH: 'N/A',
-                    instructor_name: 'N/A'
+                    instructor_name: 'N/A',
+                    instructor_email: 'N/A'
                 });
             }
         }
@@ -220,7 +223,11 @@ if (isset($_GET['course_id'])) {
                                 <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-                                <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_name'] ?? 'N/A' ?></span></p>
+                                <div>
+                                    <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_name'] ?? 'N/A' ?></span></p>
+                                    <p class="text-gray-600">อีเมลของอาจารย์: <span class="text-black" id="courseInstructorEmail"><?= $courseInfo['instructor_email'] ?? 'N/A' ?></span></p>
+                                </div>
+
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
