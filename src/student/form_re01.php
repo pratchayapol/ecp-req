@@ -24,13 +24,6 @@ if (isset($_SESSION['user'])) {
     header('location: ../session_timeout');
 }
 
-function getNameByEmail($pdo, $email)
-{
-    $stmt2 = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
-    $stmt2->execute(['email' => $email]);
-    $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-    return $result2 ? $result2['name'] : 'ไม่พบชื่อ';
-}
 ?>
 
 <!DOCTYPE html>
@@ -175,7 +168,7 @@ function getNameByEmail($pdo, $email)
                                     <option value="">กรุณาเลือกอาจารย์ที่ปรึกษา</option>
                                     <?php foreach ($advisors as $advisor): ?>
                                         <option value="<?php echo htmlspecialchars($advisor['email']); ?>">
-                                            <?php echo htmlspecialchars($advisor['name'] . " (" . $advisor['email'] . ")"); ?>
+                                            <?php echo htmlspecialchars($advisor['name']); ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
