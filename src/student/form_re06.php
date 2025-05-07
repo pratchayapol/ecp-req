@@ -24,28 +24,17 @@ if (isset($_SESSION['user'])) {
     header('location: ../session_timeout');
 }
 
-// ดึงรายชื่ออาจารย์ที่มีในตาราง course (เฉพาะคนที่มีสอนวิชา)
-$sql = "SELECT DISTINCT a.name, a.email 
-        FROM accounts a
-        INNER JOIN course c ON a.email = c.email";
+// ดึงข้อมูลรายวิชาทั้งหมดเพื่อแสดงใน <select>
+$sql = "SELECT course_id, course_nameTH FROM course";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
-$instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// ตรวจสอบ AJAX สำหรับการดึงวิชาตามอาจารย์
-if (isset($_GET['instructor_email'])) {
-    $email = $_GET['instructor_email'];
-    $sql = "SELECT course_id, course_nameTH FROM course WHERE email = :email";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-    $stmt->execute();
-    echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
-    exit;
-}
-
-// ตรวจสอบ AJAX สำหรับข้อมูลวิชา
+// ตรวจสอบว่ามีการส่งคำขอจากการเลือกวิชา
 if (isset($_GET['course_id'])) {
     $courseId = $_GET['course_id'];
+
+    // ดึงข้อมูลของวิชาและอาจารย์จากฐานข้อมูล
     $sql = "SELECT c.course_id, c.course_nameTH, a.name AS instructor_name
             FROM course c
             LEFT JOIN accounts a ON a.email = c.email
@@ -53,8 +42,11 @@ if (isset($_GET['course_id'])) {
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':course_id', $courseId, PDO::PARAM_STR);
     $stmt->execute();
-    echo json_encode($stmt->fetch(PDO::FETCH_ASSOC));
-    exit;
+    $courseInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // ส่งข้อมูลกลับในรูป JSON
+    echo json_encode($courseInfo);
+    exit; // ปิดสคริปต์หลังส่งข้อมูล
 }
 
 ?>
@@ -202,14 +194,7 @@ if (isset($_GET['course_id'])) {
                                 <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-                            <p class="text-gray-600">อาจารย์ผู้สอน: </p>
-                                <select id="instructorSelect" onchange="loadCoursesByInstructor(this.value)">
-                                    <option value="">-- เลือกอาจารย์ --</option>
-                                    <?php foreach ($instructors as $ins): ?>
-                                        <option value="<?= htmlspecialchars($ins['email']) ?>"><?= htmlspecialchars($ins['name']) ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                               
+                                <p class="text-gray-600">อาจารย์ผู้สอน: <span class="text-black" id="courseInstructor"><?= $courseInfo['instructor_name'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
