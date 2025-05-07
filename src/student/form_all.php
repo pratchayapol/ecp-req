@@ -23,6 +23,15 @@ if (isset($_SESSION['user'])) {
 } else {
     header('location: ../session_timeout');
 }
+
+
+
+function getNameByEmail($pdo, $email) {
+    $stmt2 = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+    $stmt2->execute(['email' => $email]);
+    $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+    return $result2 ? $result2['name'] : 'ไม่พบชื่อ';
+}
 ?>
 
 <!DOCTYPE html>
@@ -124,7 +133,7 @@ if (isset($_SESSION['user'])) {
                                     <thead class="bg-orange-500 text-white text-center shadow-md">
                                         <tr>
                                             <th class="px-4 py-2">เลขคำร้อง</th>
-                                            <th class="px-4 py-2">ชื่อ - สกุล</th>
+                                            <!-- <th class="px-4 py-2">ชื่อ - สกุล</th> -->
                                             <th class="px-4 py-2">เรื่อง</th>
                                             <th class="px-4 py-2">เรียน</th>
                                             <th class="px-4 py-2">สถานะคำร้อง</th>
@@ -139,14 +148,6 @@ if (isset($_SESSION['user'])) {
                                             $stmt1->execute(['email' => $email]);
                                             $forms1 = $stmt1->fetchAll();
 
-                                            function getNameByEmail($pdo, $email) {
-                                                $stmt2 = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
-                                                $stmt2->execute(['email' => $email]);
-                                                $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-                                                return $result2 ? $result2['name'] : 'ไม่พบชื่อ';
-                                            }
-
-
                                         } catch (PDOException $e) {
                                             echo "Database error: " . $e->getMessage();
                                             exit;
@@ -156,7 +157,7 @@ if (isset($_SESSION['user'])) {
                                             <?php foreach ($forms1 as $row1): ?>
                                                 <tr>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row1['form_id']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?></td>
+                                                    <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
                                                     <td class="px-4 py-2 text-center <?= $row1['status'] === null ? 'text-gray-600' : ($row1['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
@@ -210,7 +211,7 @@ if (isset($_SESSION['user'])) {
                                         <tr>
                                             <th class="px-4 py-2">เลขคำร้อง</th>
                                             <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
-                                            <th class="px-4 py-2">ชื่อ - สกุล</th>
+                                            <!-- <th class="px-4 py-2">ชื่อ - สกุล</th> -->
                                             <th class="px-4 py-2">รายวิชา</th>
                                             <th class="px-4 py-2">กลุ่มเรียน</th>
                                             <th class="px-4 py-2">สถานะคำร้อง</th>
@@ -238,6 +239,7 @@ if (isset($_SESSION['user'])) {
                                             <?php foreach ($forms2 as $row2): ?>
                                                 <tr>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
+                                                    <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row2['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'] . ' / ' . $row2['year']) ?></td>
                                                     <td class="px-4 py-2"><?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['group'] ?? $row2['academic_group']) ?></td>
@@ -288,6 +290,7 @@ if (isset($_SESSION['user'])) {
                                     <thead class="bg-orange-500 text-white text-center shadow-md">
                                         <tr>
                                             <th class="px-4 py-2">เลขคำร้อง</th>
+                                            <!-- <th class="px-4 py-2">ชื่อ - สกุล</th> -->
                                             <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
                                             <th class="px-4 py-2">รายวิชา</th>
                                             <th class="px-4 py-2">กลุ่มเรียน</th>
@@ -316,6 +319,7 @@ if (isset($_SESSION['user'])) {
                                             <?php foreach ($forms3 as $row3): ?>
                                                 <tr>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
+                                                     <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
                                                     <td class="px-4 py-2"><?= htmlspecialchars($row3['course_id'] . ' ' . $row3['course_nameTH'] . ' (' . $row3['credits'] . ' หน่วยกิต)') ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></td>
