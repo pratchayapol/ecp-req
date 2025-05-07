@@ -303,7 +303,28 @@ if (isset($_SESSION['user'])) {
     <?php include '../loadtab/f.php'; ?>
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+
         try {
+            //สุ่มสร้าง token 15 ตัว
+            function generateToken($length = 15)
+            {
+                $characters = array_merge(
+                    range('A', 'Z'),
+                    range('a', 'z'),
+                    range('0', '9'),
+                    ['-']
+                );
+
+                if ($length > count($characters)) {
+                    throw new Exception("ความยาวเกินจำนวนอักขระที่ไม่ซ้ำกันได้");
+                }
+
+                shuffle($characters);
+                return implode('', array_slice($characters, 0, $length));
+            }
+
+            $token = generateToken();
             // รับค่าจากฟอร์ม
             $title         = $_POST['title'];
             $to            = $_POST['to'];
@@ -320,8 +341,8 @@ if (isset($_SESSION['user'])) {
             }
 
             // คำสั่ง SQL สำหรับบันทึกข้อมูล
-            $sql = "INSERT INTO form_re01 (title, `to`, email, faculty, field, course_level, request_text, teacher_email, head_department)
-        VALUES (:title, :to, :email, :faculty, :field, :course_level, :request, :teacher_email, :head_department)";
+            $sql = "INSERT INTO form_re01 (title, `to`, email, faculty, field, course_level, request_text, teacher_email, head_department, token)
+        VALUES (:title, :to, :email, :faculty, :field, :course_level, :request, :teacher_email, :head_department, :token)";
 
 
             // เตรียมการ query
@@ -335,7 +356,8 @@ if (isset($_SESSION['user'])) {
                 ':course_level' => $course_level,
                 ':request'      => $request,
                 ':teacher_email'      => $teacher_email,
-                ':head_department'      => $head_department
+                ':head_department'      => $head_department,
+                ':token'      => $token
             ]);
 
             // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน

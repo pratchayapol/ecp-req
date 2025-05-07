@@ -452,6 +452,7 @@ if (isset($_GET['course_id'])) {
             $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
             $registrations = $_POST['registrations'] ?? '';
             $regStatus = $_POST['reg_status'] ?? '';
+            
             //สุ่มสร้าง token 15 ตัว
             function generateToken($length = 15)
             {
