@@ -149,11 +149,10 @@ if (isset($_SESSION['user'])) {
                                 $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                                 // ดึงหัวหน้าสาขา
-                                $sqlHead = "SELECT email FROM accounts WHERE role = 'Teacher' AND dep = 'TRUE'";
-                                $stmtHead = $pdo->prepare($sqlHead);
-                                $stmtHead->execute();
-                                $head = $stmtHead->fetch(PDO::FETCH_ASSOC);
-                                $head_department = $head['email'] ?? 'ไม่พบข้อมูล';
+                                $sql = "SELECT name, email FROM accounts WHERE role = 'Teacher' AND dep = 'TRUE'";
+                                $stmt = $pdo->prepare($sql);
+                                $stmt->execute();
+                                $heads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             } catch (PDOException $e) {
                                 // จัดการ error เช่น log หรือแสดงข้อความ
                                 $teacher_email = 'เกิดข้อผิดพลาด';
@@ -177,9 +176,9 @@ if (isset($_SESSION['user'])) {
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">หัวหน้าสาขา</label>
                                 <select name="head_department" class="w-full border rounded px-3 py-2 bg-white text-gray-800" readonly>
-                                    <?php foreach ($advisors as $advisor): ?>
-                                        <option value="<?php echo htmlspecialchars($head_department['email']); ?>">
-                                            <?php echo htmlspecialchars($head_department['name']); ?>
+                                    <?php foreach ($heads as $head): ?>
+                                        <option value="<?php echo htmlspecialchars($head['email']); ?>">
+                                            <?php echo htmlspecialchars($head['name'] . " (" . $head['email'] . ")"); ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
