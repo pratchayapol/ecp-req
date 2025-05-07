@@ -240,7 +240,7 @@ if (isset($_GET['course_id'])) {
                             <div>
                                 <div>
                                     <p class="text-gray-600">อาจารย์ผู้สอน:</p>
-                                    <select id="courseInstructorSelect" class="text-black border border-gray-300 rounded px-2 py-1" name="teacher_email">
+                                    <select id="courseInstructorSelect" class="text-black border border-gray-300 rounded px-2 py-1" name="teacher_email" required>
                                         <option value="">กรุณาเลือกอาจารย์</option>
                                     </select>
                                 </div>
@@ -248,7 +248,7 @@ if (isset($_GET['course_id'])) {
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
-                                <input type="text" name="academicGroup" id="other-reason-input"
+                                <input type="text" name="academicGroup" id="other-reason-input" required
                                     class="w-full border rounded px-3 py-2" placeholder="กรุณากรอกกลุ่มเรียนของรายวิชา">
 
                             </div>
