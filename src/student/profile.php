@@ -337,6 +337,55 @@ if (isset($_SESSION['user'])) {
         }
     </style>
     <?php include '../loadtab/f.php'; ?>
+    <?php
+
+    // ตรวจสอบการส่งแบบ POST
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        try {
+            // ดึงค่าจากฟอร์ม
+            $update_name = $_POST['name'] ?? '';
+            $email_user = $_POST['email'] ?? '';
+
+            // ตรวจสอบค่าว่าง (ป้องกันการอัปเดตผิดพลาด)
+            if (empty($update_name) || empty($email_user)) {
+                throw new Exception('กรุณากรอกชื่อและอีเมลให้ครบถ้วน');
+            }
+
+            // ทำการอัปเดตชื่อในตาราง accounts
+            $sql = "UPDATE accounts SET name = :name WHERE email = :email";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':name', $update_name, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $email_user, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // แจ้งผลลัพธ์ด้วย SweetAlert
+            echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
+            echo "
+        <script>
+        Swal.fire({
+            title: 'สำเร็จ!',
+            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            icon: 'success',
+            confirmButtonText: 'ตกลง'
+        }).then(() => {
+            window.location.href = 'form_all';
+        });
+        </script>
+        ";
+            echo "</body></html>";
+        } catch (Exception | PDOException $e) {
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'เกิดข้อผิดพลาด!',
+            text: '" . addslashes($e->getMessage()) . "',
+        });
+        </script>";
+        }
+    }
+
+    ?>
 </body>
 
 </html>
