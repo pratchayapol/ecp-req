@@ -175,10 +175,10 @@ if (isset($_SESSION['user'])) {
 
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">หัวหน้าสาขา</label>
-                                <select name="head_department" class="w-full border rounded px-3 py-2 bg-white text-gray-800" readonly>
+                                <select name="head_department" class="w-full border rounded px-3 py-2 bg-white text-gray-800">
                                     <?php foreach ($heads as $head): ?>
-                                        <option value="<?php echo htmlspecialchars($head['email']); ?>">
-                                            <?php echo htmlspecialchars($head['name'] . " (" . $head['email'] . ")"); ?>
+                                        <option value="<?php echo htmlspecialchars($head['email']); ?>" readonly>
+                                            <?php echo htmlspecialchars($head['name']); ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
