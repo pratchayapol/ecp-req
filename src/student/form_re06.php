@@ -240,7 +240,7 @@ if (isset($_GET['course_id'])) {
                             <div>
                                 <div>
                                     <p class="text-gray-600">อาจารย์ผู้สอน:</p>
-                                    <select id="courseInstructorSelect" class="text-black border border-gray-300 rounded px-2 py-1" name="teacher_email" required>
+                                    <select id="courseInstructorSelect" class="w-full border rounded px-3 py-2" name="teacher_email" required>
                                         <option value="">กรุณาเลือกอาจารย์</option>
                                     </select>
                                 </div>
@@ -452,7 +452,7 @@ if (isset($_GET['course_id'])) {
             $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
             $registrations = $_POST['registrations'] ?? '';
             $regStatus = $_POST['reg_status'] ?? '';
-            
+
             //สุ่มสร้าง token 15 ตัว
             function generateToken($length = 15)
             {
