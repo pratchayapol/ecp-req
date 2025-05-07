@@ -163,7 +163,7 @@ if (isset($_SESSION['user'])) {
                             ?>
 
                             <div>
-                                <label class="block font-medium mb-1 text-red-600">อาจารย์ที่ปรึกษา</label>
+                                <label class="block font-medium mb-1 text-red-600">อาจารย์ที่ปรึกษา *</label>
                                 <select name="teacher_email" class="w-full border rounded px-3 py-2 bg-white text-gray-800" required>
                                     <option value="">กรุณาเลือกอาจารย์ที่ปรึกษา</option>
                                     <?php foreach ($advisors as $advisor): ?>
@@ -176,6 +176,14 @@ if (isset($_SESSION['user'])) {
 
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">หัวหน้าสาขา</label>
+                                <select name="head_department" class="w-full border rounded px-3 py-2 bg-white text-gray-800" readonly>
+                                    <?php foreach ($advisors as $advisor): ?>
+                                        <option value="<?php echo htmlspecialchars($head_department['email']); ?>">
+                                            <?php echo htmlspecialchars($head_department['name']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+
                                 <input type="text" name="head_department"
                                     class="w-full border rounded px-3 py-2 bg-gray-100 text-gray-500 cursor-not-allowed"
                                     value="<?php echo htmlspecialchars($head_department); ?>" readonly>
