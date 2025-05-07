@@ -23,6 +23,14 @@ if (isset($_SESSION['user'])) {
 } else {
     header('location: ../session_timeout');
 }
+
+function getNameByEmail($pdo, $email)
+{
+    $stmt2 = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+    $stmt2->execute(['email' => $email]);
+    $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+    return $result2 ? $result2['name'] : 'ไม่พบชื่อ';
+}
 ?>
 
 <!DOCTYPE html>
@@ -140,13 +148,12 @@ if (isset($_SESSION['user'])) {
 
                             try {
                                 // ดึงอาจารย์ที่ปรึกษา
-                                $sqlAdvisor = "SELECT email FROM accounts WHERE role = 'Teacher' AND Advisor LIKE :course_level";
-                                $stmtAdvisor = $pdo->prepare($sqlAdvisor);
+                                $sql = "SELECT name, email FROM accounts WHERE role = 'Teacher' AND Advisor LIKE :course_level";
+                                $stmt = $pdo->prepare($sql);
                                 $courseLevelWildcard = "%$course_level%";
-                                $stmtAdvisor->bindParam(':course_level', $courseLevelWildcard, PDO::PARAM_STR);
-                                $stmtAdvisor->execute();
-                                $advisor = $stmtAdvisor->fetch(PDO::FETCH_ASSOC);
-                                $teacher_email = $advisor['email'] ?? 'ไม่พบข้อมูล';
+                                $stmt->bindParam(':course_level', $courseLevelWildcard, PDO::PARAM_STR);
+                                $stmt->execute();
+                                $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                                 // ดึงหัวหน้าสาขา
                                 $sqlHead = "SELECT email FROM accounts WHERE role = 'Teacher' AND dep = 'TRUE'";
@@ -164,9 +171,14 @@ if (isset($_SESSION['user'])) {
 
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">อาจารย์ที่ปรึกษา</label>
-                                <input type="text" name="teacher_email"
-                                    class="w-full border rounded px-3 py-2 bg-gray-100 text-gray-500 cursor-not-allowed"
-                                    value="<?php echo htmlspecialchars($teacher_email); ?>" readonly>
+                                <select name="teacher_email" class="w-full border rounded px-3 py-2 bg-white text-gray-800" required>
+                                    <option value="">กรุณาเลือกอาจารย์ที่ปรึกษา</option>
+                                    <?php foreach ($advisors as $advisor): ?>
+                                        <option value="<?php echo htmlspecialchars($advisor['email']); ?>">
+                                            <?php echo htmlspecialchars($advisor['name'] . " (" . $advisor['email'] . ")"); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
 
                             <div>
