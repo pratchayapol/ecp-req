@@ -89,10 +89,10 @@ if (isset($_SESSION['user'])) {
         $heads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // ดึงชื่อตัวเอง
-        $sql = "SELECT name, email FROM accounts WHERE email = $email";
+        $sql = "SELECT name, email FROM accounts WHERE email = :email";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $profile = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute(['email' => $email]);
+        $profile = $stmt->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         // จัดการ error เช่น log หรือแสดงข้อความ
         $teacher_email = 'เกิดข้อผิดพลาด';
@@ -181,11 +181,7 @@ if (isset($_SESSION['user'])) {
 
                         <div>
                             <label class="block font-medium mb-1">ชื่อ - สกุล</label>
-                            <?php foreach ($profile as $profiles): ?>
-                                <input type="text" name="name" value="<?php echo htmlspecialchars($profiles['name']); ?>" class="border p-2 w-full">
-                                   
-                                <?php endforeach; ?>
-                            
+                            <input type="text" name="name" value="<?= htmlspecialchars($profile['name']) ?>" class="border p-2 w-full">
                         </div>
 
                         <div>
