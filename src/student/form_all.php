@@ -126,7 +126,6 @@ if (isset($_SESSION['user'])) {
                                             <th class="px-4 py-2">เลขคำร้อง</th>
                                             <th class="px-4 py-2">เรื่อง</th>
                                             <th class="px-4 py-2">เรียน</th>
-                                            <th class="px-4 py-2">เหตุผล</th>
                                             <th class="px-4 py-2">สถานะคำร้อง</th>
                                             <th class="px-4 py-2">จัดการ</th>
                                         </tr>
@@ -149,10 +148,6 @@ if (isset($_SESSION['user'])) {
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row1['form_id']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
-                                                    <td class="px-4 py-2 text-center" style="width: 150px;">
-                                                        <!-- ปุ่มสำหรับดูเหตุผล -->
-                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded view-reason" data-reason="<?= htmlspecialchars($row1['request_text']) ?>">ดูเหตุผล</button>
-                                                    </td>
                                                     <td class="px-4 py-2 text-center <?= $row1['status'] === null ? 'text-gray-600' : ($row1['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
                                                         <?= $row1['status'] === null ? 'รอดำเนินการ' : ($row1['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
@@ -171,22 +166,7 @@ if (isset($_SESSION['user'])) {
                                         <?php endif; ?>
                                     </tbody>
                                 </table>
-                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                                <script>
-                                    // เพิ่ม event listener ให้กับปุ่ม "ดูเหตุผล"
-                                    document.querySelectorAll('.view-reason').forEach(button => {
-                                        button.addEventListener('click', function() {
-                                            const reason = this.getAttribute('data-reason');
-                                            // ใช้ SweetAlert แสดงข้อความ
-                                            Swal.fire({
-                                                title: 'เหตุผลการขออนุมัติ',
-                                                text: reason,
-                                                icon: 'info',
-                                                confirmButtonText: 'ปิด'
-                                            });
-                                        });
-                                    });
-                                </script>
+
 
                                 <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
                                 <div id="noDataMessage1" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
