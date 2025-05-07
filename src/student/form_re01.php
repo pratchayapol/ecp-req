@@ -312,14 +312,16 @@ if (isset($_SESSION['user'])) {
             $course_level  = $_POST['course_level'];
             $request       = $_POST['request'];
             $email = $_SESSION['user']['email'];
+            $teacher_email       = $_POST['teacher_email'];
+            $head_department       = $_POST['head_department'];
             // ตรวจสอบว่าค่าจากฟอร์มครบหรือไม่
             if (empty($email)) {
                 throw new Exception("กรุณากรอกอีเมล");
             }
 
             // คำสั่ง SQL สำหรับบันทึกข้อมูล
-            $sql = "INSERT INTO form_re01 (title, `to`, email, faculty, field, course_level, request_text)
-        VALUES (:title, :to, :email, :faculty, :field, :course_level, :request)";
+            $sql = "INSERT INTO form_re01 (title, `to`, email, faculty, field, course_level, request_text, teacher_email, head_department)
+        VALUES (:title, :to, :email, :faculty, :field, :course_level, :request, :teacher_email, :head_department)";
 
 
             // เตรียมการ query
@@ -331,7 +333,9 @@ if (isset($_SESSION['user'])) {
                 ':faculty'      => $faculty,
                 ':field'        => $field,
                 ':course_level' => $course_level,
-                ':request'      => $request
+                ':request'      => $request,
+                ':teacher_email'      => $teacher_email,
+                ':head_department'      => $head_department
             ]);
 
             // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน
