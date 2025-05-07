@@ -240,19 +240,6 @@ if (isset($_GET['course_id'])) {
                             </div>
                         </div>
 
-                        <script>
-                            const academicGroupSelect = document.getElementById('academicGroup');
-                            const groups = ['ECP/N', 'ECP/R', 'ECP/Q'];
-                            for (let i = 0; i <= 8; i++) {
-                                const yearBE = currentYearBE - i;
-                                groups.forEach(group => {
-                                    const option = document.createElement('option');
-                                    option.value = `${group}(${yearBE.toString().slice(-2)})`;
-                                    option.textContent = option.value;
-                                    academicGroupSelect.appendChild(option);
-                                });
-                            }
-                        </script>
 
                         <div>
                             <label class="block font-medium mb-1 text-red-600">ขอเปิดนอกแผนการเรียน เนื่องจาก *</label>
