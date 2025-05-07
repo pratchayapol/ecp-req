@@ -23,6 +23,15 @@ if (isset($_SESSION['user'])) {
 } else {
     header('location: ../session_timeout');
 }
+
+
+
+function getNameByEmail($pdo, $email) {
+    $stmt2 = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+    $stmt2->execute(['email' => $email]);
+    $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+    return $result2 ? $result2['name'] : 'ไม่พบชื่อ';
+}
 ?>
 
 <!DOCTYPE html>
@@ -47,9 +56,7 @@ if (isset($_SESSION['user'])) {
     <!-- animation -->
     <link rel="stylesheet" href="../css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-    
+
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
@@ -62,6 +69,9 @@ if (isset($_SESSION['user'])) {
 
                 <div class="mt-4 space-y-2">
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-center py-2 px-4 rounded-[12px] shadow-md" id="dashboard-btn"> Dashboard </button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="re1">คำร้องทั่วไป RE.01</button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="re6">คำร้องขอเพิ่มที่นั่ง RE.06</button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="re7">คำร้องขอเปิดนอกแผน RE.07</button>
                     <button class="w-full bg-[#EF6526] text-white hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="form_all">คำร้องของนักศึกษา</button>
                 </div>
             </div>
@@ -92,17 +102,18 @@ if (isset($_SESSION['user'])) {
                         <div class="mb-4 border-b border-gray-200">
                             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
                                 <li class="me-2" role="presentation">
-                                    <button class="inline-block p-4 border-b-2 rounded-t-lg" id="re01-tab" data-tabs-target="#re01" type="button" role="tab" aria-controls="re01" aria-selected="false">คำร้องทั่วไป RE.01</button>
+                                    <button class="inline-block p-4 border-b-2 rounded-t-lg" id="re01-tab" data-tabs-target="#re01" type="button" role="tab" aria-controls="re01" aria-selected="false" onclick="selectTab()">คำร้องทั่วไป RE.01</button>
                                 </li>
                                 <li class="me-2" role="presentation">
-                                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="re06-tab" data-tabs-target="#re06" type="button" role="tab" aria-controls="re06" aria-selected="false">คำร้องขอเพิ่มที่นั่ง RE.06</button>
+                                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="re06-tab" data-tabs-target="#re06" type="button" role="tab" aria-controls="re06" aria-selected="false" onclick="selectTab()">คำร้องขอเพิ่มที่นั่ง RE.06</button>
                                 </li>
                                 <li class="me-2" role="presentation">
-                                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="re07-tab" data-tabs-target="#re07" type="button" role="tab" aria-controls="re07" aria-selected="false">คำร้องขอเปิดนอกแผนการเรียน RE.07</button>
+                                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="re07-tab" data-tabs-target="#re07" type="button" role="tab" aria-controls="re07" aria-selected="false" onclick="selectTab()">คำร้องขอเปิดนอกแผนการเรียน RE.07</button>
                                 </li>
                             </ul>
                         </div>
                         <div id="default-tab-content">
+                            <p id="alert-message" class="text-red-500 font-bold text-center">โปรดเลือก Tab คำร้อง</p>
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re01" role="tabpanel" aria-labelledby="re01-tab">
                                 <!-- Filters -->
                                 <div class="flex items-center gap-4 mb-4 justify-center">
@@ -115,62 +126,16 @@ if (isset($_SESSION['user'])) {
                                             <option value="2">ไม่อนุมัติ</option>
                                         </select>
                                     </div>
-                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters()">ล้างข้อมูล</button>
+                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters1()">ล้างข้อมูล</button>
                                 </div>
-
-                                <script>
-                                    // ฟังก์ชันสำหรับกรองข้อมูล
-                                    function filterTable1() {
-                                        const statusFilter1 = document.getElementById('statusFilter1').value;
-                                        const rows = document.querySelectorAll('table tbody tr');
-                                        let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
-
-                                        rows.forEach(row => {
-                                            const status = row.cells[4].textContent.trim(); // ดึงข้อมูลสถานะคำร้อง
-
-                                            let showRow = true;
-
-                                            // ตรวจสอบสถานะคำร้อง
-                                            if (statusFilter1 && statusFilter1 !== '' && !status.includes(statusFilter1)) {
-                                                showRow = false;
-                                            }
-
-                                            // ซ่อนหรือแสดงแถวตามผลการกรอง
-                                            if (showRow) {
-                                                row.style.display = '';
-                                                noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
-                                            } else {
-                                                row.style.display = 'none';
-                                            }
-                                        });
-
-                                        // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
-                                        const noDataMessage = document.getElementById('noDataMessage1');
-                                        if (noDataFound) {
-                                            noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
-                                        } else {
-                                            noDataMessage.style.display = 'none'; // ซ่อนข้อความ
-                                        }
-                                    }
-
-                                    // ฟังก์ชันสำหรับล้างข้อมูล
-                                    function clearFilters() {
-                                        document.getElementById('statusFilter1').value = '';
-                                        filterTable1(); // ใช้ฟังก์ชันกรองที่ถูกต้อง
-                                    }
-
-                                    // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
-                                    document.getElementById('statusFilter1').addEventListener('change', filterTable1);
-                                </script>
-
                                 <!-- Table -->
                                 <table class="min-w-full table-auto border-collapse rounded-[12px]">
                                     <thead class="bg-orange-500 text-white text-center shadow-md">
                                         <tr>
                                             <th class="px-4 py-2">เลขคำร้อง</th>
+                                            <!-- <th class="px-4 py-2">ชื่อ - สกุล</th> -->
                                             <th class="px-4 py-2">เรื่อง</th>
                                             <th class="px-4 py-2">เรียน</th>
-                                            <th class="px-4 py-2">เหตุผล</th>
                                             <th class="px-4 py-2">สถานะคำร้อง</th>
                                             <th class="px-4 py-2">จัดการ</th>
                                         </tr>
@@ -182,6 +147,7 @@ if (isset($_SESSION['user'])) {
                                             $stmt1 = $pdo->prepare("SELECT * FROM form_re01 WHERE email = :email ORDER BY form_id DESC");
                                             $stmt1->execute(['email' => $email]);
                                             $forms1 = $stmt1->fetchAll();
+
                                         } catch (PDOException $e) {
                                             echo "Database error: " . $e->getMessage();
                                             exit;
@@ -191,19 +157,16 @@ if (isset($_SESSION['user'])) {
                                             <?php foreach ($forms1 as $row1): ?>
                                                 <tr>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row1['form_id']) ?></td>
+                                                    <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
-                                                    <td class="px-4 py-2 text-center" style="width: 150px;">
-                                                        <!-- ปุ่มสำหรับดูเหตุผล -->
-                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded view-reason" data-reason="<?= htmlspecialchars($row1['request_text']) ?>">ดูเหตุผล</button>
-                                                    </td>
                                                     <td class="px-4 py-2 text-center <?= $row1['status'] === null ? 'text-gray-600' : ($row1['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
                                                         <?= $row1['status'] === null ? 'รอดำเนินการ' : ($row1['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
                                                     <td class="px-4 py-2 text-center">
                                                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
                                                     </td>
-                                                    
+
                                                 </tr>
 
 
@@ -215,22 +178,7 @@ if (isset($_SESSION['user'])) {
                                         <?php endif; ?>
                                     </tbody>
                                 </table>
-                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                                <script>
-                                    // เพิ่ม event listener ให้กับปุ่ม "ดูเหตุผล"
-                                    document.querySelectorAll('.view-reason').forEach(button => {
-                                        button.addEventListener('click', function() {
-                                            const reason = this.getAttribute('data-reason');
-                                            // ใช้ SweetAlert แสดงข้อความ
-                                            Swal.fire({
-                                                title: 'เหตุผลการขออนุมัติ',
-                                                text: reason,
-                                                icon: 'info',
-                                                confirmButtonText: 'ปิด'
-                                            });
-                                        });
-                                    });
-                                </script>
+
 
                                 <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
                                 <div id="noDataMessage1" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
@@ -254,53 +202,8 @@ if (isset($_SESSION['user'])) {
                                             <option value="2">ไม่อนุมัติ</option>
                                         </select>
                                     </div>
-                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters()">ล้างข้อมูล</button>
+                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters2()">ล้างข้อมูล</button>
                                 </div>
-
-                                <script>
-                                    // ฟังก์ชันสำหรับกรองข้อมูล
-                                    function filterTable2() {
-                                        const statusFilter2 = document.getElementById('statusFilter2').value;
-                                        const rows = document.querySelectorAll('table tbody tr');
-                                        let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
-
-                                        rows.forEach(row => {
-                                            const status = row.cells[4].textContent;
-
-                                            let showRow = true;
-
-                                            // ตรวจสอบสถานะคำร้อง
-                                            if (statusFilter2 && statusFilter2 !== '' && !status.includes(statusFilter2)) {
-                                                showRow = false;
-                                            }
-
-                                            // ซ่อนหรือแสดงแถวตามผลการกรอง
-                                            if (showRow) {
-                                                row.style.display = '';
-                                                noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
-                                            } else {
-                                                row.style.display = 'none';
-                                            }
-                                        });
-
-                                        // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
-                                        const noDataMessage = document.getElementById('noDataMessage2');
-                                        if (noDataFound) {
-                                            noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
-                                        } else {
-                                            noDataMessage.style.display = 'none'; // ซ่อนข้อความ
-                                        }
-                                    }
-
-                                    // ฟังก์ชันสำหรับล้างข้อมูล
-                                    function clearFilters() {
-                                        document.getElementById('statusFilter2').value = '';
-                                        filterTable2();
-                                    }
-
-                                    // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
-                                    document.getElementById('statusFilter2').addEventListener('change', filterTable2);
-                                </script>
 
                                 <!-- Table -->
                                 <table class="min-w-full table-auto border-collapse rounded-[12px]">
@@ -308,6 +211,7 @@ if (isset($_SESSION['user'])) {
                                         <tr>
                                             <th class="px-4 py-2">เลขคำร้อง</th>
                                             <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
+                                            <!-- <th class="px-4 py-2">ชื่อ - สกุล</th> -->
                                             <th class="px-4 py-2">รายวิชา</th>
                                             <th class="px-4 py-2">กลุ่มเรียน</th>
                                             <th class="px-4 py-2">สถานะคำร้อง</th>
@@ -335,6 +239,7 @@ if (isset($_SESSION['user'])) {
                                             <?php foreach ($forms2 as $row2): ?>
                                                 <tr>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
+                                                    <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row2['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'] . ' / ' . $row2['year']) ?></td>
                                                     <td class="px-4 py-2"><?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['group'] ?? $row2['academic_group']) ?></td>
@@ -359,9 +264,13 @@ if (isset($_SESSION['user'])) {
                                 <br>
 
                             </div>
+
+
+
+
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re07" role="tabpanel" aria-labelledby="re07-tab">
-                                 <!-- Filters -->
-                                 <div class="flex items-center gap-4 mb-4 justify-center">
+                                <!-- Filters -->
+                                <div class="flex items-center gap-4 mb-4 justify-center">
                                     <div>
                                         <label class="mr-2">สถานะคำร้อง:</label>
                                         <select id="statusFilter3" class="border px-3 py-2 rounded">
@@ -371,59 +280,17 @@ if (isset($_SESSION['user'])) {
                                             <option value="2">ไม่อนุมัติ</option>
                                         </select>
                                     </div>
-                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters()">ล้างข้อมูล</button>
+                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters3()">ล้างข้อมูล</button>
                                 </div>
 
-                                <script>
-                                    // ฟังก์ชันสำหรับกรองข้อมูล
-                                    function filterTable3() {
-                                        const statusFilter3 = document.getElementById('statusFilter3').value;
-                                        const rows = document.querySelectorAll('table tbody tr');
-                                        let noDataFound = true; // เพิ่มตัวแปรเพื่อตรวจสอบว่ามีข้อมูลที่ตรงกับเงื่อนไขหรือไม่
 
-                                        rows.forEach(row => {
-                                            const status = row.cells[4].textContent;
-
-                                            let showRow = true;
-
-                                            // ตรวจสอบสถานะคำร้อง
-                                            if (statusFilter3 && statusFilter3 !== '' && !status.includes(statusFilter3)) {
-                                                showRow = false;
-                                            }
-
-                                            // ซ่อนหรือแสดงแถวตามผลการกรอง
-                                            if (showRow) {
-                                                row.style.display = '';
-                                                noDataFound = false; // ถ้าพบข้อมูลที่ตรงกับเงื่อนไข
-                                            } else {
-                                                row.style.display = 'none';
-                                            }
-                                        });
-
-                                        // แสดงข้อความ "ไม่พบข้อมูล" ถ้าไม่มีข้อมูลที่ตรงกับเงื่อนไข
-                                        const noDataMessage = document.getElementById('noDataMessage3');
-                                        if (noDataFound) {
-                                            noDataMessage.style.display = ''; // แสดงข้อความ "ไม่พบข้อมูล"
-                                        } else {
-                                            noDataMessage.style.display = 'none'; // ซ่อนข้อความ
-                                        }
-                                    }
-
-                                    // ฟังก์ชันสำหรับล้างข้อมูล
-                                    function clearFilters() {
-                                        document.getElementById('statusFilter3').value = '';
-                                        filterTable3();
-                                    }
-
-                                    // ผูกฟังก์ชันกับอีเวนต์ของ dropdowns
-                                    document.getElementById('statusFilter3').addEventListener('change', filterTable3);
-                                </script>
 
                                 <!-- Table -->
                                 <table class="min-w-full table-auto border-collapse rounded-[12px]">
                                     <thead class="bg-orange-500 text-white text-center shadow-md">
                                         <tr>
                                             <th class="px-4 py-2">เลขคำร้อง</th>
+                                            <!-- <th class="px-4 py-2">ชื่อ - สกุล</th> -->
                                             <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
                                             <th class="px-4 py-2">รายวิชา</th>
                                             <th class="px-4 py-2">กลุ่มเรียน</th>
@@ -452,13 +319,17 @@ if (isset($_SESSION['user'])) {
                                             <?php foreach ($forms3 as $row3): ?>
                                                 <tr>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
+                                                     <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
                                                     <td class="px-4 py-2"><?= htmlspecialchars($row3['course_id'] . ' ' . $row3['course_nameTH'] . ' (' . $row3['credits'] . ' หน่วยกิต)') ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></td>
                                                     <td class="px-4 py-2 text-center <?= $row3['status'] === null ? 'text-gray-600' : ($row3['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
                                                         <?= $row3['status'] === null ? 'รอดำเนินการ' : ($row3['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
-                                
+                                                    <td class="px-4 py-2 text-center">
+                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
+                                                    </td>
+
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php else: ?>
@@ -474,7 +345,15 @@ if (isset($_SESSION['user'])) {
                             </div>
 
                         </div>
-
+                        <script>
+                            function selectTab() {
+                                // เมื่อมีการกดเลือก Tab ให้ซ่อนข้อความเตือน
+                                const alertMessage = document.getElementById('alert-message');
+                                if (alertMessage) {
+                                    alertMessage.style.display = 'none';
+                                }
+                            }
+                        </script>
                         <script>
                             // Get all tab buttons
                             const tabs = document.querySelectorAll('[role="tab"]');
@@ -512,6 +391,114 @@ if (isset($_SESSION['user'])) {
                                 tab.addEventListener('click', switchTab);
                             });
                         </script>
+
+
+                        <!-- Filter 1 -->
+                        <script>
+                            function filterTable1() {
+                                const statusFilter1 = document.getElementById('statusFilter1').value;
+                                const rows = document.querySelectorAll('table tbody tr');
+                                let noDataFound = true;
+
+                                rows.forEach(row => {
+                                    const status = row.cells[4].textContent.trim();
+                                    let showRow = true;
+
+                                    if (statusFilter1 && !status.includes(statusFilter1)) {
+                                        showRow = false;
+                                    }
+
+                                    row.style.display = showRow ? '' : 'none';
+                                    if (showRow) noDataFound = false;
+                                });
+
+                                const noDataMessage = document.getElementById('noDataMessage1');
+                                noDataMessage.style.display = noDataFound ? '' : 'none';
+                            }
+
+                            function clearFilters1() {
+                                document.getElementById('statusFilter1').value = '';
+                                filterTable1();
+                            }
+
+                            document.getElementById('statusFilter1').addEventListener('change', filterTable1);
+                        </script>
+
+                        <!-- Filter 2 -->
+                        <script>
+                            function filterTable2() {
+                                const statusFilter2 = document.getElementById('statusFilter2').value;
+                                const rows = document.querySelectorAll('table tbody tr');
+                                let noDataFound = true;
+
+                                rows.forEach(row => {
+                                    const status = row.cells[4].textContent.trim();
+                                    let showRow = true;
+
+                                    if (statusFilter2 && !status.includes(statusFilter2)) {
+                                        showRow = false;
+                                    }
+
+                                    row.style.display = showRow ? '' : 'none';
+                                    if (showRow) noDataFound = false;
+                                });
+
+                                const noDataMessage = document.getElementById('noDataMessage2');
+                                noDataMessage.style.display = noDataFound ? '' : 'none';
+                            }
+
+                            function clearFilters2() {
+                                document.getElementById('statusFilter2').value = '';
+                                filterTable2();
+                            }
+
+                            document.getElementById('statusFilter2').addEventListener('change', filterTable2);
+                        </script>
+
+                        <!-- Filter 3 -->
+                        <script>
+                            function filterTable3() {
+                                const statusFilter3 = document.getElementById('statusFilter3').value;
+                                const rows = document.querySelectorAll('table tbody tr');
+                                let noDataFound = true;
+
+                                rows.forEach(row => {
+                                    const status = row.cells[4].textContent.trim();
+                                    let showRow = true;
+
+                                    if (statusFilter3 && !status.includes(statusFilter3)) {
+                                        showRow = false;
+                                    }
+
+                                    row.style.display = showRow ? '' : 'none';
+                                    if (showRow) noDataFound = false;
+                                });
+
+                                const noDataMessage = document.getElementById('noDataMessage3');
+                                noDataMessage.style.display = noDataFound ? '' : 'none';
+                            }
+
+                            function clearFilters3() {
+                                document.getElementById('statusFilter3').value = '';
+                                filterTable3();
+                            }
+
+                            document.getElementById('statusFilter3').addEventListener('change', filterTable3);
+                        </script>
+
+
+                        <br>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
+                2025 All rights reserved by Software Engineering 3/67
+            </footer>
+        </div>
+    </div>
 
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
