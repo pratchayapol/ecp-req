@@ -166,6 +166,9 @@ function getNameByEmail($pdo, $email) {
                                                     <td class="px-4 py-2 text-center">
                                                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
                                                     </td>
+                                                    <td class="px-4 py-2 text-center">
+                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">เปลี่ยนสถานะ</button>
+                                                    </td>
 
                                                 </tr>
 
