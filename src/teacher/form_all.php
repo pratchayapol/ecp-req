@@ -202,11 +202,6 @@ if (isset($_SESSION['user'])) {
                                                     </td>
                                                     <td class="px-4 py-2 text-center">
                                                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
-                                                        <!-- ปุ่มเปลี่ยนสถานะ -->
-<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#statusModal" onclick="setRequestId('RE.06-3')">
-    เปลี่ยนสถานะ
-</button>
-
                                                     </td>
                                                     
                                                 </tr>
