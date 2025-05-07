@@ -134,6 +134,53 @@ if (isset($_SESSION['user'])) {
                                 <textarea name="request" class="w-full border rounded px-3 py-2" placeholder="กรุณาระบุเหตุผล..." required></textarea>
                             </div>
                         </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <?php
+
+                            try {
+                                // ดึงอาจารย์ที่ปรึกษา
+                                $sqlAdvisor = "SELECT email FROM accounts WHERE role = 'Teacher' AND Advisor LIKE :course_level";
+                                $stmtAdvisor = $pdo->prepare($sqlAdvisor);
+                                $courseLevelWildcard = "%$course_level%";
+                                $stmtAdvisor->bindParam(':course_level', $courseLevelWildcard, PDO::PARAM_STR);
+                                $stmtAdvisor->execute();
+                                $advisor = $stmtAdvisor->fetch(PDO::FETCH_ASSOC);
+                                $teacher_email = $advisor['email'] ?? 'ไม่พบข้อมูล';
+
+                                // ดึงหัวหน้าสาขา
+                                $sqlHead = "SELECT email FROM accounts WHERE role = 'Teacher' AND dep = 'TRUE'";
+                                $stmtHead = $pdo->prepare($sqlHead);
+                                $stmtHead->execute();
+                                $head = $stmtHead->fetch(PDO::FETCH_ASSOC);
+                                $head_department = $head['email'] ?? 'ไม่พบข้อมูล';
+                            } catch (PDOException $e) {
+                                // จัดการ error เช่น log หรือแสดงข้อความ
+                                $teacher_email = 'เกิดข้อผิดพลาด';
+                                $head_department = 'เกิดข้อผิดพลาด';
+                                error_log("PDO Error: " . $e->getMessage());
+                            }
+                            ?>
+
+                            <div>
+                                <label class="block font-medium mb-1 text-red-600">อาจารย์ที่ปรึกษา</label>
+                                <input type="text" name="teacher_email"
+                                    class="w-full border rounded px-3 py-2 bg-gray-100 text-gray-500 cursor-not-allowed"
+                                    value="<?php echo htmlspecialchars($teacher_email); ?>" readonly>
+                            </div>
+
+                            <div>
+                                <label class="block font-medium mb-1 text-red-600">หัวหน้าสาขา</label>
+                                <input type="text" name="head_department"
+                                    class="w-full border rounded px-3 py-2 bg-gray-100 text-gray-500 cursor-not-allowed"
+                                    value="<?php echo htmlspecialchars($head_department); ?>" readonly>
+                            </div>
+                        </div>
+
+
+
+
+
                         <div class="text-center pt-4">
                             <button type="submit" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
                                 บันทึกคำร้อง
