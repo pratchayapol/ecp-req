@@ -23,7 +23,11 @@ if (isset($_SESSION['user'])) {
 } else {
     header('location: ../session_timeout');
 }
-
+// ดึงชื่อตัวเอง
+$sql = "SELECT name, email FROM accounts WHERE email = :email";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['email' => $email]);
+$profile = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -68,7 +72,7 @@ if (isset($_SESSION['user'])) {
                     <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-400">
                         <img src="<?= $picture ?>" alt="Profile Picture" class="w-full h-full object-cover">
                     </div>
-                    <span class="text-sm sm:text-base text-gray-800"><?= $iname; ?></span>
+                    <span class="text-sm sm:text-base text-gray-800"><?= htmlspecialchars($profile['name']) ?></span>
                 </a>
                 <button id="logoutBtn" class="w-full mt-4 bg-white text-[#2C2C2C] py-2 rounded-[12px] hover:bg-[#2C2C2C] hover:text-white transition-colors duration-200 shadow-md">
                     ออกจากระบบ
