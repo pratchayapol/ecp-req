@@ -182,10 +182,6 @@ if (isset($_SESSION['user'])) {
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
-
-                                <input type="text" name="head_department"
-                                    class="w-full border rounded px-3 py-2 bg-gray-100 text-gray-500 cursor-not-allowed"
-                                    value="<?php echo htmlspecialchars($head_department); ?>" readonly>
                             </div>
                         </div>
 
