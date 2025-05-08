@@ -235,7 +235,10 @@ function getNameByEmail($pdo, $email)
                                         <p><strong>ชื่อ - สกุล นักศึกษา:</strong> <span id="modalName"></span></p>
                                         <p><strong>เรื่อง:</strong> <span id="modalTitle"></span></p>
                                         <p><strong>เรียน:</strong> <span id="modalTo"></span></p>
-                                        <p><strong>มีความประสงค์:</strong> <span id="modalRequest"></span></p>
+                                        <p><strong>มีความประสงค์:</strong></p>
+                                        <textarea id="modalRequest" readonly
+                                            class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100"
+                                            rows="4"></textarea>
                                         <hr>
                                         <p><strong>ความคิดเห็นของที่ปรึกษา:</strong></span></p>
                                         <textarea id="modalAdvisorComment" readonly
