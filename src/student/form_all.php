@@ -218,6 +218,29 @@ function getNameByEmail($pdo, $email)
                                     </div>
                                 </div>
                             </div>
+                            <script>
+                                document.querySelectorAll('.open-modal').forEach(button => {
+                                    button.addEventListener('click', () => {
+                                        document.getElementById('modalFormId').textContent = 'RE.01-' + button.dataset.id;
+                                        document.getElementById('modalName').textContent = button.dataset.name;
+                                        document.getElementById('modalTitle').textContent = button.dataset.title;
+                                        document.getElementById('modalTo').textContent = button.dataset.to;
+                                        document.getElementById('modalRequest').textContent = button.dataset.request;
+                                        document.getElementById('modalAdvisorComment').textContent = button.dataset.advisorComment;
+                                        document.getElementById('modalAdvisorName').textContent = button.dataset.advisorName;
+                                        document.getElementById('modalHeadComment').textContent = button.dataset.headComment;
+                                        document.getElementById('modalHeadName').textContent = button.dataset.headName;
+
+                                        document.getElementById('detailModal').classList.remove('hidden');
+                                        document.getElementById('detailModal').classList.add('flex');
+                                    });
+                                });
+
+                                document.getElementById('closeModal').addEventListener('click', () => {
+                                    document.getElementById('detailModal').classList.add('hidden');
+                                    document.getElementById('detailModal').classList.remove('flex');
+                                });
+                            </script>
 
 
 
