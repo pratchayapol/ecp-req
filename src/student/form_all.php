@@ -169,26 +169,25 @@ function getNameByEmail($pdo, $email)
                                                         <?= $row1['status'] === null ? 'รอดำเนินการ' : ($row1['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
                                                     <td class="px-4 py-2 text-center">
+                                                        <?php
+                                                        try {
+                                                            // ดึงชื่ออาจารย์ที่ปรึกษา
+                                                            $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                            $stmt->execute(['email' => $row1['teacher_email']]);
+                                                            $advisor = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                                            // ดึงชื่อหัวหน้าสาขา
+                                                            $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                            $stmt->execute(['email' => $row1['head_department']]);
+                                                            $head = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                        } catch (PDOException $e) {
+                                                            $advisor['name'] = 'เกิดข้อผิดพลาด';
+                                                            $head['name'] = 'เกิดข้อผิดพลาด';
+                                                            error_log("PDO Error: " . $e->getMessage());
+                                                        }
+
+                                                        ?>
                                                         <button
-                                                            <?php
-                                                            try {
-                                                                // ดึงชื่ออาจารย์ที่ปรึกษา
-                                                                $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
-                                                                $stmt->execute(['email' => $row1['teacher_email']]);
-                                                                $advisor = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                                                                // ดึงหัวหน้าสาขา
-                                                                $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
-                                                                $stmt->execute(['email' => $row1['head_department']]);
-                                                                $heads = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                                            } catch (PDOException $e) {
-                                                                // จัดการ error เช่น log หรือแสดงข้อความ
-                                                                $teacher_email = 'เกิดข้อผิดพลาด';
-                                                                $head_department = 'เกิดข้อผิดพลาด';
-                                                                error_log("PDO Error: " . $e->getMessage());
-                                                            }
-
-                                                            ?>
                                                             class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal"
                                                             data-id="<?= $row1['form_id'] ?>"
                                                             data-name="<?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?>"
@@ -198,7 +197,7 @@ function getNameByEmail($pdo, $email)
                                                             data-advisor-comment="<?= htmlspecialchars($row1['comment_teacher']) ?>"
                                                             data-advisor-name="<?= htmlspecialchars($advisor['name']) ?>"
                                                             data-head-comment="<?= htmlspecialchars($row1['comment_head_dep']) ?>"
-                                                            data-head-name="<?= htmlspecialchars($heads['name']) ?>">ดูรายละเอียด</button>
+                                                            data-head-name="<?= htmlspecialchars($head['name']) ?>">ดูรายละเอียด</button>
                                                     </td>
 
                                                 </tr>
