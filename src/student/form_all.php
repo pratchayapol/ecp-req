@@ -172,18 +172,14 @@ function getNameByEmail($pdo, $email)
                                                         <button
                                                             <?php
                                                             try {
-                                                                // ดึงอาจารย์ที่ปรึกษา
-                                                                $sql = "SELECT name FROM accounts WHERE email = $row1[teacher_email]";
-                                                                $stmt = $pdo->prepare($sql);
-                                                                $courseLevelWildcard = "%$course_level%";
-                                                                $stmt->bindParam(':course_level', $courseLevelWildcard, PDO::PARAM_STR);
-                                                                $stmt->execute();
-                                                                $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                                                // ดึงชื่ออาจารย์ที่ปรึกษา
+                                                                $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                                $stmt->execute(['email' => $row1['teacher_email']]);
+                                                                $advisor = $stmt->fetch(PDO::FETCH_ASSOC);
 
                                                                 // ดึงหัวหน้าสาขา
-                                                                $sql = "SELECT name FROM accounts WHERE role = 'Teacher' AND dep = 'TRUE'";
-                                                                $stmt = $pdo->prepare($sql);
-                                                                $stmt->execute();
+                                                                $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                                $stmt->execute(['email' => $row1['head_department']]);
                                                                 $heads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                             } catch (PDOException $e) {
                                                                 // จัดการ error เช่น log หรือแสดงข้อความ
@@ -202,7 +198,7 @@ function getNameByEmail($pdo, $email)
                                                             data-advisor-comment="<?= htmlspecialchars($row1['comment_teacher']) ?>"
                                                             data-advisor-name="<?= htmlspecialchars($advisor['name']) ?>"
                                                             data-head-comment="<?= htmlspecialchars($row1['comment_head_dep']) ?>"
-                                                            data-head-name="<?= htmlspecialchars($row1['head_name']) ?>">ดูรายละเอียด</button>
+                                                            data-head-name="<?= htmlspecialchars($heads['name']) ?>">ดูรายละเอียด</button>
                                                     </td>
 
                                                 </tr>
