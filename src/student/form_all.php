@@ -165,8 +165,9 @@ function getNameByEmail($pdo, $email)
                                                     <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
-                                                    <td class="px-4 py-2 text-center <?= $row1['status'] === null ? 'text-gray-600' : ($row1['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
-                                                        <?= $row1['status'] === null ? 'รอดำเนินการ' : ($row1['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
+                                                    <td class="px-4 py-2 text-center 
+    <?= $row1['status'] === null ? 'text-gray-600' : ($row1['status'] == 1 ? 'text-green-600' : ($row1['status'] == 2 ? 'text-blue-600' : 'text-orange-600')) ?>">
+                                                        <?= $row1['status'] === null ? 'รอดำเนินการ' : ($row1['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row1['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : '')) ?>
                                                     </td>
                                                     <td class="px-4 py-2 text-center">
                                                         <?php
@@ -243,8 +244,8 @@ function getNameByEmail($pdo, $email)
                                         <hr>
                                         <p><strong>ความคิดเห็นของหัวหน้าสาขา:</strong></p>
                                         <textarea id="modalHeadComment" readonly
-    class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100"
-    rows="4"></textarea>
+                                            class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100"
+                                            rows="4"></textarea>
                                         <p><strong>ชื่อหัวหน้าสาขา:</strong> <span id="modalHeadName"></span></p>
                                     </div>
                                 </div>
