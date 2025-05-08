@@ -128,8 +128,8 @@ function getNameByEmail($pdo, $email)
                                         <select id="statusFilter1" class="border px-3 py-2 rounded">
                                             <option value="" disabled selected>เลือกสถานะคำร้อง</option>
                                             <option value="">รอดำเนินการ</option>
-                                            <option value="1">อนุมัติ</option>
-                                            <option value="2">ไม่อนุมัติ</option>
+                                            <option value="1">ที่ปรึกษาพิจารณาแล้ว</option>
+                                            <option value="2">หัวหน้าสาขาพิจารณาแล้ว</option>
                                         </select>
                                     </div>
                                     <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters1()">ล้างข้อมูล</button>
