@@ -201,10 +201,14 @@ function getNameByEmail($pdo, $email)
 
                             </div>
 
-                            <div id="detailModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 transition-opacity duration-300 ease-in-out">
-                                <div class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out" id="modalContent">
+                            <!-- Modal Background -->
+                            <div id="detailModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
+
+                                <!-- Modal Content -->
+                                <div id="modalContent" class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
                                     <button id="closeModal" class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
                                     <h2 class="text-2xl font-semibold text-center mb-6 text-orange-600">รายละเอียดคำร้อง</h2>
+
                                     <div class="space-y-4 text-base">
                                         <p><strong>เลขคำร้อง:</strong> <span id="modalFormId"></span></p>
                                         <p><strong>ชื่อ - สกุล นักศึกษา:</strong> <span id="modalName"></span></p>
@@ -218,6 +222,7 @@ function getNameByEmail($pdo, $email)
                                     </div>
                                 </div>
                             </div>
+
                             <script>
                                 const modal = document.getElementById('detailModal');
                                 const modalContent = document.getElementById('modalContent');
