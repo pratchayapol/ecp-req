@@ -160,13 +160,13 @@ function getNameByEmail($pdo, $email)
 
                                         if (!empty($forms1)): ?>
                                             <?php foreach ($forms1 as $row1): ?>
-                                                <tr>
+                                                <tr data-status="<?= $row1['status'] === null ? 'null' : $row1['status'] ?>">
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row1['form_id']) ?></td>
                                                     <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
                                                     <td class="px-4 py-2 text-center 
-    <?= $row1['status'] === null ? 'text-red-600' : ($row1['status'] == 1 ? 'text-yellow-600' : ($row1['status'] == 2 ? 'text-green-600' : '')) ?>">
+        <?= $row1['status'] === null ? 'text-red-600' : ($row1['status'] == 1 ? 'text-yellow-600' : ($row1['status'] == 2 ? 'text-green-600' : '')) ?>">
                                                         <?= $row1['status'] === null ? 'รอดำเนินการ' : ($row1['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row1['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : '')) ?>
                                                     </td>
 
@@ -315,7 +315,6 @@ function getNameByEmail($pdo, $email)
                                             <th class="px-4 py-2">รายวิชา</th>
                                             <th class="px-4 py-2">กลุ่มเรียน</th>
                                             <th class="px-4 py-2">สถานะคำร้อง</th>
-                                        <tr data-status="<?= $row1['status'] ?? 'null' ?>">
                                             <th class="px-4 py-2">จัดการ</th>
                                         </tr>
                                     </thead>
@@ -502,7 +501,7 @@ function getNameByEmail($pdo, $email)
                                 let noDataFound = true;
 
                                 rows.forEach(row => {
-                                    const status = row.dataset.status;
+                                    const status = row.dataset.status; // <-- ใช้ data-status ที่ฝังไว้
                                     let showRow = true;
 
                                     if (statusFilter1 && status !== statusFilter1) {
@@ -514,7 +513,9 @@ function getNameByEmail($pdo, $email)
                                 });
 
                                 const noDataMessage = document.getElementById('noDataMessage1');
-                                noDataMessage.style.display = noDataFound ? '' : 'none';
+                                if (noDataMessage) {
+                                    noDataMessage.style.display = noDataFound ? '' : 'none';
+                                }
                             }
 
                             function clearFilters1() {
@@ -524,6 +525,7 @@ function getNameByEmail($pdo, $email)
 
                             document.getElementById('statusFilter1').addEventListener('change', filterTable1);
                         </script>
+
 
                         <!-- Filter 2 -->
                         <script>
