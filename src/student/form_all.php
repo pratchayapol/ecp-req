@@ -166,7 +166,7 @@ function getNameByEmail($pdo, $email)
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
                                                     <td class="px-4 py-2 text-center 
-    <?= $row1['status'] === null ? 'text-gray-600' : ($row1['status'] == 1 ? 'text-green-600' : ($row1['status'] == 2 ? 'text-blue-600' : 'text-orange-600')) ?>">
+    <?= $row1['status'] === null ? 'text-gray-600' : ($row1['status'] == 1 ? 'text-green-600' : ($row1['status'] == 2 ? 'text-blue-600' : 'text-yellow-600')) ?>">
                                                         <?= $row1['status'] === null ? 'รอดำเนินการ' : ($row1['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row1['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : '')) ?>
                                                     </td>
                                                     <td class="px-4 py-2 text-center">
