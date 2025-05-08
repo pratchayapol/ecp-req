@@ -127,10 +127,9 @@ function getNameByEmail($pdo, $email)
                                         <label class="mr-2">สถานะคำร้อง:</label>
                                         <select id="statusFilter1" class="border px-3 py-2 rounded">
                                             <option value="" disabled selected>เลือกสถานะคำร้อง</option>
-                                            <option value="">รอดำเนินการ</option>
+                                            <option value="null">รอดำเนินการ</option>
                                             <option value="1">ที่ปรึกษาพิจารณาแล้ว</option>
                                             <option value="2">หัวหน้าสาขาพิจารณาแล้ว</option>
-
                                         </select>
                                     </div>
                                     <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters1()">ล้างข้อมูล</button>
@@ -316,6 +315,7 @@ function getNameByEmail($pdo, $email)
                                             <th class="px-4 py-2">รายวิชา</th>
                                             <th class="px-4 py-2">กลุ่มเรียน</th>
                                             <th class="px-4 py-2">สถานะคำร้อง</th>
+                                        <tr data-status="<?= $row1['status'] ?? 'null' ?>">
                                             <th class="px-4 py-2">จัดการ</th>
                                         </tr>
                                     </thead>
@@ -501,18 +501,11 @@ function getNameByEmail($pdo, $email)
                                 const rows = document.querySelectorAll('table tbody tr');
                                 let noDataFound = true;
 
-                                // สร้าง mapping ระหว่าง value กับข้อความ
-                                const statusTextMap = {
-                                    '': 'รอดำเนินการ',
-                                    '1': 'ที่ปรึกษาพิจารณาแล้ว',
-                                    '2': 'หัวหน้าสาขาพิจารณาแล้ว'
-                                };
-
                                 rows.forEach(row => {
-                                    const status = row.cells[3].textContent.trim(); // เซลล์สถานะอยู่ index 3 ไม่ใช่ 4
+                                    const status = row.dataset.status;
                                     let showRow = true;
 
-                                    if (statusFilter1 !== "" && status !== statusTextMap[statusFilter1]) {
+                                    if (statusFilter1 && status !== statusFilter1) {
                                         showRow = false;
                                     }
 
@@ -521,10 +514,15 @@ function getNameByEmail($pdo, $email)
                                 });
 
                                 const noDataMessage = document.getElementById('noDataMessage1');
-                                if (noDataMessage) {
-                                    noDataMessage.style.display = noDataFound ? '' : 'none';
-                                }
+                                noDataMessage.style.display = noDataFound ? '' : 'none';
                             }
+
+                            function clearFilters1() {
+                                document.getElementById('statusFilter1').value = '';
+                                filterTable1();
+                            }
+
+                            document.getElementById('statusFilter1').addEventListener('change', filterTable1);
                         </script>
 
                         <!-- Filter 2 -->
