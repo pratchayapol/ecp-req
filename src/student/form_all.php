@@ -30,6 +30,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute(['email' => $email]);
 $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
 function getNameByEmail($pdo, $email)
 {
     $stmt2 = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
@@ -169,15 +170,38 @@ function getNameByEmail($pdo, $email)
                                                     </td>
                                                     <td class="px-4 py-2 text-center">
                                                         <button
+                                                            <?php
+                                                            try {
+                                                                // ดึงอาจารย์ที่ปรึกษา
+                                                                $sql = "SELECT name FROM accounts WHERE email = $row1[teacher_email]";
+                                                                $stmt = $pdo->prepare($sql);
+                                                                $courseLevelWildcard = "%$course_level%";
+                                                                $stmt->bindParam(':course_level', $courseLevelWildcard, PDO::PARAM_STR);
+                                                                $stmt->execute();
+                                                                $advisors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                                                // ดึงหัวหน้าสาขา
+                                                                $sql = "SELECT name FROM accounts WHERE role = 'Teacher' AND dep = 'TRUE'";
+                                                                $stmt = $pdo->prepare($sql);
+                                                                $stmt->execute();
+                                                                $heads = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                                            } catch (PDOException $e) {
+                                                                // จัดการ error เช่น log หรือแสดงข้อความ
+                                                                $teacher_email = 'เกิดข้อผิดพลาด';
+                                                                $head_department = 'เกิดข้อผิดพลาด';
+                                                                error_log("PDO Error: " . $e->getMessage());
+                                                            }
+
+                                                            ?>
                                                             class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal"
                                                             data-id="<?= $row1['form_id'] ?>"
                                                             data-name="<?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?>"
                                                             data-title="<?= htmlspecialchars($row1['title']) ?>"
                                                             data-to="<?= htmlspecialchars($row1['to']) ?>"
-                                                            data-request="<?= htmlspecialchars($row1['request']) ?>"
-                                                            data-advisor-comment="<?= htmlspecialchars($row1['advisor_comment']) ?>"
-                                                            data-advisor-name="<?= htmlspecialchars($row1['advisor_name']) ?>"
-                                                            data-head-comment="<?= htmlspecialchars($row1['head_comment']) ?>"
+                                                            data-request="<?= htmlspecialchars($row1['request_text']) ?>"
+                                                            data-advisor-comment="<?= htmlspecialchars($row1['comment_teacher']) ?>"
+                                                            data-advisor-name="<?= htmlspecialchars($advisor['name']) ?>"
+                                                            data-head-comment="<?= htmlspecialchars($row1['comment_head_dep']) ?>"
                                                             data-head-name="<?= htmlspecialchars($row1['head_name']) ?>">ดูรายละเอียด</button>
                                                     </td>
 
