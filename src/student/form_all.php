@@ -130,6 +130,7 @@ function getNameByEmail($pdo, $email)
                                             <option value="">รอดำเนินการ</option>
                                             <option value="1">ที่ปรึกษาพิจารณาแล้ว</option>
                                             <option value="2">หัวหน้าสาขาพิจารณาแล้ว</option>
+
                                         </select>
                                     </div>
                                     <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters1()">ล้างข้อมูล</button>
@@ -500,11 +501,18 @@ function getNameByEmail($pdo, $email)
                                 const rows = document.querySelectorAll('table tbody tr');
                                 let noDataFound = true;
 
+                                // สร้าง mapping ระหว่าง value กับข้อความ
+                                const statusTextMap = {
+                                    '': 'รอดำเนินการ',
+                                    '1': 'ที่ปรึกษาพิจารณาแล้ว',
+                                    '2': 'หัวหน้าสาขาพิจารณาแล้ว'
+                                };
+
                                 rows.forEach(row => {
-                                    const status = row.cells[4].textContent.trim();
+                                    const status = row.cells[3].textContent.trim(); // เซลล์สถานะอยู่ index 3 ไม่ใช่ 4
                                     let showRow = true;
 
-                                    if (statusFilter1 && !status.includes(statusFilter1)) {
+                                    if (statusFilter1 !== "" && status !== statusTextMap[statusFilter1]) {
                                         showRow = false;
                                     }
 
@@ -513,15 +521,10 @@ function getNameByEmail($pdo, $email)
                                 });
 
                                 const noDataMessage = document.getElementById('noDataMessage1');
-                                noDataMessage.style.display = noDataFound ? '' : 'none';
+                                if (noDataMessage) {
+                                    noDataMessage.style.display = noDataFound ? '' : 'none';
+                                }
                             }
-
-                            function clearFilters1() {
-                                document.getElementById('statusFilter1').value = '';
-                                filterTable1();
-                            }
-
-                            document.getElementById('statusFilter1').addEventListener('change', filterTable1);
                         </script>
 
                         <!-- Filter 2 -->
