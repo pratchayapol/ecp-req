@@ -168,7 +168,17 @@ function getNameByEmail($pdo, $email)
                                                         <?= $row1['status'] === null ? 'รอดำเนินการ' : ($row1['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
                                                     <td class="px-4 py-2 text-center">
-                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
+                                                        <button
+                                                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal"
+                                                            data-id="<?= $row1['form_id'] ?>"
+                                                            data-name="<?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?>"
+                                                            data-title="<?= htmlspecialchars($row1['title']) ?>"
+                                                            data-to="<?= htmlspecialchars($row1['to']) ?>"
+                                                            data-request="<?= htmlspecialchars($row1['request']) ?>"
+                                                            data-advisor-comment="<?= htmlspecialchars($row1['advisor_comment']) ?>"
+                                                            data-advisor-name="<?= htmlspecialchars($row1['advisor_name']) ?>"
+                                                            data-head-comment="<?= htmlspecialchars($row1['head_comment']) ?>"
+                                                            data-head-name="<?= htmlspecialchars($row1['head_name']) ?>">ดูรายละเอียด</button>
                                                     </td>
 
                                                 </tr>
@@ -191,6 +201,23 @@ function getNameByEmail($pdo, $email)
 
                             </div>
 
+                            <div id="detailModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+                                <div class="bg-white rounded-xl shadow-lg w-full max-w-lg p-6 relative">
+                                    <button id="closeModal" class="absolute top-2 right-4 text-xl">✕</button>
+                                    <h2 class="text-xl font-bold mb-4">รายละเอียดคำร้อง</h2>
+                                    <div class="space-y-2">
+                                        <p><strong>เลขคำร้อง:</strong> <span id="modalFormId"></span></p>
+                                        <p><strong>ชื่อ - สกุล นักศึกษา:</strong> <span id="modalName"></span></p>
+                                        <p><strong>เรื่อง:</strong> <span id="modalTitle"></span></p>
+                                        <p><strong>เรียน:</strong> <span id="modalTo"></span></p>
+                                        <p><strong>มีความประสงค์:</strong> <span id="modalRequest"></span></p>
+                                        <p><strong>ความคิดเห็นของที่ปรึกษา:</strong> <span id="modalAdvisorComment"></span></p>
+                                        <p><strong>ชื่ออาจารย์ที่ปรึกษา:</strong> <span id="modalAdvisorName"></span></p>
+                                        <p><strong>ความคิดเห็นของหัวหน้าสาขา:</strong> <span id="modalHeadComment"></span></p>
+                                        <p><strong>ชื่อหัวหน้าสาขา:</strong> <span id="modalHeadName"></span></p>
+                                    </div>
+                                </div>
+                            </div>
 
 
 
