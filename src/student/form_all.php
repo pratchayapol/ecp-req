@@ -522,7 +522,22 @@ function getNameByEmail($pdo, $email)
                                                 class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100"
                                                 rows="2"></textarea>
 
-                                            <p><strong>อีเมลอาจารย์:</strong> <span id="modalTeacherEmail"></span></p>
+                                            <p><strong>อาจารย์ประจำรายวิชา:</strong> <span id="modalTeacherEmail"></span></p>
+                                        </div>
+                                        <div id="statusStepper2" class="flex justify-between items-center my-4">
+                                            <!-- Step 0 -->
+                                            <div class="flex flex-col items-center">
+                                                <div id="step1Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                                                <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณาคำร้อง</span>
+                                            </div>
+
+                                            <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line1"></div>
+
+                                            <!-- Step 1 -->
+                                            <div class="flex flex-col items-center">
+                                                <div id="step2Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                                                <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ประจำรายวิชาพิจารณาแล้ว</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
