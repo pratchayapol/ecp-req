@@ -399,43 +399,43 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 throw new Exception("กรุณากรอกอีเมล");
             }
 
-            // คำสั่ง SQL สำหรับบันทึกข้อมูล
-            $sql = "INSERT INTO form_re01 (title, `to`, email, faculty, field, course_level, request_text, teacher_email, head_department, token)
-        VALUES (:title, :to, :email, :faculty, :field, :course_level, :request, :teacher_email, :head_department, :token)";
+        //     // คำสั่ง SQL สำหรับบันทึกข้อมูล
+        //     $sql = "INSERT INTO form_re01 (title, `to`, email, faculty, field, course_level, request_text, teacher_email, head_department, token)
+        // VALUES (:title, :to, :email, :faculty, :field, :course_level, :request, :teacher_email, :head_department, :token)";
 
 
-            // เตรียมการ query
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([
-                ':title'        => $title,
-                ':to'           => $to,
-                ':email'        => $email,
-                ':faculty'      => $faculty,
-                ':field'        => $field,
-                ':course_level' => $course_level,
-                ':request'      => $request,
-                ':teacher_email'      => $teacher_email,
-                ':head_department'      => $head_department,
-                ':token'      => $token
-            ]);
+        //     // เตรียมการ query
+        //     $stmt = $pdo->prepare($sql);
+        //     $stmt->execute([
+        //         ':title'        => $title,
+        //         ':to'           => $to,
+        //         ':email'        => $email,
+        //         ':faculty'      => $faculty,
+        //         ':field'        => $field,
+        //         ':course_level' => $course_level,
+        //         ':request'      => $request,
+        //         ':teacher_email'      => $teacher_email,
+        //         ':head_department'      => $head_department,
+        //         ':token'      => $token
+        //     ]);
 
-            // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน
-            echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
-            echo "
-        <script>
-        Swal.fire({
-            title: 'สำเร็จ!',
-            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-            icon: 'success',
-            confirmButtonText: 'ตกลง'
-        }).then(() => {
-            window.location.href = 'form_all'; // กำหนดลิงก์ที่ถูกต้อง
-            exit; // ป้องกันไม่ให้มีการแสดงอะไรหลังจากนี้
-        });
-        </script>
-        ";
-            echo "</body></html>";
-            exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
+        //     // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน
+        //     echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
+        //     echo "
+        // <script>
+        // Swal.fire({
+        //     title: 'สำเร็จ!',
+        //     text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+        //     icon: 'success',
+        //     confirmButtonText: 'ตกลง'
+        // }).then(() => {
+        //     window.location.href = 'form_all'; // กำหนดลิงก์ที่ถูกต้อง
+        //     exit; // ป้องกันไม่ให้มีการแสดงอะไรหลังจากนี้
+        // });
+        // </script>
+        // ";
+        //     echo "</body></html>";
+        //     exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
         } catch (PDOException $e) {
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
             echo "<script>
