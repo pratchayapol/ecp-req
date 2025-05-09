@@ -190,7 +190,7 @@ function getNameByEmail($pdo, $email)
 
                                                         ?>
                                                         <button
-                                                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal"
+                                                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal1"
                                                             data-id="<?= $row1['form_id'] ?>"
                                                             data-name="<?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?>"
                                                             data-title="<?= htmlspecialchars($row1['title']) ?>"
@@ -227,7 +227,7 @@ function getNameByEmail($pdo, $email)
 
                                 <!-- Modal Content -->
                                 <div id="modalContent" class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
-                                    <button id="closeModal" class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
+                                    <button id="closeModal1" class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
                                     <h2 class="text-2xl font-semibold text-center mb-6 text-orange-600">รายละเอียดคำร้อง</h2>
 
                                     <div class="space-y-4 text-base">
@@ -309,7 +309,7 @@ function getNameByEmail($pdo, $email)
                                 }
 
                                 // ใช้เมื่อเปิด modal:
-                                document.querySelectorAll('.open-modal').forEach(btn => {
+                                document.querySelectorAll('.open-modal1').forEach(btn => {
                                     btn.addEventListener('click', function() {
                                         const status = parseInt(this.closest('tr').dataset.status) || 0;
                                         updateStatusStepper(status);
@@ -320,9 +320,9 @@ function getNameByEmail($pdo, $email)
                             <script>
                                 const modal = document.getElementById('detailModal1');
                                 const modalContent = document.getElementById('modalContent');
-                                const closeModal = document.getElementById('closeModal');
+                                const closeModal1 = document.getElementById('closeModal1');
 
-                                document.querySelectorAll('.open-modal').forEach(button => {
+                                document.querySelectorAll('.open-modal1').forEach(button => {
                                     button.addEventListener('click', () => {
                                         // ใส่ข้อมูลใน modal
                                         document.getElementById('modalFormId').textContent = 'RE.01-' + button.dataset.id;
@@ -343,7 +343,7 @@ function getNameByEmail($pdo, $email)
                                     });
                                 });
 
-                                closeModal.addEventListener('click', () => {
+                                closeModal1.addEventListener('click', () => {
                                     // ปิด transition
                                     modalContent.classList.add('opacity-0', 'scale-95');
                                     setTimeout(() => {
@@ -424,7 +424,7 @@ function getNameByEmail($pdo, $email)
                                                     ?>
                                                     <td>
                                                         <button
-                                                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal"
+                                                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal2"
                                                             data-form-id="<?= $row2['form_id'] ?>"
                                                             data-term="<?= $row2['term'] ?>"
                                                             data-year="<?= $row2['year'] ?>"
@@ -459,7 +459,7 @@ function getNameByEmail($pdo, $email)
                             <div id="detailModal2" class="fixed z-50 inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
                                 <div class="bg-white rounded-xl shadow-lg w-11/12 md:w-2/3 lg:w-1/2 p-6 relative">
                                     <h2 class="text-xl font-bold mb-4">รายละเอียดคำร้อง</h2>
-                                    <button id="closeModal" class="absolute top-3 right-3 text-gray-500 hover:text-red-600 text-2xl">&times;</button>
+                                    <button id="closeModal2" class="absolute top-3 right-3 text-gray-500 hover:text-red-600 text-2xl">&times;</button>
                                     <div class="space-y-2">
                                         <p><strong>ID คำร้อง:</strong> <span id="modalFormId"></span></p>
                                         <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear"></span></p>
@@ -474,7 +474,7 @@ function getNameByEmail($pdo, $email)
                                 </div>
                             </div>
                             <script>
-                                document.querySelectorAll('.open-modal').forEach(button => {
+                                document.querySelectorAll('.open-modal2').forEach(button => {
                                     button.addEventListener('click', function() {
                                         document.getElementById('modalFormId').textContent = 'RE.06-' + this.dataset.formId;
                                         document.getElementById('modalTermYear').textContent = this.dataset.term + ' / ' + this.dataset.year;
@@ -490,7 +490,7 @@ function getNameByEmail($pdo, $email)
                                     });
                                 });
 
-                                document.getElementById('closeModal').addEventListener('click', function() {
+                                document.getElementById('closeModal2').addEventListener('click', function() {
                                     document.getElementById('detailModal2').classList.add('hidden');
                                 });
                             </script>
