@@ -342,13 +342,11 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $teacher_email       = $_POST['teacher_email'];
             $head_department       = $_POST['head_department'];
 
-            // รวมไฟล์ PHPMailer
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
+            require_once __DIR__ . '/../../vendor/autoload.php';  // เดินย้อนจาก /src/student ไป /src/vendor
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+            use PHPMailer\PHPMailer\PHPMailer;
+            use PHPMailer\PHPMailer\Exception;
+            
 
 $mail = new PHPMailer(true);
 
