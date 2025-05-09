@@ -238,22 +238,83 @@ function getNameByEmail($pdo, $email)
                                         <p><strong>มีความประสงค์:</strong></p>
                                         <textarea id="modalRequest" readonly
                                             class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100"
-                                            rows="4"></textarea>
+                                            rows="2"></textarea>
                                         <hr>
                                         <p><strong>ความคิดเห็นของที่ปรึกษา:</strong></span></p>
                                         <textarea id="modalAdvisorComment" readonly
                                             class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100"
-                                            rows="4"></textarea>
+                                            rows="2"></textarea>
                                         <p><strong>ชื่ออาจารย์ที่ปรึกษา:</strong> <span id="modalAdvisorName"></span></p>
                                         <hr>
                                         <p><strong>ความคิดเห็นของหัวหน้าสาขา:</strong></p>
                                         <textarea id="modalHeadComment" readonly
                                             class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100"
-                                            rows="4"></textarea>
+                                            rows="2"></textarea>
                                         <p><strong>ชื่อหัวหน้าสาขา:</strong> <span id="modalHeadName"></span></p>
+                                    </div>
+                                    <div id="statusStepper" class="flex justify-between items-center my-4">
+                                        <!-- Step 1 -->
+                                        <div class="flex flex-col items-center">
+                                            <div id="step1Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณาคำร้อง</span>
+                                        </div>
+
+                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line1"></div>
+
+                                        <!-- Step 2 -->
+                                        <div class="flex flex-col items-center">
+                                            <div id="step2Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">ที่ปรึกษาพิจารณาแล้ว</span>
+                                        </div>
+
+                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line2"></div>
+
+                                        <!-- Step 3 -->
+                                        <div class="flex flex-col items-center">
+                                            <div id="step3Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- แถบสถานะ RE01 -->
+                            <script>
+                                function updateStatusStepper(status) {
+                                    // เคลียร์ class ทั้งหมดก่อน
+                                    const steps = [{
+                                            circle: 'step1Circle',
+                                            line: null
+                                        },
+                                        {
+                                            circle: 'step2Circle',
+                                            line: 'line1'
+                                        },
+                                        {
+                                            circle: 'step3Circle',
+                                            line: 'line2'
+                                        }
+                                    ];
+
+                                    steps.forEach((step, i) => {
+                                        document.getElementById(step.circle).className =
+                                            'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
+                                            (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
+
+                                        if (step.line) {
+                                            document.getElementById(step.line).className =
+                                                'flex-auto h-0.5 mx-1 ' + (i <= status - 1 ? 'bg-green-500' : 'bg-gray-300');
+                                        }
+                                    });
+                                }
+
+                                // ใช้เมื่อเปิด modal:
+                                document.querySelectorAll('.open-modal').forEach(btn => {
+                                    btn.addEventListener('click', function() {
+                                        const status = parseInt(this.closest('tr').dataset.status) || 0;
+                                        updateStatusStepper(status);
+                                    });
+                                });
+                            </script>
 
                             <script>
                                 const modal = document.getElementById('detailModal');
