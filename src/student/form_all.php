@@ -296,13 +296,13 @@ function getNameByEmail($pdo, $email)
 
                                     steps.forEach((step, i) => {
                                         // อัปเดตวงกลม
-                                        document.getElementById(step.circle).className =
+                                        document.getElementById(step.circle).className = A
                                             'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
                                             (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
 
                                         // อัปเดตเส้นเชื่อม
                                         if (step.line) {
-                                            document.getElementById(step.line).className =
+                                            document.getElementById(step.line).className = A
                                                 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
                                         }
                                     });
