@@ -410,7 +410,7 @@ try {
     $mail->Port       = 587;
 
     // ตั้งค่าข้อมูลอีเมล
-    $mail->setFrom('bot@pcnone.com', 'ระบบ backup ฐานข้อมูลของ nueportfolio.kku.ac.th');
+    $mail->setFrom('ecpreq@pcnone.com', 'ระบบ backup ฐานข้อมูลของ nueportfolio.kku.ac.th');
     $mail->addAddress($email, 'BOT ของ PCNONE.COM');
     $mail->isHTML(true);
     $mail->Subject = 'Database Backup';
