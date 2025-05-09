@@ -260,7 +260,7 @@ function getNameByEmail($pdo, $email)
                                     <h2 class="text-2xl font-semibold text-center mb-6 text-orange-600">รายละเอียดคำร้อง</h2>
 
                                     <div class="space-y-4 text-base">
-                                        <p><strong>เลขคำร้อง:</strong> <span id="modalFormId1"></span></p>
+                                        <p><strong>เลขคำร้องที่:</strong> <span id="modalFormId1"></span></p>
                                         <p><strong>ชื่อ - สกุล นักศึกษา:</strong> <span id="modalName"></span></p>
                                         <p><strong>เรื่อง:</strong> <span id="modalTitle"></span></p>
                                         <p><strong>เรียน:</strong> <span id="modalTo"></span></p>
@@ -498,7 +498,7 @@ function getNameByEmail($pdo, $email)
                                         <button id="closeModal2" class="absolute top-3 right-4 text-gray-600 hover:text-red-500 text-2xl">&times;</button>
                                         <h2 class="text-2xl text-center font-semibold text-orange-600 mb-6">รายละเอียดคำร้อง</h2>
                                         <div class="space-y-3 text-base">
-                                            <p><strong>ID คำร้อง:</strong> <span id="modalFormId2"></span></p>
+                                            <p><strong>เลขคำร้องที่:</strong> <span id="modalFormId2"></span></p>
                                             <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear"></span></p>
                                             <p><strong>เหตุผลเนื่องจาก:</strong></p>
                                             <textarea id="modalReason" readonly
