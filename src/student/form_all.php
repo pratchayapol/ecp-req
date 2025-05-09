@@ -930,12 +930,11 @@ function getNameByEmail($pdo, $email)
                             }
 
                             function clearFilters1() {
-                                document.getElementById('statusFilter1').selectedIndex = 0;
-                                document.querySelectorAll('#re01 table tbody tr').forEach(row => {
-                                    row.style.display = '';
-                                });
-                                document.getElementById('noDataMessage1').style.display = 'none';
+                                document.getElementById('statusFilter1').value = '';
+                                filterTable1();
                             }
+
+                            document.getElementById('statusFilter1').addEventListener('change', filterTable1);
                         </script>
 
 
@@ -965,12 +964,11 @@ function getNameByEmail($pdo, $email)
                             }
 
                             function clearFilters2() {
-                                document.getElementById('statusFilter2').selectedIndex = 0;
-                                document.querySelectorAll('#re06 table tbody tr').forEach(row => {
-                                    row.style.display = '';
-                                });
-                                document.getElementById('noDataMessage2').style.display = 'none';
+                                document.getElementById('statusFilter2').value = '';
+                                filterTable2();
                             }
+
+                            document.getElementById('statusFilter2').addEventListener('change', filterTable2);
                         </script>
 
                         <!-- Filter 3 -->
@@ -1000,12 +998,11 @@ function getNameByEmail($pdo, $email)
 
 
                             function clearFilters3() {
-                                document.getElementById('statusFilter3').selectedIndex = 0;
-                                document.querySelectorAll('#re07 table tbody tr').forEach(row => {
-                                    row.style.display = '';
-                                });
-                                document.getElementById('noDataMessage3').style.display = 'none';
+                                document.getElementById('statusFilter3').value = '';
+                                filterTable3();
                             }
+
+                            document.getElementById('statusFilter3').addEventListener('change', filterTable3);
                         </script>
 
 
