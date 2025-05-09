@@ -356,14 +356,12 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
             
-require __DIR__ . '/../PHPMailer/src/Exception.php';
-require __DIR__ . '/../PHPMailer/src/PHPMailer.php';
-require __DIR__ . '/../PHPMailer/src/SMTP.php';
+            require __DIR__ . '/vendor/autoload.php'; // ปรับ path ถ้าไม่อยู่ใน root เดียวกัน
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-$mail = new PHPMailer(true);
+            use PHPMailer\PHPMailer\PHPMailer;
+            use PHPMailer\PHPMailer\Exception;
+            
+            $mail = new PHPMailer(true);
 
 try {
     $mail->CharSet = 'UTF-8';
