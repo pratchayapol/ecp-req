@@ -694,7 +694,7 @@ function getNameByEmail($pdo, $email)
                                                             data-group="<?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?>"
                                                             data-course-id="<?= $row3['course_id'] ?>"
                                                             data-gpa="<?= $row3['gpa'] ?>"
-                                                            data-gpa-all="<?= $row3['gpa_all'] ?>"
+                                                            data-git-unit="<?= $row3['git_unit'] ?>"
                                                             data-reg-status="<?= htmlspecialchars($row3['reg_status']) ?>"
                                                             data-expected-graduation="<?= $row3['expected_graduation'] ?>"
                                                             data-advisor-comment="<?= htmlspecialchars($row3['advisor_comment'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
@@ -803,7 +803,7 @@ function getNameByEmail($pdo, $email)
                                             document.getElementById('modalGroup3').textContent = this.dataset.group || '-';
                                             document.getElementById('modalCourseId3').textContent = this.dataset.courseId || '-';
                                             document.getElementById('modalGpa3').textContent = this.dataset.gpa || '-';
-                                            document.getElementById('modalGpaAll3').textContent = this.dataset.gpaAll || '-';
+                                            document.getElementById('modalGit3').textContent = this.dataset.git-unit || '-';
                                             document.getElementById('modalRegStatus3').textContent = this.dataset.regStatus || '-';
                                             document.getElementById('modalExpectedGraduation3').textContent = this.dataset.expectedGraduation || '-';
                                             document.getElementById('modalAdvisorComment3').textContent = this.dataset.advisorComment || '-';
