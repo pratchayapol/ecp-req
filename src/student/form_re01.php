@@ -347,11 +347,10 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $teacher_email       = $_POST['teacher_email'];
             $head_department       = $_POST['head_department'];
 
-            require_once __DIR__ . '/../vendor/autoload.php';
-
-
             use PHPMailer\PHPMailer\PHPMailer;
             use PHPMailer\PHPMailer\Exception;
+            
+            require_once __DIR__ . '/../vendor/autoload.php';
             
 
 $mail = new PHPMailer(true);
