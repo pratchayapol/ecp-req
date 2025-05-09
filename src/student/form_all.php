@@ -456,7 +456,7 @@ function getNameByEmail($pdo, $email)
                                                 $statusText = $row2['status'] === null ? 'รอดำเนินการ' : ($row2['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ');
                                                 $statusClass = $row2['status'] === null ? 'text-gray-600' : ($row2['status'] == 1 ? 'text-green-600' : 'text-orange-600');
                                         ?>
-                                                <tr data-status="<?= $row2['status'] === null ? 'null' : $row2['status'] ?>">
+                                                <tr data-status="<?= is_null($row2['status']) ? 'null' : $row2['status'] ?>">
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
                                                     <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row2['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'] . ' / ' . $row2['year']) ?></td>
@@ -546,37 +546,23 @@ function getNameByEmail($pdo, $email)
                             <!-- แถบสถานะ RE06 -->
                             <script>
                                 function updateStatusStepper2(status) {
-                                    const steps = [{
-                                            circle: 'step1Circle2',
-                                            line: 'line1'
-                                        },
-                                        {
-                                            circle: 'step2Circle2',
-                                            line: 'line2'
-                                        }
-                                    ];
+                                    const step1 = document.getElementById('step1Circle2');
+                                    const step2 = document.getElementById('step2Circle2');
+                                    const line1 = document.getElementById('line1');
 
-                                    steps.forEach((step, i) => {
-                                        // อัปเดตวงกลม
-                                        document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
-                                            (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
-
-                                        // อัปเดตเส้นเชื่อม
-                                        if (step.line) {
-                                            document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
-                                        }
-                                    });
+                                    if (status === 0) {
+                                        // Case: รอดำเนินการ
+                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
+                                        line1.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
+                                    } else if (status === 1) {
+                                        // Case: อาจารย์พิจารณาแล้ว
+                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        line1.className = 'flex-auto h-0.5 mx-1 bg-green-500';
+                                    }
                                 }
 
-                                // ใช้เมื่อเปิด modal:
-                                document.querySelectorAll('.open-modal2').forEach(btn => {
-                                    btn.addEventListener('click', function() {
-                                        const status = parseInt(this.closest('tr').dataset.status) || 0;
-                                        updateStatusStepper2(status);
-                                    });
-                                });
-                            </script>
-                            <script>
                                 document.addEventListener("DOMContentLoaded", function() {
                                     const modal2 = document.getElementById('detailModal2');
                                     const modalContent2 = document.getElementById('modalContent2');
@@ -584,7 +570,12 @@ function getNameByEmail($pdo, $email)
 
                                     document.querySelectorAll('.open-modal2').forEach(button => {
                                         button.addEventListener('click', function() {
-                                            // ใส่ข้อมูล
+                                            const rawStatus = this.closest('tr').dataset.status;
+                                            const status = (rawStatus === 'null') ? 0 : parseInt(rawStatus);
+
+                                            updateStatusStepper2(status);
+
+                                            // ใส่ข้อมูลลง modal
                                             document.getElementById('modalFormId2').textContent = 'RE.06-' + this.dataset.formId;
                                             document.getElementById('modalTermYear').textContent = this.dataset.term + ' / ' + this.dataset.year;
                                             document.getElementById('modalReason').textContent = this.dataset.reason || '-';
@@ -595,20 +586,19 @@ function getNameByEmail($pdo, $email)
                                             document.getElementById('modalCommentTeacher').textContent = this.dataset.commentTeacher || '-';
                                             document.getElementById('modalTeacherEmail').textContent = this.dataset.teacherEmail || '-';
 
-                                            // แสดง modal พร้อม animation
+                                            // เปิด modal
                                             modal2.classList.remove('hidden');
                                             setTimeout(() => {
                                                 modalContent2.classList.remove('opacity-0', 'scale-95');
-                                            }, 10); // ให้เวลา browser render ก่อนเอา class ออก
+                                            }, 10);
                                         });
                                     });
 
                                     closeModal2.addEventListener('click', function() {
-                                        // ซ่อน modal พร้อม animation
                                         modalContent2.classList.add('opacity-0', 'scale-95');
                                         setTimeout(() => {
                                             modal2.classList.add('hidden');
-                                        }, 300); // duration ต้องตรงกับ tailwind (300ms)
+                                        }, 300);
                                     });
                                 });
                             </script>
