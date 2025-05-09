@@ -379,16 +379,13 @@ try {
         <br><br>
 
     </div>';
-    $mail->addAttachment($backupFile);
-
 
     $mail->send();
     echo '<script type="text/javascript">
             alert("ส่งอีเมลสำเร็จ");
             window.close();
           </script>';
-    // ลบไฟล์ backup หลังจากส่งอีเมลเสร็จ
-    unlink($backupFile);
+
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
