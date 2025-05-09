@@ -1,11 +1,5 @@
 <?php
 session_start();
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
 include '../connect/dbcon.php';
 // ตั้งค่า timezone เป็น UTC+7 (Asia/Bangkok)
 date_default_timezone_set('Asia/Bangkok');
@@ -352,44 +346,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $email = $_SESSION['user']['email'];
             $teacher_email       = $_POST['teacher_email'];
             $head_department       = $_POST['head_department'];
-
-
-
             
-            require __DIR__ . '/vendor/autoload.php'; // ปรับ path ถ้าไม่อยู่ใน root เดียวกัน
-
-            use PHPMailer\PHPMailer\PHPMailer;
-            use PHPMailer\PHPMailer\Exception;
-            
-            $mail = new PHPMailer(true);
-
-try {
-    $mail->CharSet = 'UTF-8';
-    $mail->isSMTP();
-    $mail->Host       = 'smtp.pcnone.com';
-    $mail->SMTPAuth   = true;
-    $mail->Username   = 'ecpreq@pcnone.com';
-    $mail->Password   = '26,RoSENt,{';
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = 587;
-
-    $mail->setFrom('ecpreq@pcnone.com', 'ระบบแจ้งเตือนการยื่นคำร้อง');
-    $mail->addAddress($email, 'ผู้ใช้งาน'); // ส่งถึงผู้กรอกฟอร์ม
-    $mail->isHTML(true);
-    $mail->Subject = 'แจ้งเตือน: คุณได้ทำการยื่นคำร้องเรียบร้อยแล้ว';
-    $mail->Body = "
-        <h3>ระบบแจ้งเตือนการยื่นคำร้อง</h3>
-        <p>คุณได้ทำการยื่นคำร้องเรื่อง: <strong>{$title}</strong></p>
-        <p>รหัสคำร้องของคุณคือ: <strong>{$token}</strong></p>
-        <p>เจ้าหน้าที่จะดำเนินการตรวจสอบในภายหลัง</p>
-    ";
-
-    $mail->send();
-} catch (Exception $e) {
-    error_log("Mail error: {$mail->ErrorInfo}");
-}
-
-
             // ตรวจสอบว่าค่าจากฟอร์มครบหรือไม่
             if (empty($email)) {
                 throw new Exception("กรุณากรอกอีเมล");
