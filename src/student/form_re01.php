@@ -1,6 +1,11 @@
 <?php
 session_start();
 include '../connect/dbcon.php';
+// ตั้งค่า timezone เป็น UTC+7 (Asia/Bangkok)
+date_default_timezone_set('Asia/Bangkok');
+// ประกาศและกำหนดค่า `$date`
+$date = date('d/m/Y H:i:s'); // รูปแบบ: วัน/เดือน/ปี ชั่วโมง:นาที:วินาที
+
 // echo '<pre>';
 // print_r($_SESSION);
 // echo '</pre>';
@@ -382,6 +387,60 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
         </script>
         ";
             echo "</body></html>";
+
+// รวมไฟล์ PHPMailer
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+$mail = new PHPMailer(true);
+
+try {
+    // ตั้งค่าเซิร์ฟเวอร์ SMTP
+    $mail->CharSet = 'UTF-8';
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.pcnone.com';
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'ecpreq@pcnone.com';
+    $mail->Password   = '26,RoSENt,{';
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = 587;
+
+    // ตั้งค่าข้อมูลอีเมล
+    $mail->setFrom('bot@pcnone.com', 'ระบบ backup ฐานข้อมูลของ nueportfolio.kku.ac.th');
+    $mail->addAddress($email, 'BOT ของ PCNONE.COM');
+    $mail->isHTML(true);
+    $mail->Subject = 'Database Backup';
+    $mail->Body = '
+    <div style="font-family: Arial, sans-serif; color: #333;">
+        <h2 style="color: #4CAF50;">Database Backup</h2>
+        <p>ไฟล์ .sql ของ database <strong>nu_checklist</strong> พร้อมให้ดาวน์โหลดแล้ว</p><br>
+        <p>วันที่: ' . $date . '</p> <br>
+        <p>คุณสามารถจัดการฐานข้อมูลของคุณผ่าน phpMyAdmin ได้โดยคลิกลิงก์ด้านล่าง:</p>
+        <br>
+        <a href="https://datachecklist.pcnone.com" style="display: inline-block; padding: 12px 24px; background-color: #4CAF50; color: #ffffff; text-decoration: none; border-radius: 5px; font-size: 16px;">ไปที่ phpMyAdmin</a>
+        <br><br>
+
+    </div>';
+    $mail->addAttachment($backupFile);
+
+
+    $mail->send();
+    echo '<script type="text/javascript">
+            alert("ส่งอีเมลสำเร็จ");
+            window.close();
+          </script>';
+    // ลบไฟล์ backup หลังจากส่งอีเมลเสร็จ
+    unlink($backupFile);
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+
+
+
             exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
         } catch (PDOException $e) {
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
