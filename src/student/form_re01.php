@@ -357,13 +357,10 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
             
 // เรียกใช้ PHPMailer
-require '../PHPMailer/src/Exception.php';
-require '../PHPMailer/src/PHPMailer.php';
-require '../PHPMailer/src/SMTP.php';
+require '../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
 $mail = new PHPMailer(true);
 
 try {
