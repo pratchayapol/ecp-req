@@ -684,10 +684,11 @@ function getNameByEmail($pdo, $email)
                                                     <td class="px-4 py-2 text-center <?= $row3['status'] === null ? 'text-gray-600' : ($row3['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
                                                         <?= $row3['status'] === null ? 'รอดำเนินการ' : ($row3['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
+                                                    <td>
                                                     <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded" data-modal-target="modalRE07-<?= $row3['form_id'] ?>" data-modal-toggle="modalRE07-<?= $row3['form_id'] ?>">
                                                         ดูรายละเอียด
                                                     </button>
-
+                                                    </td>
 
                                                 </tr>
                                             <?php endforeach; ?>
