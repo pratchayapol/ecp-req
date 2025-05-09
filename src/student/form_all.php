@@ -684,9 +684,10 @@ function getNameByEmail($pdo, $email)
                                                     <td class="px-4 py-2 text-center <?= $row3['status'] === null ? 'text-gray-600' : ($row3['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
                                                         <?= $row3['status'] === null ? 'รอดำเนินการ' : ($row3['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
-                                                    <td class="px-4 py-2 text-center">
-                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
-                                                    </td>
+                                                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded" data-modal-target="modalRE07-<?= $row3['form_id'] ?>" data-modal-toggle="modalRE07-<?= $row3['form_id'] ?>">
+                                                        ดูรายละเอียด
+                                                    </button>
+
 
                                                 </tr>
                                             <?php endforeach; ?>
@@ -701,6 +702,46 @@ function getNameByEmail($pdo, $email)
                                 <div id="noDataMessage3" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
                                 <br>
                             </div>
+
+                            <div id="modalRE07-<?= $row3['form_id'] ?>" tabindex="-1" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50 flex justify-center items-center">
+                                <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
+                                    <h2 class="text-xl font-semibold mb-4">รายละเอียดคำร้อง RE07</h2>
+                                    <div class="grid grid-cols-2 gap-4 text-sm">
+                                        <div><strong>เลขฟอร์ม:</strong> <?= $row3['form_id'] ?></div>
+                                        <div><strong>ภาคเรียน/ปี:</strong> <?= $row3['term'] ?> / <?= $row3['year'] ?></div>
+                                        <div><strong>รหัสวิชา:</strong> <?= $row3['course_id'] ?></div>
+                                        <div><strong>กลุ่มเรียน:</strong> <?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></div>
+                                        <div><strong>เหตุผล:</strong> <?= $row3['reason'] ?></div>
+                                        <div><strong>GPA:</strong> <?= $row3['gpa'] ?></div>
+                                        <div><strong>หน่วยกิตที่ลง:</strong> <?= $row3['gpa_all'] ?></div>
+                                        <div><strong>สถานภาพ:</strong> <?= $row3['reg_status'] ?></div>
+                                        <div><strong>คาดว่าจะจบ:</strong> <?= $row3['expected_graduation'] ?></div>
+                                        <div><strong>ความคิดเห็นที่ปรึกษา:</strong> <?= $row3['advisor_comment'] ?? '-' ?></div>
+                                        <div><strong>ความคิดเห็นหัวหน้า:</strong> <?= $row3['head_comment'] ?? '-' ?></div>
+                                        <div><strong>Email นักศึกษา:</strong> <?= $row3['email'] ?></div>
+                                        <div><strong>Email อาจารย์:</strong> <?= $row3['teacher_email'] ?></div>
+                                        <div><strong>Email หัวหน้า:</strong> <?= $row3['head_department'] ?></div>
+                                        <div><strong>สร้างเมื่อ:</strong> <?= $row3['created_at'] ?></div>
+                                        <div><strong>Token:</strong> <?= $row3['token'] ?></div>
+                                    </div>
+                                    <button onclick="document.getElementById('modalRE07-<?= $row3['form_id'] ?>').classList.add('hidden')" class="absolute top-2 right-2 text-gray-600 hover:text-black">&times;</button>
+                                </div>
+                            </div>
+
+                            <script>
+                                document.querySelectorAll('[data-modal-toggle]').forEach(button => {
+                                    button.addEventListener('click', () => {
+                                        const modalId = button.getAttribute('data-modal-target');
+                                        const modal = document.getElementById(modalId);
+                                        if (modal) modal.classList.remove('hidden');
+                                    });
+                                });
+                            </script>
+
+
+
+
+
 
                         </div>
                         <script>
