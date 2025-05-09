@@ -363,9 +363,9 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 $mail->Host       = 'mail.pcnone.com';
                 $mail->SMTPAuth   = true;
                 $mail->Username   = 'botecp@pcnone.com';
-                $mail->Password   = 'ระบบยื่นคำร้องสาขาคอมพิวเตอร์';
+                $mail->Password   = 'adminecp1234';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port       = 110;
+                $mail->Port       = 587;
 
                 // ตั้งค่าข้อมูลอีเมล
                 $mail->setFrom('botecp@pcnone.com', 'ECP Online Petition');
