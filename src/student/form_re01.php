@@ -362,8 +362,8 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 $mail->isSMTP();
                 $mail->Host       = 'smtp.pcnone.com';
                 $mail->SMTPAuth   = true;
-                $mail->Username   = 'ecpreq@pcnone.com';
-                $mail->Password   = 'adminecp12345';
+                $mail->Username   = 'botpcnone@gmail.com';
+                $mail->Password   = 'tgmb eize qkun tcef';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
 
