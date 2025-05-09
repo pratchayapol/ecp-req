@@ -446,12 +446,6 @@ function getNameByEmail($pdo, $email)
                                             ORDER BY form_id DESC");
                                             $stmt2->execute(['email' => $email]);
                                             $forms2 = $stmt2->fetchAll();
-
-
-                                            // ดึงชื่ออาจารย์ประจำวิชา
-                                            $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
-                                            $stmt->execute(['email' => $row2['teacher_email']]);
-                                            $CommentTeacher = $stmt->fetch(PDO::FETCH_ASSOC);
                                         } catch (PDOException $e) {
                                             echo "Database error: " . $e->getMessage();
                                             exit;
@@ -469,9 +463,18 @@ function getNameByEmail($pdo, $email)
                                                     <td class="px-4 py-2"><?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?></td>
                                                     <td class="text-center px-4 py-2"><?= $row2['Group'] ?? '-' ?></td>
                                                     <td class="text-center px-4 py-2 <?= $statusClass ?>"><?= $statusText ?></td>
+                                                    <?php
+                                                    try {
 
-
-
+                                                        // ดึงชื่ออาจารย์ประจำวิชา
+                                                        $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                        $stmt->execute(['email' => $row2['teacher_email']]);
+                                                        $CommentTeacher = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                    } catch (PDOException $e) {
+                                                        echo "Database error: " . $e->getMessage();
+                                                        exit;
+                                                    }
+                                                    ?>
                                                     <td class="text-center px-4 py-2">
                                                         <button class="open-modal2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
                                                             data-form-id="<?= $row2['form_id'] ?>"
