@@ -720,8 +720,8 @@ ORDER BY form_id DESC");
                                                             data-expected-graduation="<?= $row3['expected_graduation'] ?>"
                                                             data-advisor-comment="<?= htmlspecialchars($row3['advisor_comment'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
                                                             data-head-comment="<?= htmlspecialchars($row3['head_comment'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
-                                                            data-teacher-email="<?= htmlspecialchars($row3['teacher_email'] ?? '-') ?>"
-                                                            data-head-department="<?= htmlspecialchars($row3['head_department'] ?? '-') ?>"
+                                                            data-teacher-email="<?= htmlspecialchars($advisor2['name'] ?? '-') ?>"
+                                                            data-head-department="<?= htmlspecialchars($head2['name'] ?? '-') ?>"
 
                                                             data-status="<?= $row3['status'] === null ? 'null' : $row3['status'] ?>">
                                                             ดูรายละเอียด
