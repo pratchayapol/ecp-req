@@ -662,7 +662,7 @@ function getNameByEmail($pdo, $email)
                                         <?php
                                         // การดึงข้อมูลจากฐานข้อมูล
                                         try {
-                                            $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit, reg_status, expected_graduation, advisor_comment, 	head_comment,
+                                            $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit, reg_status, expected_graduation, advisor_comment, head_comment,
                                             c.course_nameTH, c.credits
                                             FROM form_re07 AS f
                                             LEFT JOIN course AS c ON f.course_id = c.course_id
@@ -686,6 +686,24 @@ function getNameByEmail($pdo, $email)
                                                     <td class="px-4 py-2 text-center <?= $row3['status'] === null ? 'text-gray-600' : ($row3['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
                                                         <?= $row3['status'] === null ? 'รอดำเนินการ' : ($row3['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
+                                                    <?php
+                                                    try {
+                                                        // ดึงชื่ออาจารย์ที่ปรึกษา
+                                                        $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                        $stmt->execute(['email' => $row3['teacher_email']]);
+                                                        $advisor2 = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                                        // ดึงชื่อหัวหน้าสาขา
+                                                        $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                        $stmt->execute(['email' => $row3['head_department']]);
+                                                        $head2 = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                    } catch (PDOException $e) {
+                                                        $advisor2['name'] = 'เกิดข้อผิดพลาด';
+                                                        $head2['name'] = 'เกิดข้อผิดพลาด';
+                                                        error_log("PDO Error: " . $e->getMessage());
+                                                    }
+
+                                                    ?>
                                                     <td>
                                                         <button
                                                             class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal3"
@@ -701,8 +719,9 @@ function getNameByEmail($pdo, $email)
                                                             data-expected-graduation="<?= $row3['expected_graduation'] ?>"
                                                             data-advisor-comment="<?= htmlspecialchars($row3['advisor_comment'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
                                                             data-head-comment="<?= htmlspecialchars($row3['head_comment'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
-                                                            data-teacher-email="<?= $row3['teacher_email'] ?>"
-                                                            data-head-department="<?= $row3['head_department'] ?>"
+                                                            data-teacher-email="<?= htmlspecialchars($row3['teacher_email'] ?? '-') ?>"
+                                                            data-head-department="<?= htmlspecialchars($row3['head_department'] ?? '-') ?>"
+
                                                             data-status="<?= $row3['status'] === null ? 'null' : $row3['status'] ?>">
                                                             ดูรายละเอียด
                                                         </button>
@@ -911,11 +930,12 @@ function getNameByEmail($pdo, $email)
                             }
 
                             function clearFilters1() {
-                                document.getElementById('statusFilter1').value = '';
-                                filterTable1();
+                                document.getElementById('statusFilter1').selectedIndex = 0;
+                                document.querySelectorAll('#re01 table tbody tr').forEach(row => {
+                                    row.style.display = '';
+                                });
+                                document.getElementById('noDataMessage1').style.display = 'none';
                             }
-
-                            document.getElementById('statusFilter1').addEventListener('change', filterTable1);
                         </script>
 
 
@@ -945,11 +965,12 @@ function getNameByEmail($pdo, $email)
                             }
 
                             function clearFilters2() {
-                                document.getElementById('statusFilter2').value = '';
-                                filterTable2();
+                                document.getElementById('statusFilter2').selectedIndex = 0;
+                                document.querySelectorAll('#re06 table tbody tr').forEach(row => {
+                                    row.style.display = '';
+                                });
+                                document.getElementById('noDataMessage2').style.display = 'none';
                             }
-
-                            document.getElementById('statusFilter2').addEventListener('change', filterTable2);
                         </script>
 
                         <!-- Filter 3 -->
@@ -979,11 +1000,12 @@ function getNameByEmail($pdo, $email)
 
 
                             function clearFilters3() {
-                                document.getElementById('statusFilter3').value = '';
-                                filterTable3();
+                                document.getElementById('statusFilter3').selectedIndex = 0;
+                                document.querySelectorAll('#re07 table tbody tr').forEach(row => {
+                                    row.style.display = '';
+                                });
+                                document.getElementById('noDataMessage3').style.display = 'none';
                             }
-
-                            document.getElementById('statusFilter3').addEventListener('change', filterTable3);
                         </script>
 
 
