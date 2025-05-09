@@ -500,14 +500,14 @@ function getNameByEmail($pdo, $email)
                                         <div class="space-y-3 text-base">
                                             <p><strong>ID คำร้อง:</strong> <span id="modalFormId2"></span></p>
                                             <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear"></span></p>
-                                            <p><strong>เหตุผล:</strong></p>
+                                            <p><strong>เหตุผลเนื่องจาก:</strong></p>
                                             <textarea id="modalReason" readonly
                                                 class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100"
                                                 rows="2"></textarea>
                                             <p><strong>กลุ่มเรียน:</strong> <span id="modalGroup"></span></p>
                                             <p><strong>รหัสรายวิชา:</strong> <span id="modalCourseId"></span></p>
                                             <p><strong>ยอดลงทะเบียน:</strong> <span id="modalCounter"></span></p>
-                                            <p><strong>เหตุผลเนื่องจาก:</strong> <span id="modalRegStatus"></span></p>
+                                            <p><strong>ประเภทการลงทะเบียนเรียน:</strong> <span id="modalRegStatus"></span></p>
                                             <p><strong>ความคิดเห็นของอาจารย์:</strong></p>
                                             <textarea id="modalCommentTeacher" readonly
                                                 class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100"
