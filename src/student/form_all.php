@@ -226,7 +226,7 @@ function getNameByEmail($pdo, $email)
                             <div id="detailModal1" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
 
                                 <!-- Modal Content -->
-                                <div id="modalContent" class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
+                                <div id="modalContent1" class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
                                     <button id="closeModal1" class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
                                     <h2 class="text-2xl font-semibold text-center mb-6 text-orange-600">รายละเอียดคำร้อง</h2>
 
@@ -252,7 +252,7 @@ function getNameByEmail($pdo, $email)
                                             rows="2"></textarea>
                                         <p><strong>ชื่อหัวหน้าสาขา:</strong> <span id="modalHeadName"></span></p>
                                     </div>
-                                    <div id="statusStepper" class="flex justify-between items-center my-4">
+                                    <div id="statusStepper1" class="flex justify-between items-center my-4">
                                         <!-- Step 1 -->
                                         <div class="flex flex-col items-center">
                                             <div id="step1Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
@@ -279,7 +279,7 @@ function getNameByEmail($pdo, $email)
                             </div>
                             <!-- แถบสถานะ RE01 -->
                             <script>
-                                function updateStatusStepper(status) {
+                                function updateStatusStepper1(status) {
                                     const steps = [{
                                             circle: 'step1Circle',
                                             line: 'line1'
@@ -312,14 +312,14 @@ function getNameByEmail($pdo, $email)
                                 document.querySelectorAll('.open-modal1').forEach(btn => {
                                     btn.addEventListener('click', function() {
                                         const status = parseInt(this.closest('tr').dataset.status) || 0;
-                                        updateStatusStepper(status);
+                                        updateStatusStepper1(status);
                                     });
                                 });
                             </script>
 
                             <script>
                                 const modal = document.getElementById('detailModal1');
-                                const modalContent = document.getElementById('modalContent');
+                                const modalContent1 = document.getElementById('modalContent1');
                                 const closeModal1 = document.getElementById('closeModal1');
 
                                 document.querySelectorAll('.open-modal1').forEach(button => {
@@ -345,7 +345,7 @@ function getNameByEmail($pdo, $email)
 
                                 closeModal1.addEventListener('click', () => {
                                     // ปิด transition
-                                    modalContent.classList.add('opacity-0', 'scale-95');
+                                    modalContent1.classList.add('opacity-0', 'scale-95');
                                     setTimeout(() => {
                                         modal.classList.add('hidden');
                                     }, 300); // ตรงกับ duration ใน tailwind (300ms)
@@ -438,7 +438,7 @@ function getNameByEmail($pdo, $email)
                                                             ดูรายละเอียด
                                                         </button>
                                                     </td>
-                                                    
+
 
 
                                                 </tr>
@@ -456,11 +456,15 @@ function getNameByEmail($pdo, $email)
 
                             </div>
 
-                            <div id="detailModal2" class="fixed z-50 inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
-                                <div class="bg-white rounded-xl shadow-lg w-11/12 md:w-2/3 lg:w-1/2 p-6 relative">
-                                    <h2 class="text-xl font-bold mb-4">รายละเอียดคำร้อง</h2>
-                                    <button id="closeModal2" class="absolute top-3 right-3 text-gray-500 hover:text-red-600 text-2xl">&times;</button>
-                                    <div class="space-y-2">
+                            <!-- Modal Background -->
+                            <div id="detailModal2" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
+
+                                <!-- Modal Content -->
+                                <div id="modalContent2" class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
+                                    <button id="closeModal2" class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
+                                    <h2 class="text-2xl font-semibold text-center mb-6 text-orange-600">รายละเอียดคำร้อง</h2>
+
+                                    <div class="space-y-4 text-base">
                                         <p><strong>ID คำร้อง:</strong> <span id="modalFormId"></span></p>
                                         <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear"></span></p>
                                         <p><strong>เหตุผลหลัก:</strong> <span id="modalReason"></span></p>
@@ -471,8 +475,32 @@ function getNameByEmail($pdo, $email)
                                         <p><strong>ความคิดเห็นของอาจารย์:</strong> <span id="modalCommentTeacher"></span></p>
                                         <p><strong>อีเมลอาจารย์:</strong> <span id="modalTeacherEmail"></span></p>
                                     </div>
+                                    <div id="statusStepper2" class="flex justify-between items-center my-4">
+                                        <!-- Step 1 -->
+                                        <div class="flex flex-col items-center">
+                                            <div id="step1Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณาคำร้อง</span>
+                                        </div>
+
+                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line1"></div>
+
+                                        <!-- Step 2 -->
+                                        <div class="flex flex-col items-center">
+                                            <div id="step2Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">ที่ปรึกษาพิจารณาแล้ว</span>
+                                        </div>
+
+                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line2"></div>
+
+                                        <!-- Step 3 -->
+                                        <div class="flex flex-col items-center">
+                                            <div id="step3Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                             <script>
                                 document.querySelectorAll('.open-modal2').forEach(button => {
                                     button.addEventListener('click', function() {
