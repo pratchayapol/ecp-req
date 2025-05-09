@@ -453,7 +453,7 @@ function getNameByEmail($pdo, $email)
 
                                         if (!empty($forms2)) :
                                             foreach ($forms2 as $row2) :
-                                                $statusText = $row2['status'] === null ? 'รอดำเนินการ' : ($row2['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ');
+                                                $statusText = $row2['status'] === null ? 'รอดำเนินการ' : ($row2['status'] == 1 ? 'อาจารย์ประจำรายวิชาพิจารณาแล้ว' : '');
                                                 $statusClass = $row2['status'] === null ? 'text-gray-600' : ($row2['status'] == 1 ? 'text-green-600' : 'text-orange-600');
                                         ?>
                                                 <tr data-status="<?= is_null($row2['status']) ? 'null' : $row2['status'] ?>">
