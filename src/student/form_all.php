@@ -453,12 +453,12 @@ function getNameByEmail($pdo, $email)
                                     </tbody>
                                 </table>
 
+
                                 <!-- Modal -->
-                                <div id="detailModal2" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
-                                    <div class="bg-white rounded-xl w-[90%] max-w-2xl p-6 relative">
+                                <div id="detailModal2" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
+                                    <div id="modalContent2" class="bg-white rounded-xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
                                         <button id="closeModal2" class="absolute top-3 right-4 text-gray-600 hover:text-red-500 text-2xl">&times;</button>
                                         <h2 class="text-2xl text-center font-semibold text-orange-600 mb-6">รายละเอียดคำร้อง</h2>
-
                                         <div class="space-y-3 text-base">
                                             <p><strong>ID คำร้อง:</strong> <span id="modalFormId2"></span></p>
                                             <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear"></span></p>
@@ -472,16 +472,18 @@ function getNameByEmail($pdo, $email)
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                             <script>
                                 document.addEventListener("DOMContentLoaded", function() {
-                                    const modal = document.getElementById('detailModal2');
-                                    const modalContent = modal.querySelector('.bg-white');
+                                    const modal2 = document.getElementById('detailModal2');
+                                    const modalContent2 = document.getElementById('modalContent2');
+                                    const closeModal2 = document.getElementById('closeModal2');
 
                                     document.querySelectorAll('.open-modal2').forEach(button => {
                                         button.addEventListener('click', function() {
-                                            // เติมข้อมูล
+                                            // ใส่ข้อมูล
                                             document.getElementById('modalFormId2').textContent = 'RE.06-' + this.dataset.formId;
                                             document.getElementById('modalTermYear').textContent = this.dataset.term + ' / ' + this.dataset.year;
                                             document.getElementById('modalReason').textContent = this.dataset.reason || '-';
@@ -492,32 +494,24 @@ function getNameByEmail($pdo, $email)
                                             document.getElementById('modalCommentTeacher').textContent = this.dataset.commentTeacher || '-';
                                             document.getElementById('modalTeacherEmail').textContent = this.dataset.teacherEmail || '-';
 
-                                            // เปิด modal พร้อมแอนิเมชัน
-                                            modal.classList.remove('hidden');
-                                            modalContent.classList.add('modal-enter');
-
-                                            requestAnimationFrame(() => {
-                                                modalContent.classList.add('modal-enter-active');
-                                                modalContent.classList.remove('modal-enter');
-                                            });
+                                            // แสดง modal พร้อม animation
+                                            modal2.classList.remove('hidden');
+                                            setTimeout(() => {
+                                                modalContent2.classList.remove('opacity-0', 'scale-95');
+                                            }, 10); // ให้เวลา browser render ก่อนเอา class ออก
                                         });
                                     });
 
-                                    document.getElementById('closeModal2').addEventListener('click', function() {
-                                        modalContent.classList.add('modal-exit');
-
-                                        requestAnimationFrame(() => {
-                                            modalContent.classList.add('modal-exit-active');
-                                            modalContent.classList.remove('modal-exit');
-
-                                            setTimeout(() => {
-                                                modal.classList.add('hidden');
-                                                modalContent.classList.remove('modal-exit-active');
-                                            }, 200);
-                                        });
+                                    closeModal2.addEventListener('click', function() {
+                                        // ซ่อน modal พร้อม animation
+                                        modalContent2.classList.add('opacity-0', 'scale-95');
+                                        setTimeout(() => {
+                                            modal2.classList.add('hidden');
+                                        }, 300); // duration ต้องตรงกับ tailwind (300ms)
                                     });
                                 });
                             </script>
+
 
 
 
