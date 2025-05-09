@@ -284,23 +284,23 @@ function getNameByEmail($pdo, $email)
                                     <div id="statusStepper1" class="flex justify-between items-center my-4">
                                         <!-- Step 1 -->
                                         <div class="flex flex-col items-center">
-                                            <div id="step1Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                                            <div id="step1Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
                                             <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณาคำร้อง</span>
                                         </div>
 
-                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line1"></div>
+                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line11"></div>
 
                                         <!-- Step 2 -->
                                         <div class="flex flex-col items-center">
-                                            <div id="step2Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                                            <div id="step2Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
                                             <span class="mt-1 text-sm text-gray-600 text-center">ที่ปรึกษาพิจารณาแล้ว</span>
                                         </div>
 
-                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line2"></div>
+                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line12"></div>
 
                                         <!-- Step 3 -->
                                         <div class="flex flex-col items-center">
-                                            <div id="step3Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
+                                            <div id="step3Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
                                             <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
                                         </div>
                                     </div>
@@ -310,16 +310,16 @@ function getNameByEmail($pdo, $email)
                             <script>
                                 function updateStatusStepper1(status) {
                                     const steps = [{
-                                            circle: 'step1Circle',
-                                            line: 'line1'
+                                            circle: 'step1Circle1',
+                                            line: 'line11'
                                         },
                                         {
-                                            circle: 'step2Circle',
-                                            line: 'line2'
+                                            circle: 'step2Circle1',
+                                            line: 'line12'
                                         },
                                         {
-                                            circle: 'step3Circle',
-                                            line: 'line3'
+                                            circle: 'step3Circle1',
+                                            line: 'line13'
                                         }
                                     ];
 
@@ -548,18 +548,18 @@ function getNameByEmail($pdo, $email)
                                 function updateStatusStepper2(status) {
                                     const step1 = document.getElementById('step1Circle2');
                                     const step2 = document.getElementById('step2Circle2');
-                                    const line1 = document.getElementById('line1');
+                                    const line21 = document.getElementById('line1');
 
                                     if (status === 0) {
                                         // Case: รอดำเนินการ
                                         step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                                         step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
-                                        line1.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
+                                        line21.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
                                     } else if (status === 1) {
                                         // Case: อาจารย์พิจารณาแล้ว
                                         step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                                         step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        line1.className = 'flex-auto h-0.5 mx-1 bg-green-500';
+                                        line21.className = 'flex-auto h-0.5 mx-1 bg-green-500';
                                     }
                                 }
 
