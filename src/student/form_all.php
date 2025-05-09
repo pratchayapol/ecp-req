@@ -471,8 +471,8 @@ function getNameByEmail($pdo, $email)
                                                         $stmt->execute(['email' => $row2['teacher_email']]);
                                                         $CommentTeacher = $stmt->fetch(PDO::FETCH_ASSOC);
                                                     } catch (PDOException $e) {
+                                                        $advisor['name'] = 'เกิดข้อผิดพลาด';
                                                         echo "Database error: " . $e->getMessage();
-                                                        exit;
                                                     }
                                                     ?>
                                                     <td class="text-center px-4 py-2">
