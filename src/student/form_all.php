@@ -684,9 +684,11 @@ ORDER BY form_id DESC");
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
                                                     <td class="px-4 py-2"><?= htmlspecialchars($row3['course_id'] . ' ' . $row3['course_nameTH'] . ' (' . $row3['credits'] . ' หน่วยกิต)') ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></td>
-                                                    <td class="px-4 py-2 text-center <?= $row3['status'] === null ? 'text-gray-600' : ($row3['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
-                                                        <?= $row3['status'] === null ? 'รอดำเนินการ' : ($row3['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
+                                                    <td class="px-4 py-2 text-center 
+    <?= $row3['status'] === null ? 'text-red-600' : ($row3['status'] == 1 ? 'text-yellow-600' : ($row3['status'] == 2 ? 'text-green-600' : 'text-gray-500')) ?>">
+                                                        <?= $row3['status'] === null ? 'รอดำเนินการ' : ($row3['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row3['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : 'สถานะไม่ถูกต้อง')) ?>
                                                     </td>
+
                                                     <?php
                                                     try {
                                                         // ดึงชื่ออาจารย์ที่ปรึกษา
