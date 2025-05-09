@@ -1,11 +1,6 @@
 <?php
 session_start();
 include '../connect/dbcon.php';
-// ตั้งค่า timezone เป็น UTC+7 (Asia/Bangkok)
-date_default_timezone_set('Asia/Bangkok');
-// ประกาศและกำหนดค่า `$date`
-$date = date('d/m/Y H:i:s'); // รูปแบบ: วัน/เดือน/ปี ชั่วโมง:นาที:วินาที
-
 // echo '<pre>';
 // print_r($_SESSION);
 // echo '</pre>';
@@ -346,7 +341,6 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $email = $_SESSION['user']['email'];
             $teacher_email       = $_POST['teacher_email'];
             $head_department       = $_POST['head_department'];
-            
             // ตรวจสอบว่าค่าจากฟอร์มครบหรือไม่
             if (empty($email)) {
                 throw new Exception("กรุณากรอกอีเมล");
@@ -388,7 +382,6 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
         </script>
         ";
             echo "</body></html>";
-
             exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
         } catch (PDOException $e) {
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
