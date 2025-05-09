@@ -491,8 +491,8 @@ function getNameByEmail($pdo, $email)
                                                         </button>
                                                     </td>
                                                 </tr>
-                                            <?php endforeach;
-                                        else : ?>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
                                             <tr>
                                                 <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
                                             </tr>
