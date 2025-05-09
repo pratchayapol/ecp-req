@@ -685,9 +685,27 @@ function getNameByEmail($pdo, $email)
                                                         <?= $row3['status'] === null ? 'รอดำเนินการ' : ($row3['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
                                                     <td>
-                                                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded" data-modal-target="modalRE07-<?= $row3['form_id'] ?>" data-modal-toggle="modalRE07-<?= $row3['form_id'] ?>">
-                                                        ดูรายละเอียด
-                                                    </button>
+                                                        <button
+                                                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal3"
+                                                            data-form-id="<?= $row3['form_id'] ?>"
+                                                            data-term="<?= $row3['term'] ?>"
+                                                            data-year="<?= $row3['year'] ?>"
+                                                            data-reason="<?= htmlspecialchars($row3['reason']) ?>"
+                                                            data-group="<?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?>"
+                                                            data-course-id="<?= $row3['course_id'] ?>"
+                                                            data-gpa="<?= $row3['gpa'] ?>"
+                                                            data-gpa-all="<?= $row3['gpa_all'] ?>"
+                                                            data-reg-status="<?= htmlspecialchars($row3['reg_status']) ?>"
+                                                            data-expected-graduation="<?= $row3['expected_graduation'] ?>"
+                                                            data-advisor-comment="<?= htmlspecialchars($row3['advisor_comment']) ?>"
+                                                            data-head-comment="<?= htmlspecialchars($row3['head_comment']) ?>"
+                                                            data-teacher-email="<?= $row3['teacher_email'] ?>"
+                                                            data-head-department="<?= $row3['head_department'] ?>"
+                                                            data-status="<?= $row3['status'] === null ? 'null' : $row3['status'] ?>">
+                                                            ดูรายละเอียด
+                                                        </button>
+
+
                                                     </td>
 
                                                 </tr>
@@ -704,37 +722,106 @@ function getNameByEmail($pdo, $email)
                                 <br>
                             </div>
 
-                            <div id="modalRE07-<?= $row3['form_id'] ?>" tabindex="-1" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50 flex justify-center items-center">
-                                <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
-                                    <h2 class="text-xl font-semibold mb-4">รายละเอียดคำร้อง RE07</h2>
-                                    <div class="grid grid-cols-2 gap-4 text-sm">
-                                        <div><strong>เลขฟอร์ม:</strong> <?= $row3['form_id'] ?></div>
-                                        <div><strong>ภาคเรียน/ปี:</strong> <?= $row3['term'] ?> / <?= $row3['year'] ?></div>
-                                        <div><strong>รหัสวิชา:</strong> <?= $row3['course_id'] ?></div>
-                                        <div><strong>กลุ่มเรียน:</strong> <?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></div>
-                                        <div><strong>เหตุผล:</strong> <?= $row3['reason'] ?></div>
-                                        <div><strong>GPA:</strong> <?= $row3['gpa'] ?></div>
-                                        <div><strong>หน่วยกิตที่ลง:</strong> <?= $row3['gpa_all'] ?></div>
-                                        <div><strong>สถานภาพ:</strong> <?= $row3['reg_status'] ?></div>
-                                        <div><strong>คาดว่าจะจบ:</strong> <?= $row3['expected_graduation'] ?></div>
-                                        <div><strong>ความคิดเห็นที่ปรึกษา:</strong> <?= $row3['advisor_comment'] ?? '-' ?></div>
-                                        <div><strong>ความคิดเห็นหัวหน้า:</strong> <?= $row3['head_comment'] ?? '-' ?></div>
-                                        <div><strong>Email นักศึกษา:</strong> <?= $row3['email'] ?></div>
-                                        <div><strong>Email อาจารย์:</strong> <?= $row3['teacher_email'] ?></div>
-                                        <div><strong>Email หัวหน้า:</strong> <?= $row3['head_department'] ?></div>
-                                        <div><strong>สร้างเมื่อ:</strong> <?= $row3['created_at'] ?></div>
-                                        <div><strong>Token:</strong> <?= $row3['token'] ?></div>
+                            <!-- Modal -->
+                            <div id="detailModal3" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
+                                <div id="modalContent3" class="bg-white rounded-xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
+                                    <button id="closeModal3" class="absolute top-3 right-4 text-gray-600 hover:text-red-500 text-2xl">&times;</button>
+                                    <h2 class="text-2xl text-center font-semibold text-orange-600 mb-6">รายละเอียดคำร้อง RE07</h2>
+                                    <div class="space-y-3 text-base">
+                                        <p><strong>เลขคำร้องที่:</strong> <span id="modalFormId3"></span></p>
+                                        <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear3"></span></p>
+                                        <p><strong>เหตุผลขอเปิดนอกแผน:</strong></p>
+                                        <textarea id="modalReason3" readonly class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100" rows="2"></textarea>
+                                        <p><strong>กลุ่มเรียน:</strong> <span id="modalGroup3"></span></p>
+                                        <p><strong>รหัสรายวิชา:</strong> <span id="modalCourseId3"></span></p>
+                                        <p><strong>เกรดเฉลี่ยปัจจุบัน:</strong> <span id="modalGpa3"></span></p>
+                                        <p><strong>หน่วยกิตที่ลงทะเบียน:</strong> <span id="modalGpaAll3"></span></p>
+                                        <p><strong>ประเภทการลงทะเบียนเรียน:</strong> <span id="modalRegStatus3"></span></p>
+                                        <p><strong>ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา:</strong> <span id="modalExpectedGraduation3"></span></p>
+                                        <p><strong>ความคิดเห็นที่ปรึกษา:</strong></p>
+                                        <textarea id="modalAdvisorComment3" readonly class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100" rows="2"></textarea>
+                                        <p><strong>ความคิดเห็นหัวหน้าสาขา:</strong></p>
+                                        <textarea id="modalHeadComment3" readonly class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100" rows="2"></textarea>
+                                        <p><strong>อาจารย์ประจำวิชา:</strong> <span id="modalTeacherEmail3"></span></p>
+                                        <p><strong>หัวหน้าสาขา:</strong> <span id="modalHeadDepartment3"></span></p>
                                     </div>
-                                    <button onclick="document.getElementById('modalRE07-<?= $row3['form_id'] ?>').classList.add('hidden')" class="absolute top-2 right-2 text-gray-600 hover:text-black">&times;</button>
+                                    <div id="statusStepper3" class="flex justify-between items-center my-4">
+                                        <!-- Step 1 -->
+                                        <div class="flex flex-col items-center">
+                                            <div id="step1Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ประจำวิชาพิจารณา</span>
+                                        </div>
+
+                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line3"></div>
+
+                                        <!-- Step 2 -->
+                                        <div class="flex flex-col items-center">
+                                            <div id="step2Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณา</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <script>
-                                document.querySelectorAll('[data-modal-toggle]').forEach(button => {
-                                    button.addEventListener('click', () => {
-                                        const modalId = button.getAttribute('data-modal-target');
-                                        const modal = document.getElementById(modalId);
-                                        if (modal) modal.classList.remove('hidden');
+                                function updateStatusStepper3(status) {
+                                    const step1 = document.getElementById('step1Circle3');
+                                    const step2 = document.getElementById('step2Circle3');
+                                    const line = document.getElementById('line3');
+
+                                    if (status === 0) {
+                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
+                                        line.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
+                                    } else if (status === 1) {
+                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
+                                        line.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
+                                    } else if (status === 2) {
+                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        line.className = 'flex-auto h-0.5 mx-1 bg-green-500';
+                                    }
+                                }
+
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    const modal = document.getElementById('detailModal3');
+                                    const modalContent = document.getElementById('modalContent3');
+                                    const closeModal = document.getElementById('closeModal3');
+
+                                    document.querySelectorAll('.open-modal3').forEach(button => {
+                                        button.addEventListener('click', function() {
+                                            const rawStatus = this.dataset.status;
+                                            const status = rawStatus === 'null' ? 0 : parseInt(rawStatus);
+                                            updateStatusStepper3(status);
+
+                                            // Set modal fields
+                                            document.getElementById('modalFormId3').textContent = 'RE.07-' + this.dataset.formId;
+                                            document.getElementById('modalTermYear3').textContent = this.dataset.term + ' / ' + this.dataset.year;
+                                            document.getElementById('modalReason3').textContent = this.dataset.reason || '-';
+                                            document.getElementById('modalGroup3').textContent = this.dataset.group || '-';
+                                            document.getElementById('modalCourseId3').textContent = this.dataset.courseId || '-';
+                                            document.getElementById('modalGpa3').textContent = this.dataset.gpa || '-';
+                                            document.getElementById('modalGpaAll3').textContent = this.dataset.gpaAll || '-';
+                                            document.getElementById('modalRegStatus3').textContent = this.dataset.regStatus || '-';
+                                            document.getElementById('modalExpectedGraduation3').textContent = this.dataset.expectedGraduation || '-';
+                                            document.getElementById('modalAdvisorComment3').textContent = this.dataset.advisorComment || '-';
+                                            document.getElementById('modalHeadComment3').textContent = this.dataset.headComment || '-';
+                                            document.getElementById('modalTeacherEmail3').textContent = this.dataset.teacherEmail || '-';
+                                            document.getElementById('modalHeadDepartment3').textContent = this.dataset.headDepartment || '-';
+
+                                            modal.classList.remove('hidden');
+                                            setTimeout(() => {
+                                                modalContent.classList.remove('opacity-0', 'scale-95');
+                                            }, 10);
+                                        });
+                                    });
+
+                                    closeModal.addEventListener('click', function() {
+                                        modalContent.classList.add('opacity-0', 'scale-95');
+                                        setTimeout(() => {
+                                            modal.classList.add('hidden');
+                                        }, 300);
                                     });
                                 });
                             </script>
