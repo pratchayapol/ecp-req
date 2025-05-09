@@ -225,9 +225,9 @@ function getNameByEmail($pdo, $email)
                                                             data-title="<?= htmlspecialchars($row1['title']) ?>"
                                                             data-to="<?= htmlspecialchars($row1['to']) ?>"
                                                             data-request="<?= htmlspecialchars($row1['request_text']) ?>"
-                                                            data-advisor-comment="<?= htmlspecialchars($row1['comment_teacher']) ?>"
+                                                            data-advisor-comment="<?= htmlspecialchars($row1['comment_teacher']) ?? 'จึงเรียนมาเพื่อโปรดพิจารณา' ?>"
                                                             data-advisor-name="<?= htmlspecialchars($advisor['name']) ?>"
-                                                            data-head-comment="<?= htmlspecialchars($row1['comment_head_dep']) ?>"
+                                                            data-head-comment="<?= htmlspecialchars($row1['comment_head_dep']) ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'?>"
                                                             data-head-name="<?= htmlspecialchars($head['name']) ?>">ดูรายละเอียด</button>
                                                     </td>
 
