@@ -156,7 +156,7 @@ function getNameByEmail($pdo, $email)
                                         <label class="mr-2">สถานะคำร้อง:</label>
                                         <select id="statusFilter1" class="border px-3 py-2 rounded">
                                             <option value="" disabled selected>เลือกสถานะคำร้อง</option>
-                                            <option value="null">รอดำเนินการ</option>
+                                            <option value="null">รอพิจารณา</option>
                                             <option value="1">ที่ปรึกษาพิจารณาแล้ว</option>
                                             <option value="2">หัวหน้าสาขาพิจารณาแล้ว</option>
                                         </select>
@@ -196,7 +196,7 @@ function getNameByEmail($pdo, $email)
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
                                                     <td class="px-4 py-2 text-center 
         <?= $row1['status'] === null ? 'text-red-600' : ($row1['status'] == 1 ? 'text-yellow-600' : ($row1['status'] == 2 ? 'text-green-600' : '')) ?>">
-                                                        <?= $row1['status'] === null ? 'รอดำเนินการ' : ($row1['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row1['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : '')) ?>
+                                                        <?= $row1['status'] === null ? 'รอพิจารณา' : ($row1['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row1['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : '')) ?>
                                                     </td>
 
                                                     <td class="px-4 py-2 text-center">
@@ -417,7 +417,7 @@ function getNameByEmail($pdo, $email)
                                         <label class="mr-2">สถานะคำร้อง:</label>
                                         <select id="statusFilter2" class="border px-3 py-2 rounded">
                                             <option value="" disabled selected>เลือกสถานะคำร้อง</option>
-                                            <option value="null">รอดำเนินการ</option>
+                                            <option value="null">รอพิจารณา</option>
                                             <option value="1">อาจารย์ประจำรายวิชาพิจารณาแล้ว</option>
                                         </select>
                                     </div>
@@ -454,7 +454,7 @@ function getNameByEmail($pdo, $email)
 
                                         if (!empty($forms2)) :
                                             foreach ($forms2 as $row2) :
-                                                $statusText = $row2['status'] === null ? 'รอดำเนินการ' : ($row2['status'] == 1 ? 'อาจารย์ประจำรายวิชาพิจารณาแล้ว' : '');
+                                                $statusText = $row2['status'] === null ? 'รอพิจารณา' : ($row2['status'] == 1 ? 'อาจารย์ประจำรายวิชาพิจารณาแล้ว' : '');
                                                 $statusClass = $row2['status'] === null ? 'text-red-600' : ($row2['status'] == 1 ? 'text-green-600' : 'text-orange-600');
                                         ?>
                                                 <tr data-status="<?= is_null($row2['status']) ? 'null' : $row2['status'] ?>">
@@ -554,7 +554,7 @@ function getNameByEmail($pdo, $email)
                                     const line21 = document.getElementById('line1');
 
                                     if (status === 0) {
-                                        // Case: รอดำเนินการ
+                                        // Case: รอพิจารณา
                                         step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                                         step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
                                         line21.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
@@ -635,7 +635,7 @@ function getNameByEmail($pdo, $email)
                                         <label class="mr-2">สถานะคำร้อง:</label>
                                         <select id="statusFilter3" class="border px-3 py-2 rounded">
                                             <option value="" disabled selected>เลือกสถานะคำร้อง</option>
-                                            <option value="null">รอดำเนินการ</option>
+                                            <option value="null">รอพิจารณา</option>
                                             <option value="1">ที่ปรึกษาพิจารณาแล้ว</option>
                                             <option value="2">หัวหน้าสาขาพิจารณาแล้ว</option>
                                         </select>
@@ -686,7 +686,7 @@ ORDER BY form_id DESC");
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></td>
                                                     <td class="px-4 py-2 text-center 
     <?= $row3['status'] === null ? 'text-red-600' : ($row3['status'] == 1 ? 'text-yellow-600' : ($row3['status'] == 2 ? 'text-green-600' : 'text-gray-500')) ?>">
-                                                        <?= $row3['status'] === null ? 'รอดำเนินการ' : ($row3['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row3['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : 'สถานะไม่ถูกต้อง')) ?>
+                                                        <?= $row3['status'] === null ? 'รอพิจารณา' : ($row3['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row3['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : 'สถานะไม่ถูกต้อง')) ?>
                                                     </td>
 
                                                     <?php
