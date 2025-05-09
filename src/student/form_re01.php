@@ -357,46 +357,24 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $mail = new PHPMailer(true);
 
             try {
-                // ตั้งค่าเซิร์ฟเวอร์ SMTP
-                $mail->CharSet = 'UTF-8';
+                // ตั้งค่าการส่งอีเมล เช่น SMTP, จาก, ถึง, หัวข้อ, เนื้อหา ฯลฯ
                 $mail->isSMTP();
-                $mail->Host       = 'mail.pcnone.com';
-                $mail->SMTPAuth   = true;
-                $mail->Username   = 'botecp@pcnone.com';
-                $mail->Password   = 'adminecp1234';
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port       = 587;
-
-                // ตั้งค่าข้อมูลอีเมล
-                $mail->setFrom('botecp@pcnone.com', 'ECP Online Petition');
-                $mail->addAddress($email, 'BOT ของ PCNONE.COM');
-                $mail->isHTML(true);
-                $mail->Subject = 'Database Backup';
-                $mail->Body = '
-                <div style="font-family: Arial, sans-serif; color: #333;">
-                    <h2 style="color: #4CAF50;">Database Backup</h2>
-                    <p>ไฟล์ .sql ของ database <strong>nu_checklist</strong> พร้อมให้ดาวน์โหลดแล้ว</p><br>
-                    <p>วันที่: ' . $date . '</p> <br>
-                    <p>คุณสามารถจัดการฐานข้อมูลของคุณผ่าน phpMyAdmin ได้โดยคลิกลิงก์ด้านล่าง:</p>
-                    <br>
-                    <a href="https://datachecklist.pcnone.com" style="display: inline-block; padding: 12px 24px; background-color: #4CAF50; color: #ffffff; text-decoration: none; border-radius: 5px; font-size: 16px;">ไปที่ phpMyAdmin</a>
-                    <br><br>
+                $mail->Host = 'mail.pcnone.com';  
+                $mail->SMTPAuth = true;           
+                $mail->Username = 'botecp@pcnone.com'; 
+                $mail->Password = 'adminecp1234';          
+                $mail->SMTPSecure = 'tls';                  
+                $mail->Port = 587;                          
             
-                </div>';
-     
-
-
+                $mail->setFrom('botecp@pcnone.com', 'Your Name');
+                $mail->addAddress('recipient@example.com', 'Recipient Name');
+                $mail->Subject = 'Test Email';
+                $mail->Body    = 'This is the email body.';
+            
                 $mail->send();
-                echo '<script type="text/javascript">
-                        window.close();
-                      </script>';
-
+                echo 'Message has been sent';
             } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            }
-            // ตรวจสอบว่าค่าจากฟอร์มครบหรือไม่
-            if (empty($email)) {
-                throw new Exception("กรุณากรอกอีเมล");
+                echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
             }
 
         //     // คำสั่ง SQL สำหรับบันทึกข้อมูล
