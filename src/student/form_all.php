@@ -409,7 +409,7 @@ function getNameByEmail($pdo, $email)
 
 
                             <!-- ตาราง RE06 -->
-                            <div class="p-4 rounded-lg bg-gray-50" id="re06" role="tabpanel">
+                            <div class="hidden p-4 rounded-lg bg-gray-50" id="re06" role="tabpanel" aria-labelledby="re06-tab">
                                 <!-- Filter -->
                                 <div class="flex items-center gap-4 mb-4 justify-center">
                                     <div>
