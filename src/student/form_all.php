@@ -356,209 +356,125 @@ function getNameByEmail($pdo, $email)
 
 
 
+<!-- ตาราง RE06 -->
+<div class="p-4 rounded-lg bg-gray-50" id="re06" role="tabpanel">
+    <!-- Filter -->
+    <div class="flex items-center gap-4 mb-4 justify-center">
+        <div>
+            <label class="mr-2">สถานะคำร้อง:</label>
+            <select id="statusFilter2" class="border px-3 py-2 rounded">
+                <option value="" disabled selected>เลือกสถานะคำร้อง</option>
+                <option value="null">รอดำเนินการ</option>
+                <option value="1">อาจารย์ประจำรายวิชาพิจารณาแล้ว</option>
+            </select>
+        </div>
+        <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters2()">ล้างข้อมูล</button>
+    </div>
 
-                            <div class="hidden p-4 rounded-lg bg-gray-50" id="re06" role="tabpanel" aria-labelledby="re06-tab">
-                                <!-- Filters -->
-                                <div class="flex items-center gap-4 mb-4 justify-center">
-                                    <div>
-                                        <label class="mr-2">สถานะคำร้อง:</label>
-                                        <select id="statusFilter2" class="border px-3 py-2 rounded">
-                                            <option value="" disabled selected>เลือกสถานะคำร้อง</option>
-                                            <option value="null">รอดำเนินการ</option>
-                                            <option value="1">อาจารย์ประจำรายวิชาพิจารณาแล้ว</option>
-                                        </select>
-                                    </div>
-                                    <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters2()">ล้างข้อมูล</button>
-                                </div>
+    <!-- Table -->
+    <table class="min-w-full table-auto border-collapse rounded-[12px]">
+        <thead class="bg-orange-500 text-white text-center shadow-md">
+            <tr>
+                <th class="px-4 py-2">เลขคำร้อง</th>
+                <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
+                <th class="px-4 py-2">รายวิชา</th>
+                <th class="px-4 py-2">กลุ่มเรียน</th>
+                <th class="px-4 py-2">สถานะคำร้อง</th>
+                <th class="px-4 py-2">จัดการ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            try {
+                $stmt2 = $pdo->prepare("SELECT * FROM form_re06 WHERE email = :email ORDER BY form_id DESC");
+                $stmt2->execute(['email' => $email]);
+                $forms2 = $stmt2->fetchAll();
+            } catch (PDOException $e) {
+                echo "Database error: " . $e->getMessage();
+                exit;
+            }
 
-                                <!-- Table -->
-                                <table class="min-w-full table-auto border-collapse rounded-[12px]">
-                                    <thead class="bg-orange-500 text-white text-center shadow-md">
-                                        <tr>
-                                            <th class="px-4 py-2">เลขคำร้อง</th>
-                                            <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
-                                            <!-- <th class="px-4 py-2">ชื่อ - สกุล</th> -->
-                                            <th class="px-4 py-2">รายวิชา</th>
-                                            <th class="px-4 py-2">กลุ่มเรียน</th>
-                                            <th class="px-4 py-2">สถานะคำร้อง</th>
-                                            <th class="px-4 py-2">จัดการ</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        // การดึงข้อมูลจากฐานข้อมูล
-                                        try {
-                                            $stmt2 = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, 
-                                            c.course_nameTH, c.credits
-                                            FROM form_re06 AS f
-                                            LEFT JOIN course AS c ON f.course_id = c.course_id
-                                            WHERE f.email = :email
-                                            ORDER BY form_id DESC");
-                                            $stmt2->execute(['email' => $email]);
-                                            $forms2 = $stmt2->fetchAll();
-                                        } catch (PDOException $e) {
-                                            echo "Database error: " . $e->getMessage();
-                                            exit;
-                                        }
+            if (!empty($forms2)) :
+                foreach ($forms2 as $row2) :
+                    $statusText = $row2['status'] === null ? 'รอดำเนินการ' : ($row2['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ');
+                    $statusClass = $row2['status'] === null ? 'text-gray-600' : ($row2['status'] == 1 ? 'text-green-600' : 'text-orange-600');
+            ?>
+                    <tr data-status="<?= $row2['status'] === null ? 'null' : $row2['status'] ?>">
+                        <td class="text-center px-4 py-2"><?= 'RE.06-' . $row2['form_id'] ?></td>
+                        <td class="text-center px-4 py-2"><?= $row2['term'] ?> / <?= $row2['year'] ?></td>
+                        <td class="px-4 py-2"><?= $row2['course_id'] ?> <?= $row2['course_nameTH'] ?> (<?= $row2['credits'] ?> หน่วยกิต)</td>
+                        <td class="text-center px-4 py-2"><?= $row2['group'] ?? '-' ?></td>
+                        <td class="text-center px-4 py-2 <?= $statusClass ?>"><?= $statusText ?></td>
+                        <td class="text-center px-4 py-2">
+                            <button class="open-modal2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
+                                data-form-id="<?= $row2['form_id'] ?>"
+                                data-term="<?= $row2['term'] ?>"
+                                data-year="<?= $row2['year'] ?>"
+                                data-reason="<?= htmlspecialchars($row2['reason']) ?>"
+                                data-group="<?= htmlspecialchars($row2['group'] ?? '-') ?>"
+                                data-course-id="<?= $row2['course_id'] ?>"
+                                data-counter="<?= $row2['coutter'] ?? '-' ?>"
+                                data-reg-status="<?= $row2['reg_status'] ?? '-' ?>"
+                                data-comment-teacher="<?= $row2['comment_teacher'] ?? '-' ?>"
+                                data-teacher-email="<?= $row2['teacher_email'] ?? '-' ?>">
+                                ดูรายละเอียด
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach;
+            else : ?>
+                <tr>
+                    <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
 
-                                        if (!empty($forms2)): ?>
-                                            <?php foreach ($forms2 as $row2): ?>
-                                                <tr data-status="<?= $row2['status'] === null ? 'null' : $row2['status'] ?>">
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
-                                                    <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row2['email'])) ?></td> -->
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'] . ' / ' . $row2['year']) ?></td>
-                                                    <td class="px-4 py-2"><?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['group'] ?? $row2['academic_group']) ?></td>
-                                                    <td class="px-4 py-2 text-center <?= $row2['status'] === null ? 'text-gray-600' : ($row2['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
-                                                        <?= $row2['status'] === null ? 'รอดำเนินการ' : ($row2['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
-                                                    </td>
-                                                    <?php
-                                                    try {
-                                                        // ดึงชื่ออาจารย์รายวิชา
-                                                        $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
-                                                        $stmt->execute(['email' => $row2['teacher_email']]);
-                                                        $course_instructor = $stmt->fetch(PDO::FETCH_ASSOC);
-                                                    } catch (PDOException $e) {
-                                                        $course_instructor['name'] = 'เกิดข้อผิดพลาด';
-                                                        error_log("PDO Error: " . $e->getMessage());
-                                                    }
+    <!-- Modal -->
+    <div id="detailModal2" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-xl w-[90%] max-w-2xl p-6 relative">
+            <button id="closeModal2" class="absolute top-3 right-4 text-gray-600 hover:text-red-500 text-2xl">&times;</button>
+            <h2 class="text-2xl text-center font-semibold text-orange-600 mb-6">รายละเอียดคำร้อง</h2>
 
-                                                    ?>
-                                                    <td>
-                                                        <button
-                                                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal2"
-                                                            data-form-id="<?= $row2['form_id'] ?>"
-                                                            data-term="<?= $row2['term'] ?>"
-                                                            data-year="<?= $row2['year'] ?>"
-                                                            data-reason="<?= htmlspecialchars($row2['reason']) ?>"
-                                                            data-group="<?= htmlspecialchars($row2['group'] ?? $row2['academic_group']) ?>"
-                                                            data-course-id="<?= htmlspecialchars($row2['course_id']) ?>"
-                                                            data-counter="<?= htmlspecialchars($row2['coutter']) ?>"
-                                                            data-reg-status="<?= htmlspecialchars($row2['reg_status']) ?>"
-                                                            data-comment-teacher="<?= htmlspecialchars($row2['comment_teacher']) ?>"
-                                                            data-teacher-email="<?= htmlspecialchars($row2['teacher_email']) ?>">
-                                                            ดูรายละเอียด
-                                                        </button>
-                                                    </td>
+            <div class="space-y-3 text-base">
+                <p><strong>ID คำร้อง:</strong> <span id="modalFormId2"></span></p>
+                <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear"></span></p>
+                <p><strong>เหตุผลหลัก:</strong> <span id="modalReason"></span></p>
+                <p><strong>กลุ่มเรียน:</strong> <span id="modalGroup"></span></p>
+                <p><strong>รหัสรายวิชา:</strong> <span id="modalCourseId"></span></p>
+                <p><strong>ยอดลงทะเบียน:</strong> <span id="modalCounter"></span></p>
+                <p><strong>เหตุผลเนื่องจาก:</strong> <span id="modalRegStatus"></span></p>
+                <p><strong>ความคิดเห็นของอาจารย์:</strong> <span id="modalCommentTeacher"></span></p>
+                <p><strong>อีเมลอาจารย์:</strong> <span id="modalTeacherEmail"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- JavaScript (ไว้ท้ายสุดของไฟล์) -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.open-modal2').forEach(button => {
+        button.addEventListener('click', function () {
+            document.getElementById('modalFormId2').textContent = 'RE.06-' + this.dataset.formId;
+            document.getElementById('modalTermYear').textContent = this.dataset.term + ' / ' + this.dataset.year;
+            document.getElementById('modalReason').textContent = this.dataset.reason || '-';
+            document.getElementById('modalGroup').textContent = this.dataset.group || '-';
+            document.getElementById('modalCourseId').textContent = this.dataset.courseId || '-';
+            document.getElementById('modalCounter').textContent = this.dataset.counter || '-';
+            document.getElementById('modalRegStatus').textContent = this.dataset.regStatus || '-';
+            document.getElementById('modalCommentTeacher').textContent = this.dataset.commentTeacher || '-';
+            document.getElementById('modalTeacherEmail').textContent = this.dataset.teacherEmail || '-';
 
+            document.getElementById('detailModal2').classList.remove('hidden');
+        });
+    });
 
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <tr>
-                                                <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
-                                            </tr>
-                                        <?php endif; ?>
-                                    </tbody>
-                                </table>
-                                <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
-                                <div id="noDataMessage2" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
-                                <br>
-
-                            </div>
-
-                            <!-- Modal Background -->
-                            <div id="detailModal2" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
-
-                                <!-- Modal Content -->
-                                <div id="modalContent2" class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
-                                    <button id="closeModal2" class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
-                                    <h2 class="text-2xl font-semibold text-center mb-6 text-orange-600">รายละเอียดคำร้อง</h2>
-
-                                    <div class="space-y-4 text-base">
-                                        <p><strong>ID คำร้อง:</strong> <span id="modalFormId2"></span></p>
-                                        <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear"></span></p>
-                                        <p><strong>เหตุผลหลัก:</strong> <span id="modalReason"></span></p>
-                                        <p><strong>กลุ่มเรียน:</strong> <span id="modalGroup"></span></p>
-                                        <p><strong>รหัสรายวิชา:</strong> <span id="modalCourseId"></span></p>
-                                        <p><strong>ยอดลงทะเบียน:</strong> <span id="modalCounter"></span></p>
-                                        <p><strong>เหตุผลเนื่องจาก:</strong> <span id="modalRegStatus"></span></p>
-                                        <p><strong>ความคิดเห็นของอาจารย์:</strong> <span id="modalCommentTeacher"></span></p>
-                                        <p><strong>อีเมลอาจารย์:</strong> <span id="modalTeacherEmail"></span></p>
-                                    </div>
-                                    <div id="statusStepper2" class="flex justify-between items-center my-4">
-                                        <!-- Step 1 -->
-                                        <div class="flex flex-col items-center">
-                                            <div id="step1Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
-                                            <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณาคำร้อง</span>
-                                        </div>
-
-                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line1"></div>
-
-                                        <!-- Step 2 -->
-                                        <div class="flex flex-col items-center">
-                                            <div id="step2Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
-                                            <span class="mt-1 text-sm text-gray-600 text-center">ที่ปรึกษาพิจารณาแล้ว</span>
-                                        </div>
-
-                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line2"></div>
-
-                                        <!-- Step 3 -->
-                                        <div class="flex flex-col items-center">
-                                            <div id="step3Circle" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
-                                            <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- แถบสถานะ RE06 -->
-                            <script>
-                                function updateStatusStepper2(status) {
-                                    const steps = [{
-                                            circle: 'step1Circle',
-                                            line: 'line1'
-                                        },
-                                        {
-                                            circle: 'step2Circle',
-                                            line: 'line2'
-                                        }
-                                    ];
-
-                                    steps.forEach((step, i) => {
-                                        // อัปเดตวงกลม
-                                        document.getElementById(step.circle).className =
-                                            'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
-                                            (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
-
-                                        // อัปเดตเส้นเชื่อม
-                                        if (step.line) {
-                                            document.getElementById(step.line).className =
-                                                'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
-                                        }
-                                    });
-                                }
-
-                                // ใช้เมื่อเปิด modal:
-                                document.querySelectorAll('.open-modal2').forEach(btn => {
-                                    btn.addEventListener('click', function() {
-                                        const status = parseInt(this.closest('tr').dataset.status) || 0;
-                                        updateStatusStepper2(status);
-                                    });
-                                });
-                            </script>
-                            <script>
-                                document.querySelectorAll('.open-modal2').forEach(button => {
-                                    button.addEventListener('click', function() {
-                                        document.getElementById('modalFormId2').textContent = 'RE.06-' + this.dataset.formId;
-                                        document.getElementById('modalTermYear').textContent = this.dataset.term + ' / ' + this.dataset.year;
-                                        document.getElementById('modalReason').textContent = this.dataset.reason || '-';
-                                        document.getElementById('modalGroup').textContent = this.dataset.group || '-';
-                                        document.getElementById('modalCourseId').textContent = this.dataset.courseId;
-                                        document.getElementById('modalCounter').textContent = this.dataset.counter || '-';
-                                        document.getElementById('modalRegStatus').textContent = this.dataset.regStatus || '-';
-                                        document.getElementById('modalCommentTeacher').textContent = this.dataset.commentTeacher || '-';
-                                        document.getElementById('modalTeacherEmail').textContent = this.dataset.teacherEmail || '-';
-
-                                        document.getElementById('detailModal2').classList.remove('hidden');
-                                    });
-                                });
-
-                                document.getElementById('closeModal2').addEventListener('click', function() {
-                                    document.getElementById('detailModal2').classList.add('hidden');
-                                });
-                            </script>
-
+    document.getElementById('closeModal2').addEventListener('click', function () {
+        document.getElementById('detailModal2').classList.add('hidden');
+    });
+});
+</script>
 
 
 
