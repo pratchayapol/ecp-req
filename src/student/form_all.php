@@ -282,15 +282,15 @@ function getNameByEmail($pdo, $email)
                                 function updateStatusStepper(status) {
                                     const steps = [{
                                             circle: 'step1Circle',
-                                            line: null
-                                        },
-                                        {
-                                            circle: 'step2Circle',
                                             line: 'line1'
                                         },
                                         {
-                                            circle: 'step3Circle',
+                                            circle: 'step2Circle',
                                             line: 'line2'
+                                        },
+                                        {
+                                            circle: 'step3Circle',
+                                            line: 'line3'
                                         }
                                     ];
 
