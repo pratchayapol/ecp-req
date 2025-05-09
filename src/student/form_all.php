@@ -379,7 +379,6 @@ function getNameByEmail($pdo, $email)
 
 
 
-
                             <!-- ตาราง RE06 -->
                             <div class="p-4 rounded-lg bg-gray-50" id="re06" role="tabpanel">
                                 <!-- Filter -->
@@ -455,7 +454,7 @@ function getNameByEmail($pdo, $email)
                                 </table>
 
                                 <!-- Modal -->
-                                <div id="detailModal2" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
+                                <div id="detailModal2" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
                                     <div class="bg-white rounded-xl w-[90%] max-w-2xl p-6 relative">
                                         <button id="closeModal2" class="absolute top-3 right-4 text-gray-600 hover:text-red-500 text-2xl">&times;</button>
                                         <h2 class="text-2xl text-center font-semibold text-orange-600 mb-6">รายละเอียดคำร้อง</h2>
