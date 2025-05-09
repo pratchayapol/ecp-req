@@ -362,9 +362,8 @@ function getNameByEmail($pdo, $email)
                                         <label class="mr-2">สถานะคำร้อง:</label>
                                         <select id="statusFilter2" class="border px-3 py-2 rounded">
                                             <option value="" disabled selected>เลือกสถานะคำร้อง</option>
-                                            <option value="">รอดำเนินการ</option>
-                                            <option value="1">อนุมัติ</option>
-                                            <option value="2">ไม่อนุมัติ</option>
+                                            <option value="null">รอดำเนินการ</option>
+                                            <option value="1">อาจารย์ประจำรายวิชาพิจารณาแล้ว</option>
                                         </select>
                                     </div>
                                     <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters2()">ล้างข้อมูล</button>
@@ -402,7 +401,7 @@ function getNameByEmail($pdo, $email)
 
                                         if (!empty($forms2)): ?>
                                             <?php foreach ($forms2 as $row2): ?>
-                                                <tr>
+                                                <tr data-status="<?= $row2['status'] === null ? 'null' : $row2['status'] ?>">
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
                                                     <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row2['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'] . ' / ' . $row2['year']) ?></td>
@@ -440,9 +439,9 @@ function getNameByEmail($pdo, $email)
                                         <label class="mr-2">สถานะคำร้อง:</label>
                                         <select id="statusFilter3" class="border px-3 py-2 rounded">
                                             <option value="" disabled selected>เลือกสถานะคำร้อง</option>
-                                            <option value="">รอดำเนินการ</option>
-                                            <option value="1">อนุมัติ</option>
-                                            <option value="2">ไม่อนุมัติ</option>
+                                            <option value="null">รอดำเนินการ</option>
+                                            <option value="1">ที่ปรึกษาพิจารณาแล้ว</option>
+                                            <option value="2">หัวหน้าสาขาพิจารณาแล้ว</option>
                                         </select>
                                     </div>
                                     <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters3()">ล้างข้อมูล</button>
@@ -482,7 +481,7 @@ function getNameByEmail($pdo, $email)
 
                                         if (!empty($forms3)): ?>
                                             <?php foreach ($forms3 as $row3): ?>
-                                                <tr>
+                                                <tr data-status="<?= $row3['status'] === null ? 'null' : $row3['status'] ?>">
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
                                                     <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
@@ -566,7 +565,7 @@ function getNameByEmail($pdo, $email)
                                 let noDataFound = true;
 
                                 rows.forEach(row => {
-                                    const status = row.dataset.status; // <-- ใช้ data-status ที่ฝังไว้
+                                    const status = row.dataset.status;
                                     let showRow = true;
 
                                     if (statusFilter1 && status !== statusFilter1) {
@@ -600,10 +599,10 @@ function getNameByEmail($pdo, $email)
                                 let noDataFound = true;
 
                                 rows.forEach(row => {
-                                    const status = row.cells[4].textContent.trim();
+                                    const status = row.dataset.status;
                                     let showRow = true;
 
-                                    if (statusFilter2 && !status.includes(statusFilter2)) {
+                                    if (statusFilter2 && status !== statusFilter2) {
                                         showRow = false;
                                     }
 
@@ -612,7 +611,9 @@ function getNameByEmail($pdo, $email)
                                 });
 
                                 const noDataMessage = document.getElementById('noDataMessage2');
-                                noDataMessage.style.display = noDataFound ? '' : 'none';
+                                if (noDataMessage) {
+                                    noDataMessage.style.display = noDataFound ? '' : 'none';
+                                }
                             }
 
                             function clearFilters2() {
@@ -631,10 +632,10 @@ function getNameByEmail($pdo, $email)
                                 let noDataFound = true;
 
                                 rows.forEach(row => {
-                                    const status = row.cells[4].textContent.trim();
+                                    const status = row.dataset.status;
                                     let showRow = true;
 
-                                    if (statusFilter3 && !status.includes(statusFilter3)) {
+                                    if (statusFilter3 && status !== statusFilter3) {
                                         showRow = false;
                                     }
 
@@ -643,8 +644,11 @@ function getNameByEmail($pdo, $email)
                                 });
 
                                 const noDataMessage = document.getElementById('noDataMessage3');
-                                noDataMessage.style.display = noDataFound ? '' : 'none';
+                                if (noDataMessage) {
+                                    noDataMessage.style.display = noDataFound ? '' : 'none';
+                                }
                             }
+
 
                             function clearFilters3() {
                                 document.getElementById('statusFilter3').value = '';
