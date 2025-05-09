@@ -663,11 +663,12 @@ function getNameByEmail($pdo, $email)
                                         // การดึงข้อมูลจากฐานข้อมูล
                                         try {
                                             $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit, reg_status, expected_graduation, advisor_comment, head_comment,
-                                            c.course_nameTH, c.credits
-                                            FROM form_re07 AS f
-                                            LEFT JOIN course AS c ON f.course_id = c.course_id
-                                            WHERE f.email = :email
-                                            ORDER BY form_id DESC");
+f.teacher_email, f.head_department,
+c.course_nameTH, c.credits
+FROM form_re07 AS f
+LEFT JOIN course AS c ON f.course_id = c.course_id
+WHERE f.email = :email
+ORDER BY form_id DESC");
                                             $stmt3->execute(['email' => $email]);
                                             $forms3 = $stmt3->fetchAll();
                                         } catch (PDOException $e) {
@@ -850,12 +851,21 @@ function getNameByEmail($pdo, $email)
                                 });
                             </script>
 
-
-
-
-
-
                         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         <script>
                             function selectTab() {
                                 // เมื่อมีการกดเลือก Tab ให้ซ่อนข้อความเตือน
