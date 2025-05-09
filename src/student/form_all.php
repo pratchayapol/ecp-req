@@ -308,7 +308,6 @@ function getNameByEmail($pdo, $email)
                                     });
                                 }
 
-
                                 // ใช้เมื่อเปิด modal:
                                 document.querySelectorAll('.open-modal').forEach(btn => {
                                     btn.addEventListener('click', function() {
