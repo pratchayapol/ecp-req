@@ -357,6 +357,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $mail = new PHPMailer(true);
 
             try {
+                // ตั้งค่าเซิร์ฟเวอร์ SMTP
                 $mail->CharSet = 'UTF-8';
                 $mail->isSMTP();
                 $mail->Host       = 'smtp.pcnone.com';
@@ -365,8 +366,9 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 $mail->Password   = '10,:,ANdIse';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
-            
-                $mail->setFrom('ecpreq@pcnone.com', 'ระบบยื่นคำร้อง...');
+
+                // ตั้งค่าข้อมูลอีเมล
+                $mail->setFrom('bot@pcnone.com', 'ระบบได้รับคำร้อง');
                 $mail->addAddress($email, 'BOT ของ PCNONE.COM');
                 $mail->isHTML(true);
                 $mail->Subject = 'ยืนยันการส่งคำร้องทั่วไป RE.01';
@@ -376,8 +378,19 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                     <p>รหัสติดตามคำร้องของคุณคือ: <strong>' . $token . '</strong></p>
                     <p>ขอบคุณที่ใช้ระบบคำร้องออนไลน์</p>
                 ';
-            
+
+
                 $mail->send();
+                echo "<script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'ส่งคำร้องเรียบร้อยแล้ว',
+                    text: 'ระบบได้ส่งอีเมลยืนยันไปยังคุณแล้ว',
+                }).then(() => {
+                    window.location.href = 'form_all';
+                });
+            </script>";
+            
             } catch (Exception $e) {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }
