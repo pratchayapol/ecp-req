@@ -301,11 +301,11 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
                         <div class="flex items-center gap-2">
                             <label class="block font-medium text-red-600">จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้ (รวมรายวิชาที่ขอเปิดด้วย) *</label>
-                            <input type="number" name="gpa_all" id="gpa_all" required step="0.01" min="1.75" max="4.00" class="border rounded px-2 py-1 w-20" />
+                            <input type="number" name="git_unit" id="git_unit" required step="0.01" min="1.75" max="4.00" class="border rounded px-2 py-1 w-20" />
                         </div>
 
                         <script>
-                            const gpaAllInput = document.getElementById('gpa_all');
+                            const gpaAllInput = document.getElementById('git_unit');
                             gpaAllInput.addEventListener('input', function() {
                                 let value = parseFloat(gpaAllInput.value);
                                 if (isNaN(value) || value < 1.75) {
@@ -535,7 +535,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $reason = $_POST['reason'] ?? '';
             $other_reason = $_POST['other_reason'] ?? null;
             $GPA = $_POST['GPA'] ?? '';
-            $gpa_all = $_POST['gpa_all'] ?? '';
+            $git_unit = $_POST['git_unit'] ?? '';
             $reg_status = $_POST['reg_status'] ?? '';
             $Yearend = $_POST['Yearend'] ?? '';
             $teacher_email       = $_POST['teacher_email'];
@@ -568,9 +568,9 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
             // เตรียมคำสั่ง SQL
             $stmt = $pdo->prepare("INSERT INTO form_re07 (
-            term, year, course_id, `Group`, reason, gpa, gpa_all, reg_status, expected_graduation, email, teacher_email, head_department, token, status
+            term, year, course_id, `Group`, reason, gpa, git_unit, reg_status, expected_graduation, email, teacher_email, head_department, token, status
         ) VALUES (
-            :term, :year, :course_id, :group, :reason, :GPA, :gpa_all, :reg_status, :Yearend, :email, :teacher_email, :head_department, :token, :status
+            :term, :year, :course_id, :group, :reason, :GPA, :git_unit, :reg_status, :Yearend, :email, :teacher_email, :head_department, :token, :status
         )");
 
             // bindParam และ execute
@@ -581,7 +581,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 ':group' => $academicGroup,
                 ':reason' => $final_reason,
                 ':GPA' => $GPA,
-                ':gpa_all' => $gpa_all,
+                ':git_unit' => $git_unit,
                 ':reg_status' => $reg_status,
                 ':Yearend' => $Yearend,
                 ':email' => $email,

@@ -735,6 +735,7 @@ function getNameByEmail($pdo, $email)
                                         <p><strong>กลุ่มเรียน:</strong> <span id="modalGroup3"></span></p>
                                         <p><strong>รหัสรายวิชา:</strong> <span id="modalCourseId3"></span></p>
                                         <p><strong>เกรดเฉลี่ยปัจจุบัน:</strong> <span id="modalGpa3"></span></p>
+                                        <p><strong>จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้:</strong> <span id="modalGit3"></span></p>
                                         <p><strong>หน่วยกิตที่ลงทะเบียน:</strong> <span id="modalGpaAll3"></span></p>
                                         <p><strong>ประเภทการลงทะเบียนเรียน:</strong> <span id="modalRegStatus3"></span></p>
                                         <p><strong>ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา:</strong> <span id="modalExpectedGraduation3"></span></p>
