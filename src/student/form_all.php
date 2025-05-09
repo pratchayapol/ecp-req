@@ -316,7 +316,41 @@ function getNameByEmail($pdo, $email)
                                     });
                                 });
                             </script>
+                            <!-- แถบสถานะ RE06 -->
+                            <script>
+                                function updateStatusStepper1(status) {
+                                    const steps = [{
+                                            circle: 'step1Circle',
+                                            line: 'line1'
+                                        },
+                                        {
+                                            circle: 'step2Circle',
+                                            line: 'line2'
+                                        }
+                                    ];
 
+                                    steps.forEach((step, i) => {
+                                        // อัปเดตวงกลม
+                                        document.getElementById(step.circle).className =
+                                            'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
+                                            (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
+
+                                        // อัปเดตเส้นเชื่อม
+                                        if (step.line) {
+                                            document.getElementById(step.line).className =
+                                                'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
+                                        }
+                                    });
+                                }
+
+                                // ใช้เมื่อเปิด modal:
+                                document.querySelectorAll('.open-modal2').forEach(btn => {
+                                    btn.addEventListener('click', function() {
+                                        const status = parseInt(this.closest('tr').dataset.status) || 0;
+                                        updateStatusStepper1(status);
+                                    });
+                                });
+                            </script>
                             <script>
                                 const modal = document.getElementById('detailModal1');
                                 const modalContent1 = document.getElementById('modalContent1');
