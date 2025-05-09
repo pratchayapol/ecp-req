@@ -355,8 +355,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 
-            // หรือสำหรับการใช้ฟังก์ชันภายนอก
-use function SomeNamespace\someFunction;
+            
             require __DIR__ . '/vendor/autoload.php'; // ปรับ path ถ้าไม่อยู่ใน root เดียวกัน
 
             use PHPMailer\PHPMailer\PHPMailer;
