@@ -381,15 +381,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
                 $mail->send();
-                echo "<script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'ส่งคำร้องเรียบร้อยแล้ว',
-                    text: 'ระบบได้ส่งอีเมลยืนยันไปยังคุณแล้ว',
-                }).then(() => {
-                    window.location.href = 'form_all';
-                });
-            </script>";
+                
             } catch (Exception $e) {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }
