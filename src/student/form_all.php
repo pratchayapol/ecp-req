@@ -697,8 +697,8 @@ function getNameByEmail($pdo, $email)
                                                             data-gpa-all="<?= $row3['gpa_all'] ?>"
                                                             data-reg-status="<?= htmlspecialchars($row3['reg_status']) ?>"
                                                             data-expected-graduation="<?= $row3['expected_graduation'] ?>"
-                                                            data-advisor-comment="<?= htmlspecialchars($row3['advisor_comment']) ?>"
-                                                            data-head-comment="<?= htmlspecialchars($row3['head_comment']) ?>"
+                                                            data-advisor-comment="<?= htmlspecialchars($row3['advisor_comment'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                            data-head-comment="<?= htmlspecialchars($row3['head_comment'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
                                                             data-teacher-email="<?= $row3['teacher_email'] ?>"
                                                             data-head-department="<?= $row3['head_department'] ?>"
                                                             data-status="<?= $row3['status'] === null ? 'null' : $row3['status'] ?>">
