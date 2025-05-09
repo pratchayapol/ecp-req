@@ -457,7 +457,7 @@ function getNameByEmail($pdo, $email)
                                                 $statusClass = $row2['status'] === null ? 'text-gray-600' : ($row2['status'] == 1 ? 'text-green-600' : 'text-orange-600');
                                         ?>
                                                 <tr data-status="<?= $row2['status'] === null ? 'null' : $row2['status'] ?>">
-                                                <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
                                                     <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row2['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'] . ' / ' . $row2['year']) ?></td>
                                                     <td class="px-4 py-2"><?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?></td>
@@ -476,7 +476,7 @@ function getNameByEmail($pdo, $email)
                                                             data-course-id="<?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?>"
                                                             data-counter="<?= $row2['coutter'] ?? '-' ?>"
                                                             data-reg-status="<?= $row2['reg_status'] ?? '-' ?>"
-                                                            data-comment-teacher="<?= $row2['comment_teacher'] ?? '-' ?>"
+                                                            data-comment-teacher="<?= $row2['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา' ?>"
                                                             data-teacher-email="<?= $row2['teacher_email'] ?? '-' ?>">
                                                             ดูรายละเอียด
                                                         </button>
@@ -500,12 +500,19 @@ function getNameByEmail($pdo, $email)
                                         <div class="space-y-3 text-base">
                                             <p><strong>ID คำร้อง:</strong> <span id="modalFormId2"></span></p>
                                             <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear"></span></p>
-                                            <p><strong>เหตุผลหลัก:</strong> <span id="modalReason"></span></p>
+                                            <p><strong>เหตุผล:</strong></p>
+                                            <textarea id="modalReason" readonly
+                                                class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100"
+                                                rows="2"></textarea>
                                             <p><strong>กลุ่มเรียน:</strong> <span id="modalGroup"></span></p>
                                             <p><strong>รหัสรายวิชา:</strong> <span id="modalCourseId"></span></p>
                                             <p><strong>ยอดลงทะเบียน:</strong> <span id="modalCounter"></span></p>
                                             <p><strong>เหตุผลเนื่องจาก:</strong> <span id="modalRegStatus"></span></p>
-                                            <p><strong>ความคิดเห็นของอาจารย์:</strong> <span id="modalCommentTeacher"></span></p>
+                                            <p><strong>ความคิดเห็นของอาจารย์:</strong></p>
+                                            <textarea id="modalCommentTeacher" readonly
+                                                class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100"
+                                                rows="2"></textarea>
+                                            
                                             <p><strong>อีเมลอาจารย์:</strong> <span id="modalTeacherEmail"></span></p>
                                         </div>
                                     </div>
