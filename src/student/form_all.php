@@ -678,7 +678,7 @@ ORDER BY form_id DESC");
 
                                         if (!empty($forms3)): ?>
                                             <?php foreach ($forms3 as $row3): ?>
-                                                <tr data-status="<?= $row3['status'] === null ? 'null' : $row3['status'] ?>">
+                                                <tr data-status="<?= is_null($row3['status']) ? '0' : $row3['status'] ?>">
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
                                                     <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
@@ -776,41 +776,66 @@ ORDER BY form_id DESC");
                                         <!-- Step 1 -->
                                         <div class="flex flex-col items-center">
                                             <div id="step1Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
-                                            <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ประจำวิชาพิจารณา</span>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณา</span>
                                         </div>
 
-                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line3"></div>
+                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line31"></div>
 
                                         <!-- Step 2 -->
                                         <div class="flex flex-col items-center">
                                             <div id="step2Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
-                                            <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณา</span>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ที่ปรึกษาพิจารณาแล้ว</span>
+                                        </div>
+
+                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line32"></div>
+
+                                        <!-- Step 3 -->
+                                        <div class="flex flex-col items-center">
+                                            <div id="step3Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- แถบสถานะ RE07 -->
                             <script>
                                 function updateStatusStepper3(status) {
-                                    const step1 = document.getElementById('step1Circle3');
-                                    const step2 = document.getElementById('step2Circle3');
-                                    const line = document.getElementById('line3');
+                                    const steps = [{
+                                            circle: 'step1Circle3',
+                                            line: 'line31'
+                                        },
+                                        {
+                                            circle: 'step2Circle3',
+                                            line: 'line32'
+                                        },
+                                        {
+                                            circle: 'step3Circle3',
+                                        }
+                                    ];
 
-                                    if (status === 0) {
-                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
-                                        line.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
-                                    } else if (status === 1) {
-                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
-                                        line.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
-                                    } else if (status === 2) {
-                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        line.className = 'flex-auto h-0.5 mx-1 bg-green-500';
-                                    }
+                                    steps.forEach((step, i) => {
+                                        // อัปเดตวงกลม
+                                        document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
+                                            (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
+
+                                        // อัปเดตเส้นเชื่อม
+                                        if (step.line) {
+                                            document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
+                                        }
+                                    });
                                 }
 
+                                // ใช้เมื่อเปิด modal:
+                                document.querySelectorAll('.open-modal3').forEach(btn => {
+                                    btn.addEventListener('click', function() {
+                                        const status = parseInt(this.closest('tr').dataset.status) || 0;
+                                        updateStatusStepper3(status);
+                                    });
+                                });
+                            </script>
+
+                            <script>
                                 document.addEventListener("DOMContentLoaded", function() {
                                     const modal = document.getElementById('detailModal3');
                                     const modalContent = document.getElementById('modalContent3');
