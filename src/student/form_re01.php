@@ -362,13 +362,13 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 $mail->isSMTP();
                 $mail->Host       = 'smtp.pcnone.com';
                 $mail->SMTPAuth   = true;
-                $mail->Username   = 'botpcnone@gmail.com';
-                $mail->Password   = 'tgmb eize qkun tcef';
+                $mail->Username   = 'ecpreq@pcnone.com';
+                $mail->Password   = 'adminecp12345';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
 
                 // ตั้งค่าข้อมูลอีเมล
-                $mail->setFrom('bot@pcnone.com', 'ระบบได้รับคำร้อง');
+                $mail->setFrom('ecpreq@pcnone.com', 'ระบบได้รับคำร้อง');
                 $mail->addAddress($email, 'BOT ของ PCNONE.COM');
                 $mail->isHTML(true);
                 $mail->Subject = 'ยืนยันการส่งคำร้องทั่วไป RE.01';
