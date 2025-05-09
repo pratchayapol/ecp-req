@@ -38,7 +38,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แบบฟอร์ม RE.01xxxxxxxxxxxxxxxxxxx</title>
+    <title>แบบฟอร์ม RE.01</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- FontAwesome (สำหรับไอคอน) -->
@@ -341,6 +341,58 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $email = $_SESSION['user']['email'];
             $teacher_email       = $_POST['teacher_email'];
             $head_department       = $_POST['head_department'];
+
+            // รวมไฟล์ PHPMailer
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+$mail = new PHPMailer(true);
+
+try {
+    // ตั้งค่าเซิร์ฟเวอร์ SMTP
+    $mail->CharSet = 'UTF-8';
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.gmail.com';
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'botpcnone@gmail.com';
+    $mail->Password   = 'tgmb eize qkun tcef';
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = 587;
+
+    // ตั้งค่าข้อมูลอีเมล
+    $mail->setFrom('bot@pcnone.com', 'ระบบ backup ฐานข้อมูลของ nueportfolio.kku.ac.th');
+    $mail->addAddress($email, 'BOT ของ PCNONE.COM');
+    $mail->isHTML(true);
+    $mail->Subject = 'Database Backup';
+    $mail->Body = '
+    <div style="font-family: Arial, sans-serif; color: #333;">
+        <h2 style="color: #4CAF50;">Database Backup</h2>
+        <p>ไฟล์ .sql ของ database <strong>nu_checklist</strong> พร้อมให้ดาวน์โหลดแล้ว</p><br>
+        <p>วันที่: ' . $date . '</p> <br>
+        <p>คุณสามารถจัดการฐานข้อมูลของคุณผ่าน phpMyAdmin ได้โดยคลิกลิงก์ด้านล่าง:</p>
+        <br>
+        <a href="https://datachecklist.pcnone.com" style="display: inline-block; padding: 12px 24px; background-color: #4CAF50; color: #ffffff; text-decoration: none; border-radius: 5px; font-size: 16px;">ไปที่ phpMyAdmin</a>
+        <br><br>
+
+    </div>';
+    $mail->addAttachment($backupFile);
+
+
+    $mail->send();
+    echo '<script type="text/javascript">
+            alert("ส่งอีเมลสำเร็จ");
+            window.close();
+          </script>';
+    // ลบไฟล์ backup หลังจากส่งอีเมลเสร็จ
+    unlink($backupFile);
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+
             // ตรวจสอบว่าค่าจากฟอร์มครบหรือไม่
             if (empty($email)) {
                 throw new Exception("กรุณากรอกอีเมล");
