@@ -360,15 +360,15 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 // ตั้งค่าเซิร์ฟเวอร์ SMTP
                 $mail->CharSet = 'UTF-8';
                 $mail->isSMTP();
-                $mail->Host       = 'smtp.gmail.com';
+                $mail->Host       = 'mail.pcnone.com';
                 $mail->SMTPAuth   = true;
-                $mail->Username   = 'botpcnone@gmail.com';
-                $mail->Password   = 'tgmb eize qkun tcef';
+                $mail->Username   = 'botecp@pcnone.com';
+                $mail->Password   = 'ระบบยื่นคำร้องสาขาคอมพิวเตอร์';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
 
                 // ตั้งค่าข้อมูลอีเมล
-                $mail->setFrom('bot@pcnone.com', 'ระบบ backup ฐานข้อมูลของ nueportfolio.kku.ac.th');
+                $mail->setFrom('botecp@pcnone.com', 'ECP Online Petition');
                 $mail->addAddress($email, 'BOT ของ PCNONE.COM');
                 $mail->isHTML(true);
                 $mail->Subject = 'Database Backup';
