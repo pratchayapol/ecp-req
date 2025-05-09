@@ -506,7 +506,7 @@ function getNameByEmail($pdo, $email)
                                                 rows="2"></textarea>
                                             <p><strong>กลุ่มเรียน:</strong> <span id="modalGroup"></span></p>
                                             <p><strong>รหัสรายวิชา:</strong> <span id="modalCourseId"></span></p>
-                                            <p><strong>ยอดลงทะเบียน:</strong> <span id="modalCounter"></span></p>
+                                            <p><strong>ยอดลงทะเบียน:</strong> <span id="modalCounter"></span> <strong>คน</strong></p>
                                             <p><strong>ประเภทการลงทะเบียนเรียน:</strong> <span id="modalRegStatus"></span></p>
                                             <p><strong>ความคิดเห็นของอาจารย์:</strong></p>
                                             <textarea id="modalCommentTeacher" readonly
