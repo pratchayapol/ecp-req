@@ -146,7 +146,7 @@ function getNameByEmail($pdo, $email)
 
 
 
-                        
+
                         <div id="default-tab-content">
                             <p id="alert-message" class="text-red-500 font-bold text-center">โปรดเลือก Tab คำร้อง</p>
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re01" role="tabpanel" aria-labelledby="re01-tab">
@@ -438,7 +438,12 @@ function getNameByEmail($pdo, $email)
                                     <tbody>
                                         <?php
                                         try {
-                                            $stmt2 = $pdo->prepare("SELECT * FROM form_re06 WHERE email = :email ORDER BY form_id DESC");
+                                            $stmt2 = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, 
+                                            c.course_nameTH, c.credits
+                                            FROM form_re06 AS f
+                                            LEFT JOIN course AS c ON f.course_id = c.course_id
+                                            WHERE f.email = :email
+                                            ORDER BY form_id DESC");
                                             $stmt2->execute(['email' => $email]);
                                             $forms2 = $stmt2->fetchAll();
                                         } catch (PDOException $e) {
@@ -452,11 +457,15 @@ function getNameByEmail($pdo, $email)
                                                 $statusClass = $row2['status'] === null ? 'text-gray-600' : ($row2['status'] == 1 ? 'text-green-600' : 'text-orange-600');
                                         ?>
                                                 <tr data-status="<?= $row2['status'] === null ? 'null' : $row2['status'] ?>">
-                                                    <td class="text-center px-4 py-2"><?= 'RE.06-' . $row2['form_id'] ?></td>
-                                                    <td class="text-center px-4 py-2"><?= $row2['term'] ?> / <?= $row2['year'] ?></td>
-                                                    <td class="px-4 py-2"><?= $row2['course_id'] ?> <?= $row2['course_nameTH'] ?> (<?= $row2['credits'] ?> หน่วยกิต)</td>
-                                                    <td class="text-center px-4 py-2"><?= $row2['group'] ?? '-' ?></td>
+                                                <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
+                                                    <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row2['email'])) ?></td> -->
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'] . ' / ' . $row2['year']) ?></td>
+                                                    <td class="px-4 py-2"><?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?></td>
+                                                    <td class="text-center px-4 py-2"><?= $row2['Group'] ?? '-' ?></td>
                                                     <td class="text-center px-4 py-2 <?= $statusClass ?>"><?= $statusText ?></td>
+
+
+
                                                     <td class="text-center px-4 py-2">
                                                         <button class="open-modal2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
                                                             data-form-id="<?= $row2['form_id'] ?>"
