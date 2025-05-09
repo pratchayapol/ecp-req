@@ -660,7 +660,7 @@ function getNameByEmail($pdo, $email)
                                         <?php
                                         // การดึงข้อมูลจากฐานข้อมูล
                                         try {
-                                            $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit,
+                                            $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit, reg_status,
                                             c.course_nameTH, c.credits
                                             FROM form_re07 AS f
                                             LEFT JOIN course AS c ON f.course_id = c.course_id
@@ -735,9 +735,8 @@ function getNameByEmail($pdo, $email)
                                         <p><strong>กลุ่มเรียน:</strong> <span id="modalGroup3"></span></p>
                                         <p><strong>รหัสรายวิชา:</strong> <span id="modalCourseId3"></span></p>
                                         <p><strong>เกรดเฉลี่ยปัจจุบัน:</strong> <span id="modalGpa3"></span></p>
-                                        <p><strong>จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้:</strong> <span id="modalGit3"></span></p>
-                                        <p><strong>หน่วยกิตที่ลงทะเบียน:</strong> <span id="modalGpaAll3"></span></p>
-                                        <p><strong>ประเภทการลงทะเบียนเรียน:</strong> <span id="modalRegStatus3"></span></p>
+                                        <p><strong>จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้:</strong> <span id="modalGpaAll3"></span></p>
+                                        <p><strong>สถานภาพการลงทะเบียนเรียน:</strong> <span id="modalRegStatus3"></span></p>
                                         <p><strong>ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา:</strong> <span id="modalExpectedGraduation3"></span></p>
                                         <p><strong>ความคิดเห็นที่ปรึกษา:</strong></p>
                                         <textarea id="modalAdvisorComment3" readonly class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100" rows="2"></textarea>
