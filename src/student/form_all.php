@@ -280,7 +280,6 @@ function getNameByEmail($pdo, $email)
                             <!-- แถบสถานะ RE01 -->
                             <script>
                                 function updateStatusStepper(status) {
-                                    // เคลียร์ class ทั้งหมดก่อน
                                     const steps = [{
                                             circle: 'step1Circle',
                                             line: null
@@ -296,16 +295,19 @@ function getNameByEmail($pdo, $email)
                                     ];
 
                                     steps.forEach((step, i) => {
+                                        // อัปเดตวงกลม
                                         document.getElementById(step.circle).className =
                                             'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
                                             (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
 
+                                        // อัปเดตเส้นเชื่อม
                                         if (step.line) {
                                             document.getElementById(step.line).className =
-                                                'flex-auto h-0.5 mx-1 ' + (i <= status - 1 ? 'bg-green-500' : 'bg-gray-300');
+                                                'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
                                         }
                                     });
                                 }
+
 
                                 // ใช้เมื่อเปิด modal:
                                 document.querySelectorAll('.open-modal').forEach(btn => {
