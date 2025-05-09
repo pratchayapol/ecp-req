@@ -422,21 +422,23 @@ function getNameByEmail($pdo, $email)
                                                     }
 
                                                     ?>
-                                                    <button
-                                                        class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal"
-                                                        data-form-id="<?= $row2['form_id'] ?>"
-                                                        data-term="<?= $row2['term'] ?>"
-                                                        data-year="<?= $row2['year'] ?>"
-                                                        data-reason="<?= htmlspecialchars($row2['reason']) ?>"
-                                                        data-group="<?= htmlspecialchars($row2['group'] ?? $row2['academic_group']) ?>"
-                                                        data-course-id="<?= htmlspecialchars($row2['course_id']) ?>"
-                                                        data-counter="<?= htmlspecialchars($row2['coutter']) ?>"
-                                                        data-reg-status="<?= htmlspecialchars($row2['reg_status']) ?>"
-                                                        data-comment-teacher="<?= htmlspecialchars($row2['comment_teacher']) ?>"
-                                                        data-teacher-email="<?= htmlspecialchars($row2['teacher_email']) ?>">
-                                                        ดูรายละเอียด
-                                                    </button>
+                                                    <td>
+                                                        <button
+                                                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal"
+                                                            data-form-id="<?= $row2['form_id'] ?>"
+                                                            data-term="<?= $row2['term'] ?>"
+                                                            data-year="<?= $row2['year'] ?>"
+                                                            data-reason="<?= htmlspecialchars($row2['reason']) ?>"
+                                                            data-group="<?= htmlspecialchars($row2['group'] ?? $row2['academic_group']) ?>"
+                                                            data-course-id="<?= htmlspecialchars($row2['course_id']) ?>"
+                                                            data-counter="<?= htmlspecialchars($row2['coutter']) ?>"
+                                                            data-reg-status="<?= htmlspecialchars($row2['reg_status']) ?>"
+                                                            data-comment-teacher="<?= htmlspecialchars($row2['comment_teacher']) ?>"
+                                                            data-teacher-email="<?= htmlspecialchars($row2['teacher_email']) ?>">
+                                                            ดูรายละเอียด
+                                                        </button>
                                                     </td>
+                                                    
 
 
                                                 </tr>
