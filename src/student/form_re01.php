@@ -360,15 +360,15 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 // ตั้งค่าเซิร์ฟเวอร์ SMTP
                 $mail->CharSet = 'UTF-8';
                 $mail->isSMTP();
-                $mail->Host       = 'smtp.gmail.com';
+                $mail->Host       = 'smtp.pcnone.com';
                 $mail->SMTPAuth   = true;
-                $mail->Username   = 'botpcnone@gmail.com';
-                $mail->Password   = 'tgmb eize qkun tcef';
+                $mail->Username   = 'ecpreq@pcnone.com';
+                $mail->Password   = '10,:,ANdIse';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
 
                 // ตั้งค่าข้อมูลอีเมล
-                $mail->setFrom('bot@pcnone.com', 'ระบบ backup ฐานข้อมูลของ nueportfolio.kku.ac.th');
+                $mail->setFrom('ecpreq@pcnone.com', 'ระบบยื่นคำร้อง สาขาคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น');
                 $mail->addAddress($email, 'BOT ของ PCNONE.COM');
                 $mail->isHTML(true);
                 $mail->Subject = 'ยืนยันการส่งคำร้องทั่วไป RE.01';
@@ -390,7 +390,6 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                     window.location.href = 'form_all';
                 });
             </script>";
-            
             } catch (Exception $e) {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }
