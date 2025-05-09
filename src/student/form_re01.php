@@ -1,9 +1,11 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 session_start();
 include '../connect/dbcon.php';
+$date = date('Y-m-d H:i:s');
 
 
 // echo '<pre>';
@@ -347,51 +349,51 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $teacher_email       = $_POST['teacher_email'];
             $head_department       = $_POST['head_department'];
 
-            use PHPMailer\PHPMailer\PHPMailer;
-            use PHPMailer\PHPMailer\Exception;
-            
+
+
             require_once __DIR__ . '/../vendor/autoload.php';
+
+
+            $mail = new PHPMailer(true);
+
+            try {
+                // ตั้งค่าเซิร์ฟเวอร์ SMTP
+                $mail->CharSet = 'UTF-8';
+                $mail->isSMTP();
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'botpcnone@gmail.com';
+                $mail->Password   = 'tgmb eize qkun tcef';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port       = 587;
+
+                // ตั้งค่าข้อมูลอีเมล
+                $mail->setFrom('bot@pcnone.com', 'ระบบ backup ฐานข้อมูลของ nueportfolio.kku.ac.th');
+                $mail->addAddress($email, 'BOT ของ PCNONE.COM');
+                $mail->isHTML(true);
+                $mail->Subject = 'ยืนยันการส่งคำร้องทั่วไป RE.01';
+                $mail->Body = '
+                    <p>เรียนคุณ ' . htmlspecialchars($iname) . ',</p>
+                    <p>ระบบได้รับคำร้องของคุณในหัวข้อ: <strong>' . htmlspecialchars($title) . '</strong> เรียบร้อยแล้ว</p>
+                    <p>รหัสติดตามคำร้องของคุณคือ: <strong>' . $token . '</strong></p>
+                    <p>ขอบคุณที่ใช้ระบบคำร้องออนไลน์</p>
+                ';
+
+
+                $mail->send();
+                echo "<script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'ส่งคำร้องเรียบร้อยแล้ว',
+                    text: 'ระบบได้ส่งอีเมลยืนยันไปยังคุณแล้ว',
+                }).then(() => {
+                    window.location.href = 'form_all';
+                });
+            </script>";
             
-
-$mail = new PHPMailer(true);
-
-try {
-    // ตั้งค่าเซิร์ฟเวอร์ SMTP
-    $mail->CharSet = 'UTF-8';
-    $mail->isSMTP();
-    $mail->Host       = 'smtp.gmail.com';
-    $mail->SMTPAuth   = true;
-    $mail->Username   = 'botpcnone@gmail.com';
-    $mail->Password   = 'tgmb eize qkun tcef';
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = 587;
-
-    // ตั้งค่าข้อมูลอีเมล
-    $mail->setFrom('bot@pcnone.com', 'ระบบ backup ฐานข้อมูลของ nueportfolio.kku.ac.th');
-    $mail->addAddress($email, 'BOT ของ PCNONE.COM');
-    $mail->isHTML(true);
-    $mail->Subject = 'Database Backup';
-    $mail->Body = '
-    <div style="font-family: Arial, sans-serif; color: #333;">
-        <h2 style="color: #4CAF50;">Database Backup</h2>
-        <p>ไฟล์ .sql ของ database <strong>nu_checklist</strong> พร้อมให้ดาวน์โหลดแล้ว</p><br>
-        <p>วันที่: ' . $date . '</p> <br>
-        <p>คุณสามารถจัดการฐานข้อมูลของคุณผ่าน phpMyAdmin ได้โดยคลิกลิงก์ด้านล่าง:</p>
-        <br>
-        <a href="https://datachecklist.pcnone.com" style="display: inline-block; padding: 12px 24px; background-color: #4CAF50; color: #ffffff; text-decoration: none; border-radius: 5px; font-size: 16px;">ไปที่ phpMyAdmin</a>
-        <br><br>
-
-    </div>';
-
-    $mail->send();
-    echo '<script type="text/javascript">
-            alert("ส่งอีเมลสำเร็จ");
-            window.close();
-          </script>';
-
-} catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
 
             // ตรวจสอบว่าค่าจากฟอร์มครบหรือไม่
             if (empty($email)) {
