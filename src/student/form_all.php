@@ -572,7 +572,7 @@ function getNameByEmail($pdo, $email)
                                 document.querySelectorAll('.open-modal2').forEach(btn => {
                                     btn.addEventListener('click', function() {
                                         const status = parseInt(this.closest('tr').dataset.status) || 0;
-                                        updateStatusStepper1(status);
+                                        updateStatusStepper2(status);
                                     });
                                 });
                             </script>
