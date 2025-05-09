@@ -363,7 +363,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 $mail->Host       = 'smtp.pcnone.com';
                 $mail->SMTPAuth   = true;
                 $mail->Username   = 'ecpreq@pcnone.com';
-                $mail->Password   = '10,:,ANdIse';
+                $mail->Password   = 'adminecp12345';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
 
