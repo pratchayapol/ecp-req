@@ -231,7 +231,7 @@ function getNameByEmail($pdo, $email)
                                     <h2 class="text-2xl font-semibold text-center mb-6 text-orange-600">รายละเอียดคำร้อง</h2>
 
                                     <div class="space-y-4 text-base">
-                                        <p><strong>เลขคำร้อง:</strong> <span id="modalFormId"></span></p>
+                                        <p><strong>เลขคำร้อง:</strong> <span id="modalFormId1"></span></p>
                                         <p><strong>ชื่อ - สกุล นักศึกษา:</strong> <span id="modalName"></span></p>
                                         <p><strong>เรื่อง:</strong> <span id="modalTitle"></span></p>
                                         <p><strong>เรียน:</strong> <span id="modalTo"></span></p>
@@ -325,7 +325,7 @@ function getNameByEmail($pdo, $email)
                                 document.querySelectorAll('.open-modal1').forEach(button => {
                                     button.addEventListener('click', () => {
                                         // ใส่ข้อมูลใน modal
-                                        document.getElementById('modalFormId').textContent = 'RE.01-' + button.dataset.id;
+                                        document.getElementById('modalFormId1').textContent = 'RE.01-' + button.dataset.id;
                                         document.getElementById('modalName').textContent = button.dataset.name;
                                         document.getElementById('modalTitle').textContent = button.dataset.title;
                                         document.getElementById('modalTo').textContent = button.dataset.to;
@@ -465,7 +465,7 @@ function getNameByEmail($pdo, $email)
                                     <h2 class="text-2xl font-semibold text-center mb-6 text-orange-600">รายละเอียดคำร้อง</h2>
 
                                     <div class="space-y-4 text-base">
-                                        <p><strong>ID คำร้อง:</strong> <span id="modalFormId"></span></p>
+                                        <p><strong>ID คำร้อง:</strong> <span id="modalFormId2"></span></p>
                                         <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear"></span></p>
                                         <p><strong>เหตุผลหลัก:</strong> <span id="modalReason"></span></p>
                                         <p><strong>กลุ่มเรียน:</strong> <span id="modalGroup"></span></p>
@@ -504,7 +504,7 @@ function getNameByEmail($pdo, $email)
                             <script>
                                 document.querySelectorAll('.open-modal2').forEach(button => {
                                     button.addEventListener('click', function() {
-                                        document.getElementById('modalFormId').textContent = 'RE.06-' + this.dataset.formId;
+                                        document.getElementById('modalFormId2').textContent = 'RE.06-' + this.dataset.formId;
                                         document.getElementById('modalTermYear').textContent = this.dataset.term + ' / ' + this.dataset.year;
                                         document.getElementById('modalReason').textContent = this.dataset.reason || '-';
                                         document.getElementById('modalGroup').textContent = this.dataset.group || '-';
