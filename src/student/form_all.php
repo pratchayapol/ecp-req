@@ -223,7 +223,7 @@ function getNameByEmail($pdo, $email)
                             </div>
 
                             <!-- Modal Background -->
-                            <div id="detailModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
+                            <div id="detailModal1" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
 
                                 <!-- Modal Content -->
                                 <div id="modalContent" class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
@@ -318,7 +318,7 @@ function getNameByEmail($pdo, $email)
                             </script>
 
                             <script>
-                                const modal = document.getElementById('detailModal');
+                                const modal = document.getElementById('detailModal1');
                                 const modalContent = document.getElementById('modalContent');
                                 const closeModal = document.getElementById('closeModal');
 
@@ -410,9 +410,34 @@ function getNameByEmail($pdo, $email)
                                                     <td class="px-4 py-2 text-center <?= $row2['status'] === null ? 'text-gray-600' : ($row2['status'] == 1 ? 'text-green-600' : 'text-orange-600') ?>">
                                                         <?= $row2['status'] === null ? 'รอดำเนินการ' : ($row2['status'] == 1 ? 'อนุมัติแล้ว' : 'ไม่อนุมัติ') ?>
                                                     </td>
-                                                    <td class="px-4 py-2 text-center">
-                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">ดูรายละเอียด</button>
+                                                    <?php
+                                                    try {
+                                                        // ดึงชื่ออาจารย์รายวิชา
+                                                        $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                        $stmt->execute(['email' => $row2['teacher_email']]);
+                                                        $course_instructor = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                    } catch (PDOException $e) {
+                                                        $course_instructor['name'] = 'เกิดข้อผิดพลาด';
+                                                        error_log("PDO Error: " . $e->getMessage());
+                                                    }
+
+                                                    ?>
+                                                    <button
+                                                        class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal"
+                                                        data-form-id="<?= $row2['form_id'] ?>"
+                                                        data-term="<?= $row2['term'] ?>"
+                                                        data-year="<?= $row2['year'] ?>"
+                                                        data-reason="<?= htmlspecialchars($row2['reason']) ?>"
+                                                        data-group="<?= htmlspecialchars($row2['group'] ?? $row2['academic_group']) ?>"
+                                                        data-course-id="<?= htmlspecialchars($row2['course_id']) ?>"
+                                                        data-counter="<?= htmlspecialchars($row2['coutter']) ?>"
+                                                        data-reg-status="<?= htmlspecialchars($row2['reg_status']) ?>"
+                                                        data-comment-teacher="<?= htmlspecialchars($row2['comment_teacher']) ?>"
+                                                        data-teacher-email="<?= htmlspecialchars($row2['teacher_email']) ?>">
+                                                        ดูรายละเอียด
+                                                    </button>
                                                     </td>
+
 
                                                 </tr>
                                             <?php endforeach; ?>
@@ -429,7 +454,44 @@ function getNameByEmail($pdo, $email)
 
                             </div>
 
+                            <div id="detailModal2" class="fixed z-50 inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+                                <div class="bg-white rounded-xl shadow-lg w-11/12 md:w-2/3 lg:w-1/2 p-6 relative">
+                                    <h2 class="text-xl font-bold mb-4">รายละเอียดคำร้อง</h2>
+                                    <button id="closeModal" class="absolute top-3 right-3 text-gray-500 hover:text-red-600 text-2xl">&times;</button>
+                                    <div class="space-y-2">
+                                        <p><strong>ID คำร้อง:</strong> <span id="modalFormId"></span></p>
+                                        <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear"></span></p>
+                                        <p><strong>เหตุผลหลัก:</strong> <span id="modalReason"></span></p>
+                                        <p><strong>กลุ่มเรียน:</strong> <span id="modalGroup"></span></p>
+                                        <p><strong>รหัสรายวิชา:</strong> <span id="modalCourseId"></span></p>
+                                        <p><strong>ยอดลงทะเบียน:</strong> <span id="modalCounter"></span></p>
+                                        <p><strong>เหตุผลเนื่องจาก:</strong> <span id="modalRegStatus"></span></p>
+                                        <p><strong>ความคิดเห็นของอาจารย์:</strong> <span id="modalCommentTeacher"></span></p>
+                                        <p><strong>อีเมลอาจารย์:</strong> <span id="modalTeacherEmail"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                document.querySelectorAll('.open-modal').forEach(button => {
+                                    button.addEventListener('click', function() {
+                                        document.getElementById('modalFormId').textContent = 'RE.06-' + this.dataset.formId;
+                                        document.getElementById('modalTermYear').textContent = this.dataset.term + ' / ' + this.dataset.year;
+                                        document.getElementById('modalReason').textContent = this.dataset.reason || '-';
+                                        document.getElementById('modalGroup').textContent = this.dataset.group || '-';
+                                        document.getElementById('modalCourseId').textContent = this.dataset.courseId;
+                                        document.getElementById('modalCounter').textContent = this.dataset.counter || '-';
+                                        document.getElementById('modalRegStatus').textContent = this.dataset.regStatus || '-';
+                                        document.getElementById('modalCommentTeacher').textContent = this.dataset.commentTeacher || '-';
+                                        document.getElementById('modalTeacherEmail').textContent = this.dataset.teacherEmail || '-';
 
+                                        document.getElementById('detailModal2').classList.remove('hidden');
+                                    });
+                                });
+
+                                document.getElementById('closeModal').addEventListener('click', function() {
+                                    document.getElementById('detailModal2').classList.add('hidden');
+                                });
+                            </script>
 
 
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re07" role="tabpanel" aria-labelledby="re07-tab">
