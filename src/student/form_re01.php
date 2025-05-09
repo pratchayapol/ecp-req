@@ -38,7 +38,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แบบฟอร์ม RE.01</title>
+    <title>แบบฟอร์ม RE.01xxxxxxxxxxxxxxxxxxx</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- FontAwesome (สำหรับไอคอน) -->
