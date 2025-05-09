@@ -446,6 +446,12 @@ function getNameByEmail($pdo, $email)
                                             ORDER BY form_id DESC");
                                             $stmt2->execute(['email' => $email]);
                                             $forms2 = $stmt2->fetchAll();
+
+
+                                            // ดึงชื่ออาจารย์ประจำวิชา
+                                            $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                            $stmt->execute(['email' => $row2['teacher_email']]);
+                                            $CommentTeacher = $stmt->fetch(PDO::FETCH_ASSOC);
                                         } catch (PDOException $e) {
                                             echo "Database error: " . $e->getMessage();
                                             exit;
@@ -477,7 +483,7 @@ function getNameByEmail($pdo, $email)
                                                             data-counter="<?= $row2['coutter'] ?? '-' ?>"
                                                             data-reg-status="<?= $row2['reg_status'] ?? '-' ?>"
                                                             data-comment-teacher="<?= $row2['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา' ?>"
-                                                            data-teacher-email="<?= $row2['teacher_email'] ?? '-' ?>">
+                                                            data-teacher-email="<?= htmlspecialchars($CommentTeacher['name']) ?>">
                                                             ดูรายละเอียด
                                                         </button>
                                                     </td>
