@@ -738,12 +738,15 @@ function getNameByEmail($pdo, $email)
                                         <p><strong>จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้:</strong> <span id="modalGpaAll3"></span></p>
                                         <p><strong>สถานภาพการลงทะเบียนเรียน:</strong> <span id="modalRegStatus3"></span></p>
                                         <p><strong>ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา:</strong> <span id="modalExpectedGraduation3"></span></p>
+                                        <hr>
                                         <p><strong>ความคิดเห็นที่ปรึกษา:</strong></p>
                                         <textarea id="modalAdvisorComment3" readonly class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100" rows="2"></textarea>
+                                        <p><strong>อาจารย์ประจำวิชา:</strong> <span id="modalTeacherEmail3"></span></p>
+                                        <hr>
                                         <p><strong>ความคิดเห็นหัวหน้าสาขา:</strong></p>
                                         <textarea id="modalHeadComment3" readonly class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100" rows="2"></textarea>
-                                        <p><strong>อาจารย์ประจำวิชา:</strong> <span id="modalTeacherEmail3"></span></p>
                                         <p><strong>หัวหน้าสาขา:</strong> <span id="modalHeadDepartment3"></span></p>
+                                        <hr>
                                     </div>
                                     <div id="statusStepper3" class="flex justify-between items-center my-4">
                                         <!-- Step 1 -->
