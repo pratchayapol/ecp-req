@@ -499,7 +499,8 @@ function getNameByEmail($pdo, $email)
                                         <?php endif; ?>
                                     </tbody>
                                 </table>
-
+                                <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
+                                <div id="noDataMessage2" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
 
                                 <!-- Modal -->
                                 <div id="detailModal2" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
