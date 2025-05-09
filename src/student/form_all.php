@@ -560,6 +560,28 @@ function getNameByEmail($pdo, $email)
                             </script>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re07" role="tabpanel" aria-labelledby="re07-tab">
                                 <!-- Filters -->
                                 <div class="flex items-center gap-4 mb-4 justify-center">
