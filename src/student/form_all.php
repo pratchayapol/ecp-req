@@ -438,7 +438,7 @@ function getNameByEmail($pdo, $email)
                                     <tbody>
                                         <?php
                                         try {
-                                            $stmt2 = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `Group`, status, 
+                                            $stmt2 = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `Group`, status, reason,
                                             c.course_nameTH, c.credits
                                             FROM form_re06 AS f
                                             LEFT JOIN course AS c ON f.course_id = c.course_id
