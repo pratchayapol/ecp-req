@@ -336,13 +336,13 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 shuffle($characters);
                 return implode('', array_slice($characters, 0, $length));
             }
-           
+
             //แบบฟอร์มคำร้องทั่วไป RE.01
             // รับค่าจากฟอร์ม
             $title         = $_POST['title']; //เรื่อง
             $to            = $_POST['to']; //เรียน
             $faculty       = $_POST['faculty']; //คณะ
-            $field         = $_POST['field'];//สาขาวิชา
+            $field         = $_POST['field']; //สาขาวิชา
             $course_level  = $_POST['course_level']; //ชั้นปีที่
             $request       = $_POST['request']; //มีความประสงค์
             $teacher_email       = $_POST['teacher_email']; //เมลที่ปรึกษา
@@ -370,18 +370,35 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 $mail->Subject = 'Test Email';
                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
+                $mail->isHTML(true);
+
                 $mail->Body = '
-    <div style="font-family: Arial, sans-serif; background-color: #f4f8fb; padding: 20px; border-radius: 8px; color: #333;">
-        <h2 style="color: #2c82c9;">📨 แจ้งเตือนจากระบบส่งอีเมล</h2>
-        <p>สวัสดีครับ,</p>
-        <p>นี่คือข้อความจากระบบทดสอบการส่งอีเมลผ่าน <strong>PHPMailer</strong>:</p>
-        <div style="background-color: #fff; padding: 15px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
-            This is the email body.<br>
-            คุณสามารถปรับแต่งข้อความนี้ตามต้องการ
-        </div>
-        <p style="margin-top: 20px;">ขอบคุณที่ใช้บริการ<br><strong>ทีมพัฒนา</strong></p>
-    </div>
-';
+                    <div style="font-family: Tahoma, sans-serif; background-color: #1a1a1a; padding: 20px; border-radius: 10px; color: #f0f0f0;">
+                        <h2 style="color: #ffa500;">📄 แบบฟอร์มคำร้องทั่วไป (RE.01)</h2>
+                        <p style="margin-top: 10px;">เรียน <strong>' . htmlspecialchars($to) . '</strong>,</p>
+                
+                        <div style="margin-top: 15px; padding: 15px; background-color: #2a2a2a; border-left: 4px solid #ffa500;">
+                            <p><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
+                            <p><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
+                            <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
+                            <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
+                            <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request)) . '</p>
+                        </div>
+                
+                        <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
+                        📧 <strong>อีเมลหัวหน้าสาขา:</strong> ' . htmlspecialchars($head_department) . '</p>
+                
+                        <div style="margin-top: 30px;">
+                            <a href="https://ecpreq.pcnone.com/sendmail_re1-1?token=' . urlencode($token) . '" 
+                                style="display: inline-block; padding: 12px 20px; background-color: #ffa500; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold;">
+                                ✅ คลิกเพื่อดำเนินการ
+                            </a>
+                        </div>
+                
+                        <p style="margin-top: 30px; font-size: 12px; color: #888;">หากคุณไม่ได้ร้องขออีเมลนี้ กรุณาละเว้นข้อความนี้</p>
+                    </div>
+                ';
+
 
 
                 $mail->send();
