@@ -374,7 +374,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 $mail->Body = '
                     <div style="font-family: Tahoma, sans-serif; background-color: #1a1a1a; padding: 20px; border-radius: 10px; color: #f0f0f0;">
-                        <h2 style="color: #ffa500;">📄 แบบฟอร์มคำร้องทั่วไป (RE.01)</h2>
+                        <h2 style="color: #ffa500;">📄 ยี่นคำร้องทั่วไป (RE.01) ของ '.$iname.'</h2>
                         <p style="margin-top: 10px;">เรียน <strong>' . htmlspecialchars($to) . '</strong>,</p>
                 
                         <div style="margin-top: 15px; padding: 15px; background-color: #2a2a2a; border-left: 4px solid #ffa500;">
