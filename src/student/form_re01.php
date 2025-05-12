@@ -374,10 +374,11 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 $mail->Body = '
                     <div style="font-family: Tahoma, sans-serif; background-color: #1a1a1a; padding: 20px; border-radius: 10px; color: #f0f0f0;">
-                        <h2 style="color: #ffa500;">📄 ยี่นคำร้องทั่วไป (RE.01) ของ '.$iname.'</h2>
+                        <h2 style="color: #ffa500;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
                         <p style="margin-top: 10px;">เรียน <strong>' . htmlspecialchars($to) . '</strong>,</p>
                 
                         <div style="margin-top: 15px; padding: 15px; background-color: #2a2a2a; border-left: 4px solid #ffa500;">
+                        <p><strong>ชื่อผู้ร้อง:</strong> ' . htmlspecialchars($iname) . '</p>
                             <p><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
                             <p><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
                             <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
@@ -407,29 +408,29 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
             }
 
-                // คำสั่ง SQL สำหรับบันทึกข้อมูล
-                $sql = "INSERT INTO form_re01 (title, `to`, email, faculty, field, course_level, request_text, teacher_email, head_department, token)
+            // คำสั่ง SQL สำหรับบันทึกข้อมูล
+            $sql = "INSERT INTO form_re01 (title, `to`, email, faculty, field, course_level, request_text, teacher_email, head_department, token)
             VALUES (:title, :to, :email, :faculty, :field, :course_level, :request, :teacher_email, :head_department, :token)";
 
 
-                // เตรียมการ query
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([
-                    ':title'        => $title,
-                    ':to'           => $to,
-                    ':email'        => $email,
-                    ':faculty'      => $faculty,
-                    ':field'        => $field,
-                    ':course_level' => $course_level,
-                    ':request'      => $request,
-                    ':teacher_email'      => $teacher_email,
-                    ':head_department'      => $head_department,
-                    ':token'      => $token
-                ]);
+            // เตรียมการ query
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ':title'        => $title,
+                ':to'           => $to,
+                ':email'        => $email,
+                ':faculty'      => $faculty,
+                ':field'        => $field,
+                ':course_level' => $course_level,
+                ':request'      => $request,
+                ':teacher_email'      => $teacher_email,
+                ':head_department'      => $head_department,
+                ':token'      => $token
+            ]);
 
-                // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน
-                echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
-                echo "
+            // ทำให้แน่ใจว่าไม่มีการแสดง HTML หรือ JavaScript อื่น ๆ ก่อน
+            echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
+            echo "
             <script>
             Swal.fire({
                 title: 'สำเร็จ!',
@@ -442,8 +443,8 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             });
             </script>
             ";
-                echo "</body></html>";
-                exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
+            echo "</body></html>";
+            exit; // ปิด script ทันทีหลังจากเรียกใช้ SweetAlert2
         } catch (PDOException $e) {
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
             echo "<script>
