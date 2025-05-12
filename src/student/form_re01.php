@@ -357,14 +357,14 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $mail = new PHPMailer(true);
 
             try {
-                // ตั้งค่าการส่งอีเมล เช่น SMTP, จาก, ถึง, หัวข้อ, เนื้อหา ฯลฯ
+                $mail->CharSet = 'UTF-8';
                 $mail->isSMTP();
-                $mail->Host = 'mail.pcnone.com';  
-                $mail->SMTPAuth = true;           
-                $mail->Username = 'botecp@pcnone.com'; 
-                $mail->Password = 'adminecp1234';          
-                $mail->SMTPSecure = 'tls';                  
-                $mail->Port = 587;                          
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'botpcnone@gmail.com';
+                $mail->Password   = 'lbro evfy ipng zpqf';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port       = 587;                          
             
                 $mail->setFrom('botecp@pcnone.com', 'Your Name');
                 $mail->addAddress('recipient@example.com', 'Recipient Name');
