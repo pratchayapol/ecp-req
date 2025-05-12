@@ -367,39 +367,39 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
                 $mail->addAddress($teacher_email, 'อาจารย์ที่ปรึกษา');
-                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ '.$iname.'';
+                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . $iname . '';
                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
                 $mail->isHTML(true);
 
                 $mail->Body = '
-                    <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0;">
-                        <h2 style="color: #ffa500;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
-                        <p style="margin-top: 10px;">เรียน <strong>' . htmlspecialchars($to) . '</strong>,</p>
-                
-                        <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500;">
-                            <p><strong>ชื่อ:</strong> ' . htmlspecialchars($iname) . '</p>
-                            <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($id) . '</p>
-                            <p><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
-                            <p><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
-                            <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
-                            <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
-                            <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request)) . '</p>
-                        </div>
-                
-                        <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
-                        📧 <strong>อีเมลหัวหน้าสาขา:</strong> ' . htmlspecialchars($head_department) . '</p>
-                
-                        <div style="margin-top: 30px;">
-                            <a href="https://ecpreq.pcnone.com/sendmail_re1-1?token=' . urlencode($token) . '" 
-                                style="display: inline-block; padding: 12px 20px; background-color: #ffa500; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold;">
-                                ✅ คลิกเพื่อดำเนินการ
-                            </a>
-                        </div>
-                
-                        <p style="margin-top: 30px; font-size: 12px; color: #888;">หากคุณไม่ได้ร้องขออีเมลนี้ กรุณาละเว้นข้อความนี้</p>
+                <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
+                    <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
+                    <p style="margin-top: 10px;">เรียน <strong>' . htmlspecialchars($to) . '</strong>,</p>
+            
+                    <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500; color: #000;">
+                        <p><strong>ชื่อ:</strong> ' . htmlspecialchars($iname) . '</p>
+                        <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($id) . '</p>
+                        <p><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
+                        <p><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
+                        <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
+                        <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
+                        <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request)) . '</p>
                     </div>
-                ';
+            
+                    <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
+                    📧 <strong>อีเมลหัวหน้าสาขา:</strong> ' . htmlspecialchars($head_department) . '</p>
+            
+                    <div style="margin-top: 30px;">
+                        <a href="https://ecpreq.pcnone.com/sendmail_re1-1?token=' . urlencode($token) . '" 
+                            style="display: inline-block; padding: 12px 20px; background-color: #ffa500; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px;">
+                            ✅ คลิกเพื่อดำเนินการ
+                        </a>
+                    </div>
+            
+                    <p style="margin-top: 30px; font-size: 14px; color: #888;">หากคุณไม่ได้ร้องขออีเมลนี้ กรุณาละเว้นข้อความนี้</p>
+                </div>
+            ';
 
 
 
