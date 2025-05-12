@@ -336,19 +336,18 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 shuffle($characters);
                 return implode('', array_slice($characters, 0, $length));
             }
-
-            $token = generateToken();
+           
+            //แบบฟอร์มคำร้องทั่วไป RE.01
             // รับค่าจากฟอร์ม
-            $title         = $_POST['title'];
-            $to            = $_POST['to'];
-            $faculty       = $_POST['faculty'];
-            $field         = $_POST['field'];
-            $course_level  = $_POST['course_level'];
-            $request       = $_POST['request'];
-            $email = $_SESSION['user']['email'];
-            $teacher_email       = $_POST['teacher_email'];
-            $head_department       = $_POST['head_department'];
-
+            $title         = $_POST['title']; //เรื่อง
+            $to            = $_POST['to']; //เรียน
+            $faculty       = $_POST['faculty']; //คณะ
+            $field         = $_POST['field'];//สาขาวิชา
+            $course_level  = $_POST['course_level']; //ชั้นปีที่
+            $request       = $_POST['request']; //มีความประสงค์
+            $teacher_email       = $_POST['teacher_email']; //เมลที่ปรึกษา
+            $head_department       = $_POST['head_department']; //เมลหัวหน้าสาขา
+            $token = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-1?token=<?php echo token ?>
 
 
             require_once __DIR__ . '/../vendor/autoload.php';
