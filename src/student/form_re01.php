@@ -347,7 +347,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $request       = $_POST['request']; //มีความประสงค์
             $teacher_email       = $_POST['teacher_email']; //เมลที่ปรึกษา
             $head_department       = $_POST['head_department']; //เมลหัวหน้าสาขา
-            $token = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-1?token=<?php echo token ?>
+            $token = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-1?token=
 
 
             require_once __DIR__ . '/../vendor/autoload.php';
