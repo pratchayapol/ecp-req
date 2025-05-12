@@ -378,7 +378,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                         <p style="margin-top: 10px;">เรียน <strong>' . htmlspecialchars($to) . '</strong>,</p>
                 
                         <div style="margin-top: 15px; padding: 15px; background-color: #2a2a2a; border-left: 4px solid #ffa500;">
-                        <p><strong>ชื่อผู้ร้อง:</strong> ' . htmlspecialchars($iname) . '</p>
+                        <p><strong>เรื่อง:</strong> ' . $iname . '</p>
                             <p><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
                             <p><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
                             <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
