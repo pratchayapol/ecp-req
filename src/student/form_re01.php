@@ -373,11 +373,11 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 $mail->isHTML(true);
 
                 $mail->Body = '
-                    <div style="font-family: Tahoma, sans-serif; background-color:rgb(171, 167, 167); padding: 20px; border-radius: 10px; color: #f0f0f0;">
+                    <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0;">
                         <h2 style="color: #ffa500;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
                         <p style="margin-top: 10px;">เรียน <strong>' . htmlspecialchars($to) . '</strong>,</p>
                 
-                        <div style="margin-top: 15px; padding: 15px; background-color: #2a2a2a; border-left: 4px solid #ffa500;">
+                        <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500;">
                             <p><strong>ชื่อ:</strong> ' . htmlspecialchars($iname) . '</p>
                             <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($id) . '</p>
                             <p><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
