@@ -365,8 +365,8 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
 
-                $mail->setFrom('botpcnone@gmail.com', 'Your Name');
-                $mail->addAddress($email, 'Recipient Name');
+                $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
+                $mail->addAddress($email, 'Email:' .$email.'');
                 $mail->Subject = 'Test Email';
                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
