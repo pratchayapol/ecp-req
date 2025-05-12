@@ -367,7 +367,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
                 $mail->addAddress($teacher_email, 'อาจารย์ที่ปรึกษา');
-                $mail->Subject = 'Test Email';
+                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ '.$iname.'';
                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
                 $mail->isHTML(true);
