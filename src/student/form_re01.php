@@ -366,8 +366,8 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;                          
             
-                $mail->setFrom('botecp@pcnone.com', 'Your Name');
-                $mail->addAddress('recipient@example.com', 'Recipient Name');
+                $mail->setFrom('botpcnone@gmail.com', 'Your Name');
+                $mail->addAddress($email, 'Recipient Name');
                 $mail->Subject = 'Test Email';
                 $mail->Body    = 'This is the email body.';
             
