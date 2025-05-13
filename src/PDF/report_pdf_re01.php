@@ -58,23 +58,23 @@ $pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $title), 0, 1, 'L');
 
-// //ภาคเรียนที่ ..............
+// //เรียน
 $pdf->SetY(49);
 $pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $to), 0, 1, 'L');
 
-// //วันที่ .......... เดือน ..............พ.ศ................ ประจำ
+// //email นักศึกษา
 $pdf->SetY(121.5);
 $pdf->SetX(32.5);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
-// //ชื่อผู้เข้าเวร บน
-// $pdf->SetY(75.5);
-// $pdf->SetX(43);
-// $pdf->SetFont('sara', '', 14);
-// $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $row2['firstname'] . '  ' . $row2['lastname']), 0, 1, 'L');
+// //คณะ
+$pdf->SetY(75.5);
+$pdf->SetX(43);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $faculty), 0, 1, 'L');
 
 
 
