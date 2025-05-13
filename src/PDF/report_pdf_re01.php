@@ -5,19 +5,16 @@ require('fpdf.php');
 
 if (isset($_GET['token'])) {
     $token = $_GET['token'];
-    echo "Token ที่ได้รับคือ: " . htmlspecialchars($token);
+    // echo "Token ที่ได้รับคือ: " . htmlspecialchars($token);
 } else {
     echo "ไม่พบ token ใน URL";
 }
 
+$stmt = $conn->query("SELECT * FROM from_re01 WHERE token = $token");
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+extract($row);
+echo $from_id = $row['from_id'];
 
-// //echo $id;
-// $stmt = $conn->query("SELECT * FROM datavan WHERE id_van = $token");
-// $row = $stmt->fetch(PDO::FETCH_ASSOC);
-// extract($row);
-// $id1 = $row['user'];
-// $id2 = $row['inspector'];
-// $id3 = $row['manager'];
 
 
 // $pdf = new FPDF();
