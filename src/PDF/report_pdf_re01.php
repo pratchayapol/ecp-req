@@ -59,10 +59,10 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $title), 0, 1, 'C');
 
 // //ภาคเรียนที่ ..............
-// $pdf->SetY(51.5);
-// $pdf->SetX(45);
-// $pdf->SetFont('sara', '', 14);
-// $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $row['term_year']), 0, 1, 'C');
+$pdf->SetY(51.5);
+$pdf->SetX(45);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $to), 0, 1, 'C');
 
 // //วันที่ .......... เดือน ..............พ.ศ................ ประจำ
 // $pdf->SetY(51.5);
