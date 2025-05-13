@@ -79,7 +79,7 @@ try {
     
     <div class="w-full bg-gray-50 rounded-xl p-4 shadow-sm">
         <div class="mb-2">
-            <span class="font-semibold">FORM ID:</span>RE.01-<?php echo htmlspecialchars($form_id); ?>
+            <span class="font-semibold">FORM ID:</span> RE.01-<?php echo htmlspecialchars($form_id); ?>
         </div>
         <div class="mb-2">
             <span class="font-semibold">เรื่อง:</span> <?php echo htmlspecialchars($title); ?>
