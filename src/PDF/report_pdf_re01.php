@@ -59,7 +59,7 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $title), 0, 1, 'L');
 
 // //ภาคเรียนที่ ..............
-$pdf->SetY(52);
+$pdf->SetY(49);
 $pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $to), 0, 1, 'L');
