@@ -21,7 +21,22 @@ try {
 
     if ($row) {
         extract($row);
-        echo $from_id = $row['form_id'];
+        $form_id = $row['form_id'];
+        $title = $row['title'];
+        $to = $row['to'];
+        $email = $row['email'];
+        $faculty = $row['faculty'];
+        $field = $row['field'];
+        $course_level = $row['course_level'];
+        $request_text = $row['request_text'];
+        $comment_teacher = $row['comment_teacher'];
+        $comment_head_dep = $row['comment_head_dep'];
+        $status = $row['status'];
+        $created_at = $row['created_at'];
+        $token = $row['token'];
+        $teacher_email = $row['teacher_email'];
+        $head_department = $row['head_department'];
+
     } else {
         echo "ไม่พบข้อมูลที่ตรงกับ token นี้";
     }
@@ -31,17 +46,17 @@ try {
 
 
 
-// $pdf = new FPDF();
-// $pdf->AddPage('P');
-// $pdf->AddFont('sara', '', 'THSarabun.php');
-// $pdf->Image('bg.jpg', 0, 0, 210, 297);
-// $pdf->SetXY(190, 0);
+$pdf = new FPDF();
+$pdf->AddPage('P');
+$pdf->AddFont('sara', '', 'THSarabun.php');
+$pdf->Image('RE.01bg.jpg', 0, 0, 210, 297);
+$pdf->SetXY(190, 0);
 
-// //ลำดับที่ .........
-// $pdf->SetY(51.5);
-// $pdf->SetX(22);
-// $pdf->SetFont('sara', '', 14);
-// $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $row['id_van']), 0, 1, 'C');
+// //เรื่อง
+$pdf->SetY(51.5);
+$pdf->SetX(22);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $title), 0, 1, 'C');
 
 // //ภาคเรียนที่ ..............
 // $pdf->SetY(51.5);
