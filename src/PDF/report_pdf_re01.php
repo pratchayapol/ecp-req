@@ -4,101 +4,16 @@ require('../config/db.php');
 date_default_timezone_set('Asia/Bangkok');
 
 
-
-function ThDate1()
-{
-    require('../config/db.php');
-    $id = $_GET['id'];
-    $stmt = $conn->query("SELECT * FROM datavan WHERE id_van = $id");
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    extract($row);
-    //วันภาษาไทย
-    $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์");
-    //เดือนภาษาไทย
-    $ThMonth = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-    //วันที่ ที่ต้องการเอามาเปลี่ยนฟอแมต
-    $myDATE = $row['start_time']; //อาจมาจากฐานข้อมูล
-    //$myDATE = date("d-m-Y h:i:s"); //อาจมาจากฐานข้อมูล
-    //กำหนดคุณสมบัติ
-    $week = date("w", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-    $months = date("m", strtotime($myDATE)) - 1; // ค่าเดือน (1-12)
-    $day = date("d", strtotime($myDATE)); // ค่าวันที่(1-31)
-    $years = date("Y", strtotime($myDATE)) + 543; // ค่า ค.ศ.บวก 543 ทำให้เป็น ค.ศ.
-    return
-        "วัน$ThDay[$week] ที่ $day  เดือน $ThMonth[$months] พ.ศ. $years";
-}
-//echo ThDate1(); // แสดงวันที่ 
-
-function ThDate2()
-{
-    require('../config/db.php');
-    $id = $_GET['id'];
-    $stmt = $conn->query("SELECT * FROM datavan WHERE id_van = $id");
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    extract($row);
-    //วันภาษาไทย
-    $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์");
-    //เดือนภาษาไทย
-    $ThMonth = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-    //วันที่ ที่ต้องการเอามาเปลี่ยนฟอแมต
-    $myDATE = $row['start_time']; //อาจมาจากฐานข้อมูล
-    //กำหนดคุณสมบัติ
-    $time = date("H:i:s", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-    $week = date("w", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-    $months = date("m", strtotime($myDATE)) - 1; // ค่าเดือน (1-12)
-    $day = date("d", strtotime($myDATE)); // ค่าวันที่(1-31)
-    $years = date("Y", strtotime($myDATE)) + 543; // ค่า ค.ศ.บวก 543 ทำให้เป็น ค.ศ.
-    return
-        "วันที่ $day $ThMonth[$months] $years เวลา $time";
-}
-//echo ThDate2(); // แสดงวันที่
-
-function ThDate3()
-{
-    require('../config/db.php');
-    $id = $_GET['id'];
-    $stmt = $conn->query("SELECT * FROM datavan WHERE id_van = $id");
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    extract($row);
-    //วันภาษาไทย
-    $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์");
-    //เดือนภาษาไทย
-    $ThMonth = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-    //วันที่ ที่ต้องการเอามาเปลี่ยนฟอแมต
-    $myDATE = $row['end_time']; //อาจมาจากฐานข้อมูล
-    //กำหนดคุณสมบัติ
-    $time = date("H:i:s", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-    $week = date("w", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-    $months = date("m", strtotime($myDATE)) - 1; // ค่าเดือน (1-12)
-    $day = date("d", strtotime($myDATE)); // ค่าวันที่(1-31)
-    $years = date("Y", strtotime($myDATE)) + 543; // ค่า ค.ศ.บวก 543 ทำให้เป็น ค.ศ.
-    return
-        "วันที่ $day $ThMonth[$months] $years เวลา $time";
-}
 //echo ThDate3(); // แสดงวันที่
-$id = $_GET['id'];
+$token = $_GET['token'];
 //echo $id;
-$stmt = $conn->query("SELECT * FROM datavan WHERE id_van = $id");
+$stmt = $conn->query("SELECT * FROM datavan WHERE id_van = $token");
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 extract($row);
 $id1 = $row['user'];
 $id2 = $row['inspector'];
 $id3 = $row['manager'];
 
-//หาชื่อ นามสกุลผู้เข้าเวร
-$stmt2 = $conn->query("SELECT * FROM account WHERE id = $id1");
-$row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-extract($row2);
-
-//หาชื่อ นามสกุลผู้ตรวจเวร
-$stmt3 = $conn->query("SELECT * FROM account WHERE id = $id2");
-$row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
-extract($row3);
-
-//หาชื่อ นามสกุลผู้อำนวยการ
-$stmt4 = $conn->query("SELECT * FROM account WHERE id = $id3");
-$row4 = $stmt4->fetch(PDO::FETCH_ASSOC);
-extract($row4);
 
 $pdf = new FPDF();
 $pdf->AddPage('P');
