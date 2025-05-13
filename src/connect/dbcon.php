@@ -1,6 +1,6 @@
 <?php
-$servername = "100.99.99.99";
-$port = 3350;
+$servername = "mysql_db";
+$port = 3306;
 $username = "root";
 $password = "adminecp";
 $dbname = "ecp_req";
