@@ -373,18 +373,18 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 $mail->isHTML(true);
 
                 $mail->Body = 'แป
-                <div style="background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
+                <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
                     <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
                     <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
             
                     <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500; color: #000;">
-                        <p color:rgb(255, 255, 255);><strong>ชื่อ:</strong> ' . htmlspecialchars($iname) . '</p>
-                        <p color:rgb(255, 255, 255);><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($id) . '</p>
-                        <p color:rgb(255, 255, 255);><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
-                        <p color:rgb(255, 255, 255);><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
-                        <p color:rgb(255, 255, 255);><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
-                        <p color:rgb(255, 255, 255);><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
-                        <p color:rgb(255, 255, 255);><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request)) . '</p>
+                        <p><strong>ชื่อ:</strong> ' . htmlspecialchars($iname) . '</p>
+                        <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($id) . '</p>
+                        <p><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
+                        <p><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
+                        <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
+                        <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
+                        <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request)) . '</p>
                     </div>
             
                     <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
