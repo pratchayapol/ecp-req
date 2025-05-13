@@ -75,11 +75,11 @@ try {
         <div class="flex flex-col items-center">
 
            <div class="flex flex-col items-center space-y-4 text-gray-800">
-    <h2 class="text-3xl font-extrabold t1">อนุมัติสถานะคำร้องทั่วไป RE.01</h2>
+    <h2 class="text-3xl font-extrabold t1">คำร้องทั่วไป RE.01</h2>
     
     <div class="w-full bg-gray-50 rounded-xl p-4 shadow-sm">
         <div class="mb-2">
-            <span class="font-semibold">รหัสฟอร์ม:</span> <?php echo htmlspecialchars($form_id); ?>
+            <span class="font-semibold">FORM ID:</span>RE.01-<?php echo htmlspecialchars($form_id); ?>
         </div>
         <div class="mb-2">
             <span class="font-semibold">เรื่อง:</span> <?php echo htmlspecialchars($title); ?>
