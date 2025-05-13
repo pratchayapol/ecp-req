@@ -229,6 +229,13 @@ function getNameByEmail($pdo, $email)
                                                             data-advisor-name="<?= htmlspecialchars($advisor['name']) ?>"
                                                             data-head-comment="<?= htmlspecialchars($row1['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
                                                             data-head-name="<?= htmlspecialchars($head['name']) ?>">ดูรายละเอียด</button>
+
+
+                                                        <?php if ($row1['status'] == 2): ?>
+                                                            <a href="generate_pdf.php?id=<?= $row1['id'] ?>" target="_blank" class="ml-2 inline-block bg-blue-500 hover:bg-blue-700 text-white text-sm px-3 py-1 rounded">
+                                                                ดาวน์โหลด PDF
+                                                            </a>
+                                                        <?php endif; ?>
                                                     </td>
 
                                                 </tr>
@@ -490,6 +497,9 @@ function getNameByEmail($pdo, $email)
                                                             data-teacher-email="<?= htmlspecialchars($CommentTeacher['name']) ?>">
                                                             ดูรายละเอียด
                                                         </button>
+
+
+
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
