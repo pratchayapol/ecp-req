@@ -56,7 +56,7 @@ $pdf->SetXY(190, 0);
 $pdf->SetY(45);
 $pdf->SetX(18);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $row['id_van']), 0, 1, 'C');
+$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $title), 0, 1, 'C');
 
 // //ภาคเรียนที่ ..............
 // $pdf->SetY(51.5);
