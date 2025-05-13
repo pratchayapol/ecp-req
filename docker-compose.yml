@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   app:
     build:
@@ -12,7 +10,7 @@ services:
     working_dir: /var/www/html
     restart: always
     depends_on:
-      - db
+      - mariadb  # เปลี่ยนจาก db เป็น mariadb
     networks:
       ecp_req_network:
         ipv4_address: 192.168.30.2
@@ -56,10 +54,10 @@ services:
     ports:
       - "8080:80"
     environment:
-      PMA_HOST: mariadb  # เชื่อมกับชื่อ service mariadb
+      PMA_HOST: mariadb  # ใช้ mariadb แทน db
       MYSQL_ROOT_PASSWORD: adminecp
     depends_on:
-      - mariadb
+      - mariadb  # เปลี่ยนจาก db เป็น mariadb
     networks:
       ecp_req_network:
         ipv4_address: 192.168.30.5
