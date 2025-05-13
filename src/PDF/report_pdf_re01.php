@@ -1,6 +1,9 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// require('fpdf.php');
+require('fpdf.php');
 include '../connect/dbcon.php';
 
 if (!isset($_GET['token'])) {
@@ -10,7 +13,6 @@ if (!isset($_GET['token'])) {
 $token = $_GET['token'];
 
 try {
-    // Use prepared statement to prevent SQL injection
     $stmt = $conn->prepare("SELECT * FROM form_re01 WHERE token = :token");
     $stmt->bindParam(':token', $token, PDO::PARAM_STR);
     $stmt->execute();
