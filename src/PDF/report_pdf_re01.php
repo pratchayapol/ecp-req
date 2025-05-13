@@ -28,7 +28,7 @@ try {
 } catch (PDOException $e) {
     echo "เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล: " . $e->getMessage();
 }
-?>
+
 
 
 // $pdf = new FPDF();
