@@ -32,10 +32,10 @@ services:
     container_name: mysql_db
     restart: always
     environment:
-      MYSQL_DATABASE: your_db_name
-      MYSQL_ROOT_PASSWORD: your_root_password
-      MYSQL_USER: your_user
-      MYSQL_PASSWORD: your_password
+      MYSQL_DATABASE: ecp_req
+      MYSQL_ROOT_PASSWORD: adminecp
+      MYSQL_USER: ecp
+      MYSQL_PASSWORD: ecp123456700
     volumes:
       - db_data:/var/lib/mysql
     networks:
@@ -49,7 +49,7 @@ services:
       - "8080:80"
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_ROOT_PASSWORD: adminecp
     depends_on:
       - db
     networks:
