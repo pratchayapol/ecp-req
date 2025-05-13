@@ -1,4 +1,5 @@
 <?php
+include '../connect/dbcon.php';
 require('fpdf.php');
 
 
