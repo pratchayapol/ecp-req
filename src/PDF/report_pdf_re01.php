@@ -1,5 +1,5 @@
 <?php
-// require('fpdf.php');
+require('fpdf.php');
 
 
 if (isset($_GET['token'])) {
