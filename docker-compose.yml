@@ -1,9 +1,9 @@
 services:
   app:
     build:
-      user: "${UID}:${GID}"
       context: .
       dockerfile: ./php/Dockerfile
+    user: "${MY_UID}:${MY_GID}"
     image: php:8.2-fpm-custom
     container_name: php_app
     volumes:
