@@ -77,7 +77,7 @@ try {
             <img src="image/logo.png" alt="Logo" class="w-32 h-32 rounded-full shadow-lg">
 
             <!-- Title -->
-            <h2 class="mt-4 text-3xl font-extrabold text-gray-800 t1">ECP Online Petition</h2>
+            <h2 class="mt-4 text-3xl font-extrabold text-gray-800 t1">อนุมัติสถานะคำร้องทั่วไป RE.01</h2>
             <p class="text-gray-500 mt-2 text-sm text-center t1">
                 ระบบยื่นคำร้อง สาขาคอมพิวเตอร์
             </p>
