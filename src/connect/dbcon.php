@@ -1,5 +1,5 @@
 <?php
-$servername = "db";
+$servername = "mariadb";
 $port = 3306;
 $username = "root";
 $password = "adminecp";
