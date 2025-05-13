@@ -1,7 +1,10 @@
 <?php
 session_start();
-include 'connect/dbcon.php';
 
+// เริ่มต้น output buffering
+ob_start();
+
+include 'connect/dbcon.php';
 ?>
 <!DOCTYPE html>
 <html lang="th">
