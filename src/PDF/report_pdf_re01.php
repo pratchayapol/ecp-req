@@ -53,10 +53,10 @@ $pdf->Image('RE.01bg.jpg', 0, 0, 210, 297);
 $pdf->SetXY(190, 0);
 
 // //เรื่อง
-$pdf->SetY(17.5);
-$pdf->SetX(20);
+$pdf->SetY(45);
+$pdf->SetX(18);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $title), 0, 1, 'C');
+$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $row['id_van']), 0, 1, 'C');
 
 // //ภาคเรียนที่ ..............
 // $pdf->SetY(51.5);
@@ -214,4 +214,4 @@ $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $title), 0, 1, 'C');
 //     $pdf->Cell(42, 2, iconv('utf-8', 'cp874', "$mana_text1"), 0, 1, 'L');
 // }
 
-$pdf->Output();
+// $pdf->Output();
