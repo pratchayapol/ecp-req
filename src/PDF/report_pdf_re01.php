@@ -1,7 +1,6 @@
 <?php
-require('fpdf.php');
-require('../config/db.php');
-date_default_timezone_set('Asia/Bangkok');
+// require('fpdf.php');
+
 
 if (isset($_GET['token'])) {
     $token = $_GET['token'];
