@@ -83,16 +83,7 @@ try {
                 มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น
             </p>
             <!-- Button -->
-            <a href="google_auth"
-                class="mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md 
-          hover:bg-blue-700 hover:shadow-lg transition-all flex items-center gap-2">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/IOS_Google_icon.png"
-                    alt="Google Logo" class="w-5 h-5">
-                Login with Google
-            </a>
-
-
-
+           
         </div>
     </div>
     <?php include './loadtab/f.php'; ?>
