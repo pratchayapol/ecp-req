@@ -218,24 +218,30 @@ function getNameByEmail($pdo, $email)
                                                         }
 
                                                         ?>
-                                                        <button
-                                                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal1"
-                                                            data-id="<?= $row1['form_id'] ?>"
-                                                            data-name="<?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?>"
-                                                            data-title="<?= htmlspecialchars($row1['title']) ?>"
-                                                            data-to="<?= htmlspecialchars($row1['to']) ?>"
-                                                            data-request="<?= htmlspecialchars($row1['request_text']) ?>"
-                                                            data-advisor-comment="<?= htmlspecialchars($row1['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
-                                                            data-advisor-name="<?= htmlspecialchars($advisor['name']) ?>"
-                                                            data-head-comment="<?= htmlspecialchars($row1['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
-                                                            data-head-name="<?= htmlspecialchars($head['name']) ?>">ดูรายละเอียด</button>
+                                                        <div class="flex justify-center space-x-2">
+                                                            <!-- ปุ่มดูรายละเอียด -->
+                                                            <button
+                                                                class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal1 text-sm"
+                                                                data-id="<?= $row1['form_id'] ?>"
+                                                                data-name="<?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?>"
+                                                                data-title="<?= htmlspecialchars($row1['title']) ?>"
+                                                                data-to="<?= htmlspecialchars($row1['to']) ?>"
+                                                                data-request="<?= htmlspecialchars($row1['request_text']) ?>"
+                                                                data-advisor-comment="<?= htmlspecialchars($row1['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                                data-advisor-name="<?= htmlspecialchars($advisor['name']) ?>"
+                                                                data-head-comment="<?= htmlspecialchars($row1['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                                data-head-name="<?= htmlspecialchars($head['name']) ?>">
+                                                                ดูรายละเอียด
+                                                            </button>
 
-
-                                                        <?php if ($row1['status'] == 2): ?>
-                                                            <a href="generate_pdf.php?id=<?= $row1['id'] ?>" target="_blank" class="ml-2 inline-block bg-blue-500 hover:bg-blue-700 text-white text-sm px-3 py-1 rounded">
-                                                                ดาวน์โหลด PDF
-                                                            </a>
-                                                        <?php endif; ?>
+                                                            <!-- ปุ่ม PDF สีส้ม -->
+                                                            <?php if ($row1['status'] == 2): ?>
+                                                                <a href="generate_pdf.php?id=<?= $row1['id'] ?>" target="_blank"
+                                                                    class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
+                                                                    PDF
+                                                                </a>
+                                                            <?php endif; ?>
+                                                        </div>
                                                     </td>
 
                                                 </tr>
