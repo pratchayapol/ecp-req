@@ -53,8 +53,8 @@ $pdf->Image('RE.01bg.jpg', 0, 0, 210, 297);
 $pdf->SetXY(190, 0);
 
 // //เรื่อง
-$pdf->SetY(20);
-$pdf->SetX(15);
+$pdf->SetY(17.5);
+$pdf->SetX(20);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $title), 0, 1, 'C');
 
