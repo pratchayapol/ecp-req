@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost";
+$servername = "db";
 $port = 3306;
 $username = "root";
 $password = "adminecp";
