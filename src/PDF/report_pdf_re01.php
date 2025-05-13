@@ -3,19 +3,31 @@
 require('fpdf.php');
 include '../connect/dbcon.php';
 
-if (isset($_GET['token'])) {
-    $token = $_GET['token'];
-    // echo "Token ที่ได้รับคือ: " . htmlspecialchars($token);
-} else {
-    echo "ไม่พบ token ใน URL";
+if (!isset($_GET['token'])) {
+    die("ไม่พบ token ใน URL");
 }
 
-$stmt = $conn->query("SELECT * FROM form_re01 WHERE token = $token");
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-extract($row);
-echo $from_id = $row['form_id'];
+$token = $_GET['token'];
 
+try {
+    // Use prepared statement to prevent SQL injection
+    $stmt = $conn->prepare("SELECT * FROM form_re01 WHERE token = :token");
+    $stmt->bindParam(':token', $token, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($row) {
+        extract($row);
+        echo $from_id = $row['form_id'];
+    } else {
+        echo "ไม่พบข้อมูลที่ตรงกับ token นี้";
+    }
+} catch (PDOException $e) {
+    echo "เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล: " . $e->getMessage();
+}
 ?>
+
 
 // $pdf = new FPDF();
 // $pdf->AddPage('P');
