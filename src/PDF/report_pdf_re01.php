@@ -54,7 +54,7 @@ $pdf->SetXY(190, 0);
 
 // //เรื่อง
 $pdf->SetY(48);
-$pdf->SetX(15);
+$pdf->SetX(18);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $title), 0, 1, 'C');
 
