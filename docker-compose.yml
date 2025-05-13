@@ -20,11 +20,14 @@ services:
     container_name: nginx_web
     ports:
       - "80:80"
+      - "443:443"  # เพิ่มการเปิด port 443 สำหรับ HTTPS
     volumes:
       - web_data:/var/www/html
       - ./src:/var/www/html
       - ./default.conf/default.conf:/etc/nginx/conf.d/default.conf
       - ./default.conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl/certificates.crt:/etc/ssl/certs/certificate.crt  # ใบรับรอง SSL
+      - ./ssl/certificates.key:/etc/ssl/private/private.key  # คีย์ส่วนตัว SSL
     networks:
       ecp_req_network:
         ipv4_address: 192.168.30.3
