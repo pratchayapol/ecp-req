@@ -15,7 +15,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 extract($row);
 echo $from_id = $row['form_id'];
 
-
+?>
 
 // $pdf = new FPDF();
 // $pdf->AddPage('P');
