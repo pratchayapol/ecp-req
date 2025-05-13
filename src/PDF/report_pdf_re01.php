@@ -65,8 +65,8 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $to), 0, 1, 'L');
 
 // //วันที่ .......... เดือน ..............พ.ศ................ ประจำ
-$pdf->SetY(120);
-$pdf->SetX(30);
+$pdf->SetY(121.5);
+$pdf->SetX(34);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
