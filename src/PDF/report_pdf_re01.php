@@ -10,10 +10,10 @@ if (isset($_GET['token'])) {
     echo "ไม่พบ token ใน URL";
 }
 
-$stmt = $conn->query("SELECT * FROM from_re01 WHERE token = $token");
+$stmt = $conn->query("SELECT * FROM form_re01 WHERE token = $token");
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 extract($row);
-echo $from_id = $row['from_id'];
+echo $from_id = $row['form_id'];
 
 
 
