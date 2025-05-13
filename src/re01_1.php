@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 
-include '../connect/dbcon.php';
+include 'connect/dbcon.php';
 
 if (isset($_GET['token'])) {
     $token = $_GET['token'];
