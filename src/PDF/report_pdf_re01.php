@@ -13,7 +13,7 @@ if (!isset($_GET['token'])) {
 $token = $_GET['token'];
 
 try {
-    $stmt = $conn->prepare("SELECT * FROM form_re01 WHERE token = :token");
+    $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE token = :token");
     $stmt->bindParam(':token', $token, PDO::PARAM_STR);
     $stmt->execute();
 
