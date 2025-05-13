@@ -50,7 +50,7 @@ $pdf = new FPDF();
 $pdf->AddPage('P');
 $pdf->AddFont('sara', '', 'THSarabun.php');
 $pdf->Image('RE.01bg.jpg', 0, 0, 210, 297);
-$pdf->SetXY(190, 0);
+$pdf->SetXY(225, 0);
 
 // //เรื่อง
 $pdf->SetY(51.5);
