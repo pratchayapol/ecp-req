@@ -1,6 +1,7 @@
 services:
   app:
     build:
+      user: "${UID}:${GID}"
       context: .
       dockerfile: ./php/Dockerfile
     image: php:8.2-fpm-custom
