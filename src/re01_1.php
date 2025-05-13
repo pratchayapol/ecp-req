@@ -38,6 +38,7 @@ try {
         $token = $row['token'];
         $teacher_email = $row['teacher_email'];
         $head_department = $row['head_department'];
+
     } else {
         echo "ไม่พบข้อมูลที่ตรงกับ token นี้";
     }
@@ -70,47 +71,66 @@ try {
 
 <body class="flex items-center justify-center min-h-screen bg">
     <?php include './loadtab/h.php'; ?>
+    <div class="w-full max-w-md p-8 m-6 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
+        <div class="flex flex-col items-center">
+
+           <div class="flex flex-col items-center space-y-4 text-gray-800">
+    <h2 class="text-3xl font-extrabold t1">อนุมัติสถานะคำร้องทั่วไป RE.01</h2>
     
-    <div class="w-full px-4 sm:px-6 lg:px-8">
-        <div class="max-w-lg sm:max-w-2xl lg:max-w-3xl mx-auto p-6 sm:p-8 bg-white rounded-2xl shadow-2xl transition duration-700 hover:scale-105">
-            <div class="flex flex-col items-center space-y-4 text-gray-800">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-center t1">อนุมัติสถานะคำร้องทั่วไป RE.01</h2>
-
-                <div class="w-full bg-gray-50 rounded-xl p-4 sm:p-6 shadow-sm space-y-3">
-                    <div><span class="font-semibold">รหัสฟอร์ม:</span> <?php echo htmlspecialchars($form_id); ?></div>
-                    <div><span class="font-semibold">เรื่อง:</span> <?php echo htmlspecialchars($title); ?></div>
-                    <div><span class="font-semibold">เรียน:</span> <?php echo htmlspecialchars($to); ?></div>
-                    <div><span class="font-semibold">อีเมลนักศึกษา:</span> <?php echo htmlspecialchars($email); ?></div>
-                    <div><span class="font-semibold">คณะ:</span> <?php echo htmlspecialchars($faculty); ?></div>
-                    <div><span class="font-semibold">สาขา:</span> <?php echo htmlspecialchars($field); ?></div>
-                    <div><span class="font-semibold">ระดับชั้น:</span> <?php echo htmlspecialchars($course_level); ?></div>
-
-                    <div>
-                        <span class="font-semibold">ข้อความร้องขอ:</span>
-                        <p class="mt-1 text-gray-600 whitespace-pre-line"><?php echo nl2br(htmlspecialchars($request_text)); ?></p>
-                    </div>
-
-                    <div>
-                        <span class="font-semibold">ความคิดเห็นอาจารย์:</span>
-                        <p class="mt-1 text-gray-600 whitespace-pre-line"><?php echo nl2br(htmlspecialchars($comment_teacher)); ?></p>
-                    </div>
-
-                    <div>
-                        <span class="font-semibold">ความคิดเห็นหัวหน้าภาค:</span>
-                        <p class="mt-1 text-gray-600 whitespace-pre-line"><?php echo nl2br(htmlspecialchars($comment_head_dep)); ?></p>
-                    </div>
-
-                    <div><span class="font-semibold">สถานะ:</span> <?php echo htmlspecialchars($status); ?></div>
-                    <div><span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?></div>
-                    <div><span class="font-semibold">อีเมลอาจารย์:</span> <?php echo htmlspecialchars($teacher_email); ?></div>
-                    <div><span class="font-semibold">หัวหน้าภาค:</span> <?php echo htmlspecialchars($head_department); ?></div>
-                </div>
-            </div>
+    <div class="w-full bg-gray-50 rounded-xl p-4 shadow-sm">
+        <div class="mb-2">
+            <span class="font-semibold">รหัสฟอร์ม:</span> <?php echo htmlspecialchars($form_id); ?>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">เรื่อง:</span> <?php echo htmlspecialchars($title); ?>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">เรียน:</span> <?php echo htmlspecialchars($to); ?>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">อีเมลนักศึกษา:</span> <?php echo htmlspecialchars($email); ?>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">คณะ:</span> <?php echo htmlspecialchars($faculty); ?>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">สาขา:</span> <?php echo htmlspecialchars($field); ?>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">ระดับชั้น:</span> <?php echo htmlspecialchars($course_level); ?>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">ข้อความร้องขอ:</span>
+            <p class="mt-1 text-gray-600 whitespace-pre-line"><?php echo nl2br(htmlspecialchars($request_text)); ?></p>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">ความคิดเห็นอาจารย์:</span>
+            <p class="mt-1 text-gray-600 whitespace-pre-line"><?php echo nl2br(htmlspecialchars($comment_teacher)); ?></p>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">ความคิดเห็นหัวหน้าภาค:</span>
+            <p class="mt-1 text-gray-600 whitespace-pre-line"><?php echo nl2br(htmlspecialchars($comment_head_dep)); ?></p>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">สถานะ:</span> <?php echo htmlspecialchars($status); ?>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">อีเมลอาจารย์:</span> <?php echo htmlspecialchars($teacher_email); ?>
+        </div>
+        <div class="mb-2">
+            <span class="font-semibold">หัวหน้าภาค:</span> <?php echo htmlspecialchars($head_department); ?>
         </div>
     </div>
+</div>
 
+         
+           
+        </div>
+    </div>
     <?php include './loadtab/f.php'; ?>
 </body>
-
 
 </html>
