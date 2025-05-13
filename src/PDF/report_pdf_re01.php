@@ -214,4 +214,4 @@ $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $row['id_van']), 0, 1, 'C');
 //     $pdf->Cell(42, 2, iconv('utf-8', 'cp874', "$mana_text1"), 0, 1, 'L');
 // }
 
-// $pdf->Output();
+$pdf->Output();
