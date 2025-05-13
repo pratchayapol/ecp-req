@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   app:
@@ -34,20 +34,20 @@ services:
       - app
     restart: always
 
-    mariadb:
-      image: mariadb:latest
-      restart: unless-stopped
-      container_name: mariadb
-      environment:
-        MYSQL_ROOT_PASSWORD: adminecp
-        MYSQL_DATABASE: ecp_req
-        MYSQL_USER: admin
-        MYSQL_PASSWORD: ecp
-      networks:
-        ecp_req_network:
-          ipv4_address: 192.168.30.4
-      ports:
-        - "3306:3306"
+  mariadb:
+    image: mariadb:latest
+    restart: unless-stopped
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: adminecp
+      MYSQL_DATABASE: ecp_req
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: ecp
+    networks:
+      ecp_req_network:
+        ipv4_address: 192.168.30.4
+    ports:
+      - "3306:3306"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -56,10 +56,10 @@ services:
     ports:
       - "8080:80"
     environment:
-      PMA_HOST: db
+      PMA_HOST: mariadb  # เชื่อมกับชื่อ service mariadb
       MYSQL_ROOT_PASSWORD: adminecp
     depends_on:
-      - db
+      - mariadb
     networks:
       ecp_req_network:
         ipv4_address: 192.168.30.5
@@ -75,14 +75,12 @@ services:
       ecp_req_network:
         ipv4_address: 192.168.30.6
 
-
 networks:
   ecp_req_network:
     driver: bridge
     ipam:
       config:
         - subnet: 192.168.30.0/24
-
 
 volumes:
   db_data:
