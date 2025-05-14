@@ -91,8 +91,8 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
 
 // //เหตุผล
-$pdf->SetY(90);
-$pdf->SetX(40);
+$pdf->SetY(71);
+$pdf->SetX(20);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $request_text), 0, 1, 'C');
 
