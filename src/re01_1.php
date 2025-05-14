@@ -123,7 +123,7 @@ if (isset($_GET['token'])) {
                             </div>
 
                             <!-- Submit Button -->
-                            <div class="text-right">
+                            <div class="text-center">
                                 <button type="submit"
                                     class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow">
                                     พิจารณาแล้ว
