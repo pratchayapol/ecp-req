@@ -126,13 +126,13 @@ include 'connect/dbcon.php';
 
                                     <div>
                                         <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
-                                        <?php if (is_null($comment_teacher)): ?>
+                                        <?php if (is_null($status)): ?>
                                             <textarea id="comment_teacher" name="comment_teacher" rows="2"
                                                 class="w-full text-gray-600 border rounded p-2"
-                                                placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher) ?></textarea>
+                                                placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
                                         <?php else: ?>
                                             <textarea id="comment_teacher" name="comment_teacher" rows="2"
-                                                class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_teacher) ?></textarea>
+                                                class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -152,7 +152,6 @@ include 'connect/dbcon.php';
                             <script>
                                 function validateForm() {
                                     const radios = document.getElementsByName('approval_status');
-                                    const comment = document.getElementById('comment_teacher').value.trim();
 
                                     let selected = false;
                                     for (let i = 0; i < radios.length; i++) {
@@ -167,10 +166,6 @@ include 'connect/dbcon.php';
                                         return false;
                                     }
 
-                                    if (comment === '') {
-                                        alert('กรุณากรอกความคิดเห็นของอาจารย์');
-                                        return false;
-                                    }
 
                                     return true;
                                 }
