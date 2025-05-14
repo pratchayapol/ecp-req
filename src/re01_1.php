@@ -151,7 +151,7 @@ if (isset($_GET['token'])) {
             allowOutsideClick: false
         }).then((result) => {
             // ไม่ว่าจะกดปุ่มไหนหรือปิด popup ก็ redirect
-            window.location.href = 'index';
+            window.location.href = '';
         });
     </script>
     ";
