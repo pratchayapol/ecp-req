@@ -96,7 +96,7 @@ if (isset($_GET['token'])) {
                             <label for="request_text" class="font-semibold block mb-1">ข้อความร้องขอ:</label>
                             <textarea id="request_text" name="request_text" rows="3" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($request_text); ?></textarea>
                         </div>
-
+                        <hr>
                         <form method="POST" action="your-processing-script.php" onsubmit="return validateForm()">
                             <!-- Approval Section -->
                             <div class="space-y-3 mb-6">
