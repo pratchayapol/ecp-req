@@ -283,7 +283,7 @@ include 'connect/dbcon.php';
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // รับค่าจากฟอร์ม
             $approvalStatus = $_POST['approval_status'];  // approved หรือ not_approved
-
+ // ถ้าไม่อนุมัติจากอาจารย์ที่ปรึกษา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
             if ($approvalStatus == "0") {
                 $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
                 $status = 0; // ไม่ต้องส่งไปยังหัวหน้าสาขา ให้จบไปเลย
@@ -387,6 +387,7 @@ include 'connect/dbcon.php';
  </script>
  HTML;
                 }
+                // ถ้าอนุมัติจากอาจารย์ที่ปรึกษา
             } else {
 
                 $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม

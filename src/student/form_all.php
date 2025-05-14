@@ -196,7 +196,7 @@ function getNameByEmail($pdo, $email)
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
                                                     <td class="px-4 py-2 text-center 
         <?= $row1['status'] === null ? 'text-red-600' : ($row1['status'] == 1 ? 'text-yellow-600' : ($row1['status'] == 2 ? 'text-green-600' : '')) ?>">
-                                                        <?= $row1['status'] === null ? 'รอพิจารณา' : ($row1['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row1['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : '')) ?>
+                                                        <?= $row1['status'] === null ? 'รอพิจารณา' : ($row1['status'] == 0 ? 'ไม่ผ่านการพิจารณา' : ($row1['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row1['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : ''))) ?>
                                                     </td>
 
                                                     <td class="px-4 py-2 text-center">
@@ -702,7 +702,7 @@ ORDER BY form_id DESC");
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></td>
                                                     <td class="px-4 py-2 text-center 
     <?= $row3['status'] === null ? 'text-red-600' : ($row3['status'] == 1 ? 'text-yellow-600' : ($row3['status'] == 2 ? 'text-green-600' : 'text-gray-500')) ?>">
-                                                        <?= $row3['status'] === null ? 'รอพิจารณา' : ($row3['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row3['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : 'สถานะไม่ถูกต้อง')) ?>
+                                                        <?= $row3['status'] === null ? 'รอพิจารณา' : ($row3['status'] == 0 ? 'ไม่ผ่านการพิจารณา' : ($row3['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row3['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : 'สถานะไม่ถูกต้อง'))) ?>
                                                     </td>
 
                                                     <?php
