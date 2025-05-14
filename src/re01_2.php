@@ -401,37 +401,19 @@ include 'connect/dbcon.php';
  </script>
  HTML;
                         }
-                        // ถ้าอนุมัติจากหัวหน้าสาขา
+                        // ถ้าอนุมัติจากหัวหน้าสาขา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
                     } else {
 
                         $Comment_head_dep = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติม
                         $status = 2;
-                        $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
-
-                        //สุ่มสร้าง token 15 ตัว สำหรับ dep
-                        function generateToken($length = 15)
-                        {
-                            $characters = array_merge(
-                                range('A', 'Z'),
-                                range('a', 'z'),
-                                range('0', '9'),
-                                ['-']
-                            );
-
-                            if ($length > count($characters)) {
-                                throw new Exception("ความยาวเกินจำนวนอักขระที่ไม่ซ้ำกันได้");
-                            }
-
-                            shuffle($characters);
-                            return implode('', array_slice($characters, 0, $length));
-                        }
-                        $token_new = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-2?token=xxxx&token_new=yyyy
+                     
+                       
                         // SQL Query
                         $sql = "UPDATE form_re01 
             SET approval_status_dep = :approval_status, 
                 comment_head_dep = :comment_head_dep, 
                 status = :status 
-            WHERE token = :token";
+            WHERE token_new = :token";
 
                         // เตรียมและ execute
                         $stmt = $pdo->prepare($sql);
@@ -439,7 +421,7 @@ include 'connect/dbcon.php';
                             ':approval_status' => $approvalStatus,
                             ':comment_head_dep' => $Comment_head_dep,
                             ':status' => $status,
-                            ':token' => $token
+                            ':token' => $token_new
                         ]);
 
                         if ($success) {
