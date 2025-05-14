@@ -154,7 +154,7 @@ include 'connect/dbcon.php';
                                         <div>
                                             <label class="font-semibold block mb-1">ความคิดเห็นหัวหน้าสาขา:</label>
                                             <div class="flex items-center space-x-4">
-                                                <?php if (!$status_head_done && $approval_status_teacher == 1): ?>
+                                                <?php if (is_null($approval_status_dep) && $approval_status_teacher == 1): ?>
                                                     <label class="flex items-center space-x-2">
                                                         <input type="radio" name="approval_status_dep" value="1">
                                                         <span>อนุมัติ</span>
@@ -174,13 +174,13 @@ include 'connect/dbcon.php';
                                         <div>
                                             <label for="comment_head_dep" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
                                             <textarea id="comment_head_dep" name="comment_head_dep" rows="3"
-                                                class="w-full text-gray-600 border rounded p-2 <?= $status_head_done ? 'bg-gray-100' : '' ?>"
-                                                <?= $status_head_done ? 'readonly' : '' ?>
+                                                class="w-full text-gray-600 border rounded p-2 <?= !is_null($approval_status_dep) ? 'bg-gray-100' : '' ?>"
+                                                <?= !is_null($approval_status_dep) ? 'readonly' : '' ?>
                                                 placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_head_dep ?? '') ?></textarea>
                                         </div>
                                     </div>
 
-                                    <?php if (!$status_head_done && $approval_status_teacher == 1): ?>
+                                    <?php if (is_null($approval_status_dep) && $approval_status_teacher == 1): ?>
                                         <div class="text-center">
                                             <button type="submit"
                                                 class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow">
@@ -190,6 +190,7 @@ include 'connect/dbcon.php';
                                     <?php endif; ?>
                                 </form>
                             <?php endif; ?>
+
 
                             <script>
                                 function validateForm1() {
