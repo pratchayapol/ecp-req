@@ -252,28 +252,44 @@ include 'connect/dbcon.php';
                     },
                     {
                         circle: 'step3Circle1',
-                        line: null
+                        line: 'line13'
                     }
                 ];
 
+                // หาก status เป็น 0 (ไม่ผ่านการพิจารณา) ให้แสดงสีแดงทั้งหมด
+                if (status === 0) {
+                    steps.forEach(step => {
+                        const circle = document.getElementById(step.circle);
+                        circle.className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center border-red-500 bg-red-500 text-white';
+
+                        if (step.line) {
+                            const line = document.getElementById(step.line);
+                            line.className = 'flex-auto h-0.5 mx-1 bg-red-500';
+                        }
+                    });
+                    return; // ออกจากฟังก์ชันเลย ไม่ต้องทำต่อ
+                }
+
+                // สถานะปกติ (null, 1, 2)
                 steps.forEach((step, i) => {
                     const circle = document.getElementById(step.circle);
-                    const line = step.line ? document.getElementById(step.line) : null;
+                    circle.className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
+                        (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
 
-                    if (circle) {
-                        circle.className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
-                            (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
-                    }
-
-                    if (line) {
+                    if (step.line) {
+                        const line = document.getElementById(step.line);
                         line.className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
                     }
                 });
             }
 
-            document.addEventListener('DOMContentLoaded', function() {
-                const currentStatus = <?php echo (int)$status; ?>;
-                updateStatusStepper1(currentStatus);
+
+            // ใช้เมื่อเปิด modal:
+            document.querySelectorAll('.open-modal1').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const status = this.closest('tr').dataset.status;
+                    updateStatusStepper1(status === 'null' ? -1 : parseInt(status));
+                });
             });
         </script>
 
