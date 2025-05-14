@@ -286,9 +286,32 @@ if (isset($_GET['token'])) {
         ]);
 
         if ($success) {
-            echo "ข้อมูลถูกอัปเดตเรียบร้อยแล้ว!";
+            // แสดง Swal และ redirect ไปหน้า index.php
+            echo <<<HTML
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                Swal.fire({
+                    title: 'สำเร็จ!',
+                    text: 'ข้อมูลถูกอัปเดตเรียบร้อยแล้ว',
+                    icon: 'success',
+                    confirmButtonText: 'ตกลง'
+                }).then(() => {
+                    window.location.href = 'index';
+                });
+            </script>
+            HTML;
         } else {
-            echo "เกิดข้อผิดพลาดในการอัปเดตข้อมูล";
+            echo <<<HTML
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                Swal.fire({
+                    title: 'เกิดข้อผิดพลาด!',
+                    text: 'ไม่สามารถอัปเดตข้อมูลได้',
+                    icon: 'error',
+                    confirmButtonText: 'ตกลง'
+                });
+            </script>
+            HTML;
         }
     }
     ?>
