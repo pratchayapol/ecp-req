@@ -97,10 +97,10 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $request_text), 0, 1, 'L');
 
 // //ความคิดเห็นอาจารย์ที่ปรึกษา
-$pdf->SetY(100);
-$pdf->SetX(40);
-$pdf->SetFont('sara', '', 14);
-$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_teacher), 0, 1, 'L');
+// $pdf->SetY(100);
+// $pdf->SetX(40);
+// $pdf->SetFont('sara', '', 14);
+// $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_teacher), 0, 1, 'L');
 
 
 // //ไม่ปกติเนื่องจาก
