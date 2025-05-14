@@ -17,7 +17,7 @@ include 'connect/dbcon.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECP Online Petition</title>
+    <title>ECP Online Petition RE01 - 2</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Custom fonts for this template-->
@@ -470,12 +470,6 @@ include 'connect/dbcon.php';
                     <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
                     📧 <strong>อีเมลหัวหน้าสาขา:</strong> ' . htmlspecialchars($head_department) . '</p>
             
-                    <div style="margin-top: 30px;">
-                        <a href="https://ecpreq.pcnone.com/re01_2?token=' . urlencode($token) . '&token_new=' . urlencode($token_new) . '" 
-                            style="display: inline-block; padding: 12px 20px; background-color: #ffa500; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px;">
-                            ✅ คลิกเพื่อดำเนินการ
-                        </a>
-                    </div>
             
                     <p style="margin-top: 30px; font-size: 14px; color: #888;">ระบบยื่นคำร้อง สาขาคอมพิวเตอร์  คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น</p>
                 </div>
