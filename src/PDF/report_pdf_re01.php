@@ -78,11 +78,11 @@ $pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $faculty), 0, 1, 'L');
 
 
 
-// //ช่วงเวลา
-// $pdf->SetY(66.5);
-// $pdf->SetX(15);
-// $pdf->SetFont('sara', '', 14);
-// $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $row['period']), 0, 1, 'R');
+// //สาขา
+$pdf->SetY(66.5);
+$pdf->SetX(15);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'C');
 
 // //วันที่ .......... เดือน ..............พ.ศ.............เวลา .......... เริ่มเข้าเวร 
 // $pdf->SetY(90);
