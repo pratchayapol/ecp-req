@@ -160,7 +160,7 @@ include 'connect/dbcon.php';
                                         <div>
                                             <label class="font-semibold block mb-1">ความคิดเห็นหัวหน้าสาขา:</label>
                                             <div class="flex items-center space-x-4">
-                                                <?php if (is_null($status)): ?>
+                                                <?php if ($status === 1): ?>
                                                     <label class="flex items-center space-x-2">
                                                         <input type="radio" name="approval_status_dep" value="1">
                                                         <span>อนุมัติ</span>
@@ -171,12 +171,13 @@ include 'connect/dbcon.php';
                                                         <span>ไม่อนุมัติ</span>
                                                     </label>
                                                 <?php else: ?>
-                                                    <?php if ($status === 1): ?>
-                                                        <span class="text-green-600 font-semibold">อนุมัติ</span>
-                                                    <?php else: ?>
-                                                        <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
-                                                    <?php endif; ?>
+                                                    <?php if ($approval_status_dep == 1): ?>
+                                                    <span class="text-green-600 font-semibold">อนุมัติ</span>
+                                                <?php else: ?>
+                                                    <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
                                                 <?php endif; ?>
+                                            <?php endif; ?>
+
 
                                             </div>
                                         </div>
