@@ -232,7 +232,7 @@ include 'connect/dbcon.php';
                                 }
                                 function validateForm2() {
                                     const radios = document.getElementsByName('approval_status_dep');
-                                    const comment = document.getElementById('comment_dep').value.trim();
+                                    const comment = document.getElementById('comment_head_dep').value.trim();
 
                                     let selected = false;
                                     for (let i = 0; i < radios.length; i++) {
