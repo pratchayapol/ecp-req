@@ -168,12 +168,9 @@ try {
                             });
                         }
 
-                        // ใช้เมื่อเปิด modal:
-                        document.querySelectorAll('.open-modal1').forEach(btn => {
-                            btn.addEventListener('click', function() {
-                                const status = parseInt(this.closest('tr').dataset.status) || 0;
-                                updateStatusStepper1(status);
-                            });
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const currentStatus = <?php echo (int)$status; ?>;
+                            updateStatusStepper1(currentStatus);
                         });
                     </script>
                 </div>
