@@ -364,7 +364,7 @@ if (isset($_GET['token'])) {
                     📧 <strong>อีเมลหัวหน้าสาขา:</strong> ' . htmlspecialchars($head_department) . '</p>
             
                     <div style="margin-top: 30px;">
-                        <a href="https://ecpreq.pcnone.com/re01_2?token=' . urlencode($token) . '&token_new=' . urlencode($token_new) . '" 
+                        <a href="https://ecpreq.pcnone.com/re01_1?token=' . urlencode($token) . '&token_new=' . urlencode($token_new) . '" 
                             style="display: inline-block; padding: 12px 20px; background-color: #ffa500; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px;">
                             ✅ คลิกเพื่อดำเนินการ
                         </a>
