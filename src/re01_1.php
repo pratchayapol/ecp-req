@@ -266,15 +266,16 @@ if (isset($_GET['token'])) {
         // รับค่าจากฟอร์ม
         $approvalStatus = $_POST['approval_status'];  // approved หรือ not_approved
         $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
+        $status = 2
         $token = $_GET['token'];  // รับค่า token จาก URL หรือในกรณีที่ใช้เป็น hidden field
 
         // SQL Query เพื่อ update ข้อมูลในฐานข้อมูล
-        $sql = "UPDATE form_re01 SET approval_status_teacher = ?, comment_teacher = ? WHERE token = ?";
+        $sql = "UPDATE form_re01 SET approval_status_teacher = ?, comment_teacher = ? , comment_teacher = ? WHERE token = ?";
 
         // เตรียมคำสั่ง SQL
         if ($stmt = $conn->prepare($sql)) {
             // ผูกตัวแปรกับคำสั่ง SQL
-            $stmt->bind_param("sss", $approvalStatus, $commentTeacher, $token);
+            $stmt->bind_param("ssss", $approvalStatus, $commentTeacher, $status, $token);
 
             // รันคำสั่ง SQL
             if ($stmt->execute()) {
