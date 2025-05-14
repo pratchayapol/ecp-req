@@ -104,26 +104,31 @@ try {
                     </div>
                     <div class="mb-2">
                         <label for="comment_teacher" class="font-semibold">ความคิดเห็นอาจารย์:</label>
-                        <textarea id="comment_teacher" name="comment_teacher" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2" readonly>
-<?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?>
-    </textarea>
+
+                        <?php if (empty($comment_teacher)): ?>
+                            <p class="text-sm text-gray-500 italic mb-1">* สามารถเพิ่มข้อความได้</p>
+                        <?php endif; ?>
+
+                        <textarea id="comment_teacher" name="comment_teacher" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2" readonly><?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?></textarea>
                     </div>
 
-                    <div class="mb-2">
-                        <span class="font-semibold">สถานะ:</span> <?php echo htmlspecialchars($status); ?>
-                    </div>
-                    <div class="mb-2">
-                        <span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?>
-                    </div>
-                    <div class="mb-2">
-                        <span class="font-semibold">อีเมลอาจารย์:</span> <?php echo htmlspecialchars($teacher_email); ?>
-                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <span class="font-semibold">สถานะ:</span> <?php echo htmlspecialchars($status); ?>
+                </div>
+                <div class="mb-2">
+                    <span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?>
+                </div>
+                <div class="mb-2">
+                    <span class="font-semibold">อีเมลอาจารย์:</span> <?php echo htmlspecialchars($teacher_email); ?>
                 </div>
             </div>
-
-
-
         </div>
+
+
+
+    </div>
     </div>
     <?php include './loadtab/f.php'; ?>
 </body>
