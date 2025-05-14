@@ -182,13 +182,13 @@ include 'connect/dbcon.php';
                                         </div>
 
                                         <div>
-                                            <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
+                                            <label for="comment_head_dep" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
                                             <?php if ($status === 1): ?>
                                                 <textarea id="comment_head_dep" name="comment_head_dep" rows="3"
                                                     class="w-full text-gray-600 border rounded p-2"
                                                     placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_head_dep) ?></textarea>
                                             <?php else: ?>
-                                                <textarea id="comment_teacher" name="comment_teacher" rows="3"
+                                                <textarea id="comment_head_dep" name="comment_head_dep" rows="3"
                                                     class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_head_dep) ?></textarea>
                                             <?php endif; ?>
                                         </div>
