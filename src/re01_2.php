@@ -36,20 +36,20 @@ include 'connect/dbcon.php';
 <body class="flex items-center justify-center min-h-screen bg t1">
     <?php include './loadtab/h.php';
 
-if (isset($_GET['token']) && isset($_GET['token_new'])) {
-    echo $token = $_GET['token'];
-    echo $token_new = $_GET['token_new'];
+    if (isset($_GET['token']) && isset($_GET['token_new'])) {
+        echo $token = $_GET['token'];
+        echo $token_new = $_GET['token_new'];
 
-    try {
-        $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE token = :token AND token_new = :token_new");
-        $stmt->bindParam(':token', $token, PDO::PARAM_STR);
-        $stmt->bindParam(':token_new', $token_new, PDO::PARAM_STR);
-        $stmt->execute();
+        try {
+            $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE token = :token AND token_new = :token_new");
+            $stmt->bindParam(':token', $token, PDO::PARAM_STR);
+            $stmt->bindParam(':token_new', $token_new, PDO::PARAM_STR);
+            $stmt->execute();
 
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($row) {
-            extract($row);
+            if ($row) {
+                extract($row);
                 $form_id = $row['form_id'];
                 $title = $row['title'];
                 $to = $row['to'];
@@ -220,103 +220,101 @@ if (isset($_GET['token']) && isset($_GET['token_new'])) {
                 </div>
 
 
-        <?php
-          
-        } catch (PDOException $e) {
-            echo "เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล: " . $e->getMessage();
-        }
-        ?>
+                <?php
 
 
-        <!-- JavaScript for stepper -->
-        <script>
-            function updateStatusStepper1(status) {
-                const steps = [{
-                        circle: 'step1Circle1',
-                        line: 'line11'
-                    },
-                    {
-                        circle: 'step2Circle1',
-                        line: 'line12'
-                    },
-                    {
-                        circle: 'step3Circle1',
-                        line: null
+                ?>
+
+
+                <!-- JavaScript for stepper -->
+                <script>
+                    function updateStatusStepper1(status) {
+                        const steps = [{
+                                circle: 'step1Circle1',
+                                line: 'line11'
+                            },
+                            {
+                                circle: 'step2Circle1',
+                                line: 'line12'
+                            },
+                            {
+                                circle: 'step3Circle1',
+                                line: null
+                            }
+                        ];
+
+                        steps.forEach((step, i) => {
+                            const circle = document.getElementById(step.circle);
+                            const line = step.line ? document.getElementById(step.line) : null;
+
+                            if (circle) {
+                                circle.className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
+                                    (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
+                            }
+
+                            if (line) {
+                                line.className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
+                            }
+                        });
                     }
-                ];
 
-                steps.forEach((step, i) => {
-                    const circle = document.getElementById(step.circle);
-                    const line = step.line ? document.getElementById(step.line) : null;
-
-                    if (circle) {
-                        circle.className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
-                            (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
-                    }
-
-                    if (line) {
-                        line.className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
-                    }
-                });
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
-                const currentStatus = <?php echo (int)$status; ?>;
-                updateStatusStepper1(currentStatus);
-            });
-        </script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const currentStatus = <?php echo (int)$status; ?>;
+                        updateStatusStepper1(currentStatus);
+                    });
+                </script>
 
 
     <?php
-        // ตรวจสอบว่ามีการส่งข้อมูลจากฟอร์มหรือไม่
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // รับค่าจากฟอร์ม
-            $approvalStatus = $_POST['approval_status'];  // approved หรือ not_approved
-            // ถ้าไม่อนุมัติจากอาจารย์ที่ปรึกษา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
-            if ($approvalStatus == "0") {
-                $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
-                $status = 0; // ไม่ต้องส่งไปยังหัวหน้าสาขา ให้จบไปเลย
-                $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
-                $token_new = ''; // กรณีไม่ต้องใช้ token ใหม่
-                // SQL Query
-                $sql = "UPDATE form_re01 
+                // ตรวจสอบว่ามีการส่งข้อมูลจากฟอร์มหรือไม่
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    // รับค่าจากฟอร์ม
+                    $approvalStatus = $_POST['approval_status'];  // approved หรือ not_approved
+                    // ถ้าไม่อนุมัติจากอาจารย์ที่ปรึกษา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
+                    if ($approvalStatus == "0") {
+                        $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
+                        $status = 0; // ไม่ต้องส่งไปยังหัวหน้าสาขา ให้จบไปเลย
+                        $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
+                        $token_new = ''; // กรณีไม่ต้องใช้ token ใหม่
+                        // SQL Query
+                        $sql = "UPDATE form_re01 
  SET approval_status_teacher = :approval_status, 
      comment_teacher = :comment_teacher, token_new = :token_new,
      status = :status 
  WHERE token = :token";
 
-                // เตรียมและ execute
-                $stmt = $pdo->prepare($sql);
-                $success = $stmt->execute([
-                    ':approval_status' => $approvalStatus,
-                    ':comment_teacher' => $commentTeacher,
-                    ':status' => $status,
-                    ':token_new' => $token_new,
-                    ':token' => $token
-                ]);
+                        // เตรียมและ execute
+                        $stmt = $pdo->prepare($sql);
+                        $success = $stmt->execute([
+                            ':approval_status' => $approvalStatus,
+                            ':comment_teacher' => $commentTeacher,
+                            ':status' => $status,
+                            ':token_new' => $token_new,
+                            ':token' => $token
+                        ]);
 
-                if ($success) {
-                    require_once __DIR__ . '/vendor/autoload.php';
+                        if ($success) {
+                            require_once __DIR__ . '/vendor/autoload.php';
 
 
-                    $mail = new PHPMailer(true);
+                            $mail = new PHPMailer(true);
 
-                    try {
-                        $mail->CharSet = 'UTF-8';
-                        $mail->isSMTP();
-                        $mail->Host       = 'smtp.gmail.com';
-                        $mail->SMTPAuth   = true;
-                        $mail->Username   = 'botpcnone@gmail.com';
-                        $mail->Password   = 'lbro evfy ipng zpqf';
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                        $mail->Port       = 587;
+                            try {
+                                $mail->CharSet = 'UTF-8';
+                                $mail->isSMTP();
+                                $mail->Host       = 'smtp.gmail.com';
+                                $mail->SMTPAuth   = true;
+                                $mail->Username   = 'botpcnone@gmail.com';
+                                $mail->Password   = 'lbro evfy ipng zpqf';
+                                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                                $mail->Port       = 587;
 
-                        $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
-                        $mail->addAddress($email, 'นักศึกษา');
-                        $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ไม่ผ่านการพิจารณา จากอาจารย์ที่ปรึกษา';
-                        $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
+                                $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
+                                $mail->addAddress($email, 'นักศึกษา');
+                                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ไม่ผ่านการพิจารณา จากอาจารย์ที่ปรึกษา';
+                                $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
-                        $mail->Body = '
+                                $mail->Body = '
      <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
          <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
          <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
@@ -343,14 +341,14 @@ if (isset($_GET['token']) && isset($_GET['token_new'])) {
 
 
 
-                        $mail->send();
-                        // echo 'Message has been sent';
-                    } catch (Exception $e) {
-                        echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-                    }
+                                $mail->send();
+                                // echo 'Message has been sent';
+                            } catch (Exception $e) {
+                                echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+                            }
 
-                    // แสดง Swal และ redirect ไปหน้า index.php
-                    echo <<<HTML
+                            // แสดง Swal และ redirect ไปหน้า index.php
+                            echo <<<HTML
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script>
      Swal.fire({
@@ -363,8 +361,8 @@ if (isset($_GET['token']) && isset($_GET['token_new'])) {
      });
  </script>
  HTML;
-                } else {
-                    echo <<<HTML
+                        } else {
+                            echo <<<HTML
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script>
      Swal.fire({
@@ -375,72 +373,72 @@ if (isset($_GET['token']) && isset($_GET['token_new'])) {
      });
  </script>
  HTML;
-                }
-                // ถ้าอนุมัติจากอาจารย์ที่ปรึกษา
-            } else {
+                        }
+                        // ถ้าอนุมัติจากอาจารย์ที่ปรึกษา
+                    } else {
 
-                $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
-                $status = 1;
-                $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
+                        $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
+                        $status = 1;
+                        $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
 
-                //สุ่มสร้าง token 15 ตัว สำหรับ dep
-                function generateToken($length = 15)
-                {
-                    $characters = array_merge(
-                        range('A', 'Z'),
-                        range('a', 'z'),
-                        range('0', '9'),
-                        ['-']
-                    );
+                        //สุ่มสร้าง token 15 ตัว สำหรับ dep
+                        function generateToken($length = 15)
+                        {
+                            $characters = array_merge(
+                                range('A', 'Z'),
+                                range('a', 'z'),
+                                range('0', '9'),
+                                ['-']
+                            );
 
-                    if ($length > count($characters)) {
-                        throw new Exception("ความยาวเกินจำนวนอักขระที่ไม่ซ้ำกันได้");
-                    }
+                            if ($length > count($characters)) {
+                                throw new Exception("ความยาวเกินจำนวนอักขระที่ไม่ซ้ำกันได้");
+                            }
 
-                    shuffle($characters);
-                    return implode('', array_slice($characters, 0, $length));
-                }
-                $token_new = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-2?token=xxxx&token_new=yyyy
-                // SQL Query
-                $sql = "UPDATE form_re01 
+                            shuffle($characters);
+                            return implode('', array_slice($characters, 0, $length));
+                        }
+                        $token_new = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-2?token=xxxx&token_new=yyyy
+                        // SQL Query
+                        $sql = "UPDATE form_re01 
             SET approval_status_teacher = :approval_status, 
                 comment_teacher = :comment_teacher, token_new = :token_new,
                 status = :status 
             WHERE token = :token";
 
-                // เตรียมและ execute
-                $stmt = $pdo->prepare($sql);
-                $success = $stmt->execute([
-                    ':approval_status' => $approvalStatus,
-                    ':comment_teacher' => $commentTeacher,
-                    ':status' => $status,
-                    ':token_new' => $token_new,
-                    ':token' => $token
-                ]);
+                        // เตรียมและ execute
+                        $stmt = $pdo->prepare($sql);
+                        $success = $stmt->execute([
+                            ':approval_status' => $approvalStatus,
+                            ':comment_teacher' => $commentTeacher,
+                            ':status' => $status,
+                            ':token_new' => $token_new,
+                            ':token' => $token
+                        ]);
 
-                if ($success) {
-                    require_once __DIR__ . '/vendor/autoload.php';
-
-
-                    $mail = new PHPMailer(true);
-
-                    try {
-                        $mail->CharSet = 'UTF-8';
-                        $mail->isSMTP();
-                        $mail->Host       = 'smtp.gmail.com';
-                        $mail->SMTPAuth   = true;
-                        $mail->Username   = 'botpcnone@gmail.com';
-                        $mail->Password   = 'lbro evfy ipng zpqf';
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                        $mail->Port       = 587;
-
-                        $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
-                        $mail->addAddress($head_department, 'หัวหน้าสาขาวิชา');
-                        $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากอาจารย์ที่ปรึกษาแล้ว';
-                        $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
+                        if ($success) {
+                            require_once __DIR__ . '/vendor/autoload.php';
 
 
-                        $mail->Body = '
+                            $mail = new PHPMailer(true);
+
+                            try {
+                                $mail->CharSet = 'UTF-8';
+                                $mail->isSMTP();
+                                $mail->Host       = 'smtp.gmail.com';
+                                $mail->SMTPAuth   = true;
+                                $mail->Username   = 'botpcnone@gmail.com';
+                                $mail->Password   = 'lbro evfy ipng zpqf';
+                                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                                $mail->Port       = 587;
+
+                                $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
+                                $mail->addAddress($head_department, 'หัวหน้าสาขาวิชา');
+                                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากอาจารย์ที่ปรึกษาแล้ว';
+                                $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
+
+
+                                $mail->Body = '
                 <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
                     <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
                     <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
@@ -474,14 +472,14 @@ if (isset($_GET['token']) && isset($_GET['token_new'])) {
 
 
 
-                        $mail->send();
-                        // echo 'Message has been sent';
-                    } catch (Exception $e) {
-                        echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-                    }
+                                $mail->send();
+                                // echo 'Message has been sent';
+                            } catch (Exception $e) {
+                                echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+                            }
 
-                    // แสดง Swal และ redirect ไปหน้า index.php
-                    echo <<<HTML
+                            // แสดง Swal และ redirect ไปหน้า index.php
+                            echo <<<HTML
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script>
                 Swal.fire({
@@ -494,8 +492,8 @@ if (isset($_GET['token']) && isset($_GET['token_new'])) {
                 });
             </script>
             HTML;
-                } else {
-                    echo <<<HTML
+                        } else {
+                            echo <<<HTML
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script>
                 Swal.fire({
@@ -506,12 +504,15 @@ if (isset($_GET['token']) && isset($_GET['token_new'])) {
                 });
             </script>
             HTML;
+                        }
+                    }
                 }
             }
+        } catch (PDOException $e) {
+            echo "Database error: " . $e->getMessage();
         }
-    }
- } else {
-                echo "
+    } else {
+        echo "
     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     <script>
         Swal.fire({
@@ -526,8 +527,8 @@ if (isset($_GET['token']) && isset($_GET['token_new'])) {
         });
     </script>
     ";
-            }
-        
+    }
+
     ?>
     <?php include './loadtab/f.php'; ?>
 </body>
