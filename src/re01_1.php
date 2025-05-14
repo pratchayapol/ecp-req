@@ -115,7 +115,7 @@ try {
                 </div>
 
                 <div class="mb-2">
-                    <span class="font-semibold">สถานะ:</span> <?php echo htmlspecialchars($status); ?>
+                    <span class="font-semibold">สถานะ:</span>
                     <div id="statusStepper1" class="flex justify-between items-center my-4">
                         <!-- Step 1 -->
                         <div class="flex flex-col items-center">
