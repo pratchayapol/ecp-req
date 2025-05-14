@@ -213,7 +213,7 @@ include 'connect/dbcon.php';
                         <!-- Metadata -->
                         <div class="grid grid-cols-1 md:grid-cols-1 gap-4 text-sm text-gray-700">
                             <div class="text-right">
-                                <span class="font-semibold">วันที่สร้าง:</span>
+                                <span class="font-semibold">วันเวลาที่นักศึกษาบันทึกคำร้องนี้ :</span>
                                 <?php echo htmlspecialchars($created_at); ?> น.
                             </div>
 
