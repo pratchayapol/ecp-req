@@ -3,6 +3,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 include 'connect/dbcon.php';
 
@@ -306,6 +308,65 @@ if (isset($_GET['token'])) {
         ]);
 
         if ($success) {
+            require_once __DIR__ . '/../vendor/autoload.php';
+
+
+            $mail = new PHPMailer(true);
+
+            try {
+                $mail->CharSet = 'UTF-8';
+                $mail->isSMTP();
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'botpcnone@gmail.com';
+                $mail->Password   = 'lbro evfy ipng zpqf';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port       = 587;
+
+                $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
+                $mail->addAddress($head_department, 'หัวหน้าสาขาวิชา');
+                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . $iname . ' ผ่านการพิจารณา จากอาจารย์ที่ปรึกษาแล้ว';
+                $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
+
+                $mail->isHTML(true);
+
+                $mail->Body = '
+                <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
+                    <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
+                    <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
+            
+                    <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500; color: #000;">
+                        <p><strong>ชื่อ:</strong> ' . htmlspecialchars($iname) . '</p>
+                        <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($id) . '</p>
+                        <p><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
+                        <p><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
+                        <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
+                        <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
+                        <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request)) . '</p>
+                    </div>
+            
+                    <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
+                    📧 <strong>อีเมลหัวหน้าสาขา:</strong> ' . htmlspecialchars($head_department) . '</p>
+            
+                    <div style="margin-top: 30px;">
+                        <a href="https://ecpreq.pcnone.com/re01_1?token=' . urlencode($token) . '" 
+                            style="display: inline-block; padding: 12px 20px; background-color: #ffa500; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px;">
+                            ✅ คลิกเพื่อดำเนินการ
+                        </a>
+                    </div>
+            
+                    <p style="margin-top: 30px; font-size: 14px; color: #888;">ระบบยื่นคำร้อง สาขาคอมพิวเตอร์  คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น</p>
+                </div>
+            ';
+
+
+
+                $mail->send();
+                echo 'Message has been sent';
+            } catch (Exception $e) {
+                echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+            }
+
             // แสดง Swal และ redirect ไปหน้า index.php
             echo <<<HTML
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
