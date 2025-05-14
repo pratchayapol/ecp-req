@@ -240,6 +240,7 @@ include 'connect/dbcon.php';
 
 
         <!-- JavaScript for stepper -->
+        <?= $status === null ? 'null' : $status ?>
         <script>
             function updateStatusStepper1(status) {
                 const steps = [{
@@ -287,8 +288,8 @@ include 'connect/dbcon.php';
             // ใช้เมื่อเปิด modal:
             document.querySelectorAll('.open-modal1').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const status = this.closest('tr').dataset.status;
-                    updateStatusStepper1(status === 'null' ? -1 : parseInt(status));
+                    const status = <?= $row1['status'] === null ? -1 : (int)$row1['status'] ?>;
+                    updateStatusStepper1(status);
                 });
             });
         </script>
