@@ -296,32 +296,35 @@ function getNameByEmail($pdo, $email)
                                         <p><strong>ชื่อหัวหน้าสาขา:</strong> <span id="modalHeadName"></span></p>
                                         <hr>
                                     </div>
-                                    <div id="statusStepper1" class="flex justify-between items-center my-4">
-                                        <!-- Step 1 -->
-                                        <div class="flex flex-col items-center">
-                                            <div id="step1Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
-                                            <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณาคำร้อง</span>
+                                    <?php if ($row1['status'] == "0") {
+                                    } else { ?>
+                                        <div id="statusStepper1" class="flex justify-between items-center my-4">
+                                            <!-- Step 1 -->
+                                            <div class="flex flex-col items-center">
+                                                <div id="step1Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                                                <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณาคำร้อง</span>
+                                            </div>
+
+                                            <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line11"></div>
+
+                                            <!-- Step 2 -->
+                                            <div class="flex flex-col items-center">
+                                                <div id="step2Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                                                <span class="mt-1 text-sm text-gray-600 text-center">ที่ปรึกษาพิจารณาแล้ว</span>
+                                            </div>
+
+                                            <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line12"></div>
+
+                                            <!-- Step 3 -->
+                                            <div class="flex flex-col items-center">
+                                                <div id="step3Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
+                                                <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
+                                            </div>
                                         </div>
-
-                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line11"></div>
-
-                                        <!-- Step 2 -->
-                                        <div class="flex flex-col items-center">
-                                            <div id="step2Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
-                                            <span class="mt-1 text-sm text-gray-600 text-center">ที่ปรึกษาพิจารณาแล้ว</span>
-                                        </div>
-
-                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line12"></div>
-
-                                        <!-- Step 3 -->
-                                        <div class="flex flex-col items-center">
-                                            <div id="step3Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
-                                            <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
-                                        </div>
-                                    </div>
+                                    <?php } ?>
                                 </div>
                             </div>
-                              <!-- แถบสถานะ RE01 -->
+                            <!-- แถบสถานะ RE01 -->
                             <script>
                                 function updateStatusStepper1(status) {
                                     const steps = [{
@@ -542,6 +545,8 @@ function getNameByEmail($pdo, $email)
                                             <p><strong>อาจารย์ประจำรายวิชา:</strong> <span id="modalTeacherEmail"></span></p>
                                             <hr>
                                         </div>
+                                        <?php if ($row0['status'] == "0") {
+                                    } else { ?>
                                         <div id="statusStepper2" class="flex justify-between items-center my-4">
                                             <!-- Step 0 -->
                                             <div class="flex flex-col items-center">
@@ -557,6 +562,7 @@ function getNameByEmail($pdo, $email)
                                                 <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ประจำรายวิชาพิจารณาแล้ว</span>
                                             </div>
                                         </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
 
@@ -788,6 +794,8 @@ ORDER BY form_id DESC");
                                         <p><strong>หัวหน้าสาขา:</strong> <span id="modalHeadDepartment3"></span></p>
                                         <hr>
                                     </div>
+                                    <?php if ($row3['status'] == "0") {
+                                    } else { ?>
                                     <div id="statusStepper3" class="flex justify-between items-center my-4">
                                         <!-- Step 1 -->
                                         <div class="flex flex-col items-center">
@@ -811,10 +819,12 @@ ORDER BY form_id DESC");
                                             <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
                                         </div>
                                     </div>
+
+                                    <?php } ?>
                                 </div>
                             </div>
 
-                               <!-- แถบสถานะ RE07 -->
+                            <!-- แถบสถานะ RE07 -->
                             <script>
                                 function updateStatusStepper3(status) {
                                     const steps = [{
