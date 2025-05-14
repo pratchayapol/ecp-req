@@ -509,6 +509,21 @@ include 'connect/dbcon.php';
                 }
             } else {
                 echo "<div class='text-center p-6'>ไม่พบข้อมูลคำร้อง กรุณาตรวจสอบลิงก์อีกครั้ง</div>";
+                    echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'ไม่พบข้อมูลคำร้อง',
+            text: 'กรุณาตรวจสอบลิงก์อีกครั้ง',
+            confirmButtonText: 'กลับหน้าหลัก',
+            allowOutsideClick: false
+        }).then((result) => {
+            // ไม่ว่าจะกดปุ่มไหนหรือปิด popup ก็ redirect
+            window.location.href = 'index';
+        });
+    </script>
+    ";
             }
         } catch (PDOException $e) {
             echo "Database error: " . $e->getMessage();
