@@ -316,7 +316,7 @@ if (isset($_GET['token'])) {
                     icon: 'success',
                     confirmButtonText: 'ตกลง'
                 }).then(() => {
-                    window.location.href = 'index';
+                    window.location.href = '';
                 });
             </script>
             HTML;
