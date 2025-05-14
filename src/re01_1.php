@@ -109,7 +109,7 @@ try {
                             <p class="text-sm text-gray-500 italic mb-1">* สามารถเพิ่มข้อความได้</p>
                         <?php endif; ?>
 
-                        <textarea id="comment_teacher" name="comment_teacher" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2" readonly><?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?></textarea>
+                        <textarea id="comment_teacher" name="comment_teacher" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2" ><?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?></textarea>
                     </div>
 
                 </div>
