@@ -416,7 +416,7 @@ if (isset($_GET['token'])) {
 }
 
 if (isset($_GET['token']) && isset($_GET['token_new'])) {
-
+echo "สำหรับหัวหน้าสาขากรอก";
 }else {
     echo "ไม่พบ token และ token_newใน URL";
 }
