@@ -8,13 +8,6 @@ use PHPMailer\PHPMailer\Exception;
 
 include 'connect/dbcon.php';
 
-if (isset($_GET['token'])) {
-    $token = $_GET['token'];
-    // echo "Token ที่ได้รับคือ: " . htmlspecialchars($token);
-} else {
-    echo "ไม่พบ token ใน URL";
-}
-
 
 ?>
 
@@ -42,6 +35,9 @@ if (isset($_GET['token'])) {
 
 <body class="flex items-center justify-center min-h-screen bg t1">
     <?php include './loadtab/h.php';
+
+if (isset($_GET['token'])) {
+    $token = $_GET['token'];
 
     try {
         $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE token = :token");
@@ -414,8 +410,20 @@ if (isset($_GET['token'])) {
             HTML;
         }
     }
-    ?>
+    
+} else {
+    echo "ไม่พบ token ใน URL";
+}
 
+if (isset($_GET['token']) && isset($_GET['token_new'])) {
+
+}else {
+    echo "ไม่พบ token และ token_newใน URL";
+}
+
+
+
+?>
     <?php include './loadtab/f.php'; ?>
 </body>
 
