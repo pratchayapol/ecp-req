@@ -267,31 +267,29 @@ if (isset($_GET['token'])) {
         $approvalStatus = $_POST['approval_status'];  // approved หรือ not_approved
         $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
         $status = 2;
-        $token = $_GET['token'];  // รับค่า token จาก URL หรือในกรณีที่ใช้เป็น hidden field
+        $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
 
-        // SQL Query เพื่อ update ข้อมูลในฐานข้อมูล
-        $sql = "UPDATE form_re01 SET approval_status_teacher = ?, comment_teacher = ? , status = ? WHERE token = ?";
+        // SQL Query
+        $sql = "UPDATE form_re01 
+            SET approval_status_teacher = :approval_status, 
+                comment_teacher = :comment_teacher, 
+                status = :status 
+            WHERE token = :token";
 
-        // เตรียมคำสั่ง SQL
-        if ($stmt = $pdo->prepare($sql)) {
-            // ผูกตัวแปรกับคำสั่ง SQL
-            $stmt->bind_param("ssss", $approvalStatus, $commentTeacher, $status, $token);
+        // เตรียมและ execute
+        $stmt = $pdo->prepare($sql);
+        $success = $stmt->execute([
+            ':approval_status' => $approvalStatus,
+            ':comment_teacher' => $commentTeacher,
+            ':status' => $status,
+            ':token' => $token
+        ]);
 
-            // รันคำสั่ง SQL
-            if ($stmt->execute()) {
-                echo "ข้อมูลถูกอัปเดตเรียบร้อยแล้ว!";
-            } else {
-                echo "เกิดข้อผิดพลาดในการอัปเดตข้อมูล: " . $pdo->error;
-            }
-
-            // ปิดการเตรียมคำสั่ง
-            $stmt->close();
+        if ($success) {
+            echo "ข้อมูลถูกอัปเดตเรียบร้อยแล้ว!";
         } else {
-            echo "เกิดข้อผิดพลาดในการเตรียมคำสั่ง: " . $conn->error;
+            echo "เกิดข้อผิดพลาดในการอัปเดตข้อมูล";
         }
-
-        // ปิดการเชื่อมต่อ
-        $conn->close();
     }
     ?>
 
