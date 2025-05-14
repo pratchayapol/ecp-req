@@ -177,35 +177,37 @@ include 'connect/dbcon.php';
                             </script>
 
                         </div>
+                        <?php if ($status == "0") {
+                            echo "ไม่พิจารณา";
+                        } else { ?>
+                            <!-- Status Stepper -->
+                            <div class="w-full">
+                                <span class="font-semibold">สถานะ:</span>
+                                <div id="statusStepper1" class="flex justify-between items-center my-4">
+                                    <!-- Step 1 -->
+                                    <div class="flex flex-col items-center">
+                                        <div id="step1Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                                        <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณาคำร้อง</span>
+                                    </div>
 
-                        <!-- Status Stepper -->
-                        <div class="w-full">
-                            <span class="font-semibold">สถานะ:</span>
-                            <div id="statusStepper1" class="flex justify-between items-center my-4">
-                                <!-- Step 1 -->
-                                <div class="flex flex-col items-center">
-                                    <div id="step1Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
-                                    <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณาคำร้อง</span>
-                                </div>
+                                    <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line11"></div>
 
-                                <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line11"></div>
+                                    <!-- Step 2 -->
+                                    <div class="flex flex-col items-center">
+                                        <div id="step2Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                                        <span class="mt-1 text-sm text-gray-600 text-center">ที่ปรึกษาพิจารณาแล้ว</span>
+                                    </div>
 
-                                <!-- Step 2 -->
-                                <div class="flex flex-col items-center">
-                                    <div id="step2Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
-                                    <span class="mt-1 text-sm text-gray-600 text-center">ที่ปรึกษาพิจารณาแล้ว</span>
-                                </div>
+                                    <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line12"></div>
 
-                                <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line12"></div>
-
-                                <!-- Step 3 -->
-                                <div class="flex flex-col items-center">
-                                    <div id="step3Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
-                                    <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
+                                    <!-- Step 3 -->
+                                    <div class="flex flex-col items-center">
+                                        <div id="step3Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
+                                        <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
+                        <?php } ?>
                         <!-- Metadata -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
                             <div><span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?> น.</div>
