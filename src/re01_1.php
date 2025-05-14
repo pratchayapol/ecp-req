@@ -98,12 +98,30 @@ if (isset($_GET['token'])) {
                         </div>
 
                         <!-- Teacher Comment -->
-                        <div>
-                            <label for="comment_teacher" class="font-semibold block mb-1">ความคิดเห็นอาจารย์:</label>
-                            <?php if (empty($comment_teacher)): ?>
-                                <p class="text-sm text-gray-500 italic mb-2">* สามารถเพิ่มข้อความได้</p>
-                            <?php endif; ?>
-                            <textarea id="comment_teacher" name="comment_teacher" rows="3" class="w-full text-gray-600 border rounded p-2 cursor-default"><?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?></textarea>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="font-semibold block mb-1">ความคิดเห็นอาจารย์:</label>
+                                <div class="flex items-center space-x-4">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="approval_status" value="approved"
+                                            <?php echo (isset($approval_status) && $approval_status === 'approved') ? 'checked' : ''; ?>>
+                                        <span>อนุมัติ</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="approval_status" value="not_approved"
+                                            <?php echo (isset($approval_status) && $approval_status === 'not_approved') ? 'checked' : ''; ?>>
+                                        <span>ไม่อนุมัติ</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
+                                <?php if (empty($comment_teacher)): ?>
+                                    <p class="text-sm text-gray-500 italic mb-2">* สามารถเพิ่มข้อความได้</p>
+                                <?php endif; ?>
+                                <textarea id="comment_teacher" name="comment_teacher" rows="3" class="w-full text-gray-600 border rounded p-2"><?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?></textarea>
+                            </div>
                         </div>
                     </div>
 
