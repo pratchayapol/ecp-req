@@ -97,7 +97,7 @@ if (isset($_GET['token'])) {
                             <textarea id="request_text" name="request_text" rows="3" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($request_text); ?></textarea>
                         </div>
                         <hr>
-                        <form method="POST" action="your-processing-script.php" onsubmit="return validateForm()">
+                        <form method="POST" action="" onsubmit="return validateForm()">
                             <!-- Approval Section -->
                             <div class="space-y-3 mb-6">
                                 <div>
@@ -258,6 +258,41 @@ if (isset($_GET['token'])) {
             updateStatusStepper1(currentStatus);
         });
     </script>
+
+
+    <?php
+    // ตรวจสอบว่ามีการส่งข้อมูลจากฟอร์มหรือไม่
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // รับค่าจากฟอร์ม
+        $approvalStatus = $_POST['approval_status'];  // approved หรือ not_approved
+        $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
+        $token = $_GET['token'];  // รับค่า token จาก URL หรือในกรณีที่ใช้เป็น hidden field
+
+        // SQL Query เพื่อ update ข้อมูลในฐานข้อมูล
+        $sql = "UPDATE form_re01 SET approval_status = ?, comment_teacher = ? WHERE token = ?";
+
+        // เตรียมคำสั่ง SQL
+        if ($stmt = $conn->prepare($sql)) {
+            // ผูกตัวแปรกับคำสั่ง SQL
+            $stmt->bind_param("sss", $approvalStatus, $commentTeacher, $token);
+
+            // รันคำสั่ง SQL
+            if ($stmt->execute()) {
+                echo "ข้อมูลถูกอัปเดตเรียบร้อยแล้ว!";
+            } else {
+                echo "เกิดข้อผิดพลาดในการอัปเดตข้อมูล: " . $conn->error;
+            }
+
+            // ปิดการเตรียมคำสั่ง
+            $stmt->close();
+        } else {
+            echo "เกิดข้อผิดพลาดในการเตรียมคำสั่ง: " . $conn->error;
+        }
+
+        // ปิดการเชื่อมต่อ
+        $conn->close();
+    }
+    ?>
 
     <?php include './loadtab/f.php'; ?>
 </body>
