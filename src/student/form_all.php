@@ -546,22 +546,22 @@ function getNameByEmail($pdo, $email)
                                             <hr>
                                         </div>
                                         <?php if ($row0['status'] == "0") {
-                                    } else { ?>
-                                        <div id="statusStepper2" class="flex justify-between items-center my-4">
-                                            <!-- Step 0 -->
-                                            <div class="flex flex-col items-center">
-                                                <div id="step1Circle2" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
-                                                <span class="mt-1 text-sm text-gray-600 text-center">รออาจารย์ประจำรายวิชาพิจารณาคำร้อง</span>
-                                            </div>
+                                        } else { ?>
+                                            <div id="statusStepper2" class="flex justify-between items-center my-4">
+                                                <!-- Step 0 -->
+                                                <div class="flex flex-col items-center">
+                                                    <div id="step1Circle2" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                                                    <span class="mt-1 text-sm text-gray-600 text-center">รออาจารย์ประจำรายวิชาพิจารณาคำร้อง</span>
+                                                </div>
 
-                                            <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line1"></div>
+                                                <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line1"></div>
 
-                                            <!-- Step 1 -->
-                                            <div class="flex flex-col items-center">
-                                                <div id="step2Circle2" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
-                                                <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ประจำรายวิชาพิจารณาแล้ว</span>
+                                                <!-- Step 1 -->
+                                                <div class="flex flex-col items-center">
+                                                    <div id="step2Circle2" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                                                    <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ประจำรายวิชาพิจารณาแล้ว</span>
+                                                </div>
                                             </div>
-                                        </div>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -795,30 +795,35 @@ ORDER BY form_id DESC");
                                         <hr>
                                     </div>
                                     <?php if ($row3['status'] == "0") {
+                                    ?>
+                                        <div class="text-center text-red-600">
+                                            <h3>ไม่ผ่านการพิจารณา</h3>
+                                        </div>
+                                    <?php
                                     } else { ?>
-                                    <div id="statusStepper3" class="flex justify-between items-center my-4">
-                                        <!-- Step 1 -->
-                                        <div class="flex flex-col items-center">
-                                            <div id="step1Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
-                                            <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณา</span>
+                                        <div id="statusStepper3" class="flex justify-between items-center my-4">
+                                            <!-- Step 1 -->
+                                            <div class="flex flex-col items-center">
+                                                <div id="step1Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                                                <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณา</span>
+                                            </div>
+
+                                            <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line31"></div>
+
+                                            <!-- Step 2 -->
+                                            <div class="flex flex-col items-center">
+                                                <div id="step2Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                                                <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ที่ปรึกษาพิจารณาแล้ว</span>
+                                            </div>
+
+                                            <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line32"></div>
+
+                                            <!-- Step 3 -->
+                                            <div class="flex flex-col items-center">
+                                                <div id="step3Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
+                                                <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
+                                            </div>
                                         </div>
-
-                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line31"></div>
-
-                                        <!-- Step 2 -->
-                                        <div class="flex flex-col items-center">
-                                            <div id="step2Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
-                                            <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ที่ปรึกษาพิจารณาแล้ว</span>
-                                        </div>
-
-                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line32"></div>
-
-                                        <!-- Step 3 -->
-                                        <div class="flex flex-col items-center">
-                                            <div id="step3Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
-                                            <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
-                                        </div>
-                                    </div>
 
                                     <?php } ?>
                                 </div>
