@@ -101,28 +101,28 @@ include 'connect/dbcon.php';
                             <hr>
 
 
-                        
-                                <div class="space-y-3 mb-6">
-                                    <div>
-                                        <label class="font-semibold block mb-1">ความคิดเห็นอาจารย์:</label>
-                                        <div class="flex items-center space-x-4">
-                                                <?php if ($approval_status_teacher == 1): ?>
-                                                    <span class="text-green-600 font-semibold">อนุมัติ</span>
-                                                <?php else: ?>
-                                                    <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
-                                                <?php endif; ?>
-                                        </div>
-                                    </div>
 
-                                    <div>
-                                        <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
-                                            <textarea id="comment_teacher" name="comment_teacher" rows="2"
-                                                class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
+                            <div class="space-y-3 mb-6">
+                                <div>
+                                    <label class="font-semibold block mb-1">ความคิดเห็นอาจารย์:</label>
+                                    <div class="flex items-center space-x-4">
+                                        <?php if ($approval_status_teacher == 1): ?>
+                                            <span class="text-green-600 font-semibold">อนุมัติ</span>
+                                        <?php else: ?>
+                                            <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
 
-                                <!-- หัวหน้าสาขา -->
-                                      <form method="POST" action="" onsubmit="return validateForm()">
+                                <div>
+                                    <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
+                                    <textarea id="comment_teacher" name="comment_teacher" rows="2"
+                                        class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
+                                </div>
+                            </div>
+
+                            <!-- หัวหน้าสาขา -->
+                            <form method="POST" action="" onsubmit="return validateForm()">
                                 <!-- Approval Section -->
                                 <div class="space-y-3 mb-6">
                                     <div>
@@ -293,16 +293,17 @@ include 'connect/dbcon.php';
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // รับค่าจากฟอร์ม
                     $approvalStatus = $_POST['approval_status'];  // approved หรือ not_approved
-                    // ถ้าไม่อนุมัติจากอาจารย์ที่ปรึกษา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
+
+                    // ถ้าไม่อนุมัติจากหัวหน้าสาขา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
                     if ($approvalStatus == "0") {
-                        $Comment_head_dep = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติม
+                        $Comment_head_dep = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติมจากหัวหน้าสาขา
                         $status = 0; // ไม่ต้องส่งไปยังหัวหน้าสาขา ให้จบไปเลย
                         $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
-                        $token_new = ''; // กรณีไม่ต้องใช้ token ใหม่
+
                         // SQL Query
                         $sql = "UPDATE form_re01 
- SET approval_status_teacher = :approval_status, 
-     comment_head_dep = :comment_head_dep, token_new = :token_new,
+ SET approval_status_dep = :approval_status, 
+     comment_head_dep = :comment_head_dep,
      status = :status 
  WHERE token = :token";
 
@@ -312,7 +313,6 @@ include 'connect/dbcon.php';
                             ':approval_status' => $approvalStatus,
                             ':comment_head_dep' => $Comment_head_dep,
                             ':status' => $status,
-                            ':token_new' => $token_new,
                             ':token' => $token
                         ]);
 
@@ -334,7 +334,7 @@ include 'connect/dbcon.php';
 
                                 $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
                                 $mail->addAddress($email, 'นักศึกษา');
-                                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ไม่ผ่านการพิจารณา จากอาจารย์ที่ปรึกษา';
+                                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ไม่ผ่านการพิจารณา จากหัวหน้าสาขา';
                                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
                                 $mail->Body = '
@@ -353,6 +353,10 @@ include 'connect/dbcon.php';
 <hr>
 <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> ไม่อนุมัติ</p>
 <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($commentTeacher) . '</p>
+<hr>
+<p><strong>สถานะการพิจารณาจากหัวหน้าสาขา:</strong> ไม่อนุมัติ</p>
+<p><strong>ความคิดเห็นของหัวหน้าสาขา:</strong> ' . htmlspecialchars($Comment_head_dep) . '</p>
+
          </div>
  
          <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
@@ -400,7 +404,7 @@ include 'connect/dbcon.php';
                         // ถ้าอนุมัติจากอาจารย์ที่ปรึกษา
                     } else {
 
-                        $commentTeacher = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติม
+                        $Comment_head_dep = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติม
                         $status = 1;
                         $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
 
@@ -424,8 +428,8 @@ include 'connect/dbcon.php';
                         $token_new = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-2?token=xxxx&token_new=yyyy
                         // SQL Query
                         $sql = "UPDATE form_re01 
-            SET approval_status_teacher = :approval_status, 
-                comment_head_dep = :comment_head_dep, token_new = :token_new,
+            SET approval_status_dep = :approval_status, 
+                comment_head_dep = :comment_head_dep, 
                 status = :status 
             WHERE token = :token";
 
@@ -433,9 +437,8 @@ include 'connect/dbcon.php';
                         $stmt = $pdo->prepare($sql);
                         $success = $stmt->execute([
                             ':approval_status' => $approvalStatus,
-                            ':comment_head_dep' => $commentTeacher,
+                            ':comment_head_dep' => $Comment_head_dep,
                             ':status' => $status,
-                            ':token_new' => $token_new,
                             ':token' => $token
                         ]);
 
@@ -457,7 +460,7 @@ include 'connect/dbcon.php';
 
                                 $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
                                 $mail->addAddress($head_department, 'หัวหน้าสาขาวิชา');
-                                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากอาจารย์ที่ปรึกษาแล้ว';
+                                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากหัวหน้าสาขาแล้ว';
                                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
 
@@ -477,6 +480,9 @@ include 'connect/dbcon.php';
                         <hr>
 <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> อนุมัติ</p>
 <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($commentTeacher) . '</p>
+<hr>
+<p><strong>สถานะการพิจารณาจากหัวหน้าสาขา:</strong> อนุมัติ</p>
+<p><strong>ความคิดเห็นของหัวหน้าสาขา:</strong> ' . htmlspecialchars($Comment_head_dep) . '</p>
                     </div>
             
                     <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
@@ -532,7 +538,7 @@ include 'connect/dbcon.php';
                 }
             } else {
                 echo "<div class='text-center p-6'>ไม่พบข้อมูลคำร้อง กรุณาตรวจสอบลิงก์อีกครั้ง</div>";
-                    echo "
+                echo "
     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     <script>
         Swal.fire({
