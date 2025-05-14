@@ -81,15 +81,16 @@ if (isset($_GET['token'])) {
 
                     <!-- Form Information -->
                     <div class="w-full bg-gray-50 rounded-xl p-6 shadow-sm space-y-4">
-                        <div><span class="font-semibold">FORM ID:</span> RE.01-<?php echo htmlspecialchars($form_id); ?></div>
-                        <div><span class="font-semibold">เรื่อง:</span> <?php echo htmlspecialchars($title); ?></div>
-                        <div><span class="font-semibold">เรียน:</span> <?php echo htmlspecialchars($to); ?></div>
-                        <div><span class="font-semibold">ชื่อนักศึกษา:</span> <?php echo htmlspecialchars($profile['name']); ?></div>
-                        <div><span class="font-semibold">รหัสนักศึกษา:</span> <?php echo $profile['id']; ?></div>
-                        <div><span class="font-semibold">คณะ:</span> <?php echo htmlspecialchars($faculty); ?></div>
-                        <div><span class="font-semibold">สาขา:</span> <?php echo htmlspecialchars($field); ?></div>
-                        <div><span class="font-semibold">ระดับชั้น:</span> <?php echo htmlspecialchars($course_level); ?></div>
-
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div><span class="font-semibold">FORM ID:</span> RE.01-<?php echo htmlspecialchars($form_id); ?></div>
+                            <div><span class="font-semibold">เรื่อง:</span> <?php echo htmlspecialchars($title); ?></div>
+                            <div><span class="font-semibold">เรียน:</span> <?php echo htmlspecialchars($to); ?></div>
+                            <div><span class="font-semibold">ชื่อนักศึกษา:</span> <?php echo htmlspecialchars($profile['name']); ?></div>
+                            <div><span class="font-semibold">รหัสนักศึกษา:</span> <?php echo $profile['id']; ?></div>
+                            <div><span class="font-semibold">คณะ:</span> <?php echo htmlspecialchars($faculty); ?></div>
+                            <div><span class="font-semibold">สาขา:</span> <?php echo htmlspecialchars($field); ?></div>
+                            <div><span class="font-semibold">ระดับชั้น:</span> <?php echo htmlspecialchars($course_level); ?></div>
+                        </div>
                         <!-- Request Text -->
                         <div>
                             <label for="request_text" class="font-semibold block mb-1">ข้อความร้องขอ:</label>
