@@ -133,7 +133,7 @@ include 'connect/dbcon.php';
                                         <textarea id="comment_teacher" name="comment_teacher" rows="3"
                                             class="w-full text-gray-600 border rounded p-2 <?= $status_teacher_done ? 'bg-gray-100' : '' ?>"
                                             <?= $status_teacher_done ? 'readonly' : '' ?>
-                                            placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher) ?></textarea>
+                                            placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
                                     </div>
                                 </div>
 
@@ -176,7 +176,7 @@ include 'connect/dbcon.php';
                                             <textarea id="comment_head_dep" name="comment_head_dep" rows="3"
                                                 class="w-full text-gray-600 border rounded p-2 <?= $status_head_done ? 'bg-gray-100' : '' ?>"
                                                 <?= $status_head_done ? 'readonly' : '' ?>
-                                                placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_head_dep) ?></textarea>
+                                                placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_head_dep ?? '') ?></textarea>
                                         </div>
                                     </div>
 
