@@ -8,7 +8,7 @@ services:
     volumes:
       - ./src:/var/www/html
     working_dir: /var/www/html
-    restart: always
+    restart: unless-stopped
     depends_on:
       - mariadb  # เปลี่ยนจาก db เป็น mariadb
     networks:
@@ -33,7 +33,7 @@ services:
         ipv4_address: 192.168.30.3
     depends_on:
       - app
-    restart: always
+    restart: unless-stopped
 
   mariadb:
     image: mariadb:latest
@@ -44,6 +44,7 @@ services:
       MYSQL_DATABASE: ecp_req
       MYSQL_USER: admin
       MYSQL_PASSWORD: ecp
+      TZ: Asia/Bangkok
     networks:
       ecp_req_network:
         ipv4_address: 192.168.30.4
@@ -53,12 +54,14 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
-    restart: always
+    restart: unless-stopped
     ports:
       - "8080:80"
     environment:
       PMA_HOST: mariadb  # ใช้ mariadb แทน db
       MYSQL_ROOT_PASSWORD: adminecp
+      PMA_LANGUAGE: th
+      TZ: Asia/Bangkok
     depends_on:
       - mariadb  # เปลี่ยนจาก db เป็น mariadb
     networks:
