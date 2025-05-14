@@ -327,8 +327,6 @@ include 'connect/dbcon.php';
                         $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ไม่ผ่านการพิจารณา จากอาจารย์ที่ปรึกษา';
                         $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
-                        $mail->isHTML(true);
-
                         $mail->Body = '
      <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
          <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
@@ -458,7 +456,6 @@ include 'connect/dbcon.php';
                         $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากอาจารย์ที่ปรึกษาแล้ว';
                         $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
-                        $mail->isHTML(true);
 
                         $mail->Body = '
                 <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
