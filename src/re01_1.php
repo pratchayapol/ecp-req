@@ -208,7 +208,7 @@ include 'connect/dbcon.php';
 
                         <!-- Metadata -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
-                            <div><span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?>น.</div>
+                            <div><span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?> น.</div>
                             <div><span class="font-semibold">อีเมลอาจารย์:</span> <?php echo htmlspecialchars($teacher_email); ?></div>
                         </div>
                     </div>
