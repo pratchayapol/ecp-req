@@ -401,11 +401,11 @@ include 'connect/dbcon.php';
  </script>
  HTML;
                         }
-                        // ถ้าอนุมัติจากอาจารย์ที่ปรึกษา
+                        // ถ้าอนุมัติจากหัวหน้าสาขา
                     } else {
 
                         $Comment_head_dep = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติม
-                        $status = 1;
+                        $status = 2;
                         $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
 
                         //สุ่มสร้าง token 15 ตัว สำหรับ dep
