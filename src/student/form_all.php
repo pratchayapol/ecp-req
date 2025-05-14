@@ -296,7 +296,12 @@ function getNameByEmail($pdo, $email)
                                         <p><strong>ชื่อหัวหน้าสาขา:</strong> <span id="modalHeadName"></span></p>
                                         <hr>
                                     </div>
-                                    <?php if ($row1['status'] == "0") {
+                                    <?php if ($row1['status'] === "0") {
+                                    ?>
+                                        <div class="text-center text-red-600">
+                                            <h3>ไม่ผ่านการพิจารณา</h3>
+                                        </div>
+                                    <?php
                                     } else { ?>
                                         <div id="statusStepper1" class="flex justify-between items-center my-4">
                                             <!-- Step 1 -->
@@ -545,8 +550,13 @@ function getNameByEmail($pdo, $email)
                                             <p><strong>อาจารย์ประจำรายวิชา:</strong> <span id="modalTeacherEmail"></span></p>
                                             <hr>
                                         </div>
-                                        <?php if ($row0['status'] == "0") {
-                                        } else { ?>
+                                         <?php if ($row2['status'] === "0") {
+                                    ?>
+                                        <div class="text-center text-red-600">
+                                            <h3>ไม่ผ่านการพิจารณา</h3>
+                                        </div>
+                                    <?php
+                                    } else { ?>
                                             <div id="statusStepper2" class="flex justify-between items-center my-4">
                                                 <!-- Step 0 -->
                                                 <div class="flex flex-col items-center">
@@ -794,7 +804,7 @@ ORDER BY form_id DESC");
                                         <p><strong>หัวหน้าสาขา:</strong> <span id="modalHeadDepartment3"></span></p>
                                         <hr>
                                     </div>
-                                    <?php if ($row3['status'] == "0") {
+                                    <?php if ($row3['status'] === "0") {
                                     ?>
                                         <div class="text-center text-red-600">
                                             <h3>ไม่ผ่านการพิจารณา</h3>
