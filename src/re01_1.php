@@ -60,6 +60,11 @@ include 'connect/dbcon.php';
                 $approval_status_teacher = $row['approval_status_teacher'];
                 $comment_head_dep = $row['comment_head_dep'];
                 $approval_status_dep = $row['approval_status_dep'];
+
+                $status_teacher_done = !is_null($approval_status_teacher);
+                $status_head_done = !is_null($approval_status_dep);
+
+
                 $status = $row['status'];
                 $created_at = $row['created_at'];
                 $token = $row['token'];
@@ -100,14 +105,13 @@ include 'connect/dbcon.php';
 
 
 
-
+                            <!-- แบบฟอร์มสำหรับอาจารย์ที่ปรึกษา -->
                             <form method="POST" action="" onsubmit="return validateForm1()">
-                                <!-- Approval Section -->
                                 <div class="space-y-3 mb-6">
                                     <div>
                                         <label class="font-semibold block mb-1">ความคิดเห็นอาจารย์:</label>
                                         <div class="flex items-center space-x-4">
-                                            <?php if (is_null($status)): ?>
+                                            <?php if (!$status_teacher_done): ?>
                                                 <label class="flex items-center space-x-2">
                                                     <input type="radio" name="approval_status" value="1">
                                                     <span>อนุมัติ</span>
@@ -117,31 +121,23 @@ include 'connect/dbcon.php';
                                                     <span>ไม่อนุมัติ</span>
                                                 </label>
                                             <?php else: ?>
-                                                <?php if ($approval_status_teacher == 1): ?>
-                                                    <span class="text-green-600 font-semibold">อนุมัติ</span>
-                                                <?php else: ?>
-                                                    <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
-                                                <?php endif; ?>
+                                                <span class="<?= $approval_status_teacher == 1 ? 'text-green-600' : 'text-red-600' ?> font-semibold">
+                                                    <?= $approval_status_teacher == 1 ? 'อนุมัติ' : 'ไม่อนุมัติ' ?>
+                                                </span>
                                             <?php endif; ?>
-
                                         </div>
                                     </div>
 
                                     <div>
                                         <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
-                                        <?php if (is_null($status)): ?>
-                                            <textarea id="comment_teacher" name="comment_teacher" rows="3"
-                                                class="w-full text-gray-600 border rounded p-2"
-                                                placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher) ?></textarea>
-                                        <?php else: ?>
-                                            <textarea id="comment_teacher" name="comment_teacher" rows="3"
-                                                class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_teacher) ?></textarea>
-                                        <?php endif; ?>
+                                        <textarea id="comment_teacher" name="comment_teacher" rows="3"
+                                            class="w-full text-gray-600 border rounded p-2 <?= $status_teacher_done ? 'bg-gray-100' : '' ?>"
+                                            <?= $status_teacher_done ? 'readonly' : '' ?>
+                                            placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher) ?></textarea>
                                     </div>
                                 </div>
 
-                                <!-- Submit Button -->
-                                <?php if (is_null($status)): ?>
+                                <?php if (!$status_teacher_done): ?>
                                     <div class="text-center">
                                         <button type="submit"
                                             class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow">
@@ -149,54 +145,42 @@ include 'connect/dbcon.php';
                                         </button>
                                     </div>
                                 <?php endif; ?>
-
                             </form>
-                            <?php
-                            if (isset($_GET['token']) && isset($_GET['token_new'])) {
-                            ?>
+
+                            <!-- แบบฟอร์มสำหรับหัวหน้าสาขา -->
+                            <?php if (isset($_GET['token']) && isset($_GET['token_new'])): ?>
                                 <form method="POST" action="" onsubmit="return validateForm2()">
-                                    <!-- Approval Section -->
                                     <div class="space-y-3 mb-6">
                                         <div>
                                             <label class="font-semibold block mb-1">ความคิดเห็นหัวหน้าสาขา:</label>
                                             <div class="flex items-center space-x-4">
-                                                <?php if ($status === 1): ?>
+                                                <?php if (!$status_head_done && $approval_status_teacher == 1): ?>
                                                     <label class="flex items-center space-x-2">
                                                         <input type="radio" name="approval_status_dep" value="1">
                                                         <span>อนุมัติ</span>
                                                     </label>
                                                     <label class="flex items-center space-x-2">
-
                                                         <input type="radio" name="approval_status_dep" value="0">
                                                         <span>ไม่อนุมัติ</span>
                                                     </label>
                                                 <?php else: ?>
-                                                    <?php if ($approval_status_dep == 1): ?>
-                                                    <span class="text-green-600 font-semibold">อนุมัติ</span>
-                                                <?php else: ?>
-                                                    <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
+                                                    <span class="<?= $approval_status_dep == 1 ? 'text-green-600' : 'text-red-600' ?> font-semibold">
+                                                        <?= $approval_status_dep == 1 ? 'อนุมัติ' : 'ไม่อนุมัติ' ?>
+                                                    </span>
                                                 <?php endif; ?>
-                                            <?php endif; ?>
-
-
                                             </div>
                                         </div>
 
                                         <div>
                                             <label for="comment_head_dep" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
-                                            <?php if ($status === 1): ?>
-                                                <textarea id="comment_head_dep" name="comment_head_dep" rows="3"
-                                                    class="w-full text-gray-600 border rounded p-2"
-                                                    placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_head_dep) ?></textarea>
-                                            <?php else: ?>
-                                                <textarea id="comment_head_dep" name="comment_head_dep" rows="3"
-                                                    class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_head_dep) ?></textarea>
-                                            <?php endif; ?>
+                                            <textarea id="comment_head_dep" name="comment_head_dep" rows="3"
+                                                class="w-full text-gray-600 border rounded p-2 <?= $status_head_done ? 'bg-gray-100' : '' ?>"
+                                                <?= $status_head_done ? 'readonly' : '' ?>
+                                                placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_head_dep) ?></textarea>
                                         </div>
                                     </div>
 
-                                    <!-- Submit Button -->
-                                    <?php if ($status === 1): ?>
+                                    <?php if (!$status_head_done && $approval_status_teacher == 1): ?>
                                         <div class="text-center">
                                             <button type="submit"
                                                 class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow">
@@ -204,24 +188,15 @@ include 'connect/dbcon.php';
                                             </button>
                                         </div>
                                     <?php endif; ?>
-
                                 </form>
-                            <?php
-                            }
-                            ?>
+                            <?php endif; ?>
 
                             <script>
                                 function validateForm1() {
                                     const radios = document.getElementsByName('approval_status');
                                     const comment = document.getElementById('comment_teacher').value.trim();
 
-                                    let selected = false;
-                                    for (let i = 0; i < radios.length; i++) {
-                                        if (radios[i].checked) {
-                                            selected = true;
-                                            break;
-                                        }
-                                    }
+                                    let selected = Array.from(radios).some(r => r.checked);
 
                                     if (!selected) {
                                         alert('กรุณาเลือกผลการพิจารณา (อนุมัติ หรือ ไม่อนุมัติ)');
@@ -240,13 +215,7 @@ include 'connect/dbcon.php';
                                     const radios = document.getElementsByName('approval_status_dep');
                                     const comment = document.getElementById('comment_head_dep').value.trim();
 
-                                    let selected = false;
-                                    for (let i = 0; i < radios.length; i++) {
-                                        if (radios[i].checked) {
-                                            selected = true;
-                                            break;
-                                        }
-                                    }
+                                    let selected = Array.from(radios).some(r => r.checked);
 
                                     if (!selected) {
                                         alert('กรุณาเลือกผลการพิจารณา (อนุมัติ หรือ ไม่อนุมัติ)');
