@@ -352,7 +352,7 @@ include 'connect/dbcon.php';
              <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
 <hr>
 <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> ไม่อนุมัติ</p>
-<p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($commentTeacher) . '</p>
+<p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
 <hr>
 <p><strong>สถานะการพิจารณาจากหัวหน้าสาขา:</strong> ไม่อนุมัติ</p>
 <p><strong>ความคิดเห็นของหัวหน้าสาขา:</strong> ' . htmlspecialchars($Comment_head_dep) . '</p>
@@ -479,7 +479,7 @@ include 'connect/dbcon.php';
                         <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
                         <hr>
 <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> อนุมัติ</p>
-<p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($commentTeacher) . '</p>
+<p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
 <hr>
 <p><strong>สถานะการพิจารณาจากหัวหน้าสาขา:</strong> อนุมัติ</p>
 <p><strong>ความคิดเห็นของหัวหน้าสาขา:</strong> ' . htmlspecialchars($Comment_head_dep) . '</p>
