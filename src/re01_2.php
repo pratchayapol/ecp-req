@@ -38,8 +38,8 @@ include 'connect/dbcon.php';
 
     if (isset($_GET['token']) && isset($_GET['token_new'])) {
         // ทำงานเมื่อมีทั้ง token และ token_new
-        $token = $_GET['token'];
-        $token_new = $_GET['token_new'];
+        echo $token = $_GET['token'];
+        echo $token_new = $_GET['token_new'];
 
         try {
             $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE token = :token AND token_new = :token_new");
