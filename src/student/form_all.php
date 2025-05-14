@@ -842,26 +842,43 @@ ORDER BY form_id DESC");
                                             line: 'line32'
                                         },
                                         {
-                                            circle: 'step3Circle3',
+                                            circle: 'step3Circle3'
                                         }
                                     ];
 
+                                    // กรณีไม่ผ่านการพิจารณา -> แสดงเป็นสีแดงทั้งหมด
+                                    if (status === 0) {
+                                        steps.forEach(step => {
+                                            const circle = document.getElementById(step.circle);
+                                            circle.className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center border-red-500 bg-red-500 text-white';
+
+                                            if (step.line) {
+                                                const line = document.getElementById(step.line);
+                                                line.className = 'flex-auto h-0.5 mx-1 bg-red-500';
+                                            }
+                                        });
+                                        return;
+                                    }
+
+                                    // แสดงสถานะปกติ (null, 1, 2, etc.)
                                     steps.forEach((step, i) => {
-                                        // อัปเดตวงกลม
-                                        document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
+                                        const circle = document.getElementById(step.circle);
+                                        circle.className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
                                             (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
 
-                                        // อัปเดตเส้นเชื่อม
                                         if (step.line) {
-                                            document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
+                                            const line = document.getElementById(step.line);
+                                            line.className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
                                         }
                                     });
                                 }
 
+
                                 // ใช้เมื่อเปิด modal:
                                 document.querySelectorAll('.open-modal3').forEach(btn => {
                                     btn.addEventListener('click', function() {
-                                        const status = parseInt(this.closest('tr').dataset.status) || 0;
+                                        const statusAttr = this.closest('tr').dataset.status;
+                                        const status = statusAttr === 'null' ? -1 : parseInt(statusAttr);
                                         updateStatusStepper3(status);
                                     });
                                 });
