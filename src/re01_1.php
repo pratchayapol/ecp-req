@@ -342,7 +342,7 @@ if (isset($_GET['token'])) {
                         <p><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
                         <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
                         <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
-                        <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request)) . '</p>
+                        <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
                     </div>
             
                     <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
