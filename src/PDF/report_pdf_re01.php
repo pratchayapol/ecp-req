@@ -92,9 +92,9 @@ $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
 
 // //เหตุผล
 $pdf->SetY(89);
-$pdf->SetX(-10);
+$pdf->SetX(33);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $request_text), 0, 1, 'C');
+$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $request_text), 0, 1, 'L');
 
 // //สถานะการณ์
 // $pdf->SetY(97.5);
