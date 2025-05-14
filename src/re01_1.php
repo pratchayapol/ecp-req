@@ -98,6 +98,9 @@ include 'connect/dbcon.php';
                             </div>
                             <hr>
 
+
+
+
                             <form method="POST" action="" onsubmit="return validateForm1()">
                                 <!-- Approval Section -->
                                 <div class="space-y-3 mb-6">
@@ -159,11 +162,12 @@ include 'connect/dbcon.php';
                                             <div class="flex items-center space-x-4">
                                                 <?php if (is_null($status)): ?>
                                                     <label class="flex items-center space-x-2">
-                                                        <input type="radio" name="approval_status" value="1">
+                                                        <input type="radio" name="approval_status_dep" value="1">
                                                         <span>อนุมัติ</span>
                                                     </label>
                                                     <label class="flex items-center space-x-2">
-                                                        <input type="radio" name="approval_status" value="0">
+
+                                                        <input type="radio" name="approval_status_dep" value="0">
                                                         <span>ไม่อนุมัติ</span>
                                                     </label>
                                                 <?php else: ?>
@@ -180,7 +184,7 @@ include 'connect/dbcon.php';
                                         <div>
                                             <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
                                             <?php if ($status === 1): ?>
-                                                <textarea id="comment_teacher" name="comment_teacher" rows="3"
+                                                <textarea id="comment_head_dep" name="comment_head_dep" rows="3"
                                                     class="w-full text-gray-600 border rounded p-2"
                                                     placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_head_dep) ?></textarea>
                                             <?php else: ?>
@@ -230,6 +234,7 @@ include 'connect/dbcon.php';
 
                                     return true;
                                 }
+
                                 function validateForm2() {
                                     const radios = document.getElementsByName('approval_status_dep');
                                     const comment = document.getElementById('comment_head_dep').value.trim();
