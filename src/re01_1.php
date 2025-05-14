@@ -325,7 +325,7 @@ if (isset($_GET['token'])) {
 
                 $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
                 $mail->addAddress($head_department, 'หัวหน้าสาขาวิชา');
-                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . $iname . ' ผ่านการพิจารณา จากอาจารย์ที่ปรึกษาแล้ว';
+                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากอาจารย์ที่ปรึกษาแล้ว';
                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
                 $mail->isHTML(true);
@@ -336,8 +336,8 @@ if (isset($_GET['token'])) {
                     <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
             
                     <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500; color: #000;">
-                        <p><strong>ชื่อ:</strong> ' . htmlspecialchars($iname) . '</p>
-                        <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($id) . '</p>
+                        <p><strong>ชื่อ:</strong> ' . htmlspecialchars($profile['name']) . '</p>
+                        <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($profile['id']) . '</p>
                         <p><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
                         <p><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
                         <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
