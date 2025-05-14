@@ -100,8 +100,9 @@ try {
                     </div>
                     <div class="mb-2">
                         <label for="request_text" class="font-semibold">ข้อความร้องขอ:</label>
-                        <textarea id="request_text" name="request_text" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2"><?php echo htmlspecialchars($request_text); ?></textarea>
+                        <textarea id="request_text" name="request_text" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2" readonly><?php echo htmlspecialchars($request_text); ?></textarea>
                     </div>
+
                     <div class="mb-2">
                         <label for="comment_teacher" class="font-semibold">ความคิดเห็นอาจารย์:</label>
                         <textarea id="comment_teacher" name="comment_teacher" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2"><?php echo htmlspecialchars($comment_teacher); ?></textarea>
