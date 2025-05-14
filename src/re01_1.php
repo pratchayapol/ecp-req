@@ -66,7 +66,11 @@ if (isset($_GET['token'])) {
             $teacher_email = $row['teacher_email'];
             $head_department = $row['head_department'];
 
-
+            // ดึงชื่อตัวเอง
+            $sql = "SELECT name, email FROM accounts WHERE email = :email";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['email' => $email]);
+            $profile = $stmt->fetch(PDO::FETCH_ASSOC);
     ?>
             <div class="w-full max-w-3xl p-8 m-6 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
                 <div class="flex flex-col space-y-6 text-gray-800">
@@ -80,7 +84,8 @@ if (isset($_GET['token'])) {
                         <div><span class="font-semibold">FORM ID:</span> RE.01-<?php echo htmlspecialchars($form_id); ?></div>
                         <div><span class="font-semibold">เรื่อง:</span> <?php echo htmlspecialchars($title); ?></div>
                         <div><span class="font-semibold">เรียน:</span> <?php echo htmlspecialchars($to); ?></div>
-                        <div><span class="font-semibold">อีเมลนักศึกษา:</span> <?php echo htmlspecialchars($email); ?></div>
+                        <div><span class="font-semibold">ชื่อนักศึกษา:</span> <?php echo htmlspecialchars($profile['name']); ?></div>
+                        <div><span class="font-semibold">รหัสนักศึกษา:</span> <?php echo htmlspecialchars($profile['id']); ?></div>
                         <div><span class="font-semibold">คณะ:</span> <?php echo htmlspecialchars($faculty); ?></div>
                         <div><span class="font-semibold">สาขา:</span> <?php echo htmlspecialchars($field); ?></div>
                         <div><span class="font-semibold">ระดับชั้น:</span> <?php echo htmlspecialchars($course_level); ?></div>
