@@ -441,7 +441,7 @@ include 'connect/dbcon.php';
                                 $mail->Port       = 587;
 
                                 $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
-                                $mail->addAddress($head_department, 'หัวหน้าสาขาวิชา');
+                                $mail->addAddress($email, 'นักศึกษา');
                                 $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากหัวหน้าสาขาแล้ว';
                                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
