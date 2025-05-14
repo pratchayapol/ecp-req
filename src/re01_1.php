@@ -116,10 +116,13 @@ if (isset($_GET['token'])) {
                                                 <span>ไม่อนุมัติ</span>
                                             </label>
                                         <?php else: ?>
-                                            <span class="text-green-600 font-semibold">
-                                                <?= $approval_status_teacher == 1 ? 'อนุมัติ' : 'ไม่อนุมัติ' ?>
-                                            </span>
+                                            <?php if ($approval_status_teacher == 1): ?>
+                                                <span class="text-green-600 font-semibold">อนุมัติ</span>
+                                            <?php else: ?>
+                                                <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
+                                            <?php endif; ?>
                                         <?php endif; ?>
+
                                     </div>
                                 </div>
 
