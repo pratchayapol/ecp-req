@@ -128,7 +128,7 @@ include 'connect/dbcon.php';
                                     <div>
                                         <label class="font-semibold block mb-1">ความคิดเห็นหัวหน้าสาขา:</label>
                                         <div class="flex items-center space-x-4">
-                                            <?php if (is_null($status)): ?>
+                                            <?php if ($status === "1"): ?>
                                                 <label class="flex items-center space-x-2">
                                                     <input type="radio" name="approval_status" value="1">
                                                     <span>อนุมัติ</span>
@@ -150,7 +150,7 @@ include 'connect/dbcon.php';
 
                                     <div>
                                         <label for="comment_head_dep" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
-                                        <?php if (is_null($status)): ?>
+                                        <?php if ($status === "1"): ?>
                                             <textarea id="comment_head_dep" name="comment_head_dep" rows="2"
                                                 class="w-full text-gray-600 border rounded p-2"
                                                 placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_head_dep ?? '') ?></textarea>
@@ -162,7 +162,7 @@ include 'connect/dbcon.php';
                                 </div>
 
                                 <!-- Submit Button -->
-                                <?php if (is_null($status)): ?>
+                                <?php if ($status === "1"): ?>
                                     <div class="text-center">
                                         <button type="submit"
                                             class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow">
