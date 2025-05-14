@@ -273,7 +273,7 @@ if (isset($_GET['token'])) {
         $sql = "UPDATE form_re01 SET approval_status_teacher = ?, comment_teacher = ? , status = ? WHERE token = ?";
 
         // เตรียมคำสั่ง SQL
-        if ($stmt = $conn->prepare($sql)) {
+        if ($stmt = $pdo->prepare($sql)) {
             // ผูกตัวแปรกับคำสั่ง SQL
             $stmt->bind_param("ssss", $approvalStatus, $commentTeacher, $status, $token);
 
@@ -281,7 +281,7 @@ if (isset($_GET['token'])) {
             if ($stmt->execute()) {
                 echo "ข้อมูลถูกอัปเดตเรียบร้อยแล้ว!";
             } else {
-                echo "เกิดข้อผิดพลาดในการอัปเดตข้อมูล: " . $conn->error;
+                echo "เกิดข้อผิดพลาดในการอัปเดตข้อมูล: " . $pdo->error;
             }
 
             // ปิดการเตรียมคำสั่ง
