@@ -92,7 +92,7 @@ $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
 
 // //เหตุผล
 $pdf->SetY(89);
-$pdf->SetX(33);
+$pdf->SetX(50);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $request_text), 0, 1, 'L');
 
