@@ -182,10 +182,10 @@ include 'connect/dbcon.php';
                                             <?php if ($status === 1): ?>
                                                 <textarea id="comment_teacher" name="comment_teacher" rows="3"
                                                     class="w-full text-gray-600 border rounded p-2"
-                                                    placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher) ?></textarea>
+                                                    placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_head_dep) ?></textarea>
                                             <?php else: ?>
                                                 <textarea id="comment_teacher" name="comment_teacher" rows="3"
-                                                    class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_teacher) ?></textarea>
+                                                    class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_head_dep) ?></textarea>
                                             <?php endif; ?>
                                         </div>
                                     </div>
