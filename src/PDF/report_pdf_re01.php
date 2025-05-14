@@ -79,13 +79,13 @@ $pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $faculty), 0, 1, 'L');
 
 
 // //สาขา
-$pdf->SetY(79);
-$pdf->SetX(35);
+$pdf->SetY(70);
+$pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'C');
 
 // //ชั้นปี
-$pdf->SetY(90);
+$pdf->SetY(50);
 $pdf->SetX(44);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
