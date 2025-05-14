@@ -211,9 +211,10 @@ include 'connect/dbcon.php';
                         </div>
 
                         <!-- Metadata -->
-                        <div class="grid grid-cols-1 md:grid-cols-1 gap-4 text-sm text-gray-700">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
+                        <div><span class="font-semibold">ระบบยื่นคำร้อง สาขาคอมพิวเตอร์  คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น</span></div>
                             <div><span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?> น.</div>
-                            <!-- <div><span class="font-semibold">อีเมลอาจารย์ที่ปรึกษา:</span> <?php echo htmlspecialchars($teacher_email); ?></div> -->
+                            
                         </div>
                     </div>
                 </div>
