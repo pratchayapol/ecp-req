@@ -266,7 +266,7 @@ if (isset($_GET['token'])) {
         // รับค่าจากฟอร์ม
         $approvalStatus = $_POST['approval_status'];  // approved หรือ not_approved
         $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
-        $status = 2;
+        $status = 1;
         $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
 
         // SQL Query
