@@ -468,6 +468,9 @@ include 'connect/dbcon.php';
                         <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
                         <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
                         <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
+                        <hr>
+<p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong>อนุมัติ</p>
+<p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong>' . htmlspecialchars($comment_teacher) . '</p>
                     </div>
             
                     <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
