@@ -71,122 +71,104 @@ try {
 <body class="flex items-center justify-center min-h-screen bg">
     <?php include './loadtab/h.php'; ?>
     <div class="w-full max-w-3xl p-8 m-6 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
-        <div class="w-full flex flex-col items-center">
+    <div class="flex flex-col space-y-6 text-gray-800">
+        <!-- Header -->
+        <div class="text-center">
+            <h2 class="text-3xl font-extrabold text-gray-800">คำร้องทั่วไป RE.01</h2>
+        </div>
 
-            <div class="flex flex-col items-center space-y-4 text-gray-800">
-                <h2 class="text-3xl font-extrabold t1">คำร้องทั่วไป RE.01</h2>
+        <!-- Form Information -->
+        <div class="w-full bg-gray-50 rounded-xl p-6 shadow-sm space-y-4">
+            <div><span class="font-semibold">FORM ID:</span> RE.01-<?php echo htmlspecialchars($form_id); ?></div>
+            <div><span class="font-semibold">เรื่อง:</span> <?php echo htmlspecialchars($title); ?></div>
+            <div><span class="font-semibold">เรียน:</span> <?php echo htmlspecialchars($to); ?></div>
+            <div><span class="font-semibold">อีเมลนักศึกษา:</span> <?php echo htmlspecialchars($email); ?></div>
+            <div><span class="font-semibold">คณะ:</span> <?php echo htmlspecialchars($faculty); ?></div>
+            <div><span class="font-semibold">สาขา:</span> <?php echo htmlspecialchars($field); ?></div>
+            <div><span class="font-semibold">ระดับชั้น:</span> <?php echo htmlspecialchars($course_level); ?></div>
 
-                <div class="w-full bg-gray-50 rounded-xl p-4 shadow-sm">
-                    <div class="mb-2">
-                        <span class="font-semibold">FORM ID:</span> RE.01-<?php echo htmlspecialchars($form_id); ?>
-                    </div>
-                    <div class="mb-2">
-                        <span class="font-semibold">เรื่อง:</span> <?php echo htmlspecialchars($title); ?>
-                    </div>
-                    <div class="mb-2">
-                        <span class="font-semibold">เรียน:</span> <?php echo htmlspecialchars($to); ?>
-                    </div>
-                    <div class="mb-2">
-                        <span class="font-semibold">อีเมลนักศึกษา:</span> <?php echo htmlspecialchars($email); ?>
-                    </div>
-                    <div class="mb-2">
-                        <span class="font-semibold">คณะ:</span> <?php echo htmlspecialchars($faculty); ?>
-                    </div>
-                    <div class="mb-2">
-                        <span class="font-semibold">สาขา:</span> <?php echo htmlspecialchars($field); ?>
-                    </div>
-                    <div class="mb-2">
-                        <span class="font-semibold">ระดับชั้น:</span> <?php echo htmlspecialchars($course_level); ?>
-                    </div>
-                    <div class="mb-2">
-                        <label for="request_text" class="font-semibold">ข้อความร้องขอ:</label>
-                        <textarea id="request_text" name="request_text" rows="3" class="mt-1 w-full text-gray-600 border rounded p-2" readonly><?php echo htmlspecialchars($request_text); ?></textarea>
-                    </div>
-                    <div class="mb-2">
-                        <label for="comment_teacher" class="font-semibold">ความคิดเห็นอาจารย์:</label>
+            <!-- Request Text -->
+            <div>
+                <label for="request_text" class="font-semibold block mb-1">ข้อความร้องขอ:</label>
+                <textarea id="request_text" name="request_text" rows="3" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($request_text); ?></textarea>
+            </div>
 
-                        <?php if (empty($comment_teacher)): ?>
-                            <p class="text-sm text-gray-500 italic mb-1">* สามารถเพิ่มข้อความได้</p>
-                        <?php endif; ?>
+            <!-- Teacher Comment -->
+            <div>
+                <label for="comment_teacher" class="font-semibold block mb-1">ความคิดเห็นอาจารย์:</label>
+                <?php if (empty($comment_teacher)): ?>
+                    <p class="text-sm text-gray-500 italic mb-2">* สามารถเพิ่มข้อความได้</p>
+                <?php endif; ?>
+                <textarea id="comment_teacher" name="comment_teacher" rows="3" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?></textarea>
+            </div>
+        </div>
 
-                        <textarea id="comment_teacher" name="comment_teacher" rows="3" class="mt-1 w-full text-gray-600 border rounded p-2"><?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?></textarea>
-                    </div>
-
+        <!-- Status Stepper -->
+        <div class="w-full">
+            <span class="font-semibold">สถานะ:</span>
+            <div id="statusStepper1" class="flex justify-between items-center my-4">
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center">
+                    <div id="step1Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                    <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณาคำร้อง</span>
                 </div>
 
-                <div class="mb-2">
-                    <span class="font-semibold">สถานะ:</span>
-                    <div id="statusStepper1" class="flex justify-between items-center my-4">
-                        <!-- Step 1 -->
-                        <div class="flex flex-col items-center">
-                            <div id="step1Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
-                            <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณาคำร้อง</span>
-                        </div>
+                <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line11"></div>
 
-                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line11"></div>
-
-                        <!-- Step 2 -->
-                        <div class="flex flex-col items-center">
-                            <div id="step2Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
-                            <span class="mt-1 text-sm text-gray-600 text-center">ที่ปรึกษาพิจารณาแล้ว</span>
-                        </div>
-
-                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line12"></div>
-
-                        <!-- Step 3 -->
-                        <div class="flex flex-col items-center">
-                            <div id="step3Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
-                            <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
-                        </div>
-                    </div>
-                    <!-- แถบสถานะ RE01 -->
-                    <script>
-                        function updateStatusStepper1(status) {
-                            const steps = [{
-                                    circle: 'step1Circle1',
-                                    line: 'line11'
-                                },
-                                {
-                                    circle: 'step2Circle1',
-                                    line: 'line12'
-                                },
-                                {
-                                    circle: 'step3Circle1',
-                                    line: 'line13'
-                                }
-                            ];
-
-                            steps.forEach((step, i) => {
-                                // อัปเดตวงกลม
-                                document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
-                                    (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
-
-                                // อัปเดตเส้นเชื่อม
-                                if (step.line) {
-                                    document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
-                                }
-                            });
-                        }
-
-                        document.addEventListener('DOMContentLoaded', function() {
-                            const currentStatus = <?php echo (int)$status; ?>;
-                            updateStatusStepper1(currentStatus);
-                        });
-                    </script>
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center">
+                    <div id="step2Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                    <span class="mt-1 text-sm text-gray-600 text-center">ที่ปรึกษาพิจารณาแล้ว</span>
                 </div>
-                <div class="mb-2">
-                    <span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?>
-                </div>
-                <div class="mb-2">
-                    <span class="font-semibold">อีเมลอาจารย์:</span> <?php echo htmlspecialchars($teacher_email); ?>
+
+                <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line12"></div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center">
+                    <div id="step3Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
+                    <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
                 </div>
             </div>
         </div>
 
-
-
+        <!-- Metadata -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
+            <div><span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?></div>
+            <div><span class="font-semibold">อีเมลอาจารย์:</span> <?php echo htmlspecialchars($teacher_email); ?></div>
+        </div>
     </div>
-    </div>
+</div>
+
+<!-- JavaScript for stepper -->
+<script>
+    function updateStatusStepper1(status) {
+        const steps = [
+            { circle: 'step1Circle1', line: 'line11' },
+            { circle: 'step2Circle1', line: 'line12' },
+            { circle: 'step3Circle1', line: null }
+        ];
+
+        steps.forEach((step, i) => {
+            const circle = document.getElementById(step.circle);
+            const line = step.line ? document.getElementById(step.line) : null;
+
+            if (circle) {
+                circle.className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
+                    (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
+            }
+
+            if (line) {
+                line.className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const currentStatus = <?php echo (int)$status; ?>;
+        updateStatusStepper1(currentStatus);
+    });
+</script>
+
     <?php include './loadtab/f.php'; ?>
 </body>
 
