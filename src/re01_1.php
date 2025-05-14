@@ -177,12 +177,13 @@ include 'connect/dbcon.php';
                             </script>
 
                         </div>
-                        <?php if ($status == "0") {
-                            echo "ไม่พิจารณา";
-                        } else { ?>
-                            <!-- Status Stepper -->
-                            <div class="w-full">
-                                <span class="font-semibold">สถานะ:</span>
+
+                        <!-- Status Stepper -->
+                        <div class="w-full">
+                            <span class="font-semibold">สถานะ:</span>
+                            <?php if ($status == "0") {
+                                echo "ไม่พิจารณา";
+                            } else { ?>
                                 <div id="statusStepper1" class="flex justify-between items-center my-4">
                                     <!-- Step 1 -->
                                     <div class="flex flex-col items-center">
@@ -206,8 +207,9 @@ include 'connect/dbcon.php';
                                         <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
                                     </div>
                                 </div>
-                            </div>
-                        <?php } ?>
+                            <?php } ?>
+                        </div>
+
                         <!-- Metadata -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
                             <div><span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?> น.</div>
