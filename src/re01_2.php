@@ -36,21 +36,20 @@ include 'connect/dbcon.php';
 <body class="flex items-center justify-center min-h-screen bg t1">
     <?php include './loadtab/h.php';
 
-    if (isset($_GET['token']) && isset($_GET['token_new'])) {
-        // ทำงานเมื่อมีทั้ง token และ token_new
-        echo $token = $_GET['token'];
-        echo $token_new = $_GET['token_new'];
+if (isset($_GET['token']) && isset($_GET['token_new'])) {
+    echo $token = $_GET['token'];
+    echo $token_new = $_GET['token_new'];
 
-        try {
-            $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE token = :token AND token_new = :token_new");
-            $stmt->bindParam(':token', $token, PDO::PARAM_STR);
-            $stmt->bindParam(':token_new', $token_new, PDO::PARAM_STR);
-            $stmt->execute();
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE token = :token AND token_new = :token_new");
+        $stmt->bindParam(':token', $token, PDO::PARAM_STR);
+        $stmt->bindParam(':token_new', $token_new, PDO::PARAM_STR);
+        $stmt->execute();
 
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($row) {
-                extract($row);
+        if ($row) {
+            extract($row);
                 $form_id = $row['form_id'];
                 $title = $row['title'];
                 $to = $row['to'];
@@ -223,21 +222,21 @@ include 'connect/dbcon.php';
 
         <?php
             } else {
-    //             echo "
-    // <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-    // <script>
-    //     Swal.fire({
-    //         icon: 'error',
-    //         title: 'ไม่พบข้อมูล',
-    //         text: 'ไม่พบข้อมูลที่ตรงกับ token นี้',
-    //         confirmButtonText: 'กลับหน้าหลัก',
-    //         allowOutsideClick: false
-    //     }).then((result) => {
-    //         // ไม่ว่าจะกดปุ่มไหนหรือปิด popup ก็ redirect
-    //         window.location.href = '';
-    //     });
-    // </script>
-    // ";
+                echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'ไม่พบข้อมูล',
+            text: 'ไม่พบข้อมูลที่ตรงกับ token นี้',
+            confirmButtonText: 'กลับหน้าหลัก',
+            allowOutsideClick: false
+        }).then((result) => {
+            // ไม่ว่าจะกดปุ่มไหนหรือปิด popup ก็ redirect
+            window.location.href = '';
+        });
+    </script>
+    ";
             }
         } catch (PDOException $e) {
             echo "เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล: " . $e->getMessage();
