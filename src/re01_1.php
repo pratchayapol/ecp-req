@@ -270,7 +270,7 @@ if (isset($_GET['token'])) {
         $token = $_GET['token'];  // รับค่า token จาก URL หรือในกรณีที่ใช้เป็น hidden field
 
         // SQL Query เพื่อ update ข้อมูลในฐานข้อมูล
-        $sql = "UPDATE form_re01 SET approval_status_teacher = ?, comment_teacher = ? , comment_teacher = ? WHERE token = ?";
+        $sql = "UPDATE form_re01 SET approval_status_teacher = ?, comment_teacher = ? , status = ? WHERE token = ?";
 
         // เตรียมคำสั่ง SQL
         if ($stmt = $conn->prepare($sql)) {
