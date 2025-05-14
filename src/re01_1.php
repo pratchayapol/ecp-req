@@ -140,7 +140,21 @@ if (isset($_GET['token'])) {
 
     <?php
         } else {
-            echo "ไม่พบข้อมูลที่ตรงกับ token นี้";
+            echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'ไม่พบข้อมูล',
+            text: 'ไม่พบข้อมูลที่ตรงกับ token นี้',
+            confirmButtonText: 'กลับหน้าหลัก',
+            allowOutsideClick: false
+        }).then((result) => {
+            // ไม่ว่าจะกดปุ่มไหนหรือปิด popup ก็ redirect
+            window.location.href = 'index.php';
+        });
+    </script>
+    ";
         }
     } catch (PDOException $e) {
         echo "เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล: " . $e->getMessage();
