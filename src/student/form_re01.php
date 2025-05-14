@@ -350,7 +350,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $token = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-1?token=
 
 
-            require_once __DIR__ . '/../vendor/autoload.php';
+            require_once __DIR__ . '/vendor/autoload.php';
 
 
             $mail = new PHPMailer(true);
