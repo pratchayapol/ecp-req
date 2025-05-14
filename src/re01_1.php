@@ -167,7 +167,7 @@ include 'connect/dbcon.php';
                                                         <span>ไม่อนุมัติ</span>
                                                     </label>
                                                 <?php else: ?>
-                                                    <?php if ($approval_status_teacher == 1): ?>
+                                                    <?php if ($approval_status_dep == 1): ?>
                                                         <span class="text-green-600 font-semibold">อนุมัติ</span>
                                                     <?php else: ?>
                                                         <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
