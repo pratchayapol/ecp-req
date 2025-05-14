@@ -291,10 +291,28 @@ if (isset($_GET['token'])) {
         $status = 1;
         $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
 
+        //สุ่มสร้าง token 15 ตัว สำหรับ dep
+        function generateToken($length = 15)
+        {
+            $characters = array_merge(
+                range('A', 'Z'),
+                range('a', 'z'),
+                range('0', '9'),
+                ['-']
+            );
+
+            if ($length > count($characters)) {
+                throw new Exception("ความยาวเกินจำนวนอักขระที่ไม่ซ้ำกันได้");
+            }
+
+            shuffle($characters);
+            return implode('', array_slice($characters, 0, $length));
+        }
+        $token_new = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-1?token=xxxx&token_new=yyyy
         // SQL Query
         $sql = "UPDATE form_re01 
             SET approval_status_teacher = :approval_status, 
-                comment_teacher = :comment_teacher, 
+                comment_teacher = :comment_teacher, token_new = :token_new,
                 status = :status 
             WHERE token = :token";
 
@@ -304,6 +322,7 @@ if (isset($_GET['token'])) {
             ':approval_status' => $approvalStatus,
             ':comment_teacher' => $commentTeacher,
             ':status' => $status,
+            ':token_new' => $token_new,
             ':token' => $token
         ]);
 
@@ -349,7 +368,7 @@ if (isset($_GET['token'])) {
                     📧 <strong>อีเมลหัวหน้าสาขา:</strong> ' . htmlspecialchars($head_department) . '</p>
             
                     <div style="margin-top: 30px;">
-                        <a href="https://ecpreq.pcnone.com/re01_1?token=' . urlencode($token) . '" 
+                        <a href="https://ecpreq.pcnone.com/re01_1?token=' . urlencode($token) . '&token_new=' . urlencode($token_new) . '" 
                             style="display: inline-block; padding: 12px 20px; background-color: #ffa500; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px;">
                             ✅ คลิกเพื่อดำเนินการ
                         </a>
