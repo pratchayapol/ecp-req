@@ -221,23 +221,7 @@ if (isset($_GET['token']) && isset($_GET['token_new'])) {
 
 
         <?php
-            } else {
-                echo "
-    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'ไม่พบข้อมูล',
-            text: 'ไม่พบข้อมูลที่ตรงกับ token นี้',
-            confirmButtonText: 'กลับหน้าหลัก',
-            allowOutsideClick: false
-        }).then((result) => {
-            // ไม่ว่าจะกดปุ่มไหนหรือปิด popup ก็ redirect
-            window.location.href = '';
-        });
-    </script>
-    ";
-            }
+          
         } catch (PDOException $e) {
             echo "เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล: " . $e->getMessage();
         }
@@ -525,9 +509,25 @@ if (isset($_GET['token']) && isset($_GET['token_new'])) {
                 }
             }
         }
-    } else {
-        echo "ไม่พบ token ใน URL";
     }
+ } else {
+                echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'ไม่พบข้อมูล',
+            text: 'ไม่พบข้อมูลที่ตรงกับ token นี้',
+            confirmButtonText: 'กลับหน้าหลัก',
+            allowOutsideClick: false
+        }).then((result) => {
+            // ไม่ว่าจะกดปุ่มไหนหรือปิด popup ก็ redirect
+            window.location.href = '';
+        });
+    </script>
+    ";
+            }
+        
     ?>
     <?php include './loadtab/f.php'; ?>
 </body>
