@@ -289,47 +289,47 @@ include 'connect/dbcon.php';
                 $status = 0; // ไม่ต้องส่งไปยังหัวหน้าสาขา ให้จบไปเลย
                 $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
 
- // SQL Query
- $sql = "UPDATE form_re01 
+                // SQL Query
+                $sql = "UPDATE form_re01 
  SET approval_status_teacher = :approval_status, 
      comment_teacher = :comment_teacher, token_new = :token_new,
      status = :status 
  WHERE token = :token";
 
-     // เตรียมและ execute
-     $stmt = $pdo->prepare($sql);
-     $success = $stmt->execute([
-         ':approval_status' => $approvalStatus,
-         ':comment_teacher' => $commentTeacher,
-         ':status' => $status,
-         ':token_new' => $token_new,
-         ':token' => $token
-     ]);
+                // เตรียมและ execute
+                $stmt = $pdo->prepare($sql);
+                $success = $stmt->execute([
+                    ':approval_status' => $approvalStatus,
+                    ':comment_teacher' => $commentTeacher,
+                    ':status' => $status,
+                    ':token_new' => $token_new,
+                    ':token' => $token
+                ]);
 
-     if ($success) {
-         require_once __DIR__ . '/vendor/autoload.php';
+                if ($success) {
+                    require_once __DIR__ . '/vendor/autoload.php';
 
 
-         $mail = new PHPMailer(true);
+                    $mail = new PHPMailer(true);
 
-         try {
-             $mail->CharSet = 'UTF-8';
-             $mail->isSMTP();
-             $mail->Host       = 'smtp.gmail.com';
-             $mail->SMTPAuth   = true;
-             $mail->Username   = 'botpcnone@gmail.com';
-             $mail->Password   = 'lbro evfy ipng zpqf';
-             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-             $mail->Port       = 587;
+                    try {
+                        $mail->CharSet = 'UTF-8';
+                        $mail->isSMTP();
+                        $mail->Host       = 'smtp.gmail.com';
+                        $mail->SMTPAuth   = true;
+                        $mail->Username   = 'botpcnone@gmail.com';
+                        $mail->Password   = 'lbro evfy ipng zpqf';
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                        $mail->Port       = 587;
 
-             $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
-             $mail->addAddress($email, 'นักศึกษา');
-             $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ไม่ผ่านการพิจารณา จากอาจารย์ที่ปรึกษา';
-             $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
+                        $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
+                        $mail->addAddress($email, 'นักศึกษา');
+                        $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ไม่ผ่านการพิจารณา จากอาจารย์ที่ปรึกษา';
+                        $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
-             $mail->isHTML(true);
+                        $mail->isHTML(true);
 
-             $mail->Body = '
+                        $mail->Body = '
      <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
          <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
          <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
@@ -344,7 +344,7 @@ include 'connect/dbcon.php';
              <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
 <hr>
 <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong>ไม่อนุมัติ</p>
-<p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong>'.htmlspecialchars($comment_teacher).'</p>
+<p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong>' . htmlspecialchars($comment_teacher) . '</p>
          </div>
  
          <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
@@ -363,14 +363,14 @@ include 'connect/dbcon.php';
 
 
 
-             $mail->send();
-             // echo 'Message has been sent';
-         } catch (Exception $e) {
-             echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-         }
+                        $mail->send();
+                        // echo 'Message has been sent';
+                    } catch (Exception $e) {
+                        echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+                    }
 
-         // แสดง Swal และ redirect ไปหน้า index.php
-         echo <<<HTML
+                    // แสดง Swal และ redirect ไปหน้า index.php
+                    echo <<<HTML
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script>
      Swal.fire({
@@ -383,8 +383,8 @@ include 'connect/dbcon.php';
      });
  </script>
  HTML;
-     } else {
-         echo <<<HTML
+                } else {
+                    echo <<<HTML
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script>
      Swal.fire({
@@ -395,10 +395,7 @@ include 'connect/dbcon.php';
      });
  </script>
  HTML;
-     }
- }
-} 
-
+                }
             } else {
 
                 $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
@@ -528,9 +525,9 @@ include 'connect/dbcon.php';
             HTML;
                 }
             }
-        } else {
-            echo "ไม่พบ token ใน URL";
         }
+    } else {
+        echo "ไม่พบ token ใน URL";
     }
     ?>
     <?php include './loadtab/f.php'; ?>
