@@ -294,7 +294,7 @@ function getNameByEmail($pdo, $email)
                                             class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100"
                                             rows="2"></textarea>
                                         <p><strong>ชื่อหัวหน้าสาขา:</strong> <span id="modalHeadName"></span></p>
-                                    
+                                        <hr>
                                     </div>
                                     <?php if ($row1['status'] === "0") {
                                     ?>
