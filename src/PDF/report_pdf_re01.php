@@ -85,10 +85,10 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'C');
 
 // //ชั้นปี
-$pdf->SetY(90);
-$pdf->SetX(44);
-$pdf->SetFont('sara', '', 14);
-$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
+// $pdf->SetY(90);
+// $pdf->SetX(44);
+// $pdf->SetFont('sara', '', 14);
+// $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
 
 // //วันที่ .......... เดือน ..............พ.ศ.............เวลา .......... ออกเวร
 // $pdf->SetY(90);
