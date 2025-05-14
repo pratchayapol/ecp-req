@@ -36,12 +36,15 @@ include 'connect/dbcon.php';
 <body class="flex items-center justify-center min-h-screen bg t1">
     <?php include './loadtab/h.php';
 
-    if (isset($_GET['token'])) {
+    if (isset($_GET['token']) && isset($_GET['token_new'])) {
+        // ทำงานเมื่อมีทั้ง token และ token_new
         $token = $_GET['token'];
+        $token_new = $_GET['token_new'];
 
         try {
-            $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE token = :token");
+            $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE token = :token AND token_new = :token_new");
             $stmt->bindParam(':token', $token, PDO::PARAM_STR);
+            $stmt->bindParam(':token_new', $token_new, PDO::PARAM_STR);
             $stmt->execute();
 
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
