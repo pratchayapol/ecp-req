@@ -105,7 +105,7 @@ try {
 
                     <div class="mb-2">
                         <label for="comment_teacher" class="font-semibold">ความคิดเห็นอาจารย์:</label>
-                        <textarea id="comment_teacher" name="comment_teacher" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2"><?php echo htmlspecialchars($comment_teacher); ?></textarea>
+                        <textarea id="comment_teacher" name="comment_teacher" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2"><?php echo$comment_teacher; ?></textarea>
                     </div>
                     <div class="mb-2">
                         <span class="font-semibold">สถานะ:</span> <?php echo htmlspecialchars($status); ?>
