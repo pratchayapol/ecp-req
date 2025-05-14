@@ -126,7 +126,7 @@ include 'connect/dbcon.php';
 
                                     <div>
                                         <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
-                                        <?php if (is_null($status)): ?>
+                                        <?php if (is_null($comment_teacher)): ?>
                                             <textarea id="comment_teacher" name="comment_teacher" rows="2"
                                                 class="w-full text-gray-600 border rounded p-2"
                                                 placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher) ?></textarea>
