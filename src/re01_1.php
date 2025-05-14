@@ -71,7 +71,7 @@ try {
 <body class="flex items-center justify-center min-h-screen bg">
     <?php include './loadtab/h.php'; ?>
     <div class="w-full max-w-3xl p-8 m-6 bg-white rounded-2xl shadow-2xl transform transition duration-500 hover:scale-105">
-        <div class="flex flex-col items-center">
+        <div class="w-full flex flex-col items-center">
 
             <div class="flex flex-col items-center space-y-4 text-gray-800">
                 <h2 class="text-3xl font-extrabold t1">คำร้องทั่วไป RE.01</h2>
@@ -100,7 +100,7 @@ try {
                     </div>
                     <div class="mb-2">
                         <label for="request_text" class="font-semibold">ข้อความร้องขอ:</label>
-                        <textarea id="request_text" name="request_text" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2" readonly><?php echo htmlspecialchars($request_text); ?></textarea>
+                        <textarea id="request_text" name="request_text" rows="3" class="mt-1 w-full text-gray-600 border rounded p-2" readonly><?php echo htmlspecialchars($request_text); ?></textarea>
                     </div>
                     <div class="mb-2">
                         <label for="comment_teacher" class="font-semibold">ความคิดเห็นอาจารย์:</label>
@@ -109,13 +109,13 @@ try {
                             <p class="text-sm text-gray-500 italic mb-1">* สามารถเพิ่มข้อความได้</p>
                         <?php endif; ?>
 
-                        <textarea id="comment_teacher" name="comment_teacher" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2"><?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?></textarea>
+                        <textarea id="comment_teacher" name="comment_teacher" rows="3" class="mt-1 w-full text-gray-600 border rounded p-2"><?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?></textarea>
                     </div>
 
                 </div>
 
                 <div class="mb-2">
-                    <span class="font-semibold">สถานะ:</span> <?php echo htmlspecialchars($status); ?>
+                    <span class="font-semibold">สถานะ:</span>
                     <div id="statusStepper1" class="flex justify-between items-center my-4">
                         <!-- Step 1 -->
                         <div class="flex flex-col items-center">
