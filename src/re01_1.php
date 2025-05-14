@@ -102,15 +102,9 @@ try {
                         <label for="request_text" class="font-semibold">ข้อความร้องขอ:</label>
                         <textarea id="request_text" name="request_text" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2"><?php echo htmlspecialchars($request_text); ?></textarea>
                     </div>
-
                     <div class="mb-2">
                         <label for="comment_teacher" class="font-semibold">ความคิดเห็นอาจารย์:</label>
                         <textarea id="comment_teacher" name="comment_teacher" rows="5" class="mt-1 w-full text-gray-600 border rounded p-2"><?php echo htmlspecialchars($comment_teacher); ?></textarea>
-                    </div>
-
-                    <div class="mb-2">
-                        <span class="font-semibold">ความคิดเห็นหัวหน้าภาค:</span>
-                        <p class="mt-1 text-gray-600 whitespace-pre-line"><?php echo nl2br(htmlspecialchars($comment_head_dep)); ?></p>
                     </div>
                     <div class="mb-2">
                         <span class="font-semibold">สถานะ:</span> <?php echo htmlspecialchars($status); ?>
@@ -120,9 +114,6 @@ try {
                     </div>
                     <div class="mb-2">
                         <span class="font-semibold">อีเมลอาจารย์:</span> <?php echo htmlspecialchars($teacher_email); ?>
-                    </div>
-                    <div class="mb-2">
-                        <span class="font-semibold">หัวหน้าภาค:</span> <?php echo htmlspecialchars($head_department); ?>
                     </div>
                 </div>
             </div>
