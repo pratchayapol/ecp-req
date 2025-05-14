@@ -99,7 +99,7 @@ try {
                 <?php if (empty($comment_teacher)): ?>
                     <p class="text-sm text-gray-500 italic mb-2">* สามารถเพิ่มข้อความได้</p>
                 <?php endif; ?>
-                <textarea id="comment_teacher" name="comment_teacher" rows="3" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" ><?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?></textarea>
+                <textarea id="comment_teacher" name="comment_teacher" rows="3" class="w-full text-gray-600 border rounded p-2 cursor-default" ><?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?></textarea>
             </div>
         </div>
 
