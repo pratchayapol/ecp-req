@@ -94,7 +94,7 @@ include 'connect/dbcon.php';
                             <!-- Request Text -->
                             <div>
                                 <label for="request_text" class="font-semibold block mb-1">ข้อความร้องขอ:</label>
-                                <textarea id="request_text" name="request_text" rows="3" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($request_text); ?></textarea>
+                                <textarea id="request_text" name="request_text" rows="2" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($request_text); ?></textarea>
                             </div>
                             <hr>
 
@@ -127,7 +127,7 @@ include 'connect/dbcon.php';
                                     <div>
                                         <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
                                         <?php if (is_null($status)): ?>
-                                            <textarea id="comment_teacher" name="comment_teacher" rows="3"
+                                            <textarea id="comment_teacher" name="comment_teacher" rows="2"
                                                 class="w-full text-gray-600 border rounded p-2"
                                                 placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher) ?></textarea>
                                         <?php else: ?>
