@@ -284,11 +284,11 @@ include 'connect/dbcon.php';
             // รับค่าจากฟอร์ม
             $approvalStatus = $_POST['approval_status'];  // approved หรือ not_approved
 
-            if ($approvalStatus === 0) {
+            if ($approvalStatus == "0") {
                 $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
                 $status = 0; // ไม่ต้องส่งไปยังหัวหน้าสาขา ให้จบไปเลย
                 $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
-
+                $token_new = ''; // กรณีไม่ต้องใช้ token ใหม่
                 // SQL Query
                 $sql = "UPDATE form_re01 
  SET approval_status_teacher = :approval_status, 
