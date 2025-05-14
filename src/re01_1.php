@@ -208,7 +208,7 @@ include 'connect/dbcon.php';
 
                         <!-- Metadata -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
-                            <div><span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?></div>
+                            <div><span class="font-semibold">วันที่สร้าง:</span> <?php echo htmlspecialchars($created_at); ?>น.</div>
                             <div><span class="font-semibold">อีเมลอาจารย์:</span> <?php echo htmlspecialchars($teacher_email); ?></div>
                         </div>
                     </div>
@@ -283,7 +283,7 @@ include 'connect/dbcon.php';
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // รับค่าจากฟอร์ม
             $approvalStatus = $_POST['approval_status'];  // approved หรือ not_approved
- // ถ้าไม่อนุมัติจากอาจารย์ที่ปรึกษา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
+            // ถ้าไม่อนุมัติจากอาจารย์ที่ปรึกษา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
             if ($approvalStatus == "0") {
                 $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
                 $status = 0; // ไม่ต้องส่งไปยังหัวหน้าสาขา ให้จบไปเลย
@@ -411,7 +411,7 @@ include 'connect/dbcon.php';
                     shuffle($characters);
                     return implode('', array_slice($characters, 0, $length));
                 }
-                $token_new = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-1?token=xxxx&token_new=yyyy
+                $token_new = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-2?token=xxxx&token_new=yyyy
                 // SQL Query
                 $sql = "UPDATE form_re01 
             SET approval_status_teacher = :approval_status, 
