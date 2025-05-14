@@ -174,8 +174,8 @@ include 'connect/dbcon.php';
                                         <div>
                                             <label for="comment_head_dep" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
                                             <textarea id="comment_head_dep" name="comment_head_dep" rows="3"
-                                                class="w-full text-gray-600 border rounded p-2 <?= !is_null($approval_status_dep) ? 'bg-gray-100' : '' ?>"
-                                                <?= !is_null($approval_status_dep) ? 'readonly' : '' ?>
+                                                class="w-full text-gray-600 border rounded p-2 <?= is_null($approval_status_dep) ? '' : 'bg-gray-100' ?>"
+                                                <?= is_null($approval_status_dep) ? '' : 'readonly' ?>
                                                 placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_head_dep ?? '') ?></textarea>
                                         </div>
                                     </div>
