@@ -100,11 +100,33 @@ include 'connect/dbcon.php';
                             </div>
                             <hr>
 
-                            <form method="POST" action="" onsubmit="return validateForm()">
-                                <!-- Approval Section -->
+
+                        
                                 <div class="space-y-3 mb-6">
                                     <div>
                                         <label class="font-semibold block mb-1">ความคิดเห็นอาจารย์:</label>
+                                        <div class="flex items-center space-x-4">
+                                                <?php if ($approval_status_teacher == 1): ?>
+                                                    <span class="text-green-600 font-semibold">อนุมัติ</span>
+                                                <?php else: ?>
+                                                    <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
+                                                <?php endif; ?>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
+                                            <textarea id="comment_teacher" name="comment_teacher" rows="2"
+                                                class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- หัวหน้าสาขา -->
+                                      <form method="POST" action="" onsubmit="return validateForm()">
+                                <!-- Approval Section -->
+                                <div class="space-y-3 mb-6">
+                                    <div>
+                                        <label class="font-semibold block mb-1">ความคิดเห็นหัวหน้าสาขา:</label>
                                         <div class="flex items-center space-x-4">
                                             <?php if (is_null($status)): ?>
                                                 <label class="flex items-center space-x-2">
@@ -116,7 +138,7 @@ include 'connect/dbcon.php';
                                                     <span>ไม่อนุมัติ</span>
                                                 </label>
                                             <?php else: ?>
-                                                <?php if ($approval_status_teacher == 1): ?>
+                                                <?php if ($approval_status_dep == 1): ?>
                                                     <span class="text-green-600 font-semibold">อนุมัติ</span>
                                                 <?php else: ?>
                                                     <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
@@ -127,14 +149,14 @@ include 'connect/dbcon.php';
                                     </div>
 
                                     <div>
-                                        <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
+                                        <label for="comment_head_dep" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
                                         <?php if (is_null($status)): ?>
-                                            <textarea id="comment_teacher" name="comment_teacher" rows="2"
+                                            <textarea id="comment_head_dep" name="comment_head_dep" rows="2"
                                                 class="w-full text-gray-600 border rounded p-2"
-                                                placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
+                                                placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_head_dep ?? '') ?></textarea>
                                         <?php else: ?>
-                                            <textarea id="comment_teacher" name="comment_teacher" rows="2"
-                                                class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
+                                            <textarea id="comment_head_dep" name="comment_head_dep" rows="2"
+                                                class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_head_dep ?? '') ?></textarea>
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -150,6 +172,7 @@ include 'connect/dbcon.php';
                                 <?php endif; ?>
 
                             </form>
+
 
                             <script>
                                 function validateForm() {
@@ -272,14 +295,14 @@ include 'connect/dbcon.php';
                     $approvalStatus = $_POST['approval_status'];  // approved หรือ not_approved
                     // ถ้าไม่อนุมัติจากอาจารย์ที่ปรึกษา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
                     if ($approvalStatus == "0") {
-                        $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
+                        $Comment_head_dep = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติม
                         $status = 0; // ไม่ต้องส่งไปยังหัวหน้าสาขา ให้จบไปเลย
                         $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
                         $token_new = ''; // กรณีไม่ต้องใช้ token ใหม่
                         // SQL Query
                         $sql = "UPDATE form_re01 
  SET approval_status_teacher = :approval_status, 
-     comment_teacher = :comment_teacher, token_new = :token_new,
+     comment_head_dep = :comment_head_dep, token_new = :token_new,
      status = :status 
  WHERE token = :token";
 
@@ -287,7 +310,7 @@ include 'connect/dbcon.php';
                         $stmt = $pdo->prepare($sql);
                         $success = $stmt->execute([
                             ':approval_status' => $approvalStatus,
-                            ':comment_teacher' => $commentTeacher,
+                            ':comment_head_dep' => $Comment_head_dep,
                             ':status' => $status,
                             ':token_new' => $token_new,
                             ':token' => $token
@@ -377,7 +400,7 @@ include 'connect/dbcon.php';
                         // ถ้าอนุมัติจากอาจารย์ที่ปรึกษา
                     } else {
 
-                        $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
+                        $commentTeacher = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติม
                         $status = 1;
                         $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
 
@@ -402,7 +425,7 @@ include 'connect/dbcon.php';
                         // SQL Query
                         $sql = "UPDATE form_re01 
             SET approval_status_teacher = :approval_status, 
-                comment_teacher = :comment_teacher, token_new = :token_new,
+                comment_head_dep = :comment_head_dep, token_new = :token_new,
                 status = :status 
             WHERE token = :token";
 
@@ -410,7 +433,7 @@ include 'connect/dbcon.php';
                         $stmt = $pdo->prepare($sql);
                         $success = $stmt->execute([
                             ':approval_status' => $approvalStatus,
-                            ':comment_teacher' => $commentTeacher,
+                            ':comment_head_dep' => $commentTeacher,
                             ':status' => $status,
                             ':token_new' => $token_new,
                             ':token' => $token
