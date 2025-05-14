@@ -137,13 +137,15 @@ if (isset($_GET['token'])) {
                             </div>
 
                             <!-- Submit Button -->
-                            <div class="text-center">
-                                <button type="submit"
-                                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow"
-                                    <?= !is_null($status) ? 'disabled' : '' ?>>
-                                    พิจารณาแล้ว
-                                </button>
-                            </div>
+                            <?php if (is_null($status)): ?>
+                                <div class="text-center">
+                                    <button type="submit"
+                                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow">
+                                        พิจารณาแล้ว
+                                    </button>
+                                </div>
+                            <?php endif; ?>
+
                         </form>
 
                         <script>
