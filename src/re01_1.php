@@ -59,7 +59,9 @@ if (isset($_GET['token'])) {
             $course_level = $row['course_level'];
             $request_text = $row['request_text'];
             $comment_teacher = $row['comment_teacher'];
+            $approval_status_teacher = $row['approval_status_teacher'];
             $comment_head_dep = $row['comment_head_dep'];
+            $approval_status_dep = $row['approval_status_dep'];
             $status = $row['status'];
             $created_at = $row['created_at'];
             $token = $row['token'];
@@ -97,35 +99,48 @@ if (isset($_GET['token'])) {
                             <textarea id="request_text" name="request_text" rows="3" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($request_text); ?></textarea>
                         </div>
                         <hr>
+
                         <form method="POST" action="" onsubmit="return validateForm()">
                             <!-- Approval Section -->
                             <div class="space-y-3 mb-6">
                                 <div>
                                     <label class="font-semibold block mb-1">ความคิดเห็นอาจารย์:</label>
                                     <div class="flex items-center space-x-4">
-                                        <label class="flex items-center space-x-2">
-                                            <input type="radio" name="approval_status" value="1">
-                                            <span>อนุมัติ</span>
-                                        </label>
-                                        <label class="flex items-center space-x-2">
-                                            <input type="radio" name="approval_status" value="0">
-                                            <span>ไม่อนุมัติ</span>
-                                        </label>
+                                        <?php if (is_null($status)): ?>
+                                            <label class="flex items-center space-x-2">
+                                                <input type="radio" name="approval_status" value="1">
+                                                <span>อนุมัติ</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2">
+                                                <input type="radio" name="approval_status" value="0">
+                                                <span>ไม่อนุมัติ</span>
+                                            </label>
+                                        <?php else: ?>
+                                            <span class="text-green-600 font-semibold">
+                                                <?= $approval_status_teacher == 1 ? 'อนุมัติ' : 'ไม่อนุมัติ' ?>
+                                            </span>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
 
                                 <div>
                                     <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
-                                    <textarea id="comment_teacher" name="comment_teacher" rows="3"
-                                        class="w-full text-gray-600 border rounded p-2"
-                                        placeholder="โปรดกรอกความคิดเห็นของท่าน"></textarea>
+                                    <?php if (is_null($status)): ?>
+                                        <textarea id="comment_teacher" name="comment_teacher" rows="3"
+                                            class="w-full text-gray-600 border rounded p-2"
+                                            placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher) ?></textarea>
+                                    <?php else: ?>
+                                        <textarea id="comment_teacher" name="comment_teacher" rows="3"
+                                            class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_teacher) ?></textarea>
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
                             <!-- Submit Button -->
                             <div class="text-center">
                                 <button type="submit"
-                                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow">
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow"
+                                    <?= !is_null($status) ? 'disabled' : '' ?>>
                                     พิจารณาแล้ว
                                 </button>
                             </div>
