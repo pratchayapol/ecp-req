@@ -86,15 +86,15 @@ $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'C');
 
 // //ชั้นปี
 $pdf->SetY(79);
-$pdf->SetX(30);
+$pdf->SetX(31);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
 
-// //วันที่ .......... เดือน ..............พ.ศ.............เวลา .......... ออกเวร
-// $pdf->SetY(90);
-// $pdf->SetX(60);
-// $pdf->SetFont('sara', '', 14);
-// $pdf->Cell(168, 2, iconv('utf-8', 'cp874', ThDate3()), 0, 1, 'C');
+// //เหตุผล
+$pdf->SetY(79);
+$pdf->SetX(1);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $request_text), 0, 1, 'C');
 
 // //สถานะการณ์
 // $pdf->SetY(97.5);
