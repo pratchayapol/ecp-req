@@ -85,7 +85,7 @@ if (isset($_GET['token'])) {
                         <div><span class="font-semibold">เรื่อง:</span> <?php echo htmlspecialchars($title); ?></div>
                         <div><span class="font-semibold">เรียน:</span> <?php echo htmlspecialchars($to); ?></div>
                         <div><span class="font-semibold">ชื่อนักศึกษา:</span> <?php echo htmlspecialchars($profile['name']); ?></div>
-                        <div><span class="font-semibold">รหัสนักศึกษา:</span> <?php echo htmlspecialchars($profile['id']); ?></div>
+                        <div><span class="font-semibold">รหัสนักศึกษา:</span> <?php echo $profile['id']; ?></div>
                         <div><span class="font-semibold">คณะ:</span> <?php echo htmlspecialchars($faculty); ?></div>
                         <div><span class="font-semibold">สาขา:</span> <?php echo htmlspecialchars($field); ?></div>
                         <div><span class="font-semibold">ระดับชั้น:</span> <?php echo htmlspecialchars($course_level); ?></div>
