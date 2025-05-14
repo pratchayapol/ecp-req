@@ -97,20 +97,18 @@ if (isset($_GET['token'])) {
                             <textarea id="request_text" name="request_text" rows="3" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($request_text); ?></textarea>
                         </div>
 
-                        <form method="POST" action="your-processing-script.php">
+                        <form method="POST" action="your-processing-script.php" onsubmit="return validateForm()">
                             <!-- Approval Section -->
                             <div class="space-y-3 mb-6">
                                 <div>
                                     <label class="font-semibold block mb-1">ความคิดเห็นอาจารย์:</label>
                                     <div class="flex items-center space-x-4">
                                         <label class="flex items-center space-x-2">
-                                            <input type="radio" name="approval_status" value="approved"
-                                                <?php echo (isset($approval_status) && $approval_status === 'approved') ? 'checked' : ''; ?>>
+                                            <input type="radio" name="approval_status" value="approved">
                                             <span>อนุมัติ</span>
                                         </label>
                                         <label class="flex items-center space-x-2">
-                                            <input type="radio" name="approval_status" value="not_approved"
-                                                <?php echo (isset($approval_status) && $approval_status === 'not_approved') ? 'checked' : ''; ?>>
+                                            <input type="radio" name="approval_status" value="not_approved">
                                             <span>ไม่อนุมัติ</span>
                                         </label>
                                     </div>
@@ -118,11 +116,9 @@ if (isset($_GET['token'])) {
 
                                 <div>
                                     <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
-                                    <?php if (empty($comment_teacher)): ?>
-                                        <p class="text-sm text-gray-500 italic mb-2">* สามารถเพิ่มข้อความได้</p>
-                                    <?php endif; ?>
                                     <textarea id="comment_teacher" name="comment_teacher" rows="3"
-                                        class="w-full text-gray-600 border rounded p-2"><?php echo htmlspecialchars($comment_teacher ?? 'จึงเรียนมาเพื่อโปรดพิจารณา'); ?></textarea>
+                                        class="w-full text-gray-600 border rounded p-2"
+                                        placeholder="โปรดกรอกความคิดเห็นของท่าน"></textarea>
                                 </div>
                             </div>
 
@@ -134,6 +130,33 @@ if (isset($_GET['token'])) {
                                 </button>
                             </div>
                         </form>
+
+                        <script>
+                            function validateForm() {
+                                const radios = document.getElementsByName('approval_status');
+                                const comment = document.getElementById('comment_teacher').value.trim();
+
+                                let selected = false;
+                                for (let i = 0; i < radios.length; i++) {
+                                    if (radios[i].checked) {
+                                        selected = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!selected) {
+                                    alert('กรุณาเลือกผลการพิจารณา (อนุมัติ หรือ ไม่อนุมัติ)');
+                                    return false;
+                                }
+
+                                if (comment === '') {
+                                    alert('กรุณากรอกความคิดเห็นของอาจารย์');
+                                    return false;
+                                }
+
+                                return true;
+                            }
+                        </script>
 
                     </div>
 
