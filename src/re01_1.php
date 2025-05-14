@@ -67,7 +67,7 @@ if (isset($_GET['token'])) {
             $head_department = $row['head_department'];
 
             // ดึงชื่อตัวเอง
-            $sql = "SELECT name, email FROM accounts WHERE email = :email";
+            $sql = "SELECT name, email, id FROM accounts WHERE email = :email";
             $stmt = $pdo->prepare($sql);
             $stmt->execute(['email' => $email]);
             $profile = $stmt->fetch(PDO::FETCH_ASSOC);
