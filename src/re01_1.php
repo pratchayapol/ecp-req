@@ -76,7 +76,7 @@ include 'connect/dbcon.php';
                     <div class="flex flex-col space-y-6 text-gray-800">
                         <!-- Header -->
                         <div class="text-center">
-                            <h2 class="text-3xl font-extrabold text-gray-800">คำร้องทั่วไป RE.01</h2>
+                            <h3 class="text-3xl font-extrabold text-gray-800">คำร้องทั่วไป RE.01</h3>
                         </div>
 
                         <!-- Form Information -->
