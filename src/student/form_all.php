@@ -317,38 +317,47 @@ function getNameByEmail($pdo, $email)
                                     ];
 
                                     if (status === 0) {
-                                        // Step 0: ไม่ผ่านการพิจารณา = สีแดง
+                                        // ไม่ผ่าน → step1 สีแดง
                                         steps.forEach((step, i) => {
-                                            // เฉพาะ step1 เท่านั้นที่เป็นสีแดง
                                             if (i === 0) {
-                                                document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center border-red-500 bg-red-500 text-white';
+                                                document.getElementById(step.circle).className =
+                                                    'w-8 h-8 rounded-full border-2 flex items-center justify-center border-red-500 bg-red-500 text-white';
                                             } else {
-                                                document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center border-gray-400 text-gray-500';
+                                                document.getElementById(step.circle).className =
+                                                    'w-8 h-8 rounded-full border-2 flex items-center justify-center border-gray-400 text-gray-500';
                                             }
 
                                             if (step.line) {
-                                                document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i === 0 ? 'bg-red-500' : 'bg-gray-300');
+                                                document.getElementById(step.line).className =
+                                                    'flex-auto h-0.5 mx-1 ' + (i === 0 ? 'bg-red-500' : 'bg-gray-300');
                                             }
                                         });
                                         return;
                                     }
 
-                                    steps.forEach((step, i) => {
-                                        // อัปเดตวงกลม
-                                        document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
-                                            (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
+                                    // null แสดงว่าเริ่มต้นแล้ว (step1 สีเขียว)
+                                    let effectiveStatus = status === null ? 0 : parseInt(status);
 
-                                        // อัปเดตเส้นเชื่อม
+                                    steps.forEach((step, i) => {
+                                        const isActive = i <= effectiveStatus;
+                                        const isLineActive = i < effectiveStatus;
+
+                                        document.getElementById(step.circle).className =
+                                            'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
+                                            (isActive ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
+
                                         if (step.line) {
-                                            document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
+                                            document.getElementById(step.line).className =
+                                                'flex-auto h-0.5 mx-1 ' + (isLineActive ? 'bg-green-500' : 'bg-gray-300');
                                         }
                                     });
                                 }
 
-                                // ใช้เมื่อเปิด modal:
+
                                 document.querySelectorAll('.open-modal1').forEach(btn => {
                                     btn.addEventListener('click', function() {
-                                        const status = parseInt(this.closest('tr').dataset.status) || 0;
+                                        const rawStatus = this.closest('tr').dataset.status;
+                                        const status = rawStatus === 'null' || rawStatus === null ? null : parseInt(rawStatus);
                                         updateStatusStepper1(status);
                                     });
                                 });
