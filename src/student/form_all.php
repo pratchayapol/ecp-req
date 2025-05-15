@@ -838,54 +838,50 @@ ORDER BY form_id DESC");
                                 const statusValue = "<?= $row3['status'] ?>"; // string
                                 updateStatusStepper3(statusValue);
 
-                                function updateStatusStepper3(status) {
-                                    status = parseInt(status); // แปลง string → number
-
+                                function updateStatusStepper3(rawStatus) {
                                     const step1 = document.getElementById('step1Circle3');
                                     const step2 = document.getElementById('step2Circle3');
                                     const step3 = document.getElementById('step3Circle3');
                                     const line31 = document.getElementById('line31');
                                     const line32 = document.getElementById('line32');
 
-                                    // สีเริ่มต้น (เทา)
                                     const grayClass = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
                                     const grayLine = 'flex-auto h-0.5 mx-1 bg-gray-300';
 
-                                    // รีเซ็ตเป็นเทาก่อน
+                                    const greenCircle = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                    const greenLine = 'flex-auto h-0.5 mx-1 bg-green-500';
+
+                                    const redCircle = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
+                                    const redLine = 'flex-auto h-0.5 mx-1 bg-red-500';
+
+                                    // รีเซ็ตทั้งหมดเป็นเทาก่อน
                                     step1.className = grayClass;
                                     step2.className = grayClass;
                                     step3.className = grayClass;
                                     line31.className = grayLine;
                                     line32.className = grayLine;
 
-                                    // Step สีเขียว
-                                    const greenCircle = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                    const greenLine = 'flex-auto h-0.5 mx-1 bg-green-500';
-
-                                    // Step สีแดง
-                                    const redCircle = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
-                                    const redLine = 'flex-auto h-0.5 mx-1 bg-red-500';
-
-                                    // ✅ เงื่อนไขใหม่: null หรือ invalid เท่านั้นที่ถือว่า "รอพิจารณา"
-                                    if (isNaN(status)) {
+                                    // ตรวจสอบค่าที่ส่งมา
+                                    const statusStr = (rawStatus ?? "").trim(); // ป้องกัน null, undefined, ช่องว่าง
+                                    if (statusStr === "") {
+                                        // ไม่มีค่า → แสดงว่า "รอพิจารณา"
                                         step1.className = greenCircle;
                                         return;
                                     }
 
+                                    const status = Number(statusStr); // แปลงหลังเช็ก
+
                                     if (status === 0) {
-                                        // ไม่อนุมัติ (แดงทั้งหมด)
                                         step1.className = redCircle;
                                         step2.className = redCircle;
                                         step3.className = redCircle;
                                         line31.className = redLine;
                                         line32.className = redLine;
                                     } else if (status === 1) {
-                                        // อาจารย์อนุมัติ
                                         step1.className = greenCircle;
                                         step2.className = greenCircle;
                                         line31.className = greenLine;
                                     } else if (status === 2) {
-                                        // หัวหน้าอนุมัติ
                                         step1.className = greenCircle;
                                         step2.className = greenCircle;
                                         step3.className = greenCircle;
