@@ -252,8 +252,10 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                             </div>
                             <div>
                                 <label class="block font-medium mb-1 text-red-600">กลุ่มเรียน *</label>
-                                <input type="text" name="academicGroup" id="other-reason-input" required
-                                    class="w-full border rounded px-3 py-2" placeholder="กรุณากรอกกลุ่มเรียนของรายวิชา">
+                                <input type="text" name="academicGroup" id="academicGroup" required
+                                    class="w-full border rounded px-3 py-2" placeholder="กรุณากรอกกลุ่มเรียนของรายวิชา"
+                                    oninvalid="this.setCustomValidity('กรุณากรอกกลุ่มเรียนของรายวิชา')"
+                                    oninput="this.setCustomValidity('')">
 
                             </div>
 
