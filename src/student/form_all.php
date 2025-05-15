@@ -906,10 +906,7 @@ ORDER BY form_id DESC");
 
                                     document.querySelectorAll('.open-modal3').forEach(button => {
                                         button.addEventListener('click', function() {
-                                            const rawStatus = this.dataset.status;
-                                            const status = rawStatus === 'null' ? 0 : parseInt(rawStatus);
-                                            updateStatusStepper3(status);
-
+                                            
                                             // Set modal fields
                                             document.getElementById('modalFormId3').textContent = 'RE.07-' + this.dataset.formId;
                                             document.getElementById('modalTermYear3').textContent = this.dataset.term + ' / ' + this.dataset.year;
