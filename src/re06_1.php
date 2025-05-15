@@ -238,12 +238,12 @@ include 'connect/dbcon.php';
                             line21.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
                         }
 
-                        if (status === 0) {
+                        if (status === "0") {
                             // Case: ไม่พิจารณา
                             step1.className = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
                             step2.className = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
                             line21.className = 'flex-auto h-0.5 mx-1 bg-red-500';
-                        } else if (status === 1) {
+                        } else if (status === "1") {
                             // Case: อาจารย์พิจารณาแล้ว
                             step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                             step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
