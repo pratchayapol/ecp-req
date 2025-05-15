@@ -715,7 +715,7 @@ function getNameByEmail($pdo, $email)
                                         <?php
                                         // การดึงข้อมูลจากฐานข้อมูล
                                         try {
-                                            $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit, reg_status, expected_graduation, comment_teacher, comment_head_dep,
+                                            $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit, reg_status, expected_graduation, comment_teacher, comment_head_dep, token,
 f.teacher_email, f.head_department,
 c.course_nameTH, c.credits
 FROM form_re07 AS f
