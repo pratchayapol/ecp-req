@@ -342,8 +342,7 @@ include 'connect/dbcon.php';
                                 $mail->Body = '
      <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
          <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องขอเปิดนอกแผน (RE.07)</h2>
-         <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
- 
+
                 <div style="margin-top: 15px; padding: 15px; background-color:rgb(240, 240, 240); border-left: 4px solid #ffa500; color: #000;">
                     <p><strong>FORM ID:</strong> RE.07-' . htmlspecialchars($form_id) . '</p>
                     <p><strong>ภาคเรียน/ปีการศึกษา:</strong> ' . htmlspecialchars($term) . '/' . htmlspecialchars($year) . '</p>
@@ -357,7 +356,7 @@ include 'connect/dbcon.php';
                     <p><strong>เหตุผล:</strong> ' . nl2br(htmlspecialchars($reason)) . '</p>
                     <hr>
                     <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> ไม่อนุมัติ</p>
-                    <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($commentTeacher) . '</p>
+                    <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
 
                     <hr>
                     <p><strong>สถานะการพิจารณาจากหัวหน้าสาขา:</strong> ไม่อนุมัติ</p>
@@ -471,7 +470,7 @@ include 'connect/dbcon.php';
                     <p><strong>เหตุผล:</strong> ' . nl2br(htmlspecialchars($reason)) . '</p>
                     <hr>
                     <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> อนุมัติ</p>
-                    <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($commentTeacher) . '</p>
+                    <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
 
                     <hr>
                     <p><strong>สถานะการพิจารณาจากหัวหน้าสาขา:</strong> อนุมัติ</p>
@@ -526,7 +525,7 @@ include 'connect/dbcon.php';
 
 
 
-                
+
             } else {
                 echo "<div class='text-center p-6'>ไม่พบข้อมูลคำร้อง กรุณาตรวจสอบลิงก์อีกครั้ง</div>";
                 echo "
