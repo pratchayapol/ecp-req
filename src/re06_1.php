@@ -220,25 +220,62 @@ include 'connect/dbcon.php';
 
                 <!-- JavaScript for stepper -->
                 <script>
-                      function updateStatusStepper2(status) {
-                                    const step1 = document.getElementById('step1Circle2');
-                                    const step2 = document.getElementById('step2Circle2');
-                                    const line21 = document.getElementById('line1');
+                    function updateStatusStepper2(status) {
+                        const step1 = document.getElementById('step1Circle2');
+                        const step2 = document.getElementById('step2Circle2');
+                        const line21 = document.getElementById('line1');
 
-                                    if (status === null) {
-                                        // Case: รอพิจารณา
-                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
-                                        line21.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
-                                    } else if (status === 1) {
-                                        // Case: อาจารย์พิจารณาแล้ว
-                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        line21.className = 'flex-auto h-0.5 mx-1 bg-green-500';
-                                    }
-                                }
+                        if (status === 0) {
+                            // Case: รอพิจารณา
+                            step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                            step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
+                            line21.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
+                        } else if (status === 1) {
+                            // Case: อาจารย์พิจารณาแล้ว
+                            step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                            step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                            line21.className = 'flex-auto h-0.5 mx-1 bg-green-500';
+                        }
+                    }
 
-                   
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const modal2 = document.getElementById('detailModal2');
+                        const modalContent2 = document.getElementById('modalContent2');
+                        const closeModal2 = document.getElementById('closeModal2');
+
+                        document.querySelectorAll('.open-modal2').forEach(button => {
+                            button.addEventListener('click', function() {
+                                const rawStatus = this.closest('tr').dataset.status;
+                                const status = (rawStatus === 'null') ? 0 : parseInt(rawStatus);
+
+                                updateStatusStepper2(status);
+
+                                // ใส่ข้อมูลลง modal
+                                document.getElementById('modalFormId2').textContent = 'RE.06-' + this.dataset.formId;
+                                document.getElementById('modalTermYear').textContent = this.dataset.term + ' / ' + this.dataset.year;
+                                document.getElementById('modalReason').textContent = this.dataset.reason || '-';
+                                document.getElementById('modalGroup').textContent = this.dataset.group || '-';
+                                document.getElementById('modalCourseId').textContent = this.dataset.courseId || '-';
+                                document.getElementById('modalCounter').textContent = this.dataset.counter || '-';
+                                document.getElementById('modalRegStatus').textContent = this.dataset.regStatus || '-';
+                                document.getElementById('modalCommentTeacher').textContent = this.dataset.commentTeacher || '-';
+                                document.getElementById('modalTeacherEmail').textContent = this.dataset.teacherEmail || '-';
+
+                                // เปิด modal
+                                modal2.classList.remove('hidden');
+                                setTimeout(() => {
+                                    modalContent2.classList.remove('opacity-0', 'scale-95');
+                                }, 10);
+                            });
+                        });
+
+                        closeModal2.addEventListener('click', function() {
+                            modalContent2.classList.add('opacity-0', 'scale-95');
+                            setTimeout(() => {
+                                modal2.classList.add('hidden');
+                            }, 300);
+                        });
+                    });
                 </script>
 
 
