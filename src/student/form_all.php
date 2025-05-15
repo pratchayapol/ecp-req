@@ -246,7 +246,7 @@ function getNameByEmail($pdo, $email)
                                 <!-- Modal Content -->
                                 <div id="modalContent1" class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
                                     <button id="closeModal1" class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
-                                    <h2 class="text-2xl font-semibold text-center mb-6 text-orange-600">รายละเอียดคำร้องทั่วไป RE.01/h2>
+                                    <h2 class="text-2xl font-semibold text-center mb-6 text-orange-600">รายละเอียดคำร้องทั่วไป RE.01</h2>
 
                                     <div class="space-y-4 text-base">
                                         <p><strong>เลขคำร้องที่:</strong> <span id="modalFormId1"></span></p>
