@@ -591,7 +591,7 @@ function getNameByEmail($pdo, $email)
                                                 <span class="mt-1 text-sm text-gray-600 text-center">รออาจารย์ประจำรายวิชาพิจารณาคำร้อง</span>
                                             </div>
 
-                                            <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line1"></div>
+                                            <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line21"></div>
 
                                             <!-- Step 1 -->
                                             <div class="flex flex-col items-center">
@@ -635,7 +635,7 @@ function getNameByEmail($pdo, $email)
                                         return;
                                     }
 
-                                    
+
                                     steps.forEach((step, i) => {
                                         // อัปเดตวงกลม
                                         document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
