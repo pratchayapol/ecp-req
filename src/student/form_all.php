@@ -607,21 +607,45 @@ function getNameByEmail($pdo, $email)
                             <!-- แถบสถานะ RE06 -->
                             <script>
                                 function updateStatusStepper2(status) {
-                                    const step1 = document.getElementById('step1Circle2');
-                                    const step2 = document.getElementById('step2Circle2');
-                                    const line21 = document.getElementById('line1');
+
+                                    const steps = [{
+                                            circle: 'step1Circle2',
+                                            line: 'line21'
+                                        },
+                                        {
+                                            circle: 'step2Circle2',
+
+                                        }
+                                    ];
 
                                     if (status === 0) {
-                                        // Case: รอพิจารณา
-                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
-                                        line21.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
-                                    } else if (status === 1) {
-                                        // Case: อาจารย์พิจารณาแล้ว
-                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        line21.className = 'flex-auto h-0.5 mx-1 bg-green-500';
+                                        // Step 0: ไม่ผ่านการพิจารณา = สีแดง
+                                        steps.forEach((step, i) => {
+                                            // เฉพาะ step1 เท่านั้นที่เป็นสีแดง
+                                            if (i === 0) {
+                                                document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center border-red-500 bg-red-500 text-white';
+                                            } else {
+                                                document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center border-gray-400 text-gray-500';
+                                            }
+
+                                            if (step.line) {
+                                                document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i === 0 ? 'bg-red-500' : 'bg-gray-300');
+                                            }
+                                        });
+                                        return;
                                     }
+
+                                    
+                                    steps.forEach((step, i) => {
+                                        // อัปเดตวงกลม
+                                        document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
+                                            (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
+
+                                        // อัปเดตเส้นเชื่อม
+                                        if (step.line) {
+                                            document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
+                                        }
+                                    });
                                 }
 
                                 document.addEventListener("DOMContentLoaded", function() {
