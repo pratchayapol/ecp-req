@@ -510,22 +510,29 @@ function getNameByEmail($pdo, $email)
                                                         echo "Database error: " . $e->getMessage();
                                                     }
                                                     ?>
-                                                    <td class="text-center px-4 py-2">
-                                                        <button class="open-modal2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
-                                                            data-form-id="<?= $row2['form_id'] ?>"
-                                                            data-term="<?= $row2['term'] ?>"
-                                                            data-year="<?= $row2['year'] ?>"
-                                                            data-reason="<?= htmlspecialchars($row2['reason']) ?>"
-                                                            data-group="<?= htmlspecialchars($row2['Group'] ?? '-') ?>"
-                                                            data-course-id="<?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?>"
-                                                            data-counter="<?= $row2['coutter'] ?? '-' ?>"
-                                                            data-reg-status="<?= $row2['reg_status'] ?? '-' ?>"
-                                                            data-comment-teacher="<?= $row2['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา' ?>"
-                                                            data-teacher-email="<?= htmlspecialchars($CommentTeacher['name']) ?>">
-                                                            ดูรายละเอียด
-                                                        </button>
-
-
+                                                    <td>
+                                                        <div class="flex justify-center space-x-2">
+                                                            <button class="open-modal2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
+                                                                data-form-id="<?= $row2['form_id'] ?>"
+                                                                data-term="<?= $row2['term'] ?>"
+                                                                data-year="<?= $row2['year'] ?>"
+                                                                data-reason="<?= htmlspecialchars($row2['reason']) ?>"
+                                                                data-group="<?= htmlspecialchars($row2['Group'] ?? '-') ?>"
+                                                                data-course-id="<?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?>"
+                                                                data-counter="<?= $row2['coutter'] ?? '-' ?>"
+                                                                data-reg-status="<?= $row2['reg_status'] ?? '-' ?>"
+                                                                data-comment-teacher="<?= $row2['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา' ?>"
+                                                                data-teacher-email="<?= htmlspecialchars($CommentTeacher['name']) ?>">
+                                                                ดูรายละเอียด
+                                                            </button>
+                                                            <!-- ปุ่ม PDF สีส้ม -->
+                                                            <?php if ($row1['status'] == 1): ?>
+                                                                <a href="../PDF/report_pdf_re01?token=<?= $row1['token'] ?>" target="_blank"
+                                                                    class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
+                                                                    PDF
+                                                                </a>
+                                                            <?php endif; ?>
+                                                        </div>
 
                                                     </td>
                                                 </tr>
