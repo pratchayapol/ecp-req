@@ -330,7 +330,7 @@ include 'connect/dbcon.php';
                     <p><strong>คาดว่าจะสำเร็จการศึกษา:</strong> ' . htmlspecialchars($expected_graduation) . '</p>
                     <p><strong>เหตุผล:</strong> ' . nl2br(htmlspecialchars($reason)) . '</p>
                     <hr>
-                    <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> อนุมัติ</p>
+                    <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> ไม่อนุมัติ</p>
                     <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($commentTeacher) . '</p>
                 </div>
  
