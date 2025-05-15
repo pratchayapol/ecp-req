@@ -224,27 +224,24 @@ include 'connect/dbcon.php';
                 <!-- JavaScript for stepper -->
                 <script>
                     function updateStatusStepper2(status) {
+                        status = parseInt(status); // 👈 แปลง string เป็น number
+
                         const step1 = document.getElementById('step1Circle2');
                         const step2 = document.getElementById('step2Circle2');
                         const line21 = document.getElementById('line1');
 
-                        if (status === null || status === undefined) {
-                            // ไม่แสดงอะไรหรือแสดงเฉยๆ
+                        if (isNaN(status)) {
                             console.log("ไม่มีข้อมูลสถานะ");
                             return;
-                            //รอพิจารณา
-                            step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                            step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
-                            line21.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
                         }
 
-                        if (status === "0") {
-                            // Case: ไม่พิจารณา
+                        if (status === 0) {
+                            // ไม่พิจารณา (แดง)
                             step1.className = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
                             step2.className = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
                             line21.className = 'flex-auto h-0.5 mx-1 bg-red-500';
-                        } else if (status === "1") {
-                            // Case: อาจารย์พิจารณาแล้ว
+                        } else if (status === 1) {
+                            // อนุมัติแล้ว (เขียว)
                             step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                             step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                             line21.className = 'flex-auto h-0.5 mx-1 bg-green-500';
