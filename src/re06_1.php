@@ -367,7 +367,7 @@ include 'connect/dbcon.php';
             SET approval_status_dep = :approval_status, 
                 comment_teacher = :comment_teacher, 
                 status = :status 
-            WHERE token_new = :token";
+            WHERE token = :token";
 
                         // เตรียมและ execute
                         $stmt = $pdo->prepare($sql);
@@ -375,7 +375,7 @@ include 'connect/dbcon.php';
                             ':approval_status' => $approvalStatus,
                             ':comment_teacher' => $comment_teacher,
                             ':status' => $status,
-                            ':token' => $token_new
+                            ':token' => $token
                         ]);
 
                         if ($success) {
