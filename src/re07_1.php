@@ -91,12 +91,12 @@ include 'connect/dbcon.php';
                                 <div><span class="font-semibold">จำนวนหน่วยกิต:</span> <?php echo htmlspecialchars($git_unit); ?></div>
                                 <div><span class="font-semibold">สถานภาพการลงทะเบียน:</span> <?php echo htmlspecialchars($reg_status); ?></div>
                                 <div><span class="font-semibold">คาดว่าจะสำเร็จการศึกษา:</span> <?php echo htmlspecialchars($expected_graduation); ?></div>
-                                <div>
-                                    <label for="request_text" class="font-semibold block mb-1">เหตุผลในการขอเปิดนอกแผน:</label>
-                                    <textarea id="request_text" name="request_text" rows="2" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($reason); ?></textarea>
-                                </div>
-                            </div>
 
+                            </div>
+                            <div>
+                                <label for="request_text" class="font-semibold block mb-1">เหตุผลในการขอเปิดนอกแผน:</label>
+                                <textarea id="request_text" name="request_text" rows="2" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($reason); ?></textarea>
+                            </div>
                             <hr>
                             <div class="space-y-3 mb-6">
                                 <div>
