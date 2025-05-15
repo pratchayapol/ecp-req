@@ -236,7 +236,7 @@ include 'connect/dbcon.php';
                             step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                             step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
                             line21.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
-                        } else if (status === 1) {
+                        } else if (status === "1") {
                             // Case: อาจารย์พิจารณาแล้ว
                             step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                             step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
