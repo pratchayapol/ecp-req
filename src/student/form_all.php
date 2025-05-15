@@ -550,13 +550,13 @@ function getNameByEmail($pdo, $email)
                                             <p><strong>อาจารย์ประจำรายวิชา:</strong> <span id="modalTeacherEmail"></span></p>
                                             <hr>
                                         </div>
-                                         <?php if ($row2['status'] === "0") {
-                                    ?>
-                                        <div class="text-center text-red-600">
-                                            <h3>ไม่ผ่านการพิจารณา</h3>
-                                        </div>
-                                    <?php
-                                    } else { ?>
+                                        <?php if ($row2['status'] === "0") {
+                                        ?>
+                                            <div class="text-center text-red-600">
+                                                <h3>ไม่ผ่านการพิจารณา</h3>
+                                            </div>
+                                        <?php
+                                        } else { ?>
                                             <div id="statusStepper2" class="flex justify-between items-center my-4">
                                                 <!-- Step 0 -->
                                                 <div class="flex flex-col items-center">
@@ -804,76 +804,75 @@ ORDER BY form_id DESC");
                                         <p><strong>หัวหน้าสาขา:</strong> <span id="modalHeadDepartment3"></span></p>
                                         <hr>
                                     </div>
-                                    <?php if ($row3['status'] === "0") {
-                                    ?>
-                                        <div class="text-center text-red-600">
-                                            <h3>ไม่ผ่านการพิจารณา</h3>
-                                        </div>
-                                    <?php
-                                    } else { ?>
-                                        <div id="statusStepper3" class="flex justify-between items-center my-4">
-                                            <!-- Step 1 -->
-                                            <div class="flex flex-col items-center">
-                                                <div id="step1Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
-                                                <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณา</span>
-                                            </div>
 
-                                            <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line31"></div>
-
-                                            <!-- Step 2 -->
-                                            <div class="flex flex-col items-center">
-                                                <div id="step2Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
-                                                <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ที่ปรึกษาพิจารณาแล้ว</span>
-                                            </div>
-
-                                            <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line32"></div>
-
-                                            <!-- Step 3 -->
-                                            <div class="flex flex-col items-center">
-                                                <div id="step3Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
-                                                <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
-                                            </div>
+                                    <div id="statusStepper3" class="flex justify-between items-center my-4">
+                                        <!-- Step 1 -->
+                                        <div class="flex flex-col items-center">
+                                            <div id="step1Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณา</span>
                                         </div>
 
-                                    <?php } ?>
+                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line31"></div>
+
+                                        <!-- Step 2 -->
+                                        <div class="flex flex-col items-center">
+                                            <div id="step2Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ที่ปรึกษาพิจารณาแล้ว</span>
+                                        </div>
+
+                                        <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line32"></div>
+
+                                        <!-- Step 3 -->
+                                        <div class="flex flex-col items-center">
+                                            <div id="step3Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
+                                            <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
                             <!-- แถบสถานะ RE07 -->
                             <script>
+                                const statusValue = "<?= $row3['status'] ?>"; // string
+                                updateStatusStepper3(statusValue);
+
                                 function updateStatusStepper3(status) {
-                                    const steps = [{
-                                            circle: 'step1Circle3',
-                                            line: 'line31'
-                                        },
-                                        {
-                                            circle: 'step2Circle3',
-                                            line: 'line32'
-                                        },
-                                        {
-                                            circle: 'step3Circle3',
-                                        }
-                                    ];
+                                    status = parseInt(status); // 👈 แปลง string เป็น number
 
-                                    steps.forEach((step, i) => {
-                                        // อัปเดตวงกลม
-                                        document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
-                                            (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
+                                    const step1 = document.getElementById('step1Circle3');
+                                    const step2 = document.getElementById('step2Circle3');
+                                    const step3 = document.getElementById('step3Circle3');
+                                    const line31 = document.getElementById('line1');
+                                    const line32 = document.getElementById('line2');
 
-                                        // อัปเดตเส้นเชื่อม
-                                        if (step.line) {
-                                            document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
-                                        }
-                                    });
+                                    if (isNaN(status)) {
+                                        //รอพิารณา
+                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                    }
+
+                                    if (status === 0) {
+                                        // ไม่พิจารณา (แดง)
+                                        step1.className = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
+                                        step2.className = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
+                                        step3.className = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
+                                        line31.className = 'flex-auto h-0.5 mx-1 bg-red-500';
+                                        line32.className = 'flex-auto h-0.5 mx-1 bg-red-500';
+                                    } else if (status === 1) {
+                                        // อาจารย์อนุมัติแล้ว (เขียว)
+                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        line31.className = 'flex-auto h-0.5 mx-1 bg-green-500';
+                                    } else if (status === 2) {
+                                        // หัวหน้าสาขาอนุมัติแล้ว (เขียว)
+                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        step3.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        line31.className = 'flex-auto h-0.5 mx-1 bg-green-500';
+                                        line32.className = 'flex-auto h-0.5 mx-1 bg-green-500';
+                                    }
                                 }
 
-                                // ใช้เมื่อเปิด modal:
-                                document.querySelectorAll('.open-modal3').forEach(btn => {
-                                    btn.addEventListener('click', function() {
-                                        const status = parseInt(this.closest('tr').dataset.status) || 0;
-                                        updateStatusStepper3(status);
-                                    });
-                                });
                             </script>
 
                             <script>
