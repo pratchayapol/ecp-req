@@ -535,7 +535,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                     <p style="margin-top: 20px;">📧 <strong>อีเมลอาจารย์ประจำรายวิชา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
             
                     <div style="margin-top: 30px;">
-                        <a href="https://ecpreq.pcnone.com/re06?token=' . urlencode($token) . '" 
+                        <a href="https://ecpreq.pcnone.com/re06_1?token=' . urlencode($token) . '" 
                             style="display: inline-block; padding: 12px 20px; background-color: #ffa500; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px;">
                             ✅ คลิกเพื่อดำเนินการ
                         </a>
