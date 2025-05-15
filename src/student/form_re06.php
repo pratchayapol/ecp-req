@@ -452,7 +452,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
             $courseId = $_POST['course_id'] ?? ''; //รหัสวิชา
 
-            $course_nameTH = $courseData['course_nameTH'] ?? '';
+            $course_nameTH = $courseData['course_nameTH'] ?? ''; //ชื่อวิชาภาษาไทย
 
             $group = $_POST['academicGroup'] ?? ''; //กลุ่มเรียน
             $teacher_email = $_POST['teacher_email'] ?? ''; //อีเมลอาจารย์ประจำรายวิชา
