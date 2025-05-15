@@ -232,9 +232,6 @@ include 'connect/dbcon.php';
                             // ไม่แสดงอะไรหรือแสดงเฉยๆ
                             console.log("ไม่มีข้อมูลสถานะ");
                             return;
-                        }
-
-                        if (status === 0) {
                             // Case: รอพิจารณา
                             step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                             step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
