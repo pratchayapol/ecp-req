@@ -438,6 +438,7 @@ function getNameByEmail($pdo, $email)
                                         <select id="statusFilter2" class="border px-3 py-2 rounded">
                                             <option value="" disabled selected>เลือกสถานะคำร้อง</option>
                                             <option value="null">รอพิจารณา</option>
+                                            <option value="0">ไม่ผ่านการพิจารณา</option>
                                             <option value="1">อาจารย์ประจำรายวิชาพิจารณาแล้ว</option>
                                         </select>
                                     </div>
