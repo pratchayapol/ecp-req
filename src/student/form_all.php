@@ -833,38 +833,40 @@ ORDER BY form_id DESC");
                             </div>
 
                             <!-- แถบสถานะ RE07 -->
+                            <!-- แถบสถานะ RE07 -->
                             <script>
                                 const statusValue = "<?= $row3['status'] ?>"; // string
                                 updateStatusStepper3(statusValue);
 
                                 function updateStatusStepper3(status) {
-                                    status = parseInt(status); // 👈 แปลง string เป็น number
+                                    status = parseInt(status); // แปลง string เป็น number
 
                                     const step1 = document.getElementById('step1Circle3');
                                     const step2 = document.getElementById('step2Circle3');
                                     const step3 = document.getElementById('step3Circle3');
-                                    const line31 = document.getElementById('line1');
-                                    const line32 = document.getElementById('line2');
+                                    const line31 = document.getElementById('line31');
+                                    const line32 = document.getElementById('line32');
 
+                                    // Default (step1 = เขียว ถ้ายังไม่มีสถานะ)
                                     if (isNaN(status)) {
-                                        //รอพิารณา
                                         step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        return;
                                     }
 
                                     if (status === 0) {
-                                        // ไม่พิจารณา (แดง)
+                                        // ไม่อนุมัติ (ทั้งหมดเป็นแดง)
                                         step1.className = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
                                         step2.className = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
                                         step3.className = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
                                         line31.className = 'flex-auto h-0.5 mx-1 bg-red-500';
                                         line32.className = 'flex-auto h-0.5 mx-1 bg-red-500';
                                     } else if (status === 1) {
-                                        // อาจารย์อนุมัติแล้ว (เขียว)
+                                        // อาจารย์อนุมัติแล้ว
                                         step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                                         step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                                         line31.className = 'flex-auto h-0.5 mx-1 bg-green-500';
                                     } else if (status === 2) {
-                                        // หัวหน้าสาขาอนุมัติแล้ว (เขียว)
+                                        // หัวหน้าสาขาอนุมัติแล้ว
                                         step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                                         step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                                         step3.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
@@ -872,8 +874,8 @@ ORDER BY form_id DESC");
                                         line32.className = 'flex-auto h-0.5 mx-1 bg-green-500';
                                     }
                                 }
-
                             </script>
+
 
                             <script>
                                 document.addEventListener("DOMContentLoaded", function() {
