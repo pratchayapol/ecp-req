@@ -365,7 +365,7 @@ include 'connect/dbcon.php';
 
                         // SQL Query
                         $sql = "UPDATE form_re06
-            SET approval_status_dep = :approval_status, 
+            SET approval_status_teacher = :approval_status, 
                 comment_teacher = :comment_teacher, 
                 status = :status 
             WHERE token = :token";
