@@ -90,7 +90,7 @@ include 'connect/dbcon.php';
                                 <div><span class="font-semibold">ภาคเรียน:</span> <?php echo htmlspecialchars($term); ?></div>
                                 <div><span class="font-semibold">ปีการศึกษา:</span> <?php echo htmlspecialchars($year); ?></div>
                                 <div><span class="font-semibold">ประเภทการลงทะเบียน:</span> <?php echo htmlspecialchars($reg_status); ?></div>
-                                <div><span class="font-semibold">ยอดลงทะเบียนปัจจุบัน:</span> <?php echo htmlspecialchars($coutter); ?> คน</div>
+                                <div><span class="font-semibold">ยอดลงทะเบียนปัจจุบัน:</span> <?php echo htmlspecialchars($coutter); ?> <span class="font-semibold"> คน</span></div>
 
                             </div>
 
