@@ -839,6 +839,8 @@ ORDER BY form_id DESC");
                                 updateStatusStepper3(statusValue);
 
                                 function updateStatusStepper3(status) {
+                                    status = parseInt(status); // 👈 แปลง string เป็น number
+
                                     const step1 = document.getElementById('step1Circle3');
                                     const step2 = document.getElementById('step2Circle3');
                                     const step3 = document.getElementById('step3Circle3');
