@@ -838,7 +838,12 @@ ORDER BY form_id DESC");
                                 updateStatusStepper3(statusValue);
 
                                 function updateStatusStepper3(status) {
-                                    status = status === "" || status === null ? null : parseInt(status);
+                                    // ตรวจสอบว่า null หรือ string ว่าง
+                                    if (status === null || status === "" || status === "null") {
+                                        status = null;
+                                    } else {
+                                        status = parseInt(status);
+                                    }
 
                                     const step1 = document.getElementById('step1Circle3');
                                     const step2 = document.getElementById('step2Circle3');
@@ -846,9 +851,16 @@ ORDER BY form_id DESC");
                                     const line31 = document.getElementById('line31');
                                     const line32 = document.getElementById('line32');
 
-                                    // รีเซ็ตทั้งหมดเป็นสีเทา
                                     const grayClass = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
                                     const grayLine = 'flex-auto h-0.5 mx-1 bg-gray-300';
+
+                                    const greenClass = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                    const greenLine = 'flex-auto h-0.5 mx-1 bg-green-500';
+
+                                    const redClass = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
+                                    const redLine = 'flex-auto h-0.5 mx-1 bg-red-500';
+
+                                    // ตั้งค่าทุกค่าเป็นสีเทาก่อน
                                     step1.className = grayClass;
                                     step2.className = grayClass;
                                     step3.className = grayClass;
@@ -856,28 +868,22 @@ ORDER BY form_id DESC");
                                     line32.className = grayLine;
 
                                     if (status === null) {
-                                        // รอพิจารณา (เฉพาะ step 1 เขียว)
-                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        // กรณี "รอพิจารณา" — step1 เขียว ที่เหลือเทา
+                                        step1.className = greenClass;
                                     } else if (status === 0) {
-                                        // ไม่พิจารณา (แดงทั้งหมด)
-                                        const redClass = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
-                                        const redLine = 'flex-auto h-0.5 mx-1 bg-red-500';
+                                        // ไม่พิจารณา — แดงทั้งหมด
                                         step1.className = redClass;
                                         step2.className = redClass;
                                         step3.className = redClass;
                                         line31.className = redLine;
                                         line32.className = redLine;
                                     } else if (status === 1) {
-                                        // อาจารย์ที่ปรึกษาพิจารณาแล้ว (step 1 & 2 เขียว, เส้นแรกเขียว)
-                                        const greenClass = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        const greenLine = 'flex-auto h-0.5 mx-1 bg-green-500';
+                                        // อาจารย์ที่ปรึกษาพิจารณาแล้ว — step1, step2 เขียว / เส้นแรกเขียว
                                         step1.className = greenClass;
                                         step2.className = greenClass;
                                         line31.className = greenLine;
                                     } else if (status === 2) {
-                                        // หัวหน้าสาขาพิจารณาแล้ว (ทั้งหมดเขียว)
-                                        const greenClass = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
-                                        const greenLine = 'flex-auto h-0.5 mx-1 bg-green-500';
+                                        // หัวหน้าสาขาอนุมัติแล้ว — เขียวทั้งหมด
                                         step1.className = greenClass;
                                         step2.className = greenClass;
                                         step3.className = greenClass;
