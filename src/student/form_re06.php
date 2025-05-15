@@ -242,7 +242,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                                 <p class="text-gray-600">รหัสรายวิชา: <span class="text-black" id="courseId"><?= $courseInfo['course_id'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-                                <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" name="course_nameTH" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
+                                <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
                                 <p class="text-red-600">อาจารย์ผู้สอน *</p>
@@ -449,8 +449,11 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
         try {
             $semester = $_POST['semester'] ?? ''; // ภาคเรียน
             $academicYear = $_POST['academicYear'] ?? ''; // ปีการศึกษา
+
             $courseId = $_POST['course_id'] ?? ''; //รหัสวิชา
-            $course_nameTH = $_POST['course_nameTH'] ?? ''; //รหัสวิชา
+
+            $course_nameTH = $courseData['course_nameTH'] ?? '';
+
             $group = $_POST['academicGroup'] ?? ''; //กลุ่มเรียน
             $teacher_email = $_POST['teacher_email'] ?? ''; //อีเมลอาจารย์ประจำรายวิชา
 
