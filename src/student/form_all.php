@@ -833,13 +833,13 @@ ORDER BY form_id DESC");
                             </div>
 
                             <!-- แถบสถานะ RE07 -->
-                        
+
                             <script>
                                 const statusValue = "<?= $row3['status'] ?>"; // string
                                 updateStatusStepper3(statusValue);
 
                                 function updateStatusStepper3(status) {
-                                    status = parseInt(status); // 👈 แปลง string เป็น number
+                                    status = parseInt(status); // แปลง string → number
 
                                     const step1 = document.getElementById('step1Circle3');
                                     const step2 = document.getElementById('step2Circle3');
@@ -866,13 +866,11 @@ ORDER BY form_id DESC");
                                     const redCircle = 'w-8 h-8 rounded-full border-2 border-red-500 bg-red-500 text-white flex items-center justify-center';
                                     const redLine = 'flex-auto h-0.5 mx-1 bg-red-500';
 
-                                    // ถ้ายังไม่มีสถานะ (null/undefined/empty string)
-                                    if (!status || isNaN(parseInt(status))) {
+                                    // ✅ เงื่อนไขใหม่: null หรือ invalid เท่านั้นที่ถือว่า "รอพิจารณา"
+                                    if (isNaN(status)) {
                                         step1.className = greenCircle;
                                         return;
                                     }
-
-                                    status = parseInt(status);
 
                                     if (status === 0) {
                                         // ไม่อนุมัติ (แดงทั้งหมด)
@@ -882,12 +880,12 @@ ORDER BY form_id DESC");
                                         line31.className = redLine;
                                         line32.className = redLine;
                                     } else if (status === 1) {
-                                        // อาจารย์ที่ปรึกษาอนุมัติแล้ว
+                                        // อาจารย์อนุมัติ
                                         step1.className = greenCircle;
                                         step2.className = greenCircle;
                                         line31.className = greenLine;
                                     } else if (status === 2) {
-                                        // หัวหน้าสาขาอนุมัติแล้ว
+                                        // หัวหน้าอนุมัติ
                                         step1.className = greenCircle;
                                         step2.className = greenCircle;
                                         step3.className = greenCircle;
@@ -906,7 +904,7 @@ ORDER BY form_id DESC");
 
                                     document.querySelectorAll('.open-modal3').forEach(button => {
                                         button.addEventListener('click', function() {
-                                            
+
                                             // Set modal fields
                                             document.getElementById('modalFormId3').textContent = 'RE.07-' + this.dataset.formId;
                                             document.getElementById('modalTermYear3').textContent = this.dataset.term + ' / ' + this.dataset.year;
