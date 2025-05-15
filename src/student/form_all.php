@@ -752,8 +752,8 @@ ORDER BY form_id DESC");
                                                             data-gpa-all="<?= $row3['git_unit'] ?>"
                                                             data-reg-status="<?= htmlspecialchars($row3['reg_status']) ?>"
                                                             data-expected-graduation="<?= $row3['expected_graduation'] ?>"
-                                                            data-advisor-comment="<?= htmlspecialchars($row3['advisor_comment'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
-                                                            data-head-comment="<?= htmlspecialchars($row3['head_comment'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                            data-advisor-comment="<?= htmlspecialchars($row3['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                            data-head-comment="<?= htmlspecialchars($row3['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
                                                             data-teacher-email="<?= htmlspecialchars($advisor2['name'] ?? '-') ?>"
                                                             data-head-department="<?= htmlspecialchars($head2['name'] ?? '-') ?>"
 
