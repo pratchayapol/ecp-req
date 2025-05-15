@@ -311,23 +311,13 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                         </script>
 
                         <div class="flex items-center gap-2">
-                            <label class="block font-medium text-red-600">จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้ (รวมรายวิชาที่ขอเปิดด้วย) *</label>
-                            <input type="number" name="git_unit" id="git_unit" required step="0.01" min="1.75" max="4.00" class="border rounded px-2 py-1 w-20" />
+                            <label class="block font-medium text-red-600">
+                                จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้ (รวมรายวิชาที่ขอเปิดด้วย) *
+                            </label>
+                            <input type="number" name="git_unit" id="git_unit" required min="1" max="30" step="1"
+                                class="border rounded px-2 py-1 w-20" />
                         </div>
 
-                        <script>
-                            const gpaAllInput = document.getElementById('git_unit');
-                            gpaAllInput.addEventListener('input', function() {
-                                let value = parseFloat(gpaAllInput.value);
-                                if (isNaN(value) || value < 1.75) {
-                                    gpaAllInput.value = "1.75";
-                                } else if (value > 4.00) {
-                                    gpaAllInput.value = "4.00";
-                                } else {
-                                    gpaAllInput.value = value.toFixed(2);
-                                }
-                            });
-                        </script>
 
                         <div>
                             <label class="block font-medium mb-2 text-red-600">สถานภาพการลงทะเบียนวิชาที่ขอเพิ่มที่นั่ง *</label>
