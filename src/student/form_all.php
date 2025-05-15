@@ -761,28 +761,35 @@ ORDER BY form_id DESC");
 
                                                     ?>
                                                     <td>
-                                                        <button
-                                                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal3"
-                                                            data-form-id="<?= $row3['form_id'] ?>"
-                                                            data-term="<?= $row3['term'] ?>"
-                                                            data-year="<?= $row3['year'] ?>"
-                                                            data-reason="<?= htmlspecialchars($row3['reason']) ?>"
-                                                            data-group="<?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?>"
-                                                            data-course-id="<?= $row3['course_id'] ?>"
-                                                            data-gpa="<?= $row3['gpa'] ?>"
-                                                            data-gpa-all="<?= $row3['git_unit'] ?>"
-                                                            data-reg-status="<?= htmlspecialchars($row3['reg_status']) ?>"
-                                                            data-expected-graduation="<?= $row3['expected_graduation'] ?>"
-                                                            data-advisor-comment="<?= htmlspecialchars($row3['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
-                                                            data-head-comment="<?= htmlspecialchars($row3['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
-                                                            data-teacher-email="<?= htmlspecialchars($advisor2['name'] ?? '-') ?>"
-                                                            data-head-department="<?= htmlspecialchars($head2['name'] ?? '-') ?>"
+                                                        <div class="flex justify-center space-x-2">
+                                                            <button
+                                                                class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal3"
+                                                                data-form-id="<?= $row3['form_id'] ?>"
+                                                                data-term="<?= $row3['term'] ?>"
+                                                                data-year="<?= $row3['year'] ?>"
+                                                                data-reason="<?= htmlspecialchars($row3['reason']) ?>"
+                                                                data-group="<?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?>"
+                                                                data-course-id="<?= $row3['course_id'] ?>"
+                                                                data-gpa="<?= $row3['gpa'] ?>"
+                                                                data-gpa-all="<?= $row3['git_unit'] ?>"
+                                                                data-reg-status="<?= htmlspecialchars($row3['reg_status']) ?>"
+                                                                data-expected-graduation="<?= $row3['expected_graduation'] ?>"
+                                                                data-advisor-comment="<?= htmlspecialchars($row3['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                                data-head-comment="<?= htmlspecialchars($row3['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                                data-teacher-email="<?= htmlspecialchars($advisor2['name'] ?? '-') ?>"
+                                                                data-head-department="<?= htmlspecialchars($head2['name'] ?? '-') ?>"
 
-                                                            data-status="<?= $row3['status'] === null ? 'null' : $row3['status'] ?>">
-                                                            ดูรายละเอียด
-                                                        </button>
-
-
+                                                                data-status="<?= $row3['status'] === null ? 'null' : $row3['status'] ?>">
+                                                                ดูรายละเอียด
+                                                            </button>
+                                                            <!-- ปุ่ม PDF สีส้ม -->
+                                                            <?php if ($row3['status'] == 2): ?>
+                                                                <a href="../PDF/report_pdf_re07?token=<?= $row3['token'] ?>" target="_blank"
+                                                                    class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
+                                                                    PDF
+                                                                </a>
+                                                            <?php endif; ?>
+                                                        </div>
                                                     </td>
 
                                                 </tr>
