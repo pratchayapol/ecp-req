@@ -450,9 +450,17 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $semester = $_POST['semester'] ?? ''; // ภาคเรียน
             $academicYear = $_POST['academicYear'] ?? ''; // ปีการศึกษา
 
-            $courseId = $_POST['course_id'] ?? ''; //รหัสวิชา
+            $courseId = $_POST['course_id'] ?? ''; // รหัสวิชา
 
-            $course_nameTH = $courseData['course_nameTH'] ?? ''; //ชื่อวิชาภาษาไทย
+            // ดึงข้อมูลชื่อวิชา
+            $sql = "SELECT course_id, course_nameTH, email FROM course WHERE course_id = :course_id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':course_id', $courseId, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $course = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $course_nameTH = $course['course_nameTH'] ?? ''; // ชื่อวิชาภาษาไทย
 
             $group = $_POST['academicGroup'] ?? ''; //กลุ่มเรียน
             $teacher_email = $_POST['teacher_email'] ?? ''; //อีเมลอาจารย์ประจำรายวิชา
