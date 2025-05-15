@@ -36,37 +36,35 @@ include 'connect/dbcon.php';
 <body class="flex items-center justify-center min-h-screen bg t1">
     <?php include './loadtab/h.php';
 
-    if (isset($_GET['token']) && isset($_GET['token_new'])) {
+    if (isset($_GET['token'])) {
         $token = $_GET['token'];
-        $token_new = $_GET['token_new'];
 
         try {
-            $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE token = :token AND token_new = :token_new");
+            $stmt = $pdo->prepare("SELECT * FROM form_re07 WHERE token = :token");
             $stmt->bindParam(':token', $token, PDO::PARAM_STR);
-            $stmt->bindParam(':token_new', $token_new, PDO::PARAM_STR);
             $stmt->execute();
 
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($row) {
                 extract($row);
-                $form_id = $row['form_id'];
-                $title = $row['title'];
-                $to = $row['to'];
-                $email = $row['email'];
-                $faculty = $row['faculty'];
-                $field = $row['field'];
-                $course_level = $row['course_level'];
-                $request_text = $row['request_text'];
-                $comment_teacher = $row['comment_teacher'];
-                $approval_status_teacher = $row['approval_status_teacher'];
-                $comment_head_dep = $row['comment_head_dep'];
-                $approval_status_dep = $row['approval_status_dep'];
+                $form_id = $row['form_id']; // FROM ID :
+                $term = $row['term']; //ภาคเรียนที่
+                $year = $row['year']; //ปีการศึกษา
+                $course_id = $row['course_id']; //รหัสวิชา
+                $course_nameTH = $row['course_nameTH']; //ชื่อวิชาภาษาไทย
+                $group = $row['Group'];  //กลุ่มเรียน
+                $reason = $row['reason']; //เหตุผลขอเปิดนอกแผน
+                $gpa = $row['gpa']; //เกรดเฉลี่ยปัจจุบัน
+                $git_unit = $row['git_unit']; //จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้
+                $reg_status = $row['reg_status']; //สถานภาพการลงทะเบียน
+                $expected_graduation = $row['expected_graduation']; //ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา
+                $email = $row['email']; //
                 $status = $row['status'];
-                $created_at = $row['created_at'];
-                $token = $row['token'];
-                $teacher_email = $row['teacher_email'];
-                $head_department = $row['head_department'];
+                $created_at = $row['created_at']; //วันเวลาที่สร้างคำร้อง
+                $token = $row['token']; //ส่งไปหน้า re07_2
+                $teacher_email = $row['teacher_email']; //เมลอาจารย์ที่ปรึกษา
+                $head_department = $row['head_department']; //เมลหัวหน้าสาขา
 
                 // ดึงชื่อตัวเอง
                 $sql = "SELECT name, email, id FROM accounts WHERE email = :email";
@@ -78,33 +76,31 @@ include 'connect/dbcon.php';
                     <div class="flex flex-col space-y-6 text-gray-800">
                         <!-- Header -->
                         <div class="text-center">
-                            <h5 class="text-2xl font-extrabold text-gray-800">คำร้องทั่วไป RE.01</h5>
+                            <h5 class="text-2xl font-extrabold text-gray-800">คำร้องขอเปิดนอกแผน RE.07</h5>
                         </div>
 
                         <!-- Form Information -->
                         <div class="w-full bg-gray-50 rounded-xl p-6 shadow-sm space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div><span class="font-semibold">FORM ID:</span> RE.01-<?php echo htmlspecialchars($form_id); ?></div>
-                                <div><span class="font-semibold">เรื่อง:</span> <?php echo htmlspecialchars($title); ?></div>
-                                <div><span class="font-semibold">เรียน:</span> <?php echo htmlspecialchars($to); ?></div>
-                                <div><span class="font-semibold">ชื่อนักศึกษา:</span> <?php echo htmlspecialchars($profile['name']); ?></div>
-                                <div><span class="font-semibold">รหัสนักศึกษา:</span> <?php echo $profile['id']; ?></div>
-                                <div><span class="font-semibold">คณะ:</span> <?php echo htmlspecialchars($faculty); ?></div>
-                                <div><span class="font-semibold">สาขา:</span> <?php echo htmlspecialchars($field); ?></div>
-                                <div><span class="font-semibold">ระดับชั้น:</span> <?php echo htmlspecialchars($course_level); ?></div>
+                                <div><span class="font-semibold">FORM ID:</span> RE.07-<?php echo htmlspecialchars($form_id); ?></div>
+                                <div><span class="font-semibold">ภาคเรียน/ปีการศึกษา:</span> <?php echo htmlspecialchars($term) . '/' . htmlspecialchars($year); ?></div>
+                                <div><span class="font-semibold">รหัสวิชา:</span> <?php echo htmlspecialchars($course_id); ?></div>
+                                <div><span class="font-semibold">ชื่อวิชา:</span> <?php echo htmlspecialchars($course_nameTH); ?></div>
+                                <div><span class="font-semibold">กลุ่มเรียน:</span> <?php echo htmlspecialchars($group); ?></div>
+                                <div>
+                                    <label for="request_text" class="font-semibold block mb-1">เหตุผลในการขอเปิดนอกแผน:</label>
+                                    <textarea id="request_text" name="request_text" rows="2" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($reason); ?></textarea>
+                                </div>
+                                <div><span class="font-semibold">เกรดเฉลี่ย (GPA):</span> <?php echo htmlspecialchars($gpa); ?></div>
+                                <div><span class="font-semibold">จำนวนหน่วยกิต:</span> <?php echo htmlspecialchars($git_unit); ?></div>
+                                <div><span class="font-semibold">สถานภาพการลงทะเบียน:</span> <?php echo htmlspecialchars($reg_status); ?></div>
+                                <div><span class="font-semibold">คาดว่าจะสำเร็จการศึกษา:</span> <?php echo htmlspecialchars($expected_graduation); ?></div>
                             </div>
-                            <!-- Request Text -->
-                            <div>
-                                <label for="request_text" class="font-semibold block mb-1">ข้อความร้องขอ:</label>
-                                <textarea id="request_text" name="request_text" rows="2" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($request_text); ?></textarea>
-                            </div>
+
                             <hr>
-
-
-
                             <div class="space-y-3 mb-6">
                                 <div>
-                                    <label class="font-semibold block mb-1">ความคิดเห็นอาจารย์:</label>
+                                    <label class="font-semibold block mb-1">ความคิดเห็นอาจารย์ที่ปรึกษา:</label>
                                     <div class="flex items-center space-x-4">
                                         <?php if ($approval_status_teacher == 1): ?>
                                             <span class="text-green-600 font-semibold">อนุมัติ</span>
@@ -301,7 +297,7 @@ include 'connect/dbcon.php';
                         $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
 
                         // SQL Query
-                        $sql = "UPDATE form_re01 
+                        $sql = "UPDATE form_re07 
  SET approval_status_dep = :approval_status, 
      comment_head_dep = :comment_head_dep,
      status = :status 
@@ -334,12 +330,12 @@ include 'connect/dbcon.php';
 
                                 $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
                                 $mail->addAddress($email, 'นักศึกษา');
-                                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ไม่ผ่านการพิจารณา จากหัวหน้าสาขา';
+                                $mail->Subject = 'คำร้องขอเปิดนอกแผน (RE.07) ของ ' . htmlspecialchars($profile['name']) . ' ไม่ผ่านการพิจารณา จากหัวหน้าสาขา';
                                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
                                 $mail->Body = '
      <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
-         <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
+         <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องขอเปิดนอกแผน (RE.07)</h2>
          <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
  
          <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500; color: #000;">
@@ -350,13 +346,9 @@ include 'connect/dbcon.php';
              <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
              <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
              <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
-<hr>
-<p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> ไม่อนุมัติ</p>
-<p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
-<hr>
-<p><strong>สถานะการพิจารณาจากหัวหน้าสาขา:</strong> ไม่อนุมัติ</p>
-<p><strong>ความคิดเห็นของหัวหน้าสาขา:</strong> ' . htmlspecialchars($Comment_head_dep) . '</p>
-
+             <hr>
+             <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> ไม่อนุมัติ</p>
+             <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
          </div>
  
          <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
@@ -401,15 +393,15 @@ include 'connect/dbcon.php';
  </script>
  HTML;
                         }
-                        // ถ้าอนุมัติจากหัวหน้าสาขา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
+                        // ถ้าอนุมัติจากอาจารย์ที่ปรึกษา อีเมลจะแจ้งเตือนไปที่หัวหน้าสาขา
                     } else {
 
                         $Comment_head_dep = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติม
-                        $status = 2;
-                     
-                       
+                        $status = 1;
+
+
                         // SQL Query
-                        $sql = "UPDATE form_re01 
+                        $sql = "UPDATE form_re07 
             SET approval_status_dep = :approval_status, 
                 comment_head_dep = :comment_head_dep, 
                 status = :status 
@@ -441,16 +433,15 @@ include 'connect/dbcon.php';
                                 $mail->Port       = 587;
 
                                 $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
-                                $mail->addAddress($email, 'นักศึกษา');
-                                $mail->Subject = 'คำร้องทั่วไป (RE.01) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากหัวหน้าสาขาแล้ว';
+                                $mail->addAddress($head_department, 'หัวหน้าสาขา');
+                                $mail->Subject = 'คำร้องขอเปิดนอกแผน (RE.07) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากอาจารย์ที่ปรึกษาแล้ว';
                                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
 
                                 $mail->Body = '
                 <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
-                    <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
-                    <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
-            
+                    <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องขอเปิดนอกแผน (RE.07)</h2>
+           
                     <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500; color: #000;">
                         <p><strong>ชื่อ:</strong> ' . htmlspecialchars($profile['name']) . '</p>
                         <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($profile['id']) . '</p>
@@ -460,11 +451,8 @@ include 'connect/dbcon.php';
                         <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
                         <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
                         <hr>
-<p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> อนุมัติ</p>
-<p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
-<hr>
-<p><strong>สถานะการพิจารณาจากหัวหน้าสาขา:</strong> อนุมัติ</p>
-<p><strong>ความคิดเห็นของหัวหน้าสาขา:</strong> ' . htmlspecialchars($Comment_head_dep) . '</p>
+                        <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> อนุมัติ</p>
+                        <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
                     </div>
             
                     <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>

@@ -102,7 +102,7 @@ include 'connect/dbcon.php';
                                 <!-- Approval Section -->
                                 <div class="space-y-3 mb-6">
                                     <div>
-                                        <label class="font-semibold block mb-1">ความคิดเห็นอาจารย์:</label>
+                                        <label class="font-semibold block mb-1">ความคิดเห็นอาจารย์ที่ปรึกษา:</label>
                                         <div class="flex items-center space-x-4">
                                             <?php if (is_null($status)): ?>
                                                 <label class="flex items-center space-x-2">
