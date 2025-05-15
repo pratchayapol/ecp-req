@@ -181,27 +181,19 @@ include 'connect/dbcon.php';
                             <?php if ($status == "0") {
                                 echo "ไม่พิจารณา";
                             } else { ?>
-                                <div id="statusStepper1" class="flex justify-between items-center my-4">
+                                <div id="statusStepper2" class="flex justify-between items-center my-4">
+                                    <!-- Step 0 -->
+                                    <div class="flex flex-col items-center">
+                                        <div id="step1Circle2" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                                        <span class="mt-1 text-sm text-gray-600 text-center">รออาจารย์ประจำรายวิชาพิจารณาคำร้อง</span>
+                                    </div>
+
+                                    <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line1"></div>
+
                                     <!-- Step 1 -->
                                     <div class="flex flex-col items-center">
-                                        <div id="step1Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
-                                        <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณาคำร้อง</span>
-                                    </div>
-
-                                    <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line11"></div>
-
-                                    <!-- Step 2 -->
-                                    <div class="flex flex-col items-center">
-                                        <div id="step2Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
-                                        <span class="mt-1 text-sm text-gray-600 text-center">ที่ปรึกษาพิจารณาแล้ว</span>
-                                    </div>
-
-                                    <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line12"></div>
-
-                                    <!-- Step 3 -->
-                                    <div class="flex flex-col items-center">
-                                        <div id="step3Circle1" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
-                                        <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
+                                        <div id="step2Circle2" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                                        <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ประจำรายวิชาพิจารณาแล้ว</span>
                                     </div>
                                 </div>
                             <?php } ?>
@@ -228,40 +220,25 @@ include 'connect/dbcon.php';
 
                 <!-- JavaScript for stepper -->
                 <script>
-                    function updateStatusStepper1(status) {
-                        const steps = [{
-                                circle: 'step1Circle1',
-                                line: 'line11'
-                            },
-                            {
-                                circle: 'step2Circle1',
-                                line: 'line12'
-                            },
-                            {
-                                circle: 'step3Circle1',
-                                line: null
-                            }
-                        ];
+                      function updateStatusStepper2(status) {
+                                    const step1 = document.getElementById('step1Circle2');
+                                    const step2 = document.getElementById('step2Circle2');
+                                    const line21 = document.getElementById('line1');
 
-                        steps.forEach((step, i) => {
-                            const circle = document.getElementById(step.circle);
-                            const line = step.line ? document.getElementById(step.line) : null;
+                                    if (status === 0) {
+                                        // Case: รอพิจารณา
+                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
+                                        line21.className = 'flex-auto h-0.5 mx-1 bg-gray-300';
+                                    } else if (status === 1) {
+                                        // Case: อาจารย์พิจารณาแล้ว
+                                        step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        step2.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
+                                        line21.className = 'flex-auto h-0.5 mx-1 bg-green-500';
+                                    }
+                                }
 
-                            if (circle) {
-                                circle.className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
-                                    (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
-                            }
-
-                            if (line) {
-                                line.className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
-                            }
-                        });
-                    }
-
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const currentStatus = <?php echo (int)$status; ?>;
-                        updateStatusStepper1(currentStatus);
-                    });
+                   
                 </script>
 
 
