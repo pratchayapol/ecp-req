@@ -177,9 +177,7 @@ include 'connect/dbcon.php';
 
                         <!-- Status Stepper -->
                         <span class="font-semibold">สถานะ:</span>
-                        <?php
-                        if (is_null($status)) {
-                        ?>
+                       
                             <!-- Stepper -->
                             <div id="statusStepper2" class="flex justify-between items-center my-4">
                                 <!-- Step 0 -->
@@ -196,27 +194,8 @@ include 'connect/dbcon.php';
                                     <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ประจำรายวิชาพิจารณาแล้ว</span>
                                 </div>
                             </div>
-                        <?php
-                        } elseif ($status == "0") {
-                            echo "ไม่พิจารณา";
-                        } else { ?>
-                            <!-- Stepper -->
-                            <div id="statusStepper2" class="flex justify-between items-center my-4">
-                                <!-- Step 0 -->
-                                <div class="flex flex-col items-center">
-                                    <div id="step1Circle2" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
-                                    <span class="mt-1 text-sm text-gray-600 text-center">รออาจารย์ประจำรายวิชาพิจารณาคำร้อง</span>
-                                </div>
-
-                                <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line1"></div>
-
-                                <!-- Step 1 -->
-                                <div class="flex flex-col items-center">
-                                    <div id="step2Circle2" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
-                                    <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ประจำรายวิชาพิจารณาแล้ว</span>
-                                </div>
-                            </div>
-                        <?php } ?>
+                     
+                       
 
 
                         <!-- Metadata -->
