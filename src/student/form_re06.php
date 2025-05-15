@@ -239,7 +239,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                                 <p class="text-gray-600">รหัสรายวิชา: <span class="text-black" id="courseId"><?= $courseInfo['course_id'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
-                                <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
+                                <p class="text-gray-600">ชื่อรายวิชา: <span class="text-black" name="course_nameTH" id="courseNameTH"><?= $courseInfo['course_nameTH'] ?? 'N/A' ?></span></p>
                             </div>
                             <div>
                                 <p class="text-red-600">อาจารย์ผู้สอน *</p>
@@ -444,15 +444,16 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
-            $semester = $_POST['semester'] ?? '';
-            $academicYear = $_POST['academicYear'] ?? '';
-            $courseId = $_POST['course_id'] ?? '';
-            $group = $_POST['academicGroup'] ?? '';
-            $teacher_email = $_POST['teacher_email'] ?? '';
+            $semester = $_POST['semester'] ?? ''; // ภาคเรียน
+            $academicYear = $_POST['academicYear'] ?? ''; // ปีการศึกษา
+            $courseId = $_POST['course_id'] ?? ''; //รหัสวิชา
+            $course_nameTH = $_POST['course_nameTH'] ?? ''; //รหัสวิชา
+            $group = $_POST['academicGroup'] ?? ''; //กลุ่มเรียน
+            $teacher_email = $_POST['teacher_email'] ?? ''; //อีเมลอาจารย์ประจำรายวิชา
 
-            $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason'];
-            $registrations = $_POST['registrations'] ?? '';
-            $regStatus = $_POST['reg_status'] ?? '';
+            $reason = $_POST['reason'] === 'other' ? ($_POST['other_reason'] ?? '') : $_POST['reason']; //เหตุผลที่ขอเพิ่มที่นั่ง
+            $registrations = $_POST['registrations'] ?? ''; //ปัจจุบันรายวิชานี้มียอดลงทะเบียนแล้ว
+            $regStatus = $_POST['reg_status'] ?? ''; //ประเภทการลงทะเบียน
 
             //สุ่มสร้าง token 15 ตัว
             function generateToken($length = 15)
@@ -473,13 +474,76 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             }
 
             $token = generateToken();
-
             $timestamp = date('Y-m-d H:i:s');
 
+            // ยิงเมลไปหาอาจารย์ประจำรายวิชา
+            require_once __DIR__ . '/../vendor/autoload.php';
+
+
+            $mail = new PHPMailer(true);
+
+            try {
+                $mail->CharSet = 'UTF-8';
+                $mail->isSMTP();
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'botpcnone@gmail.com';
+                $mail->Password   = 'lbro evfy ipng zpqf';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port       = 587;
+
+                $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
+                $mail->addAddress($teacher_email, 'อาจารย์ประจำรายวิชา');
+                $mail->Subject = 'คำร้องขอเพิ่มที่นั่ง (RE.06) ของ ' . $iname . '';
+                $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
+
+                $mail->isHTML(true);
+
+                $mail->Body = '
+                <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
+                    <h2 style="color: #ffa500; font-size: 24px;">📄 คำร้องขอเพิ่มที่นั่ง (RE.06)</h2>
+                    <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
+            
+                    <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500; color: #000;">
+                        <p><strong>ชื่อ:</strong> ' . htmlspecialchars($iname) . '</p>
+                        <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($id) . '</p>
+                        <p><strong>รหัสวิชา:</strong> ' . htmlspecialchars($courseId) . '</p>
+                        <p><strong>ชื่อวิชา:</strong> ' . htmlspecialchars($course_nameTH) . '</p>
+                        <p><strong>กลุ่มเรียน:</strong> ' . htmlspecialchars($group) . '</p>
+                        <p><strong>ภาคเรียน:</strong> ' . htmlspecialchars($semester) . ' / <strong>ปีการศึกษา:</strong> ' . htmlspecialchars($academicYear) . '</p>
+                        <p><strong>ประเภทการลงทะเบียน:</strong> ' . htmlspecialchars($regStatus) . '</p>
+                        <p><strong>ยอดลงทะเบียนปัจจุบัน:</strong> ' . htmlspecialchars($registrations) . ' คน</p>
+                        <p><strong>เหตุผลในการขอเพิ่มที่นั่ง:</strong> ' . htmlspecialchars($reason) . '</p>
+                    </div>
+            
+                    <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
+                    📧 <strong>อีเมลหัวหน้าสาขา:</strong> ' . htmlspecialchars($head_department) . '</p>
+            
+                    <div style="margin-top: 30px;">
+                        <a href="https://ecpreq.pcnone.com/re01_1?token=' . urlencode($token) . '" 
+                            style="display: inline-block; padding: 12px 20px; background-color: #ffa500; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px;">
+                            ✅ คลิกเพื่อดำเนินการ
+                        </a>
+                    </div>
+            
+                    <p style="margin-top: 30px; font-size: 14px; color: #888;">ระบบยื่นคำร้อง สาขาคอมพิวเตอร์  คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น</p>
+                </div>
+            ';
+
+
+
+                $mail->send();
+                // echo 'Message has been sent';
+            } catch (Exception $e) {
+                echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+            }
+
+
+
             $stmt = $pdo->prepare("INSERT INTO form_re06 
-        (term, year, reason, `Group`, course_id, coutter, status, comment_teacher, reg_status, time_stamp, email, teacher_email, token) 
+        (term, year, reason, `Group`, course_id, course_nameTH, coutter, status, comment_teacher, reg_status, time_stamp, email, teacher_email, token) 
         VALUES 
-        (:term, :year, :reason, :group, :course_id, :coutter, NULL, NULL, :reg_status, :time_stamp, :email, :teacher_email, :token)");
+        (:term, :year, :reason, :group, :course_id, :course_nameTH, :coutter, NULL, NULL, :reg_status, :time_stamp, :email, :teacher_email, :token)");
 
             $stmt->execute([
                 ':term' => $semester,
@@ -487,6 +551,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 ':reason' => $reason,
                 ':group' => $group,
                 ':course_id' => $courseId,
+                ':course_nameTH' => $course_nameTH,
                 ':coutter' => $registrations,
                 ':reg_status' => $regStatus,
                 ':time_stamp' => $timestamp,
