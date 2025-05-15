@@ -475,8 +475,21 @@ function getNameByEmail($pdo, $email)
 
                                         if (!empty($forms2)) :
                                             foreach ($forms2 as $row2) :
-                                                $statusText = $row2['status'] === null ? 'รอพิจารณา' : ($row2['status'] == 1 ? 'อาจารย์ประจำรายวิชาพิจารณาแล้ว' : '');
-                                                $statusClass = $row2['status'] === null ? 'text-red-600' : ($row2['status'] == 1 ? 'text-green-600' : 'text-orange-600');
+                                                $statusText = $row2['status'] === null
+                                                    ? 'รอพิจารณา'
+                                                    : ($row2['status'] == 1
+                                                        ? 'อาจารย์ประจำรายวิชาพิจารณาแล้ว'
+                                                        : ($row2['status'] == 0
+                                                            ? 'ไม่ผ่านการพิจารณา'
+                                                            : ''));
+
+                                                $statusClass = $row2['status'] === null
+                                                    ? 'text-red-600'
+                                                    : ($row2['status'] == 1
+                                                        ? 'text-green-600'
+                                                        : ($row2['status'] == 0
+                                                            ? 'text-gray-500'
+                                                            : 'text-orange-600'));
                                         ?>
                                                 <tr data-status="<?= is_null($row2['status']) ? 'null' : $row2['status'] ?>">
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
@@ -711,7 +724,7 @@ ORDER BY form_id DESC");
 
                                         if (!empty($forms3)): ?>
                                             <?php foreach ($forms3 as $row3): ?>
-                                               <tr data-status="<?= is_null($row3['status']) ? 'null' : $row3['status'] ?>">
+                                                <tr data-status="<?= is_null($row3['status']) ? 'null' : $row3['status'] ?>">
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
                                                     <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
@@ -808,7 +821,7 @@ ORDER BY form_id DESC");
 
                                     <?php if ((string)$row3['status'] === "0") {
 
-                                       
+
                                     ?>
                                         <div class="text-center text-red-600">
                                             <h3>ไม่ผ่านการพิจารณา</h3>
