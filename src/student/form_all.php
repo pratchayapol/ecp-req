@@ -246,7 +246,7 @@ function getNameByEmail($pdo, $email)
                                 <!-- Modal Content -->
                                 <div id="modalContent1" class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
                                     <button id="closeModal1" class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
-                                    <h2 class="text-2xl font-semibold text-center mb-6 text-orange-600">รายละเอียดคำร้อง</h2>
+                                    <h2 class="text-2xl font-semibold text-center mb-6 text-orange-600">รายละเอียดคำร้องทั่วไป RE.01/h2>
 
                                     <div class="space-y-4 text-base">
                                         <p><strong>เลขคำร้องที่:</strong> <span id="modalFormId1"></span></p>
@@ -527,7 +527,7 @@ function getNameByEmail($pdo, $email)
                                 <div id="detailModal2" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
                                     <div id="modalContent2" class="bg-white rounded-xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
                                         <button id="closeModal2" class="absolute top-3 right-4 text-gray-600 hover:text-red-500 text-2xl">&times;</button>
-                                        <h2 class="text-2xl text-center font-semibold text-orange-600 mb-6">รายละเอียดคำร้อง</h2>
+                                        <h2 class="text-2xl text-center font-semibold text-orange-600 mb-6">รายละเอียดคำร้องขอเพิ่มที่นั่ง RE.06</h2>
                                         <div class="space-y-3 text-base">
                                             <p><strong>เลขคำร้องที่:</strong> <span id="modalFormId2"></span></p>
                                             <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear"></span></p>
@@ -795,7 +795,7 @@ ORDER BY form_id DESC");
                             <div id="detailModal3" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
                                 <div id="modalContent3" class="bg-white rounded-xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
                                     <button id="closeModal3" class="absolute top-3 right-4 text-gray-600 hover:text-red-500 text-2xl">&times;</button>
-                                    <h2 class="text-2xl text-center font-semibold text-orange-600 mb-6">รายละเอียดคำร้อง RE07</h2>
+                                    <h2 class="text-2xl text-center font-semibold text-orange-600 mb-6">รายละเอียดคำร้องขอเปิดนอกแผน RE.07</h2>
                                     <div class="space-y-3 text-base">
                                         <p><strong>เลขคำร้องที่:</strong> <span id="modalFormId3"></span></p>
                                         <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear3"></span></p>
