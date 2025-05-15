@@ -88,7 +88,7 @@ include 'connect/dbcon.php';
                                 <div><span class="font-semibold">ชื่อวิชา:</span> <?php echo htmlspecialchars($course_nameTH); ?></div>
                                 <div><span class="font-semibold">กลุ่มเรียน:</span> <?php echo htmlspecialchars($group); ?></div>
                                 <div><span class="font-semibold">เกรดเฉลี่ย (GPA):</span> <?php echo htmlspecialchars($gpa); ?></div>
-                                <div><span class="font-semibold">จำนวนหน่วยกิต:</span> <?php echo htmlspecialchars($git_unit); ?></div>
+                                <div><span class="font-semibold">จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้:</span> <?php echo htmlspecialchars($git_unit); ?></div>
                                 <div><span class="font-semibold">สถานภาพการลงทะเบียน:</span> <?php echo htmlspecialchars($reg_status); ?></div>
                                 <div><span class="font-semibold">คาดว่าจะสำเร็จการศึกษา:</span> <?php echo htmlspecialchars($expected_graduation); ?></div>
 
