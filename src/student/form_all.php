@@ -710,7 +710,7 @@ ORDER BY form_id DESC");
 
                                         if (!empty($forms3)): ?>
                                             <?php foreach ($forms3 as $row3): ?>
-                                                <tr data-status="<?= is_null($row3['status']) ? '0' : $row3['status'] ?>">
+                                               <tr data-status="<?= is_null($row3['status']) ? 'null' : $row3['status'] ?>">
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
                                                     <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td> -->
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
@@ -886,8 +886,7 @@ ORDER BY form_id DESC");
 
                                     document.querySelectorAll('.open-modal3').forEach(button => {
                                         button.addEventListener('click', function() {
-                                            const rawStatus = this.dataset.status;
-                                            const status = rawStatus === 'null' ? 0 : parseInt(rawStatus);
+                                            const status = this.dataset.status === 'null' ? 0 : parseInt(this.dataset.status);
                                             updateStatusStepper3(status);
 
                                             // Set modal fields
