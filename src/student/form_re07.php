@@ -538,9 +538,9 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             $stmt->bindParam(':course_id', $courseId, PDO::PARAM_STR);
             $stmt->execute();
 
-            $course = $stmt->fetch(PDO::FETCH_ASSOC);
+            $courses_name = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $course_nameTH = $course['course_nameTH'] ?? ''; // ชื่อวิชาภาษาไทย
+            $course_nameTH = $courses_name['course_nameTH'] ?? ''; // ชื่อวิชาภาษาไทย
 
             $academicGroup = $_POST['academicGroup'] ?? ''; //กลุ่มเรียน
             $reason = $_POST['reason'] ?? '';
