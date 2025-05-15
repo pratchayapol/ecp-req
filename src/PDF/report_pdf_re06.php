@@ -20,22 +20,22 @@ try {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($row) {
-        extract($row);
-        $form_id = $row['form_id'];
-        $title = $row['title'];
-        $to = $row['to'];
-        $email = $row['email'];
-        $faculty = $row['faculty'];
-        $field = $row['field'];
-        $course_level = $row['course_level'];
-        $request_text = $row['request_text'];
-        $comment_teacher = $row['comment_teacher'];
-        $comment_head_dep = $row['comment_head_dep'];
+         $form_id = $row['form_id'];
+        $term = $row['term'];
+        $year = $row['year'];
+        $reason = $row['reason'];
+        $group = $row['Group']; // ระวังชื่อตัวแปร PHP ไม่ควรใช้ชื่อตรงกับ keyword (แนะนำให้เปลี่ยนเป็น $group_name หรือ $group_code)
+        $course_id = $row['course_id'];
+        $course_nameTH = $row['course_nameTH'];
+        $coutter = $row['coutter'];
+        $reg_status = $row['reg_status'];
         $status = $row['status'];
+        $comment_teacher = $row['comment_teacher'];
+        $approval_status_teacher = $row['approval_status_teacher'];
         $created_at = $row['created_at'];
-        $token = $row['token'];
+        $email = $row['email'];
         $teacher_email = $row['teacher_email'];
-        $head_department = $row['head_department'];
+        $token = $row['token'];
 
     } else {
         echo "ไม่พบข้อมูลที่ตรงกับ token นี้";
