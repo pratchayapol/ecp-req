@@ -571,43 +571,48 @@ function getNameByEmail($pdo, $email)
                             <!-- แถบสถานะ RE06 -->
                             <script>
                                 function updateStatusStepper2(status) {
-
                                     const steps = [{
                                             circle: 'step1Circle2',
                                             line: 'line21'
                                         },
                                         {
-                                            circle: 'step2Circle2',
-
+                                            circle: 'step2Circle2'
                                         }
                                     ];
 
                                     if (status === 0) {
-                                        // Step 0: ไม่ผ่านการพิจารณา = สีแดง
+                                        // ไม่ผ่าน → step1 สีแดง
                                         steps.forEach((step, i) => {
-                                            // เฉพาะ step1 เท่านั้นที่เป็นสีแดง
                                             if (i === 0) {
-                                                document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center border-red-500 bg-red-500 text-white';
+                                                document.getElementById(step.circle).className =
+                                                    'w-8 h-8 rounded-full border-2 flex items-center justify-center border-red-500 bg-red-500 text-white';
                                             } else {
-                                                document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center border-gray-400 text-gray-500';
+                                                document.getElementById(step.circle).className =
+                                                    'w-8 h-8 rounded-full border-2 flex items-center justify-center border-gray-400 text-gray-500';
                                             }
 
                                             if (step.line) {
-                                                document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i === 0 ? 'bg-red-500' : 'bg-gray-300');
+                                                document.getElementById(step.line).className =
+                                                    'flex-auto h-0.5 mx-1 ' + (i === 0 ? 'bg-red-500' : 'bg-gray-300');
                                             }
                                         });
                                         return;
                                     }
 
+                                    // ถ้า null → ให้แสดงเขียวเฉพาะ step 1
+                                    let effectiveStatus = status === null ? 0 : parseInt(status);
 
                                     steps.forEach((step, i) => {
-                                        // อัปเดตวงกลม
-                                        document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
-                                            (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
+                                        const isActive = i <= effectiveStatus;
+                                        const isLineActive = i < effectiveStatus;
 
-                                        // อัปเดตเส้นเชื่อม
+                                        document.getElementById(step.circle).className =
+                                            'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
+                                            (isActive ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
+
                                         if (step.line) {
-                                            document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
+                                            document.getElementById(step.line).className =
+                                                'flex-auto h-0.5 mx-1 ' + (isLineActive ? 'bg-green-500' : 'bg-gray-300');
                                         }
                                     });
                                 }
@@ -620,7 +625,7 @@ function getNameByEmail($pdo, $email)
                                     document.querySelectorAll('.open-modal2').forEach(button => {
                                         button.addEventListener('click', function() {
                                             const rawStatus = this.closest('tr').dataset.status;
-                                            const status = (rawStatus === 'null') ? 0 : parseInt(rawStatus);
+                                            const status = rawStatus === 'null' || rawStatus === null ? null : parseInt(rawStatus);
 
                                             updateStatusStepper2(status);
 
@@ -635,7 +640,6 @@ function getNameByEmail($pdo, $email)
                                             document.getElementById('modalCommentTeacher').textContent = this.dataset.commentTeacher || '-';
                                             document.getElementById('modalTeacherEmail').textContent = this.dataset.teacherEmail || '-';
 
-                                            // เปิด modal
                                             modal2.classList.remove('hidden');
                                             setTimeout(() => {
                                                 modalContent2.classList.remove('opacity-0', 'scale-95');
@@ -651,6 +655,7 @@ function getNameByEmail($pdo, $email)
                                     });
                                 });
                             </script>
+
 
                             <!-- ----------------------------------------------------------------------------- สิ้นสุด  เขต RE.06 ------------------------------------------------------------------------------------->
 
