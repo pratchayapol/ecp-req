@@ -225,7 +225,7 @@ include 'connect/dbcon.php';
                                     const step2 = document.getElementById('step2Circle2');
                                     const line21 = document.getElementById('line1');
 
-                                    if (status === 0) {
+                                    if (status === null) {
                                         // Case: รอพิจารณา
                                         step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                                         step2.className = 'w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 flex items-center justify-center';
