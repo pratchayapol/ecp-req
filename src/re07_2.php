@@ -523,6 +523,10 @@ include 'connect/dbcon.php';
                         }
                     }
                 }
+
+
+
+                
             } else {
                 echo "<div class='text-center p-6'>ไม่พบข้อมูลคำร้อง กรุณาตรวจสอบลิงก์อีกครั้ง</div>";
                 echo "
