@@ -402,7 +402,7 @@ include 'connect/dbcon.php';
                         }
                         $token_new = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-2?token=xxxx&token_new=yyyy
                         // SQL Query
-                        $sql = "UPDATE form_re01 
+                        $sql = "UPDATE form_re07
             SET approval_status_teacher = :approval_status, 
                 comment_teacher = :comment_teacher, token_new = :token_new,
                 status = :status 
