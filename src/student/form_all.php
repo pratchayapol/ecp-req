@@ -119,36 +119,11 @@ function getNameByEmail($pdo, $email)
                             </ul>
                         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         <div id="default-tab-content">
                             <p id="alert-message" class="text-red-500 font-bold text-center">โปรดเลือก Tab คำร้อง</p>
+
+
+<!-- ----------------------------------------------------------------------------- เริ่ม  เขต RE.01 ------------------------------------------------------------------------------------->
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re01" role="tabpanel" aria-labelledby="re01-tab">
                                 <!-- Filters -->
                                 <div class="flex items-center gap-4 mb-4 justify-center">
@@ -416,32 +391,12 @@ function getNameByEmail($pdo, $email)
 
 
 
+<!-- ----------------------------------------------------------------------------- สิ้นสุด  เขต RE.01 ------------------------------------------------------------------------------------->
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            <!-- ตาราง RE06 -->
+  <!-- ----------------------------------------------------------------------------- เริ่ม  เขต RE.06 ------------------------------------------------------------------------------------->
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re06" role="tabpanel" aria-labelledby="re06-tab">
                                 <!-- Filter -->
                                 <div class="flex items-center gap-4 mb-4 justify-center">
@@ -688,28 +643,14 @@ function getNameByEmail($pdo, $email)
                                 });
                             </script>
 
+<!-- ----------------------------------------------------------------------------- สิ้นสุด  เขต RE.06 ------------------------------------------------------------------------------------->
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            <!-- RE.07 -->
+<!-- ----------------------------------------------------------------------------- เริ่ม  เขต RE.07 ------------------------------------------------------------------------------------->
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re07" role="tabpanel" aria-labelledby="re07-tab">
                                 <!-- Filters -->
                                 <div class="flex items-center gap-4 mb-4 justify-center">
@@ -906,6 +847,25 @@ ORDER BY form_id DESC");
                                         }
                                     ];
 
+
+                                    if (status === 0) {
+                                        // Step 0: ไม่ผ่านการพิจารณา = สีแดง
+                                        steps.forEach((step, i) => {
+                                            // เฉพาะ step1 เท่านั้นที่เป็นสีแดง
+                                            if (i === 0) {
+                                                document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center border-red-500 bg-red-500 text-white';
+                                            } else {
+                                                document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center border-gray-400 text-gray-500';
+                                            }
+
+                                            if (step.line) {
+                                                document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i === 0 ? 'bg-red-500' : 'bg-gray-300');
+                                            }
+                                        });
+                                        return;
+                                    }
+
+
                                     steps.forEach((step, i) => {
                                         // อัปเดตวงกลม
                                         document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
@@ -972,18 +932,7 @@ ORDER BY form_id DESC");
                         </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- -----------------------------------------------------------------------------  สิ้นสุด  เขต RE.07 ------------------------------------------------------------------------------------->
                         <script>
                             function selectTab() {
                                 // เมื่อมีการกดเลือก Tab ให้ซ่อนข้อความเตือน
