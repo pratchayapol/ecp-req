@@ -103,11 +103,11 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_teacher), 0, 1, 'L');
 
 
-// //ไม่ปกติเนื่องจาก
-// $pdf->SetY(97.5);
-// $pdf->SetX(85);
-// $pdf->SetFont('sara', '', 14);
-// $pdf->Cell(42, 2, iconv('utf-8', 'cp874', "เนื่องจาก  ".$row['report_event1']), 0, 1, 'L');
+// //ความคิดเห็นหัวหน้าสาขา
+$pdf->SetY(97.5);
+$pdf->SetX(85);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_head_dep), 0, 1, 'L');
 
 // //สถานะการณ์เพิ่มเติม
 // $pdf->SetY(105);
