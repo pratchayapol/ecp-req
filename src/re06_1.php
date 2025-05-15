@@ -59,6 +59,7 @@ include 'connect/dbcon.php';
                 $coutter = $row['coutter'];
                 $reg_status = $row['reg_status'];
                 $status = $row['status'];
+                $approval_status_teacher = $row['approval_status_teacher'];
                 $comment_teacher = $row['comment_teacher'];
                 $created_at = $row['created_at'];
                 $email = $row['email'];
