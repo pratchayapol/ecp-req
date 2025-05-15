@@ -60,7 +60,7 @@ include 'connect/dbcon.php';
                 $reg_status = $row['reg_status'];
                 $status = $row['status'];
                 $comment_teacher = $row['comment_teacher'];
-                $time_stamp = $row['time_stamp'];
+                $created_at = $row['created_at'];
                 $email = $row['email'];
                 $token = $row['token'];
                 $teacher_email = $row['teacher_email'];
