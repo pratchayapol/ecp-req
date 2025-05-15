@@ -435,8 +435,8 @@ include 'connect/dbcon.php';
                                 $mail->Port       = 587;
 
                                 $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
-                                $mail->addAddress($head_department, 'หัวหน้าสาขา');
-                                $mail->Subject = 'คำร้องขอเปิดนอกแผน (RE.07) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากอาจารย์ที่ปรึกษาแล้ว';
+                                $mail->addAddress($email, 'นักศึกษา');
+                                $mail->Subject = 'คำร้องขอเปิดนอกแผน (RE.07) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากอาจารย์ประจำรายวิชาแล้ว';
                                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
 
