@@ -805,7 +805,7 @@ ORDER BY form_id DESC");
                                         <hr>
                                     </div>
 
-                                    <div id="statusStepper3" class="flex justify-between items-center my-4">
+                                    <div id="updateStatusStepper3" class="flex justify-between items-center my-4">
                                         <!-- Step 1 -->
                                         <div class="flex flex-col items-center">
                                             <div id="step1Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
@@ -833,7 +833,7 @@ ORDER BY form_id DESC");
                             </div>
 
                             <!-- แถบสถานะ RE07 -->
-                            <!-- แถบสถานะ RE07 -->
+                        
                             <script>
                                 const statusValue = "<?= $row3['status'] ?>"; // string
                                 updateStatusStepper3(statusValue);
