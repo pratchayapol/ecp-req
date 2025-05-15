@@ -314,22 +314,25 @@ include 'connect/dbcon.php';
                                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
                                 $mail->Body = '
-     <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
-         <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องขอเปิดนอกแผน (RE.07)</h2>
-         <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
+        <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
+                    <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องขอเปิดนอกแผน (RE.07)</h2>
+                    <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
  
-         <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500; color: #000;">
-             <p><strong>ชื่อ:</strong> ' . htmlspecialchars($profile['name']) . '</p>
-             <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($profile['id']) . '</p>
-             <p><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
-             <p><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
-             <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
-             <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
-             <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
-             <hr>
-             <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> ไม่อนุมัติ</p>
-             <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
-         </div>
+                <div style="margin-top: 15px; padding: 15px; background-color:rgb(240, 240, 240); border-left: 4px solid #ffa500; color: #000;">
+                    <p><strong>FORM ID:</strong> RE.07-' . htmlspecialchars($form_id) . '</p>
+                    <p><strong>ภาคเรียน/ปีการศึกษา:</strong> ' . htmlspecialchars($term) . '/' . htmlspecialchars($year) . '</p>
+                    <p><strong>รหัสวิชา:</strong> ' . htmlspecialchars($course_id) . '</p>
+                    <p><strong>ชื่อวิชา:</strong> ' . htmlspecialchars($course_nameTH) . '</p>
+                    <p><strong>กลุ่มเรียน:</strong> ' . htmlspecialchars($group) . '</p>
+                    <p><strong>เกรดเฉลี่ย (GPA):</strong> ' . htmlspecialchars($gpa) . '</p>
+                    <p><strong>จำนวนหน่วยกิต:</strong> ' . htmlspecialchars($git_unit) . '</p>
+                    <p><strong>สถานภาพการลงทะเบียน:</strong> ' . htmlspecialchars($reg_status) . '</p>
+                    <p><strong>คาดว่าจะสำเร็จการศึกษา:</strong> ' . htmlspecialchars($expected_graduation) . '</p>
+                    <p><strong>เหตุผล:</strong> ' . nl2br(htmlspecialchars($reason)) . '</p>
+                    <hr>
+                    <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> อนุมัติ</p>
+                    <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($commentTeacher) . '</p>
+                </div>
  
          <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
          📧 <strong>อีเมลหัวหน้าสาขา:</strong> ' . htmlspecialchars($head_department) . '</p>
@@ -438,28 +441,32 @@ include 'connect/dbcon.php';
 
 
                                 $mail->Body = '
-                <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
+            <div style="font-family: Tahoma, sans-serif; background-color:rgb(46, 46, 46); padding: 20px; border-radius: 10px; color: #f0f0f0; font-size: 18px;">
                     <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องขอเปิดนอกแผน (RE.07)</h2>
            
-                  <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500; color: #000;">
-                    <p><strong>ชื่อ:</strong> ' . htmlspecialchars($profile['name']) . '</p>
-                    <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($profile['id']) . '</p>
-                    <p><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
-                    <p><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
-                    <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
-                    <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
-                    <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
-                    <hr>
+                <div style="margin-top: 15px; padding: 15px; background-color:rgb(240, 240, 240); border-left: 4px solid #ffa500; color: #000;">
+                    <p><strong>FORM ID:</strong> RE.07-' . htmlspecialchars($form_id) . '</p>
+                    <p><strong>ภาคเรียน/ปีการศึกษา:</strong> ' . htmlspecialchars($term) . '/' . htmlspecialchars($year) . '</p>
+                    <p><strong>รหัสวิชา:</strong> ' . htmlspecialchars($course_id) . '</p>
+                    <p><strong>ชื่อวิชา:</strong> ' . htmlspecialchars($course_nameTH) . '</p>
+                    <p><strong>กลุ่มเรียน:</strong> ' . htmlspecialchars($group) . '</p>
+                    <p><strong>เกรดเฉลี่ย (GPA):</strong> ' . htmlspecialchars($gpa) . '</p>
+                    <p><strong>จำนวนหน่วยกิต:</strong> ' . htmlspecialchars($git_unit) . '</p>
+                    <p><strong>สถานภาพการลงทะเบียน:</strong> ' . htmlspecialchars($reg_status) . '</p>
+                    <p><strong>คาดว่าจะสำเร็จการศึกษา:</strong> ' . htmlspecialchars($expected_graduation) . '</p>
+                    <p><strong>เหตุผล:</strong> ' . nl2br(htmlspecialchars($reason)) . '</p>
+                      <hr>
                     <p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> อนุมัติ</p>
-                    <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
-                 </div>
-            
-                    <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
+                    <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($commentTeacher) . '</p>
+                </div>
+          
+                
+                <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
                     📧 <strong>อีเมลหัวหน้าสาขา:</strong> ' . htmlspecialchars($head_department) . '</p>
             
             
                     <p style="margin-top: 30px; font-size: 14px; color: #888;">ระบบยื่นคำร้อง สาขาคอมพิวเตอร์  คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น</p>
-                </div>
+            </div>
             ';
 
 
