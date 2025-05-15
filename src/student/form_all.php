@@ -550,13 +550,13 @@ function getNameByEmail($pdo, $email)
                                             <p><strong>อาจารย์ประจำรายวิชา:</strong> <span id="modalTeacherEmail"></span></p>
                                             <hr>
                                         </div>
-                                         <?php if ($row2['status'] === "0") {
-                                    ?>
-                                        <div class="text-center text-red-600">
-                                            <h3>ไม่ผ่านการพิจารณา</h3>
-                                        </div>
-                                    <?php
-                                    } else { ?>
+                                        <?php if ($row2['status'] === "0") {
+                                        ?>
+                                            <div class="text-center text-red-600">
+                                                <h3>ไม่ผ่านการพิจารณา</h3>
+                                            </div>
+                                        <?php
+                                        } else { ?>
                                             <div id="statusStepper2" class="flex justify-between items-center my-4">
                                                 <!-- Step 0 -->
                                                 <div class="flex flex-col items-center">
@@ -804,7 +804,16 @@ ORDER BY form_id DESC");
                                         <p><strong>หัวหน้าสาขา:</strong> <span id="modalHeadDepartment3"></span></p>
                                         <hr>
                                     </div>
-                                  
+
+                                    <?php if ($row3['status'] === "0") {
+
+                                        echo $row3['status'];
+                                    ?>
+                                        <div class="text-center text-red-600">
+                                            <h3>ไม่ผ่านการพิจารณา</h3>
+                                        </div>
+                                    <?php
+                                    } else { ?>
                                         <div id="statusStepper3" class="flex justify-between items-center my-4">
                                             <!-- Step 1 -->
                                             <div class="flex flex-col items-center">
@@ -828,13 +837,12 @@ ORDER BY form_id DESC");
                                                 <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
                                             </div>
                                         </div>
-
+                                    <?php } ?>
                                 </div>
                             </div>
 
                             <!-- แถบสถานะ RE07 -->
                             <script>
-                                
                                 function updateStatusStepper3(status) {
                                     const steps = [{
                                             circle: 'step1Circle3',
