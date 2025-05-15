@@ -91,7 +91,7 @@ include 'connect/dbcon.php';
                                 <div><span class="font-semibold">ปีการศึกษา:</span> <?php echo htmlspecialchars($year); ?></div>
                                 <div><span class="font-semibold">ประเภทการลงทะเบียน:</span> <?php echo htmlspecialchars($reg_status); ?></div>
                                 <div><span class="font-semibold">ยอดลงทะเบียนปัจจุบัน:</span> <?php echo htmlspecialchars($coutter); ?></div>
-                                <div><span class="font-semibold">เหตุผลในการขอเพิ่มที่นั่ง:</span> <?php echo htmlspecialchars($reg_status); ?></div>
+                                <div><span class="font-semibold">เหตุผลในการขอเพิ่มที่นั่ง:</span> <?php echo htmlspecialchars($reason); ?></div>
                                 <hr>
 
                                 <form method="POST" action="" onsubmit="return validateForm()">
