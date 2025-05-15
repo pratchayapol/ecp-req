@@ -527,7 +527,7 @@ function getNameByEmail($pdo, $email)
                                                             </button>
                                                             <!-- ปุ่ม PDF สีส้ม -->
                                                             <?php if ($row2['status'] == 1): ?>
-                                                                <a href="../PDF/report_pdf_re01?token=<?= $row1['token'] ?>" target="_blank"
+                                                                <a href="../PDF/report_pdf_re06?token=<?= $row2['token'] ?>" target="_blank"
                                                                     class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
                                                                     PDF
                                                                 </a>
