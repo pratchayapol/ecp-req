@@ -535,7 +535,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             // ดึงข้อมูลชื่อวิชา
             $sql = "SELECT course_id, course_nameTH, email FROM course WHERE course_id = :course_id";
             $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':course_id', $courseId, PDO::PARAM_STR);
+            $stmt->bindParam(':course_id', $course_id, PDO::PARAM_STR);
             $stmt->execute();
 
             $courses_name = $stmt->fetch(PDO::FETCH_ASSOC);
