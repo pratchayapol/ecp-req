@@ -91,83 +91,87 @@ include 'connect/dbcon.php';
                                 <div><span class="font-semibold">ปีการศึกษา:</span> <?php echo htmlspecialchars($year); ?></div>
                                 <div><span class="font-semibold">ประเภทการลงทะเบียน:</span> <?php echo htmlspecialchars($reg_status); ?></div>
                                 <div><span class="font-semibold">ยอดลงทะเบียนปัจจุบัน:</span> <?php echo htmlspecialchars($coutter); ?></div>
-                                <div><span class="font-semibold">เหตุผลในการขอเพิ่มที่นั่ง:</span> <?php echo htmlspecialchars($reason); ?></div>
-                                <hr>
 
-                                <form method="POST" action="" onsubmit="return validateForm()">
-                                    <!-- Approval Section -->
-                                    <div class="space-y-3 mb-6">
-                                        <div>
-                                            <label class="font-semibold block mb-1">ความคิดเห็นของอาจารย์ประจำรายวิชา:</label>
-                                            <div class="flex items-center space-x-4">
-                                                <?php if (is_null($status)): ?>
-                                                    <label class="flex items-center space-x-2">
-                                                        <input type="radio" name="approval_status" value="1">
-                                                        <span>อนุมัติ</span>
-                                                    </label>
-                                                    <label class="flex items-center space-x-2">
-                                                        <input type="radio" name="approval_status" value="0">
-                                                        <span>ไม่อนุมัติ</span>
-                                                    </label>
-                                                <?php else: ?>
-                                                    <?php if ($approval_status_teacher == 1): ?>
-                                                        <span class="text-green-600 font-semibold">อนุมัติ</span>
-                                                    <?php else: ?>
-                                                        <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
-                                                    <?php endif; ?>
-                                                <?php endif; ?>
+                            </div>
 
-                                            </div>
-                                        </div>
+                            <div><span class="font-semibold">เหตุผลในการขอเพิ่มที่นั่ง:</span><textarea id="request_text" name="request_text" rows="2" 
+                            class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($reason); ?></textarea></div>
 
-                                        <div>
-                                            <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
+                            <hr>
+
+                            <form method="POST" action="" onsubmit="return validateForm()">
+                                <!-- Approval Section -->
+                                <div class="space-y-3 mb-6">
+                                    <div>
+                                        <label class="font-semibold block mb-1">ความคิดเห็นของอาจารย์ประจำรายวิชา:</label>
+                                        <div class="flex items-center space-x-4">
                                             <?php if (is_null($status)): ?>
-                                                <textarea id="comment_teacher" name="comment_teacher" rows="2"
-                                                    class="w-full text-gray-600 border rounded p-2"
-                                                    placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
+                                                <label class="flex items-center space-x-2">
+                                                    <input type="radio" name="approval_status" value="1">
+                                                    <span>อนุมัติ</span>
+                                                </label>
+                                                <label class="flex items-center space-x-2">
+                                                    <input type="radio" name="approval_status" value="0">
+                                                    <span>ไม่อนุมัติ</span>
+                                                </label>
                                             <?php else: ?>
-                                                <textarea id="comment_teacher" name="comment_teacher" rows="2"
-                                                    class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
+                                                <?php if ($approval_status_teacher == 1): ?>
+                                                    <span class="text-green-600 font-semibold">อนุมัติ</span>
+                                                <?php else: ?>
+                                                    <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
+                                                <?php endif; ?>
                                             <?php endif; ?>
+
                                         </div>
                                     </div>
 
-                                    <!-- Submit Button -->
-                                    <?php if (is_null($status)): ?>
-                                        <div class="text-center">
-                                            <button type="submit"
-                                                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow">
-                                                พิจารณาแล้ว
-                                            </button>
-                                        </div>
-                                    <?php endif; ?>
+                                    <div>
+                                        <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
+                                        <?php if (is_null($status)): ?>
+                                            <textarea id="comment_teacher" name="comment_teacher" rows="2"
+                                                class="w-full text-gray-600 border rounded p-2"
+                                                placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
+                                        <?php else: ?>
+                                            <textarea id="comment_teacher" name="comment_teacher" rows="2"
+                                                class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
 
-                                </form>
+                                <!-- Submit Button -->
+                                <?php if (is_null($status)): ?>
+                                    <div class="text-center">
+                                        <button type="submit"
+                                            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow">
+                                            พิจารณาแล้ว
+                                        </button>
+                                    </div>
+                                <?php endif; ?>
 
-                                <script>
-                                    function validateForm() {
-                                        const radios = document.getElementsByName('approval_status');
+                            </form>
 
-                                        let selected = false;
-                                        for (let i = 0; i < radios.length; i++) {
-                                            if (radios[i].checked) {
-                                                selected = true;
-                                                break;
-                                            }
+                            <script>
+                                function validateForm() {
+                                    const radios = document.getElementsByName('approval_status');
+
+                                    let selected = false;
+                                    for (let i = 0; i < radios.length; i++) {
+                                        if (radios[i].checked) {
+                                            selected = true;
+                                            break;
                                         }
-
-                                        if (!selected) {
-                                            alert('กรุณาเลือกผลการพิจารณา (อนุมัติ หรือ ไม่อนุมัติ)');
-                                            return false;
-                                        }
-
-
-                                        return true;
                                     }
-                                </script>
 
-                            </div>
+                                    if (!selected) {
+                                        alert('กรุณาเลือกผลการพิจารณา (อนุมัติ หรือ ไม่อนุมัติ)');
+                                        return false;
+                                    }
+
+
+                                    return true;
+                                }
+                            </script>
+
                             <!-- Request Text -->
                             <div>
                                 <label for="request_text" class="font-semibold block mb-1">ข้อความร้องขอ:</label>
