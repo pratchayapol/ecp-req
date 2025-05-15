@@ -109,11 +109,11 @@ $pdf->SetX(15);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_head_dep), 0, 1, 'L');
 
-// //สถานะการณ์เพิ่มเติม
-// $pdf->SetY(105);
-// $pdf->SetX(30);
-// $pdf->SetFont('sara', '', 11.5);
-// $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $row['report']), 0, 1, 'L');
+// //เวลา่
+$pdf->SetY(105);
+$pdf->SetX(30);
+$pdf->SetFont('sara', '', 11.5);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at), 0, 1, 'R');
 
 
 // $id = $_GET['id'];
