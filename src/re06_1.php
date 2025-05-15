@@ -41,7 +41,7 @@ include 'connect/dbcon.php';
 
 
         try {
-            $stmt = $pdo->prepare("SELECT * FROM form_re01 WHERE token = :token");
+            $stmt = $pdo->prepare("SELECT * FROM form_re06 WHERE token = :token");
             $stmt->bindParam(':token', $token, PDO::PARAM_STR);
             $stmt->execute();
 
