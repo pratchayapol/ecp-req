@@ -223,6 +223,9 @@ include 'connect/dbcon.php';
 
                 <!-- JavaScript for stepper -->
                 <script>
+                    const statusValue = "<?= $status ?>"; // string
+                    updateStatusStepper2(statusValue);
+
                     function updateStatusStepper2(status) {
                         status = parseInt(status); // 👈 แปลง string เป็น number
 
