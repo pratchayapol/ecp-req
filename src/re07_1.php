@@ -17,7 +17,7 @@ include 'connect/dbcon.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECP Online Petition RE01 - 2</title>
+    <title>ECP Online Petition RE07 - 1</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Custom fonts for this template-->
