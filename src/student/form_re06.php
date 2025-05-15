@@ -490,6 +490,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             }
 
             $token = generateToken();
+            date_default_timezone_set('Asia/Bangkok');
             $timestamp = date('Y-m-d H:i:s');
 
             // ยิงเมลไปหาอาจารย์ประจำรายวิชา
