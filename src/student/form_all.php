@@ -791,7 +791,7 @@ ORDER BY form_id DESC");
                                         <p><strong>กลุ่มเรียน:</strong> <span id="modalGroup3"></span></p>
                                         <p><strong>รหัสรายวิชา:</strong> <span id="modalCourseId3"></span></p>
                                         <p><strong>เกรดเฉลี่ยปัจจุบัน:</strong> <span id="modalGpa3"></span></p>
-                                        <p><strong>จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้:</strong> <span id="modalGpaAll3"></span><strong> หน่วยกิต</strong></p>
+                                        <p><strong>จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้:</strong> <span id="modalGpaAll3"></span><strong> หน่วยกิต  <?php echo $row3['status']; ?></strong></p>
                                         <p><strong>สถานภาพการลงทะเบียนเรียน:</strong> <span id="modalRegStatus3"></span></p>
                                         <p><strong>ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา:</strong> <span id="modalExpectedGraduation3"></span></p>
                                         <hr>
@@ -807,7 +807,7 @@ ORDER BY form_id DESC");
 
                                     <?php if ($row3['status'] === "0") {
 
-                                        echo $row3['status'];
+                                       
                                     ?>
                                         <div class="text-center text-red-600">
                                             <h3>ไม่ผ่านการพิจารณา</h3>
