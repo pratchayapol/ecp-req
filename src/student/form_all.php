@@ -657,7 +657,6 @@ function getNameByEmail($pdo, $email)
 
 
 
-
                             <!-- RE.07 -->
                             <div class="hidden p-4 rounded-lg bg-gray-50" id="re07" role="tabpanel" aria-labelledby="re07-tab">
                                 <!-- Filters -->
@@ -675,14 +674,11 @@ function getNameByEmail($pdo, $email)
                                     <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters3()">ล้างข้อมูล</button>
                                 </div>
 
-
-
                                 <!-- Table -->
                                 <table class="min-w-full table-auto border-collapse rounded-[12px]">
                                     <thead class="bg-orange-500 text-white text-center shadow-md">
                                         <tr>
                                             <th class="px-4 py-2">เลขคำร้อง</th>
-                                            <!-- <th class="px-4 py-2">ชื่อ - สกุล</th> -->
                                             <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
                                             <th class="px-4 py-2">รายวิชา</th>
                                             <th class="px-4 py-2">กลุ่มเรียน</th>
@@ -692,9 +688,8 @@ function getNameByEmail($pdo, $email)
                                     </thead>
                                     <tbody>
                                         <?php
-                                        // การดึงข้อมูลจากฐานข้อมูล
                                         try {
-                                            $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit, reg_status, expected_graduation, comment_teacher, comment_head_dep,
+                                            $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit, reg_status, expected_graduation, comment_teacher, comment_head_dep,
 f.teacher_email, f.head_department,
 c.course_nameTH, c.credits
 FROM form_re07 AS f
@@ -710,60 +705,49 @@ ORDER BY form_id DESC");
 
                                         if (!empty($forms3)): ?>
                                             <?php foreach ($forms3 as $row3): ?>
-                                               <tr data-status="<?= is_null($row3['status']) ? 'null' : $row3['status'] ?>">
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
-                                                    <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td> -->
+                                                <tr data-status="<?= is_null($row3['status']) ? 'null' : $row3['status'] ?>">
+                                                    <td class="px-4 py-2 text-center"><?= 'RE.07-' . htmlspecialchars($row3['form_id']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
                                                     <td class="px-4 py-2"><?= htmlspecialchars($row3['course_id'] . ' ' . $row3['course_nameTH'] . ' (' . $row3['credits'] . ' หน่วยกิต)') ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></td>
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? '-') ?></td>
                                                     <td class="px-4 py-2 text-center 
-    <?= $row3['status'] === null ? 'text-red-600' : ($row3['status'] == 1 ? 'text-yellow-600' : ($row3['status'] == 2 ? 'text-green-600' : 'text-gray-500')) ?>">
+                            <?= $row3['status'] === null ? 'text-red-600' : ($row3['status'] == 1 ? 'text-yellow-600' : ($row3['status'] == 2 ? 'text-green-600' : 'text-gray-500')) ?>">
                                                         <?= $row3['status'] === null ? 'รอพิจารณา' : ($row3['status'] == 0 ? 'ไม่ผ่านการพิจารณา' : ($row3['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row3['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : 'สถานะไม่ถูกต้อง'))) ?>
                                                     </td>
-
                                                     <?php
                                                     try {
-                                                        // ดึงชื่ออาจารย์ที่ปรึกษา
                                                         $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
                                                         $stmt->execute(['email' => $row3['teacher_email']]);
                                                         $advisor2 = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                                                        // ดึงชื่อหัวหน้าสาขา
                                                         $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
                                                         $stmt->execute(['email' => $row3['head_department']]);
                                                         $head2 = $stmt->fetch(PDO::FETCH_ASSOC);
                                                     } catch (PDOException $e) {
                                                         $advisor2['name'] = 'เกิดข้อผิดพลาด';
                                                         $head2['name'] = 'เกิดข้อผิดพลาด';
-                                                        error_log("PDO Error: " . $e->getMessage());
                                                     }
-
                                                     ?>
                                                     <td>
-                                                        <button
-                                                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal3"
+                                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal3"
                                                             data-form-id="<?= $row3['form_id'] ?>"
                                                             data-term="<?= $row3['term'] ?>"
                                                             data-year="<?= $row3['year'] ?>"
                                                             data-reason="<?= htmlspecialchars($row3['reason']) ?>"
-                                                            data-group="<?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?>"
+                                                            data-group="<?= htmlspecialchars($row3['group'] ?? '-') ?>"
                                                             data-course-id="<?= $row3['course_id'] ?>"
                                                             data-gpa="<?= $row3['gpa'] ?>"
                                                             data-gpa-all="<?= $row3['git_unit'] ?>"
                                                             data-reg-status="<?= htmlspecialchars($row3['reg_status']) ?>"
                                                             data-expected-graduation="<?= $row3['expected_graduation'] ?>"
-                                                            data-advisor-comment="<?= htmlspecialchars($row3['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
-                                                            data-head-comment="<?= htmlspecialchars($row3['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                            data-advisor-comment="<?= htmlspecialchars($row3['comment_teacher'] ?? '-') ?>"
+                                                            data-head-comment="<?= htmlspecialchars($row3['comment_head_dep'] ?? '-') ?>"
                                                             data-teacher-email="<?= htmlspecialchars($advisor2['name'] ?? '-') ?>"
                                                             data-head-department="<?= htmlspecialchars($head2['name'] ?? '-') ?>"
-
-                                                            data-status="<?= $row3['status'] === null ? 'null' : $row3['status'] ?>">
+                                                            data-status="<?= is_null($row3['status']) ? 'null' : $row3['status'] ?>">
                                                             ดูรายละเอียด
                                                         </button>
-
-
                                                     </td>
-
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php else: ?>
@@ -773,75 +757,57 @@ ORDER BY form_id DESC");
                                         <?php endif; ?>
                                     </tbody>
                                 </table>
-                                <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
-                                <div id="noDataMessage3" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
+                                <div id="noDataMessage3" class="text-center text-gray-500 py-4 hidden">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
                                 <br>
                             </div>
 
                             <!-- Modal -->
-                            <div id="detailModal3" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
-                                <div id="modalContent3" class="bg-white rounded-xl w-[90%] max-w-2xl p-6 relative transform scale-95 opacity-0 transition-all duration-300 ease-in-out">
+                            <div id="detailModal3" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+                                <div id="modalContent3" class="bg-white rounded-xl w-[90%] max-w-2xl p-6 relative scale-95 opacity-0 transition-all duration-300 ease-in-out">
                                     <button id="closeModal3" class="absolute top-3 right-4 text-gray-600 hover:text-red-500 text-2xl">&times;</button>
                                     <h2 class="text-2xl text-center font-semibold text-orange-600 mb-6">รายละเอียดคำร้อง RE07</h2>
                                     <div class="space-y-3 text-base">
                                         <p><strong>เลขคำร้องที่:</strong> <span id="modalFormId3"></span></p>
                                         <p><strong>ภาคเรียน/ปีการศึกษา:</strong> <span id="modalTermYear3"></span></p>
                                         <p><strong>เหตุผลขอเปิดนอกแผน:</strong></p>
-                                        <textarea id="modalReason3" readonly class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100" rows="2"></textarea>
+                                        <textarea id="modalReason3" readonly class="w-full mt-1 p-2 border rounded-md bg-gray-100 resize-none" rows="2"></textarea>
                                         <p><strong>กลุ่มเรียน:</strong> <span id="modalGroup3"></span></p>
                                         <p><strong>รหัสรายวิชา:</strong> <span id="modalCourseId3"></span></p>
                                         <p><strong>เกรดเฉลี่ยปัจจุบัน:</strong> <span id="modalGpa3"></span></p>
-                                        <p><strong>จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้:</strong> <span id="modalGpaAll3"></span><strong> หน่วยกิต</strong></p>
-                                        <p><strong>สถานภาพการลงทะเบียนเรียน:</strong> <span id="modalRegStatus3"></span></p>
-                                        <p><strong>ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา:</strong> <span id="modalExpectedGraduation3"></span></p>
+                                        <p><strong>จำนวนหน่วยกิตที่ลงทะเบียน:</strong> <span id="modalGpaAll3"></span> หน่วยกิต</p>
+                                        <p><strong>สถานภาพการลงทะเบียน:</strong> <span id="modalRegStatus3"></span></p>
+                                        <p><strong>ภาคเรียนที่คาดว่าจะสำเร็จ:</strong> <span id="modalExpectedGraduation3"></span></p>
                                         <hr>
                                         <p><strong>ความคิดเห็นที่ปรึกษา:</strong></p>
-                                        <textarea id="modalAdvisorComment3" readonly class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100" rows="2"></textarea>
+                                        <textarea id="modalAdvisorComment3" readonly class="w-full mt-1 p-2 border rounded-md bg-gray-100 resize-none" rows="2"></textarea>
                                         <p><strong>อาจารย์ประจำวิชา:</strong> <span id="modalTeacherEmail3"></span></p>
                                         <hr>
                                         <p><strong>ความคิดเห็นหัวหน้าสาขา:</strong></p>
-                                        <textarea id="modalHeadComment3" readonly class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none bg-gray-100" rows="2"></textarea>
+                                        <textarea id="modalHeadComment3" readonly class="w-full mt-1 p-2 border rounded-md bg-gray-100 resize-none" rows="2"></textarea>
                                         <p><strong>หัวหน้าสาขา:</strong> <span id="modalHeadDepartment3"></span></p>
                                         <hr>
                                     </div>
-
-                                    <?php if ((string)$row3['status'] === "0") {
-
-                                       
-                                    ?>
-                                        <div class="text-center text-red-600">
-                                            <h3>ไม่ผ่านการพิจารณา</h3>
+                                    <div id="statusSection3" class="text-center text-red-600 font-semibold hidden">ไม่ผ่านการพิจารณา</div>
+                                    <div id="statusStepper3" class="flex justify-between items-center my-4">
+                                        <div class="flex flex-col items-center">
+                                            <div id="step1Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
+                                            <span class="text-sm">รอพิจารณา</span>
                                         </div>
-                                    <?php
-                                    } else { ?>
-                                        <div id="statusStepper3" class="flex justify-between items-center my-4">
-                                            <!-- Step 1 -->
-                                            <div class="flex flex-col items-center">
-                                                <div id="step1Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">1</div>
-                                                <span class="mt-1 text-sm text-gray-600 text-center">รอพิจารณา</span>
-                                            </div>
-
-                                            <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line31"></div>
-
-                                            <!-- Step 2 -->
-                                            <div class="flex flex-col items-center">
-                                                <div id="step2Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
-                                                <span class="mt-1 text-sm text-gray-600 text-center">อาจารย์ที่ปรึกษาพิจารณาแล้ว</span>
-                                            </div>
-
-                                            <div class="flex-auto h-0.5 bg-gray-300 mx-1" id="line32"></div>
-
-                                            <!-- Step 3 -->
-                                            <div class="flex flex-col items-center">
-                                                <div id="step3Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
-                                                <span class="mt-1 text-sm text-gray-600 text-center">หัวหน้าสาขาพิจารณาแล้ว</span>
-                                            </div>
+                                        <div id="line31" class="flex-auto h-0.5 bg-gray-300 mx-1"></div>
+                                        <div class="flex flex-col items-center">
+                                            <div id="step2Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">2</div>
+                                            <span class="text-sm">อาจารย์พิจารณา</span>
                                         </div>
-                                    <?php } ?>
+                                        <div id="line32" class="flex-auto h-0.5 bg-gray-300 mx-1"></div>
+                                        <div class="flex flex-col items-center">
+                                            <div id="step3Circle3" class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-500">3</div>
+                                            <span class="text-sm">หัวหน้าสาขา</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- แถบสถานะ RE07 -->
+                            <!-- Scripts -->
                             <script>
                                 function updateStatusStepper3(status) {
                                     const steps = [{
@@ -853,345 +819,332 @@ ORDER BY form_id DESC");
                                             line: 'line32'
                                         },
                                         {
-                                            circle: 'step3Circle3',
+                                            circle: 'step3Circle3'
                                         }
                                     ];
 
-                                    steps.forEach((step, i) => {
-                                        // อัปเดตวงกลม
-                                        document.getElementById(step.circle).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' +
-                                            (i <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
-
-                                        // อัปเดตเส้นเชื่อม
-                                        if (step.line) {
-                                            document.getElementById(step.line).className = 'flex-auto h-0.5 mx-1 ' + (i < status ? 'bg-green-500' : 'bg-gray-300');
+                                    steps.forEach((step, index) => {
+                                        const circle = document.getElementById(step.circle);
+                                        const line = step.line ? document.getElementById(step.line) : null;
+                                        if (circle) {
+                                            circle.className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center ' + (index <= status ? 'border-green-500 bg-green-500 text-white' : 'border-gray-400 text-gray-500');
+                                        }
+                                        if (line) {
+                                            line.className = 'flex-auto h-0.5 mx-1 ' + (index < status ? 'bg-green-500' : 'bg-gray-300');
                                         }
                                     });
                                 }
-
-                                // ใช้เมื่อเปิด modal:
-                                document.querySelectorAll('.open-modal3').forEach(btn => {
-                                    btn.addEventListener('click', function() {
-                                        const status = parseInt(this.closest('tr').dataset.status) || 0;
-                                        updateStatusStepper3(status);
-                                    });
-                                });
-                            </script>
-
-                            <script>
                                 document.addEventListener("DOMContentLoaded", function() {
-                                    const modal = document.getElementById('detailModal3');
-                                    const modalContent = document.getElementById('modalContent3');
-                                    const closeModal = document.getElementById('closeModal3');
+                                    const modal = document.getElementById("detailModal3");
+                                    const modalContent = document.getElementById("modalContent3");
+                                    const closeModal = document.getElementById("closeModal3");
+                                    const statusSection = document.getElementById("statusSection3");
 
-                                    document.querySelectorAll('.open-modal3').forEach(button => {
-                                        button.addEventListener('click', function() {
-                                            const status = this.dataset.status === 'null' ? 0 : parseInt(this.dataset.status);
+                                    document.querySelectorAll(".open-modal3").forEach(button => {
+                                        button.addEventListener("click", function() {
+                                            const statusRaw = this.dataset.status;
+                                            const status = statusRaw === "null" ? 0 : parseInt(statusRaw);
+
                                             updateStatusStepper3(status);
+                                            statusSection.classList.toggle("hidden", status !== 0 && status !== "0");
 
-                                            // Set modal fields
-                                            document.getElementById('modalFormId3').textContent = 'RE.07-' + this.dataset.formId;
-                                            document.getElementById('modalTermYear3').textContent = this.dataset.term + ' / ' + this.dataset.year;
-                                            document.getElementById('modalReason3').textContent = this.dataset.reason || '-';
-                                            document.getElementById('modalGroup3').textContent = this.dataset.group || '-';
-                                            document.getElementById('modalCourseId3').textContent = this.dataset.courseId || '-';
-                                            document.getElementById('modalGpa3').textContent = this.dataset.gpa || '-';
-                                            document.getElementById('modalGpaAll3').textContent = this.dataset.gpaAll || '-';
-                                            document.getElementById('modalRegStatus3').textContent = this.dataset.regStatus || '-';
-                                            document.getElementById('modalExpectedGraduation3').textContent = this.dataset.expectedGraduation || '-';
-                                            document.getElementById('modalAdvisorComment3').textContent = this.dataset.advisorComment || '-';
-                                            document.getElementById('modalHeadComment3').textContent = this.dataset.headComment || '-';
-                                            document.getElementById('modalTeacherEmail3').textContent = this.dataset.teacherEmail || '-';
-                                            document.getElementById('modalHeadDepartment3').textContent = this.dataset.headDepartment || '-';
+                                            document.getElementById("modalFormId3").textContent = 'RE.07-' + this.dataset.formId;
+                                            document.getElementById("modalTermYear3").textContent = this.dataset.term + ' / ' + this.dataset.year;
+                                            document.getElementById("modalReason3").value = this.dataset.reason;
+                                            document.getElementById("modalGroup3").textContent = this.dataset.group;
+                                            document.getElementById("modalCourseId3").textContent = this.dataset.courseId;
+                                            document.getElementById("modalGpa3").textContent = this.dataset.gpa;
+                                            document.getElementById("modalGpaAll3").textContent = this.dataset.gpaAll;
+                                            document.getElementById("modalRegStatus3").textContent = this.dataset.regStatus;
+                                            document.getElementById("modalExpectedGraduation3").textContent = this.dataset.expectedGraduation;
+                                            document.getElementById("modalAdvisorComment3").value = this.dataset.advisorComment;
+                                            document.getElementById("modalHeadComment3").value = this.dataset.headComment;
+                                            document.getElementById("modalTeacherEmail3").textContent = this.dataset.teacherEmail;
+                                            document.getElementById("modalHeadDepartment3").textContent = this.dataset.headDepartment;
 
-                                            modal.classList.remove('hidden');
+                                            modal.classList.remove("hidden");
                                             setTimeout(() => {
-                                                modalContent.classList.remove('opacity-0', 'scale-95');
+                                                modalContent.classList.remove("opacity-0", "scale-95");
                                             }, 10);
                                         });
                                     });
 
-                                    closeModal.addEventListener('click', function() {
-                                        modalContent.classList.add('opacity-0', 'scale-95');
+                                    closeModal.addEventListener("click", function() {
+                                        modalContent.classList.add("opacity-0", "scale-95");
                                         setTimeout(() => {
-                                            modal.classList.add('hidden');
+                                            modal.classList.add("hidden");
                                         }, 300);
                                     });
                                 });
                             </script>
 
+
+
+
+
+
+
+
+
+
+
+                            <script>
+                                function selectTab() {
+                                    // เมื่อมีการกดเลือก Tab ให้ซ่อนข้อความเตือน
+                                    const alertMessage = document.getElementById('alert-message');
+                                    if (alertMessage) {
+                                        alertMessage.style.display = 'none';
+                                    }
+                                }
+                            </script>
+                            <script>
+                                // Get all tab buttons
+                                const tabs = document.querySelectorAll('[role="tab"]');
+
+                                // Get all tab panels
+                                const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+                                // Function to switch active tab
+                                function switchTab(event) {
+                                    // Remove the 'aria-selected' attribute and 'border-b-2' class from all tabs
+                                    tabs.forEach(tab => {
+                                        tab.setAttribute('aria-selected', 'false');
+                                        tab.classList.remove('border-b-2', 'text-gray-800');
+                                        tab.classList.add('text-gray-500');
+                                    });
+
+                                    // Add the 'aria-selected' attribute and 'border-b-2' class to the clicked tab
+                                    const clickedTab = event.target;
+                                    clickedTab.setAttribute('aria-selected', 'true');
+                                    clickedTab.classList.add('border-b-2', 'text-gray-800');
+                                    clickedTab.classList.remove('text-gray-500');
+
+                                    // Hide all tab panels
+                                    tabPanels.forEach(panel => {
+                                        panel.classList.add('hidden');
+                                    });
+
+                                    // Show the clicked tab's corresponding panel
+                                    const targetPanel = document.querySelector(clickedTab.dataset.tabsTarget);
+                                    targetPanel.classList.remove('hidden');
+                                }
+
+                                // Add event listeners to all tabs
+                                tabs.forEach(tab => {
+                                    tab.addEventListener('click', switchTab);
+                                });
+                            </script>
+
+
+                            <!-- Filter 1 -->
+                            <script>
+                                function filterTable1() {
+                                    const statusFilter1 = document.getElementById('statusFilter1').value;
+                                    const rows = document.querySelectorAll('table tbody tr');
+                                    let noDataFound = true;
+
+                                    rows.forEach(row => {
+                                        const status = row.dataset.status;
+                                        let showRow = true;
+
+                                        if (statusFilter1 && status !== statusFilter1) {
+                                            showRow = false;
+                                        }
+
+                                        row.style.display = showRow ? '' : 'none';
+                                        if (showRow) noDataFound = false;
+                                    });
+
+                                    const noDataMessage = document.getElementById('noDataMessage1');
+                                    if (noDataMessage) {
+                                        noDataMessage.style.display = noDataFound ? '' : 'none';
+                                    }
+                                }
+
+                                function clearFilters1() {
+                                    document.getElementById('statusFilter1').value = '';
+                                    filterTable1();
+                                }
+
+                                document.getElementById('statusFilter1').addEventListener('change', filterTable1);
+                            </script>
+
+
+                            <!-- Filter 2 -->
+                            <script>
+                                function filterTable2() {
+                                    const statusFilter2 = document.getElementById('statusFilter2').value;
+                                    const rows = document.querySelectorAll('table tbody tr');
+                                    let noDataFound = true;
+
+                                    rows.forEach(row => {
+                                        const status = row.dataset.status;
+                                        let showRow = true;
+
+                                        if (statusFilter2 && status !== statusFilter2) {
+                                            showRow = false;
+                                        }
+
+                                        row.style.display = showRow ? '' : 'none';
+                                        if (showRow) noDataFound = false;
+                                    });
+
+                                    const noDataMessage = document.getElementById('noDataMessage2');
+                                    if (noDataMessage) {
+                                        noDataMessage.style.display = noDataFound ? '' : 'none';
+                                    }
+                                }
+
+                                function clearFilters2() {
+                                    document.getElementById('statusFilter2').value = '';
+                                    filterTable2();
+                                }
+
+                                document.getElementById('statusFilter2').addEventListener('change', filterTable2);
+                            </script>
+
+                            <!-- Filter 3 -->
+                            <script>
+                                function filterTable3() {
+                                    const statusFilter3 = document.getElementById('statusFilter3').value;
+                                    const rows = document.querySelectorAll('table tbody tr');
+                                    let noDataFound = true;
+
+                                    rows.forEach(row => {
+                                        const status = row.dataset.status;
+                                        let showRow = true;
+
+                                        if (statusFilter3 && status !== statusFilter3) {
+                                            showRow = false;
+                                        }
+
+                                        row.style.display = showRow ? '' : 'none';
+                                        if (showRow) noDataFound = false;
+                                    });
+
+                                    const noDataMessage = document.getElementById('noDataMessage3');
+                                    if (noDataMessage) {
+                                        noDataMessage.style.display = noDataFound ? '' : 'none';
+                                    }
+                                }
+
+
+                                function clearFilters3() {
+                                    document.getElementById('statusFilter3').value = '';
+                                    filterTable3();
+                                }
+
+                                document.getElementById('statusFilter3').addEventListener('change', filterTable3);
+                            </script>
+
+
+                            <br>
                         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <script>
-                            function selectTab() {
-                                // เมื่อมีการกดเลือก Tab ให้ซ่อนข้อความเตือน
-                                const alertMessage = document.getElementById('alert-message');
-                                if (alertMessage) {
-                                    alertMessage.style.display = 'none';
-                                }
-                            }
-                        </script>
-                        <script>
-                            // Get all tab buttons
-                            const tabs = document.querySelectorAll('[role="tab"]');
-
-                            // Get all tab panels
-                            const tabPanels = document.querySelectorAll('[role="tabpanel"]');
-
-                            // Function to switch active tab
-                            function switchTab(event) {
-                                // Remove the 'aria-selected' attribute and 'border-b-2' class from all tabs
-                                tabs.forEach(tab => {
-                                    tab.setAttribute('aria-selected', 'false');
-                                    tab.classList.remove('border-b-2', 'text-gray-800');
-                                    tab.classList.add('text-gray-500');
-                                });
-
-                                // Add the 'aria-selected' attribute and 'border-b-2' class to the clicked tab
-                                const clickedTab = event.target;
-                                clickedTab.setAttribute('aria-selected', 'true');
-                                clickedTab.classList.add('border-b-2', 'text-gray-800');
-                                clickedTab.classList.remove('text-gray-500');
-
-                                // Hide all tab panels
-                                tabPanels.forEach(panel => {
-                                    panel.classList.add('hidden');
-                                });
-
-                                // Show the clicked tab's corresponding panel
-                                const targetPanel = document.querySelector(clickedTab.dataset.tabsTarget);
-                                targetPanel.classList.remove('hidden');
-                            }
-
-                            // Add event listeners to all tabs
-                            tabs.forEach(tab => {
-                                tab.addEventListener('click', switchTab);
-                            });
-                        </script>
-
-
-                        <!-- Filter 1 -->
-                        <script>
-                            function filterTable1() {
-                                const statusFilter1 = document.getElementById('statusFilter1').value;
-                                const rows = document.querySelectorAll('table tbody tr');
-                                let noDataFound = true;
-
-                                rows.forEach(row => {
-                                    const status = row.dataset.status;
-                                    let showRow = true;
-
-                                    if (statusFilter1 && status !== statusFilter1) {
-                                        showRow = false;
-                                    }
-
-                                    row.style.display = showRow ? '' : 'none';
-                                    if (showRow) noDataFound = false;
-                                });
-
-                                const noDataMessage = document.getElementById('noDataMessage1');
-                                if (noDataMessage) {
-                                    noDataMessage.style.display = noDataFound ? '' : 'none';
-                                }
-                            }
-
-                            function clearFilters1() {
-                                document.getElementById('statusFilter1').value = '';
-                                filterTable1();
-                            }
-
-                            document.getElementById('statusFilter1').addEventListener('change', filterTable1);
-                        </script>
-
-
-                        <!-- Filter 2 -->
-                        <script>
-                            function filterTable2() {
-                                const statusFilter2 = document.getElementById('statusFilter2').value;
-                                const rows = document.querySelectorAll('table tbody tr');
-                                let noDataFound = true;
-
-                                rows.forEach(row => {
-                                    const status = row.dataset.status;
-                                    let showRow = true;
-
-                                    if (statusFilter2 && status !== statusFilter2) {
-                                        showRow = false;
-                                    }
-
-                                    row.style.display = showRow ? '' : 'none';
-                                    if (showRow) noDataFound = false;
-                                });
-
-                                const noDataMessage = document.getElementById('noDataMessage2');
-                                if (noDataMessage) {
-                                    noDataMessage.style.display = noDataFound ? '' : 'none';
-                                }
-                            }
-
-                            function clearFilters2() {
-                                document.getElementById('statusFilter2').value = '';
-                                filterTable2();
-                            }
-
-                            document.getElementById('statusFilter2').addEventListener('change', filterTable2);
-                        </script>
-
-                        <!-- Filter 3 -->
-                        <script>
-                            function filterTable3() {
-                                const statusFilter3 = document.getElementById('statusFilter3').value;
-                                const rows = document.querySelectorAll('table tbody tr');
-                                let noDataFound = true;
-
-                                rows.forEach(row => {
-                                    const status = row.dataset.status;
-                                    let showRow = true;
-
-                                    if (statusFilter3 && status !== statusFilter3) {
-                                        showRow = false;
-                                    }
-
-                                    row.style.display = showRow ? '' : 'none';
-                                    if (showRow) noDataFound = false;
-                                });
-
-                                const noDataMessage = document.getElementById('noDataMessage3');
-                                if (noDataMessage) {
-                                    noDataMessage.style.display = noDataFound ? '' : 'none';
-                                }
-                            }
-
-
-                            function clearFilters3() {
-                                document.getElementById('statusFilter3').value = '';
-                                filterTable3();
-                            }
-
-                            document.getElementById('statusFilter3').addEventListener('change', filterTable3);
-                        </script>
-
-
-                        <br>
                     </div>
-
                 </div>
+
+
+                <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
+                    2025 All rights reserved by Software Engineering 3/67
+                </footer>
             </div>
-
-
-            <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
-                2025 All rights reserved by Software Engineering 3/67
-            </footer>
         </div>
-    </div>
 
-    <!-- SweetAlert2 CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- SweetAlert2 CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Script -->
-    <script>
-        // Handle the hamburger menu button
-        document.getElementById("hamburgerBtn").addEventListener("click", function() {
-            const sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("hidden");
-        });
-
-        // Handle logout button
-        document.getElementById("logoutBtn").addEventListener("click", function() {
-            Swal.fire({
-                title: 'คุณแน่ใจหรือไม่?',
-                text: 'คุณต้องการออกจากระบบหรือไม่',
-                icon: 'warning',
-                showCancelButton: true,
-                cancelButtonText: 'ยกเลิก',
-                confirmButtonText: 'ตกลง',
-                reverseButtons: true,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                customClass: {
-                    confirmButton: 'swal-confirm-btn',
-                    cancelButton: 'swal-cancel-btn'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'https://ecpreq.pcnone.com/google_auth?logout=true';
-                }
+        <!-- Script -->
+        <script>
+            // Handle the hamburger menu button
+            document.getElementById("hamburgerBtn").addEventListener("click", function() {
+                const sidebar = document.getElementById("sidebar");
+                sidebar.classList.toggle("hidden");
             });
-        });
+
+            // Handle logout button
+            document.getElementById("logoutBtn").addEventListener("click", function() {
+                Swal.fire({
+                    title: 'คุณแน่ใจหรือไม่?',
+                    text: 'คุณต้องการออกจากระบบหรือไม่',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    confirmButtonText: 'ตกลง',
+                    reverseButtons: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    customClass: {
+                        confirmButton: 'swal-confirm-btn',
+                        cancelButton: 'swal-cancel-btn'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'https://ecpreq.pcnone.com/google_auth?logout=true';
+                    }
+                });
+            });
 
 
-        document.getElementById('dashboard-btn').addEventListener('click', function() {
-            window.location.href = 'dashboard';
-        });
-        document.getElementById('re1').addEventListener('click', function() {
-            window.location.href = 'form_re01';
-        });
-        document.getElementById('re6').addEventListener('click', function() {
-            window.location.href = 'form_re06';
-        });
-        document.getElementById('re7').addEventListener('click', function() {
-            window.location.href = 'form_re07';
-        });
-        document.getElementById('form_all').addEventListener('click', function() {
-            window.location.href = 'form_all';
-        });
-    </script>
+            document.getElementById('dashboard-btn').addEventListener('click', function() {
+                window.location.href = 'dashboard';
+            });
+            document.getElementById('re1').addEventListener('click', function() {
+                window.location.href = 'form_re01';
+            });
+            document.getElementById('re6').addEventListener('click', function() {
+                window.location.href = 'form_re06';
+            });
+            document.getElementById('re7').addEventListener('click', function() {
+                window.location.href = 'form_re07';
+            });
+            document.getElementById('form_all').addEventListener('click', function() {
+                window.location.href = 'form_all';
+            });
+        </script>
 
-    <!-- Custom Style -->
-    <style>
-        .swal-confirm-btn {
-            background-color: #0059FF !important;
-            color: white !important;
-        }
+        <!-- Custom Style -->
+        <style>
+            .swal-confirm-btn {
+                background-color: #0059FF !important;
+                color: white !important;
+            }
 
-        .swal-confirm-btn:hover {
-            background-color: #0D4ABD !important;
-        }
+            .swal-confirm-btn:hover {
+                background-color: #0D4ABD !important;
+            }
 
-        .swal-cancel-btn {
-            background-color: #EC2828 !important;
-            color: white !important;
-        }
+            .swal-cancel-btn {
+                background-color: #EC2828 !important;
+                color: white !important;
+            }
 
-        .swal-cancel-btn:hover {
-            background-color: #BD0D0D !important;
-        }
+            .swal-cancel-btn:hover {
+                background-color: #BD0D0D !important;
+            }
 
-        /* ทำให้พื้นหลังคงที่ */
-        body {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* z-index: -1; */
-            /* ให้ภาพพื้นหลังอยู่หลังเนื้อหา */
-        }
+            /* ทำให้พื้นหลังคงที่ */
+            body {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                /* z-index: -1; */
+                /* ให้ภาพพื้นหลังอยู่หลังเนื้อหา */
+            }
 
-        /* ทำให้เนื้อหาหลักเลื่อน */
-        .flex-1 {
-            overflow-y: auto;
-        }
+            /* ทำให้เนื้อหาหลักเลื่อน */
+            .flex-1 {
+                overflow-y: auto;
+            }
 
-        /* ซ่อนแถบเลื่อน */
-        .flex-1::-webkit-scrollbar {
-            display: none;
-        }
-    </style>
-    <?php include '../loadtab/f.php'; ?>
+            /* ซ่อนแถบเลื่อน */
+            .flex-1::-webkit-scrollbar {
+                display: none;
+            }
+        </style>
+        <?php include '../loadtab/f.php'; ?>
 </body>
 
 </html>
