@@ -59,7 +59,7 @@ include 'connect/dbcon.php';
                 $git_unit = $row['git_unit']; //จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้
                 $reg_status = $row['reg_status']; //สถานภาพการลงทะเบียน
                 $expected_graduation = $row['expected_graduation']; //ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา
-                $email = $row['email']; //
+                $email = $row['email']; 
                 $status = $row['status'];
                 $created_at = $row['created_at']; //วันเวลาที่สร้างคำร้อง
                 $token = $row['token']; //ส่งไปหน้า re07_2
@@ -471,7 +471,7 @@ include 'connect/dbcon.php';
                             ✅ คลิกเพื่อดำเนินการ
                         </a>
                     </div>
-                    
+
                     <p style="margin-top: 30px; font-size: 14px; color: #888;">ระบบยื่นคำร้อง สาขาคอมพิวเตอร์  คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น</p>
             </div>
             ';
