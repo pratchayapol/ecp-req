@@ -98,7 +98,7 @@ include 'connect/dbcon.php';
                                 <textarea id="request_text" name="request_text" rows="2" class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($reason); ?></textarea>
                             </div>
                             <hr>
-                           <form method="POST" action="" onsubmit="return validateForm()">
+                            <form method="POST" action="" onsubmit="return validateForm()">
                                 <!-- Approval Section -->
                                 <div class="space-y-3 mb-6">
                                     <div>
@@ -373,27 +373,46 @@ include 'connect/dbcon.php';
  </script>
  HTML;
                         }
-                        // ถ้าอนุมัติจากอาจารย์ที่ปรึกษา อีเมลจะแจ้งเตือนไปที่หัวหน้าสาขา
+                        // ถ้าอนุมัติจากอาจารย์ที่ปรึกษา
                     } else {
 
-                        $Comment_head_dep = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติม
+                        $commentTeacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
                         $status = 1;
+                        $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
 
+                        //สุ่มสร้าง token 15 ตัว สำหรับ dep
+                        function generateToken($length = 15)
+                        {
+                            $characters = array_merge(
+                                range('A', 'Z'),
+                                range('a', 'z'),
+                                range('0', '9'),
+                                ['-']
+                            );
 
+                            if ($length > count($characters)) {
+                                throw new Exception("ความยาวเกินจำนวนอักขระที่ไม่ซ้ำกันได้");
+                            }
+
+                            shuffle($characters);
+                            return implode('', array_slice($characters, 0, $length));
+                        }
+                        $token_new = generateToken(); //สร้างปุ่มและแนบ token คือ https://ecpreq.pcnone.com/sendmail_re1-2?token=xxxx&token_new=yyyy
                         // SQL Query
-                        $sql = "UPDATE form_re07 
-            SET approval_status_dep = :approval_status, 
-                comment_head_dep = :comment_head_dep, 
+                        $sql = "UPDATE form_re01 
+            SET approval_status_teacher = :approval_status, 
+                comment_teacher = :comment_teacher, token_new = :token_new,
                 status = :status 
-            WHERE token_new = :token";
+            WHERE token = :token";
 
                         // เตรียมและ execute
                         $stmt = $pdo->prepare($sql);
                         $success = $stmt->execute([
                             ':approval_status' => $approvalStatus,
-                            ':comment_head_dep' => $Comment_head_dep,
+                            ':comment_teacher' => $commentTeacher,
                             ':status' => $status,
-                            ':token' => $token_new
+                            ':token_new' => $token_new,
+                            ':token' => $token
                         ]);
 
                         if ($success) {
