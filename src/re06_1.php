@@ -251,8 +251,7 @@ include 'connect/dbcon.php';
                         const line21 = document.getElementById('line1');
 
                         if (isNaN(status)) {
-                            console.log("ไม่มีข้อมูลสถานะ");
-                            return;
+                            step1.className = 'w-8 h-8 rounded-full border-2 border-green-500 bg-green-500 text-white flex items-center justify-center';
                         }
 
                         if (status === 0) {
