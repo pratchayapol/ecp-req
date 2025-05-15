@@ -325,7 +325,7 @@ include 'connect/dbcon.php';
                     <p><strong>ชื่อวิชา:</strong> ' . htmlspecialchars($course_nameTH) . '</p>
                     <p><strong>กลุ่มเรียน:</strong> ' . htmlspecialchars($group) . '</p>
                     <p><strong>เกรดเฉลี่ย (GPA):</strong> ' . htmlspecialchars($gpa) . '</p>
-                    <p><strong>จำนวนหน่วยกิต:</strong> ' . htmlspecialchars($git_unit) . '</p>
+                    <p><strong>จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้:</strong> ' . htmlspecialchars($git_unit) . '</p>
                     <p><strong>สถานภาพการลงทะเบียน:</strong> ' . htmlspecialchars($reg_status) . '</p>
                     <p><strong>คาดว่าจะสำเร็จการศึกษา:</strong> ' . htmlspecialchars($expected_graduation) . '</p>
                     <p><strong>เหตุผล:</strong> ' . nl2br(htmlspecialchars($reason)) . '</p>
@@ -451,7 +451,7 @@ include 'connect/dbcon.php';
                     <p><strong>ชื่อวิชา:</strong> ' . htmlspecialchars($course_nameTH) . '</p>
                     <p><strong>กลุ่มเรียน:</strong> ' . htmlspecialchars($group) . '</p>
                     <p><strong>เกรดเฉลี่ย (GPA):</strong> ' . htmlspecialchars($gpa) . '</p>
-                    <p><strong>จำนวนหน่วยกิต:</strong> ' . htmlspecialchars($git_unit) . '</p>
+                    <p><strong>จำนวนหน่วยกิตที่ลงทะเบียนในภาคการศึกษานี้:</strong> ' . htmlspecialchars($git_unit) . '</p>
                     <p><strong>สถานภาพการลงทะเบียน:</strong> ' . htmlspecialchars($reg_status) . '</p>
                     <p><strong>คาดว่าจะสำเร็จการศึกษา:</strong> ' . htmlspecialchars($expected_graduation) . '</p>
                     <p><strong>เหตุผล:</strong> ' . nl2br(htmlspecialchars($reason)) . '</p>
