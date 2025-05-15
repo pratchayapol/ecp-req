@@ -50,22 +50,20 @@ include 'connect/dbcon.php';
             if ($row) {
                 extract($row);
                 $form_id = $row['form_id'];
-                $title = $row['title'];
-                $to = $row['to'];
-                $email = $row['email'];
-                $faculty = $row['faculty'];
-                $field = $row['field'];
-                $course_level = $row['course_level'];
-                $request_text = $row['request_text'];
-                $comment_teacher = $row['comment_teacher'];
-                $approval_status_teacher = $row['approval_status_teacher'];
-                $comment_head_dep = $row['comment_head_dep'];
-                $approval_status_dep = $row['approval_status_dep'];
+                $term = $row['term'];
+                $year = $row['year'];
+                $reason = $row['reason'];
+                $group = $row['Group']; // ชื่อคอลัมน์คือ 'Group' (G ใหญ่)
+                $course_id = $row['course_id'];
+                $course_nameTH = $row['course_nameTH'];
+                $coutter = $row['coutter'];
+                $reg_status = $row['reg_status'];
                 $status = $row['status'];
-                $created_at = $row['created_at'];
+                $comment_teacher = $row['comment_teacher'];
+                $time_stamp = $row['time_stamp'];
+                $email = $row['email'];
                 $token = $row['token'];
                 $teacher_email = $row['teacher_email'];
-                $head_department = $row['head_department'];
 
                 // ดึงชื่อตัวเอง
                 $sql = "SELECT name, email, id FROM accounts WHERE email = :email";
@@ -83,14 +81,92 @@ include 'connect/dbcon.php';
                         <!-- Form Information -->
                         <div class="w-full bg-gray-50 rounded-xl p-6 shadow-sm space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div><span class="font-semibold">FORM ID:</span> RE.01-<?php echo htmlspecialchars($form_id); ?></div>
-                                <div><span class="font-semibold">เรื่อง:</span> <?php echo htmlspecialchars($title); ?></div>
-                                <div><span class="font-semibold">เรียน:</span> <?php echo htmlspecialchars($to); ?></div>
-                                <div><span class="font-semibold">ชื่อนักศึกษา:</span> <?php echo htmlspecialchars($profile['name']); ?></div>
+                                <div><span class="font-semibold">FORM ID:</span> RE.06-<?php echo htmlspecialchars($form_id); ?></div>
+                                <div><span class="font-semibold">ชื่อ:</span> <?php echo htmlspecialchars($profile['name']); ?></div>
                                 <div><span class="font-semibold">รหัสนักศึกษา:</span> <?php echo $profile['id']; ?></div>
-                                <div><span class="font-semibold">คณะ:</span> <?php echo htmlspecialchars($faculty); ?></div>
-                                <div><span class="font-semibold">สาขา:</span> <?php echo htmlspecialchars($field); ?></div>
-                                <div><span class="font-semibold">ระดับชั้น:</span> <?php echo htmlspecialchars($course_level); ?></div>
+                                <div><span class="font-semibold">รหัสวิชา:</span> <?php echo htmlspecialchars($course_id); ?></div>
+                                <div><span class="font-semibold">ชื่อวิชา:</span> <?php echo htmlspecialchars($course_nameTH); ?></div>
+                                <div><span class="font-semibold">กลุ่มเรียน:</span> <?php echo htmlspecialchars($group); ?></div>
+                                <div><span class="font-semibold">ภาคเรียน:</span> <?php echo htmlspecialchars($term); ?></div>
+                                <div><span class="font-semibold">ปีการศึกษา:</span> <?php echo htmlspecialchars($year); ?></div>
+                                <div><span class="font-semibold">ประเภทการลงทะเบียน:</span> <?php echo htmlspecialchars($reg_status); ?></div>
+                                <div><span class="font-semibold">ยอดลงทะเบียนปัจจุบัน:</span> <?php echo htmlspecialchars($coutter); ?></div>
+                                <div><span class="font-semibold">เหตุผลในการขอเพิ่มที่นั่ง:</span> <?php echo htmlspecialchars($reg_status); ?></div>
+                                <hr>
+
+                                <form method="POST" action="" onsubmit="return validateForm()">
+                                    <!-- Approval Section -->
+                                    <div class="space-y-3 mb-6">
+                                        <div>
+                                            <label class="font-semibold block mb-1">ความคิดเห็นของอาจารย์ประจำรายวิชา:</label>
+                                            <div class="flex items-center space-x-4">
+                                                <?php if (is_null($status)): ?>
+                                                    <label class="flex items-center space-x-2">
+                                                        <input type="radio" name="approval_status" value="1">
+                                                        <span>อนุมัติ</span>
+                                                    </label>
+                                                    <label class="flex items-center space-x-2">
+                                                        <input type="radio" name="approval_status" value="0">
+                                                        <span>ไม่อนุมัติ</span>
+                                                    </label>
+                                                <?php else: ?>
+                                                    <?php if ($approval_status_teacher == 1): ?>
+                                                        <span class="text-green-600 font-semibold">อนุมัติ</span>
+                                                    <?php else: ?>
+                                                        <span class="text-red-600 font-semibold">ไม่อนุมัติ</span>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label for="comment_teacher" class="font-semibold block mb-1">คำอธิบายเพิ่มเติม (ถ้ามี):</label>
+                                            <?php if (is_null($status)): ?>
+                                                <textarea id="comment_teacher" name="comment_teacher" rows="2"
+                                                    class="w-full text-gray-600 border rounded p-2"
+                                                    placeholder="โปรดกรอกความคิดเห็นของท่าน"><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
+                                            <?php else: ?>
+                                                <textarea id="comment_teacher" name="comment_teacher" rows="2"
+                                                    class="w-full text-gray-600 border rounded p-2 bg-gray-100" readonly><?= htmlspecialchars($comment_teacher ?? '') ?></textarea>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <?php if (is_null($status)): ?>
+                                        <div class="text-center">
+                                            <button type="submit"
+                                                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow">
+                                                พิจารณาแล้ว
+                                            </button>
+                                        </div>
+                                    <?php endif; ?>
+
+                                </form>
+
+                                <script>
+                                    function validateForm() {
+                                        const radios = document.getElementsByName('approval_status');
+
+                                        let selected = false;
+                                        for (let i = 0; i < radios.length; i++) {
+                                            if (radios[i].checked) {
+                                                selected = true;
+                                                break;
+                                            }
+                                        }
+
+                                        if (!selected) {
+                                            alert('กรุณาเลือกผลการพิจารณา (อนุมัติ หรือ ไม่อนุมัติ)');
+                                            return false;
+                                        }
+
+
+                                        return true;
+                                    }
+                                </script>
+
                             </div>
                             <!-- Request Text -->
                             <div>
@@ -405,8 +481,8 @@ include 'connect/dbcon.php';
 
                         $Comment_head_dep = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติม
                         $status = 2;
-                     
-                       
+
+
                         // SQL Query
                         $sql = "UPDATE form_re01 
             SET approval_status_dep = :approval_status, 
