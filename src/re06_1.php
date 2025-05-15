@@ -271,16 +271,16 @@ include 'connect/dbcon.php';
                     // รับค่าจากฟอร์ม
                     $approvalStatus = $_POST['approval_status'];  // approved หรือ not_approved
 
-                    // ถ้าไม่อนุมัติจากหัวหน้าสาขา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
+                    // ถ้าไม่อนุมัติจากอาจารย์ประจำรายวิชา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
                     if ($approvalStatus == "0") {
-                        $Comment_head_dep = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติมจากหัวหน้าสาขา
-                        $status = 0; // ไม่ต้องส่งไปยังหัวหน้าสาขา ให้จบไปเลย
+                        $comment_teacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติมจากอาจารย์ประจำรายวิชา
+                        $status = 0; // ให้จบไปเลย
                         $token = $_GET['token'];  // หรือ $_POST ถ้าส่งมาจาก hidden field
 
                         // SQL Query
-                        $sql = "UPDATE form_re01 
- SET approval_status_dep = :approval_status, 
-     comment_head_dep = :comment_head_dep,
+                        $sql = "UPDATE form_re06
+ SET approval_status_teacher = :approval_status, 
+     comment_teacher = :comment_teacher,
      status = :status 
  WHERE token = :token";
 
@@ -288,7 +288,7 @@ include 'connect/dbcon.php';
                         $stmt = $pdo->prepare($sql);
                         $success = $stmt->execute([
                             ':approval_status' => $approvalStatus,
-                            ':comment_head_dep' => $Comment_head_dep,
+                            ':comment_teacher' => $comment_teacher,
                             ':status' => $status,
                             ':token' => $token
                         ]);
@@ -328,16 +328,13 @@ include 'connect/dbcon.php';
              <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
              <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
 <hr>
-<p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> ไม่อนุมัติ</p>
-<p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
-<hr>
-<p><strong>สถานะการพิจารณาจากหัวหน้าสาขา:</strong> ไม่อนุมัติ</p>
-<p><strong>ความคิดเห็นของหัวหน้าสาขา:</strong> ' . htmlspecialchars($Comment_head_dep) . '</p>
+<p><strong>สถานะการพิจารณาจากอาจารย์ประจำรายวิชา:</strong> ไม่อนุมัติ</p>
+<p><strong>ความคิดเห็นของอาจารย์ประจำรายวิชา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
+
 
          </div>
  
          <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
-         📧 <strong>อีเมลหัวหน้าสาขา:</strong> ' . htmlspecialchars($head_department) . '</p>
 
          <p style="margin-top: 30px; font-size: 14px; color: #888;">ระบบยื่นคำร้อง สาขาคอมพิวเตอร์  คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น</p>
      </div>
@@ -381,14 +378,14 @@ include 'connect/dbcon.php';
                         // ถ้าอนุมัติจากหัวหน้าสาขา อีเมลจะแจ้งเตือนกลับไปที่นักศึกษาให้ทราบ
                     } else {
 
-                        $Comment_head_dep = $_POST['comment_head_dep'];  // คำอธิบายเพิ่มเติม
-                        $status = 2;
+                        $comment_teacher = $_POST['comment_teacher'];  // คำอธิบายเพิ่มเติม
+                        $status = 1;
 
 
                         // SQL Query
                         $sql = "UPDATE form_re01 
             SET approval_status_dep = :approval_status, 
-                comment_head_dep = :comment_head_dep, 
+                comment_teacher = :comment_teacher, 
                 status = :status 
             WHERE token_new = :token";
 
@@ -396,7 +393,7 @@ include 'connect/dbcon.php';
                         $stmt = $pdo->prepare($sql);
                         $success = $stmt->execute([
                             ':approval_status' => $approvalStatus,
-                            ':comment_head_dep' => $Comment_head_dep,
+                            ':comment_teacher' => $comment_teacher,
                             ':status' => $status,
                             ':token' => $token_new
                         ]);
@@ -437,22 +434,12 @@ include 'connect/dbcon.php';
                         <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
                         <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
                         <hr>
-<p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> อนุมัติ</p>
-<p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
-<hr>
-<p><strong>สถานะการพิจารณาจากหัวหน้าสาขา:</strong> อนุมัติ</p>
-<p><strong>ความคิดเห็นของหัวหน้าสาขา:</strong> ' . htmlspecialchars($Comment_head_dep) . '</p>
+<p><strong>สถานะการพิจารณาจากอาจารย์ประจำรายวิชา:</strong> อนุมัติ</p>
+<p><strong>ความคิดเห็นของอาจารย์ประจำรายวิชา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
+
                     </div>
             
-                    <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
-                    📧 <strong>อีเมลหัวหน้าสาขา:</strong> ' . htmlspecialchars($head_department) . '</p>
-            
-                    <div style="margin-top: 30px;">
-                        <a href="https://ecpreq.pcnone.com/re01_2?token=' . urlencode($token) . '&token_new=' . urlencode($token_new) . '" 
-                            style="display: inline-block; padding: 12px 20px; background-color: #ffa500; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px;">
-                            ✅ คลิกเพื่อดำเนินการ
-                        </a>
-                    </div>
+                    <p style="margin-top: 20px;">📧 <strong>อีเมลอาจารย์ประจำรายวิชา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
             
                     <p style="margin-top: 30px; font-size: 14px; color: #888;">ระบบยื่นคำร้อง สาขาคอมพิวเตอร์  คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น</p>
                 </div>
