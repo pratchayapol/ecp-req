@@ -556,9 +556,9 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
             $stmt = $pdo->prepare("INSERT INTO form_re06 
-        (term, year, reason, `Group`, course_id, course_nameTH, coutter, status, comment_teacher, reg_status, time_stamp, email, teacher_email, token) 
+        (term, year, reason, `Group`, course_id, course_nameTH, coutter, status, comment_teacher, reg_status, created_at, email, teacher_email, token) 
         VALUES 
-        (:term, :year, :reason, :group, :course_id, :course_nameTH, :coutter, NULL, NULL, :reg_status, :time_stamp, :email, :teacher_email, :token)");
+        (:term, :year, :reason, :group, :course_id, :course_nameTH, :coutter, NULL, NULL, :reg_status, :created_at, :email, :teacher_email, :token)");
 
             $stmt->execute([
                 ':term' => $semester,
@@ -569,7 +569,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 ':course_nameTH' => $course_nameTH,
                 ':coutter' => $registrations,
                 ':reg_status' => $regStatus,
-                ':time_stamp' => $timestamp,
+                ':created_at' => $timestamp,
                 ':email' => $email,
                 ':teacher_email' => $teacher_email,
                 ':token' => $token

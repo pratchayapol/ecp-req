@@ -94,8 +94,8 @@ include 'connect/dbcon.php';
 
                             </div>
 
-                            <div><span class="font-semibold">เหตุผลในการขอเพิ่มที่นั่ง:</span><textarea id="request_text" name="request_text" rows="2" 
-                            class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($reason); ?></textarea></div>
+                            <div><span class="font-semibold">เหตุผลในการขอเพิ่มที่นั่ง:</span><textarea id="request_text" name="request_text" rows="2"
+                                    class="w-full text-gray-600 border rounded p-2 bg-gray-100 cursor-default" readonly><?php echo htmlspecialchars($reason); ?></textarea></div>
 
                             <hr>
 
@@ -319,22 +319,19 @@ include 'connect/dbcon.php';
          <h2 style="color: #ffa500; font-size: 24px;">📄 ยี่นคำร้องทั่วไป (RE.01)</h2>
          <p style="margin-top: 10px; color:rgb(255, 255, 255); ">เรียน <strong>' . htmlspecialchars($to) . '</strong></p>
  
-         <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500; color: #000;">
-             <p><strong>ชื่อ:</strong> ' . htmlspecialchars($profile['name']) . '</p>
-             <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($profile['id']) . '</p>
-             <p><strong>เรื่อง:</strong> ' . htmlspecialchars($title) . '</p>
-             <p><strong>คณะ:</strong> ' . htmlspecialchars($faculty) . '</p>
-             <p><strong>สาขาวิชา:</strong> ' . htmlspecialchars($field) . '</p>
-             <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
-             <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
-<hr>
-<p><strong>สถานะการพิจารณาจากอาจารย์ประจำรายวิชา:</strong> ไม่อนุมัติ</p>
-<p><strong>ความคิดเห็นของอาจารย์ประจำรายวิชา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
-
-
-         </div>
- 
-         <p style="margin-top: 20px;">📧 <strong>อีเมลที่ปรึกษา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
+                    <div style="margin-top: 15px; padding: 15px; background-color:rgb(171, 166, 166); border-left: 4px solid #ffa500; color: #000;">
+                        <p><strong>ชื่อ:</strong> ' . htmlspecialchars($iname) . '</p>
+                        <p><strong>รหัสนักศึกษา:</strong> ' . htmlspecialchars($id) . '</p>
+                        <p><strong>รหัสวิชา:</strong> ' . htmlspecialchars($courseId) . '</p>
+                        <p><strong>ชื่อวิชา:</strong> ' . htmlspecialchars($course_nameTH) . '</p>
+                        <p><strong>กลุ่มเรียน:</strong> ' . htmlspecialchars($group) . '</p>
+                        <p><strong>ภาคเรียน:</strong> ' . htmlspecialchars($term) . ' / <strong>ปีการศึกษา:</strong> ' . htmlspecialchars($year) . '</p>
+                        <p><strong>ประเภทการลงทะเบียน:</strong> ' . htmlspecialchars($regStatus) . '</p>
+                        <p><strong>ยอดลงทะเบียนปัจจุบัน:</strong> ' . htmlspecialchars($registrations) . ' คน</p>
+                        <p><strong>เหตุผลในการขอเพิ่มที่นั่ง:</strong> ' . htmlspecialchars($reason) . '</p>
+                    </div>
+               
+                    <p style="margin-top: 20px;">📧 <strong>อีเมลอาจารย์ประจำรายวิชา:</strong> ' . htmlspecialchars($teacher_email) . '<br>
 
          <p style="margin-top: 30px; font-size: 14px; color: #888;">ระบบยื่นคำร้อง สาขาคอมพิวเตอร์  คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น</p>
      </div>
