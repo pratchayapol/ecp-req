@@ -4,7 +4,8 @@ include '../connect/dbcon.php';
 // echo '<pre>';
 // print_r($_SESSION);
 // echo '</pre>';
-
+error_reporting(0);
+ini_set('display_errors', 0);
 // ตรวจสอบว่ามีข้อมูลใน session หรือไม่
 if (isset($_SESSION['user'])) {
     $name = $_SESSION['user']['name'];
