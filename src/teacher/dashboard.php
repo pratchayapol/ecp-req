@@ -66,14 +66,14 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                     <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] shadow-md" id="dashboard-btn"> Dashboard </button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="form_all">คำร้องของนักศึกษา</button>
 
-                    <?php 
+                    <?php
                     //ถ้า หัวหน้าสาขา dep = TRUE ให้แสดงปุ่มดังนี้
                     if ($dep === "TRUE") {
                     ?>
-                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="adviser"> จัดการที่ปรึกษา </button>
-                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="course"> จัดการรายวิชา </button>
-                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="news"> จัดการข้อมูลประชาสัมพันธ์ </button>
-                  <?php } ?>
+                        <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="adviser"> จัดการที่ปรึกษา </button>
+                        <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="course"> จัดการรายวิชา </button>
+                        <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="news"> จัดการข้อมูลประชาสัมพันธ์ </button>
+                    <?php } ?>
 
 
                 </div>
@@ -101,49 +101,50 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
+                    <div class="card-body">
+                        <?php
+                        try {
+                            // Query the database
+                            $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 1");
+                            $stmt->execute();
 
-                    <?php
-                    try {
-                        // Query the database
-                        $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 1");
-                        $stmt->execute();
+                            // Check if any data is returned
+                            if ($stmt->rowCount() == 0) {
+                                echo '<center><br><br><h3 style="color:red">!!! ไม่พบข้อมูลการประกาศข่าว !!!</h3><br><br>';
+                            } else {
+                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                    // วันภาษาไทย
+                                    $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์");
+                                    // เดือนภาษาไทย
+                                    $ThMonth = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
 
-                        // Check if any data is returned
-                        if ($stmt->rowCount() == 0) {
-                            echo '<center><br><br><h3 style="color:red">!!! ไม่พบข้อมูลการประกาศข่าว !!!</h3><br><br>';
-                        } else {
-                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                // วันภาษาไทย
-                                $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์");
-                                // เดือนภาษาไทย
-                                $ThMonth = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+                                    // วันที่ ที่ต้องการเอามาเปลี่ยนฟอแมต
+                                    $myDATE = $row['date_published']; // อาจมาจากฐานข้อมูล
+                                    // กำหนดคุณสมบัติ
+                                    $time = date("H:i:s", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
+                                    $week = date("w", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
+                                    $months = date("m", strtotime($myDATE)) - 1; // ค่าเดือน (1-12)
+                                    $day = date("d", strtotime($myDATE)); // ค่าวันที่(1-31)
+                                    $years = date("Y", strtotime($myDATE)) + 543; // ค่า ค.ศ.บวก 543 ทำให้เป็น ค.ศ.
+                                    $datetime = "วัน $ThDay[$week] ที่ $day $ThMonth[$months] $years เวลา $time น.";
 
-                                // วันที่ ที่ต้องการเอามาเปลี่ยนฟอแมต
-                                $myDATE = $row['date_published']; // อาจมาจากฐานข้อมูล
-                                // กำหนดคุณสมบัติ
-                                $time = date("H:i:s", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-                                $week = date("w", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-                                $months = date("m", strtotime($myDATE)) - 1; // ค่าเดือน (1-12)
-                                $day = date("d", strtotime($myDATE)); // ค่าวันที่(1-31)
-                                $years = date("Y", strtotime($myDATE)) + 543; // ค่า ค.ศ.บวก 543 ทำให้เป็น ค.ศ.
-                                $datetime = "วัน $ThDay[$week] ที่ $day $ThMonth[$months] $years เวลา $time น.";
+                                    // Display the article title
+                                    echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
 
-                                // Display the article title
-                                echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
+                                    // Display the article content with HTML tags
+                                    // Use `htmlspecialchars` on the title to prevent XSS, but not on content to allow HTML rendering
+                                    echo $row["article_content"];
 
-                                // Display the article content with HTML tags
-                                // Use `htmlspecialchars` on the title to prevent XSS, but not on content to allow HTML rendering
-                                echo $row["article_content"];
-
-                                // Display the modified date
-                                echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
+                                    // Display the modified date
+                                    echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
+                                }
                             }
+                        } catch (PDOException $e) {
+                            // In case of error, output the error message
+                            echo 'Connection failed: ' . $e->getMessage();
                         }
-                    } catch (PDOException $e) {
-                        // In case of error, output the error message
-                        echo 'Connection failed: ' . $e->getMessage();
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
 
             </div>
