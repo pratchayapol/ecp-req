@@ -37,6 +37,28 @@ try {
         $teacher_email = $row['teacher_email'];
         $head_department = $row['head_department'];
 
+        $datetime = new DateTime($created_at);
+        $formatted_date = $datetime->format('d/m/Y H:i'); // 15/05/2025 10:45
+
+        function formatDateThai($dateStr) {
+    $thaiMonths = [
+        "", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+        "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+    ];
+
+    $dt = new DateTime($dateStr);
+    $day = $dt->format('j');
+    $month = (int)$dt->format('n');
+    $year = (int)$dt->format('Y') + 543; // แปลงเป็นปีพุทธศักราช
+    $time = $dt->format('H:i');
+
+    return "$day " . $thaiMonths[$month] . " $year เวลา $time น.";
+}
+
+$formatted_created_at = formatDateThai($created_at);
+
+
+
     } else {
         echo "ไม่พบข้อมูลที่ตรงกับ token นี้";
     }
@@ -114,6 +136,12 @@ $pdf->SetY(105);
 $pdf->SetX(30);
 $pdf->SetFont('sara', '', 11.5);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at), 0, 1, 'R');
+
+$pdf->SetY(105);
+$pdf->SetX(30);
+$pdf->SetFont('sara', '', 11.5);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $formatted_created_at), 0, 1, 'R');
+
 
 
 // $id = $_GET['id'];
