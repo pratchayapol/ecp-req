@@ -90,7 +90,7 @@ $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // //email นักศึกษา
 $pdf->SetY(178);
-$pdf->SetX(32.5);
+$pdf->SetX(33);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
@@ -116,13 +116,13 @@ $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
 // //ชื่อวิชาภาษาไทย1
 $pdf->SetY(130);
-$pdf->SetX(40);
+$pdf->SetX(50);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_nameTH), 0, 1, 'L');
 
 // //ชื่อวิชาภาษาไทย2
 $pdf->SetY(150);
-$pdf->SetX(40);
+$pdf->SetX(50);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_nameTH), 0, 1, 'L');
 
