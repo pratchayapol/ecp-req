@@ -155,24 +155,19 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                         <div class="container">
                             <form action="" method="POST">
                                 <?php
+                                // ดึงข้อมูลจากฐานข้อมูล
                                 $sql = "SELECT * FROM dashboard WHERE id_dash = 1";
                                 $result = $pdo->query($sql);
-                                $row1 = mysqli_fetch_assoc($result);
+                                $row1 = $result->fetch(PDO::FETCH_ASSOC);
                                 ?>
                                 <center>
                                     <div class="input-field">
-
-                                        <textarea name="Article_content" id="Article_editor" value=""><?php echo $row1["article_content"]; ?></textarea>
+                                        <textarea name="Article_content" id="Article_editor"><?php echo htmlspecialchars($row1["article_content"]); ?></textarea>
                                         <br>
                                         <a href="dashboard" class="btn btn-danger">Cancel</a>
                                         <input type="submit" class="btn btn-primary" name="submit_data" value="Save">
-
                                     </div>
                                 </center>
-                                <?php
-
-                                ?>
-
                             </form>
                         </div>
                     </div>
