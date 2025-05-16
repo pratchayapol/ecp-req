@@ -182,12 +182,11 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
             </div>
 
-            <!-- ✅ CKEditor Script -->
-            <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+            <!-- Custom plugin ckedit 4-->
+            <script src="../ckeditor/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('Article_editor');
+                CKEDITOR.replace('Article_editor')
             </script>
-
 
 
             <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
