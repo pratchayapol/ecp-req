@@ -28,6 +28,25 @@ $sql = "SELECT name, email FROM accounts WHERE email = :email";
 $stmt = $pdo->prepare($sql);
 $stmt->execute(['email' => $email]);
 $profile = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+if (isset($_POST['submit_data'])) {
+    $articleContent = $_POST['Article_content'];
+
+    try {
+        $sql = "UPDATE dashboard SET article_content = :content WHERE id_dash = 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':content', $articleContent, PDO::PARAM_STR);
+        $stmt->execute();
+
+        // แจ้งเตือนสำเร็จด้วย JavaScript
+        echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว'); window.location='dashboard';</script>";
+        exit;
+    } catch (PDOException $e) {
+        echo "<script>alert('เกิดข้อผิดพลาด: " . $e->getMessage() . "');</script>";
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="th">
