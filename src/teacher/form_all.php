@@ -213,13 +213,25 @@ function getNameByEmail($pdo, $email)
                                                                     class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
                                                                     PDF
                                                                 </a>
+
                                                             <?php elseif (is_null($row1['status'])): ?>
-                                                                <!-- ปุ่ม พิจารณา สีเหลือง ถ้า status เป็น null -->
+                                                                <!-- ปุ่ม พิจารณา (อาจารย์ผู้สอน) -->
                                                                 <a href="https://ecpreq.pcnone.com/re01_1?token=<?= urlencode($row1['token']) ?>" target="_blank"
                                                                     class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm">
                                                                     พิจารณา
                                                                 </a>
+
                                                             <?php endif; ?>
+
+                                                            <!-- ปุ่ม พิจารณา (หัวหน้าสาขา) -->
+                                                            <?php if (isset($row1['head_department']) && $row1['head_department'] == $email): ?>
+                                                                <a href="https://ecpreq.pcnone.com/re01_2?token=<?= urlencode($row1['token']) ?>&token_new=<?= urlencode($row1['token_new']) ?>"
+                                                                    target="_blank"
+                                                                    class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm ml-2">
+                                                                    พิจารณา (หัวหน้า)
+                                                                </a>
+                                                            <?php endif; ?>
+
                                                         </div>
                                                     </td>
 
