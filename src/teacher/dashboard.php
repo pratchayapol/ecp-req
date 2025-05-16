@@ -17,7 +17,7 @@ if (isset($_SESSION['user'])) {
     $course_level = $_SESSION['course_level'] ?? '';
     $faculty = $_SESSION['faculty'] ?? '';
     $field = $_SESSION['field'] ?? '';
-    $dep = $_SESSION['dep'] ?? '';
+    echo $dep = $_SESSION['dep'] ?? '';
     $academicYear = $_SESSION['academic_year'] ?? '';
     $academicLevel = $_SESSION['academic_level'] ?? '';
 } else {
