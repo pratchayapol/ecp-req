@@ -206,7 +206,10 @@ if (isset($_POST['submit_data'])) {
             <!-- Custom plugin ckedit 4-->
             <script src="../ckeditor/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('Article_editor')
+                CKEDITOR.replace('Article_editor', {
+                    extraAllowedContent: '*(*);*{*}',
+                    allowedContent: true
+                });
             </script>
 
 
