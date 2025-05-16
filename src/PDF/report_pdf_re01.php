@@ -40,7 +40,12 @@ try {
         $datetime = new DateTime($created_at);
         $formatted_date = $datetime->format('d/m/Y H:i'); // 15/05/2025 10:45
 
-        function formatDateThai($dateStr) {
+        function formatDateThai($dateStr, $spacing = [' ', '', ' ', ' ']) {
+    // spacing[0] = เว้นวรรคหลังวัน
+    // spacing[1] = เว้นวรรคหลังเดือน
+    // spacing[2] = เว้นวรรคหลังปี
+    // spacing[3] = เว้นวรรคหลัง "เวลา"
+
     $thaiMonths = [
         "", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
         "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
@@ -51,14 +56,9 @@ try {
     $month = (int)$dt->format('n');
     $year = (int)$dt->format('Y') + 543;
     $time = $dt->format('H:i');
-    $space = '　'; // ช่องว่าง full-width (Unicode U+3000)
 
-
-    // 👇 ปรับเว้นวรรคตรงนี้ได้เลยตามต้องการ
-    return "$day{$space}{$space}" . $thaiMonths[$month] . "{$space}{$space}$year{$space}{$space}{$space}เวลา $time น.";
-
+    return $day . $spacing[0] . $thaiMonths[$month] . $spacing[1] . $year . $spacing[2] . 'เวลา' . $spacing[3] . $time . ' น.';
 }
-
 
 
 
@@ -142,18 +142,13 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_head_dep), 0, 1, 'L');
 // $pdf->SetFont('sara', '', 11.5);
 // $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at), 0, 1, 'R');
 
-// $created_at_thai = formatDateThai($created_at, ['  ', '   ', '    ', ' ']);
-// // เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
+$created_at_thai = formatDateThai($created_at, ['  ', '   ', '    ', ' ']);
+// เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
-// $pdf->SetY(32);
-// $pdf->SetX(123);
-// $pdf->SetFont('sara', '', 11.5);
-// $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'R');
-$pdf->Cell(20, 2, iconv('utf-8', 'cp874', "$day"), 0, 0, 'L');
-$pdf->Cell(35, 2, iconv('utf-8', 'cp874', $thaiMonths[$month]), 0, 0, 'L');
-$pdf->Cell(30, 2, iconv('utf-8', 'cp874', "$year"), 0, 0, 'L');
-$pdf->Cell(30, 2, iconv('utf-8', 'cp874', "เวลา $time น."), 0, 1, 'L');
-
+$pdf->SetY(32);
+$pdf->SetX(123);
+$pdf->SetFont('sara', '', 11.5);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'R');
 
 
 
