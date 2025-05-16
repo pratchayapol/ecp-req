@@ -1266,17 +1266,17 @@ ORDER BY form_id DESC");
         document.getElementById('dashboard-btn').addEventListener('click', function() {
             window.location.href = 'dashboard';
         });
-        document.getElementById('re1').addEventListener('click', function() {
-            window.location.href = 'form_re01';
-        });
-        document.getElementById('re6').addEventListener('click', function() {
-            window.location.href = 'form_re06';
-        });
-        document.getElementById('re7').addEventListener('click', function() {
-            window.location.href = 'form_re07';
-        });
         document.getElementById('form_all').addEventListener('click', function() {
             window.location.href = 'form_all';
+        });
+         document.getElementById('adviser').addEventListener('click', function() {
+            window.location.href = 'adviser';
+        });
+        document.getElementById('course').addEventListener('click', function() {
+            window.location.href = 'course';
+        });
+        document.getElementById('news').addEventListener('click', function() {
+            window.location.href = 'news';
         });
     </script>
 
