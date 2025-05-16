@@ -51,6 +51,8 @@ try {
     $month = (int)$dt->format('n');
     $year = (int)$dt->format('Y') + 543;
     $time = $dt->format('H:i');
+    $space = '　'; // ช่องว่าง full-width (Unicode U+3000)
+
 
     // 👇 ปรับเว้นวรรคตรงนี้ได้เลยตามต้องการ
     return "$day{$space}{$space}" . $thaiMonths[$month] . "{$space}{$space}$year{$space}{$space}{$space}เวลา $time น.";
