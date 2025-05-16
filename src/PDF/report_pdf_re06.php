@@ -37,6 +37,30 @@ try {
         $teacher_email = $row['teacher_email'];
         $token = $row['token'];
 
+        //แปลงวันเดือนปีเวลา
+        $datetime = new DateTime($created_at);
+        $formatted_date = $datetime->format('d/m/Y H:i'); // 15/05/2025 10:45
+
+        function formatDateThai($dateStr, $spacing = [' ', ' ', ' ', ' ']) {
+    // spacing[0] = เว้นวรรคหลังวัน
+    // spacing[1] = เว้นวรรคหลังเดือน
+    // spacing[2] = เว้นวรรคหลังปี
+    // spacing[3] = เว้นวรรคหลัง "เวลา"
+
+    $thaiMonths = [
+        "", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+        "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+    ];
+
+    $dt = new DateTime($dateStr);
+    $day = $dt->format('j');
+    $month = (int)$dt->format('n');
+    $year = (int)$dt->format('Y') + 543;
+    $time = $dt->format('H:i');
+
+    return $day . $spacing[0] . $thaiMonths[$month] . $spacing[1] . $year . $spacing[2] . 'เวลา' . $spacing[3] . $time . ' น.';
+}
+
     } else {
         echo "ไม่พบข้อมูลที่ตรงกับ token นี้";
     }
@@ -49,20 +73,20 @@ try {
 $pdf = new FPDF();
 $pdf->AddPage('P');
 $pdf->AddFont('sara', '', 'THSarabun.php');
-$pdf->Image('RE.01bg.jpg', 0, 0, 210, 297);
+$pdf->Image('RE.06bg.jpg', 0, 0, 210, 297);
 $pdf->SetXY(190, 0);
 
 // //เรื่อง
 $pdf->SetY(40.5);
 $pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $title), 0, 1, 'L');
+$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $term), 0, 1, 'L');
 
 // //เรียน
 $pdf->SetY(49);
 $pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $to), 0, 1, 'L');
+$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // //email นักศึกษา
 $pdf->SetY(121.5);
@@ -74,7 +98,7 @@ $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 $pdf->SetY(79);
 $pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $faculty), 0, 1, 'L');
+$pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $group), 0, 1, 'L');
 
 
 
@@ -82,19 +106,19 @@ $pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $faculty), 0, 1, 'L');
 $pdf->SetY(79);
 $pdf->SetX(35);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'C');
+$pdf->Cell(165, 2, iconv('utf-8', 'cp874', $course_id), 0, 1, 'C');
 
 // //ชั้นปี
 $pdf->SetY(79);
 $pdf->SetX(31);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
+$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_nameTH), 0, 1, 'R');
 
 // //เหตุผล
 $pdf->SetY(89);
 $pdf->SetX(50);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $request_text), 0, 1, 'L');
+$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $coutter), 0, 1, 'L');
 
 // //ความคิดเห็นอาจารย์ที่ปรึกษา
 $pdf->SetY(140.5);
@@ -107,14 +131,16 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_teacher), 0, 1, 'L');
 $pdf->SetY(168.5);
 $pdf->SetX(15);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_head_dep), 0, 1, 'L');
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $reason), 0, 1, 'L');
 
 // //เวลา่
-$pdf->SetY(105);
-$pdf->SetX(30);
-$pdf->SetFont('sara', '', 11.5);
-$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at), 0, 1, 'R');
+$created_at_thai = formatDateThai($created_at, ['                  ','                  ','    ', ' ']);
+// เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
+$pdf->SetY(32);
+$pdf->SetX(121);
+$pdf->SetFont('sara', '', 11.5);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
 // $id = $_GET['id'];
 // $cer = "SELECT * FROM img_event WHERE id_van = $id";
