@@ -214,9 +214,9 @@ function getNameByEmail($pdo, $email)
                                                                     PDF
                                                                 </a>
                                                             <?php elseif (is_null($row1['status'])): ?>
-                                                                <!-- ปุ่ม พิจารณา ถ้า status เป็น null -->
+                                                                <!-- ปุ่ม พิจารณา สีเหลือง ถ้า status เป็น null -->
                                                                 <a href="https://ecpreq.pcnone.com/re01_1?token=<?= urlencode($row1['token']) ?>" target="_blank"
-                                                                    class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+                                                                    class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm">
                                                                     พิจารณา
                                                                 </a>
                                                             <?php endif; ?>
