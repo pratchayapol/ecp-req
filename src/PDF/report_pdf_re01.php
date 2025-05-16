@@ -40,7 +40,7 @@ try {
         $datetime = new DateTime($created_at);
         $formatted_date = $datetime->format('d/m/Y H:i'); // 15/05/2025 10:45
 
-        function formatDateThai($dateStr, $spacing = [' ', ' ', ' ', ' ']) {
+        function formatDateThai($dateStr, $spacing = [' ', '-', ' ', ' ']) {
     // spacing[0] = เว้นวรรคหลังวัน
     // spacing[1] = เว้นวรรคหลังเดือน
     // spacing[2] = เว้นวรรคหลังปี
