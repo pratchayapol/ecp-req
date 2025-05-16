@@ -173,7 +173,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
                     <form class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" action="" method="POST">
                         <div>
-                            <label class="block font-medium mb-1">เลขประจำตัวนักศึกษา</label>
+                            <label class="block font-medium mb-1">เลขประจำตัวในระบบ</label>
                             <input type="text" name="student_id" value="<?= $id; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
@@ -192,10 +192,6 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                             <input type="text" name="field" value="<?= $field; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
-                        <div>
-                            <label class="block font-medium mb-1">ชั้นปี</label>
-                            <input type="text" name="academic_level" value="<?= $academicLevel; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
-                        </div>
 
                         <div>
                             <label class="block font-medium mb-1">อีเมล</label>
@@ -207,31 +203,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                             <input type="text" name="role" value="<?= $role; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
-                        <div>
-                            <label class="block font-medium mb-1">อาจารย์ที่ปรึกษา</label>
-                            <select name="teacher_email" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" required>
-
-                                <?php foreach ($advisors as $advisor): ?>
-                                    <option value="<?php echo htmlspecialchars($advisor['email']); ?>">
-                                        <?php echo htmlspecialchars($advisor['name']); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block font-medium mb-1">หัวหน้าสาขา</label>
-                            <select name="head_department" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed">
-                                <?php foreach ($heads as $head): ?>
-                                    <option value="<?php echo htmlspecialchars($head['email']); ?>" readonly>
-                                        <?php echo htmlspecialchars($head['name']); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-
-
+            
                         <div class="col-span-2 text-center mt-4">
                             <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-md">บันทึก</button>
                         </div>
