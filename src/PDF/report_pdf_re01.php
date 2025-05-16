@@ -145,8 +145,8 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_head_dep), 0, 1, 'L');
 $created_at_thai = formatDateThai($created_at, ['  ', '   ', '    ', ' ']);
 // เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
-$pdf->SetY(105);
-$pdf->SetX(30);
+$pdf->SetY(80);
+$pdf->SetX(60);
 $pdf->SetFont('sara', '', 11.5);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'R');
 
