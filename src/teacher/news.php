@@ -165,9 +165,10 @@ if (isset($_POST['submit_data'])) {
                                 // Display the article title
                                 echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
                     ?>
-                                <div class="prose max-w-full">
+                                <div class="p-4 border border-gray-300 rounded-xl shadow-sm prose max-w-none">
                                     <?php echo $row["article_content"]; ?>
                                 </div>
+
                     <?php
                                 // Display the modified date
                                 echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
