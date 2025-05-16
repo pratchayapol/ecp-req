@@ -55,7 +55,7 @@ if (isset($_POST['submit_data'])) {
         ";
         echo "</body></html>";
 
-    
+
         exit();
     } catch (PDOException $e) {
         echo "<script>alert('เกิดข้อผิดพลาด: " . $e->getMessage() . "');</script>";
@@ -167,7 +167,10 @@ if (isset($_POST['submit_data'])) {
 
                                 // Display the article content with HTML tags
                                 // Use `htmlspecialchars` on the title to prevent XSS, but not on content to allow HTML rendering
+                                // Display the article content within a styled div
+                                echo '<div class="my-4 p-4 bg-white rounded-md shadow-md">';
                                 echo $row["article_content"];
+                                echo '</div>';
 
                                 // Display the modified date
                                 echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
