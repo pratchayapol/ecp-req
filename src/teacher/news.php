@@ -153,31 +153,34 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                         ส่วนแก้ไขประชาสัมพันธ์
                     </h1>
 
-           
-                        <form action="" method="POST">
-                            <?php
-                            // ดึงข้อมูลจากฐานข้อมูล
-                            $sql = "SELECT * FROM dashboard WHERE id_dash = 1";
-                            $result = $pdo->query($sql);
-                            $row1 = $result->fetch(PDO::FETCH_ASSOC);
-                            ?>
 
-                            <!-- ✅ textarea พร้อม styling -->
-                            <textarea name="Article_content" id="Article_editor"
-                                class="w-full h-64 p-4 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"><?php echo htmlspecialchars($row1["article_content"]); ?></textarea>
+                    <form action="" method="POST">
+                        <?php
+                        // ดึงข้อมูลจากฐานข้อมูล
+                        $sql = "SELECT * FROM dashboard WHERE id_dash = 1";
+                        $result = $pdo->query($sql);
+                        $row1 = $result->fetch(PDO::FETCH_ASSOC);
+                        ?>
 
-                            <!-- ✅ ปุ่มจัด layout ด้วย Flex -->
-                            <div class="flex justify-center gap-4">
-                                <a href="dashboard"
-                                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-xl transition duration-200">
-                                    Cancel
-                                </a>
+                        <!-- ✅ textarea พร้อม styling -->
+                        <textarea name="Article_content" id="Article_editor"
+                            class="w-full h-64 p-4 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"><?php echo htmlspecialchars($row1["article_content"]); ?></textarea>
 
-                                <input type="submit" name="submit_data" value="Save"
-                                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-xl cursor-pointer transition duration-200">
-                            </div>
-                        </form>
-             
+                        <!-- ✅ ปุ่มจัด layout ด้วย Flex -->
+                        <br>
+                        <div class="flex justify-center gap-4">
+                            <a href="dashboard"
+                                class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-xl transition duration-200">
+                                Cancel
+                            </a>
+
+                            <input type="submit" name="submit_data" value="Save"
+                                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-xl cursor-pointer transition duration-200">
+                        </div>
+                        <br>
+                        <br>
+                    </form>
+
                 </div>
             </div>
 
