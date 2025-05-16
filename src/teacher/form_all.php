@@ -141,7 +141,7 @@ function getNameByEmail($pdo, $email)
                                     <thead class="bg-orange-500 text-white text-center shadow-md">
                                         <tr>
                                             <th class="px-4 py-2">เลขคำร้อง</th>
-                                            <!-- <th class="px-4 py-2">ชื่อ - สกุล</th> -->
+                                            <th class="px-4 py-2">ชื่อ - สกุล</th>
                                             <th class="px-4 py-2">เรื่อง</th>
                                             <th class="px-4 py-2">เรียน</th>
                                             <th class="px-4 py-2">สถานะคำร้อง</th>
@@ -164,7 +164,7 @@ function getNameByEmail($pdo, $email)
                                             <?php foreach ($forms1 as $row1): ?>
                                                 <tr data-status="<?= $row1['status'] === null ? 'null' : $row1['status'] ?>">
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row1['form_id']) ?></td>
-                                                    <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?></td> -->
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
                                                     <td class="px-4 py-2 text-center 
@@ -423,6 +423,7 @@ function getNameByEmail($pdo, $email)
                                     <thead class="bg-orange-500 text-white text-center shadow-md">
                                         <tr>
                                             <th class="px-4 py-2">เลขคำร้อง</th>
+                                            <th class="px-4 py-2">ชื่อ - สกุล</th>
                                             <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
                                             <th class="px-4 py-2">รายวิชา</th>
                                             <th class="px-4 py-2">กลุ่มเรียน</th>
@@ -466,7 +467,7 @@ function getNameByEmail($pdo, $email)
                                         ?>
                                                 <tr data-status="<?= is_null($row2['status']) ? 'null' : $row2['status'] ?>">
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
-                                                    <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row2['email'])) ?></td> -->
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row2['email'])) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'] . ' / ' . $row2['year']) ?></td>
                                                     <td class="px-4 py-2"><?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?></td>
                                                     <td class="text-center px-4 py-2"><?= $row2['Group'] ?? '-' ?></td>
@@ -685,7 +686,7 @@ function getNameByEmail($pdo, $email)
                                     <thead class="bg-orange-500 text-white text-center shadow-md">
                                         <tr>
                                             <th class="px-4 py-2">เลขคำร้อง</th>
-                                            <!-- <th class="px-4 py-2">ชื่อ - สกุล</th> -->
+                                            <th class="px-4 py-2">ชื่อ - สกุล</th>
                                             <th class="px-4 py-2">ภาคเรียน/ปีการศึกษา</th>
                                             <th class="px-4 py-2">รายวิชา</th>
                                             <th class="px-4 py-2">กลุ่มเรียน</th>
@@ -715,7 +716,7 @@ ORDER BY form_id DESC");
                                             <?php foreach ($forms3 as $row3): ?>
                                                 <tr data-status="<?= is_null($row3['status']) ? 'null' : $row3['status'] ?>">
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
-                                                    <!-- <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td> -->
+                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
                                                     <td class="px-4 py-2"><?= htmlspecialchars($row3['course_id'] . ' ' . $row3['course_nameTH'] . ' (' . $row3['credits'] . ' หน่วยกิต)') ?></td>
                                                     <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></td>
