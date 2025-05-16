@@ -146,32 +146,35 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                     ?>
                 </div>
 
+                <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
+                    <div class="p-8">
+                        <div class="bg-white rounded-lg shadow-lg h-auto">
+                            <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ส่วนแก้ไขประชาสัมพันธ์</h1>
 
-                <div class="bg-white rounded-lg shadow-lg h-auto">
-                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ส่วนแก้ไขประชาสัมพันธ์</h1>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="container">
+                                    <form action="" method="POST">
+                                        <?php
+                                        // ดึงข้อมูลจากฐานข้อมูล
+                                        $sql = "SELECT * FROM dashboard WHERE id_dash = 1";
+                                        $result = $pdo->query($sql);
+                                        $row1 = $result->fetch(PDO::FETCH_ASSOC);
+                                        ?>
+                                        <center>
+                                            <div class="input-field">
+                                                <textarea name="Article_content" id="Article_editor"><?php echo htmlspecialchars($row1["article_content"]); ?></textarea>
+                                                <br>
+                                                <a href="dashboard" class="btn btn-danger">Cancel</a>
+                                                <input type="submit" class="btn btn-primary" name="submit_data" value="Save">
+                                            </div>
+                                        </center>
+                                    </form>
+                                </div>
+                            </div>
 
-                    <!-- Card Body -->
-                    <div class="card-body">
-                        <div class="container">
-                            <form action="" method="POST">
-                                <?php
-                                // ดึงข้อมูลจากฐานข้อมูล
-                                $sql = "SELECT * FROM dashboard WHERE id_dash = 1";
-                                $result = $pdo->query($sql);
-                                $row1 = $result->fetch(PDO::FETCH_ASSOC);
-                                ?>
-                                <center>
-                                    <div class="input-field">
-                                        <textarea name="Article_content" id="Article_editor"><?php echo htmlspecialchars($row1["article_content"]); ?></textarea>
-                                        <br>
-                                        <a href="dashboard" class="btn btn-danger">Cancel</a>
-                                        <input type="submit" class="btn btn-primary" name="submit_data" value="Save">
-                                    </div>
-                                </center>
-                            </form>
                         </div>
                     </div>
-
                 </div>
 
 
