@@ -36,7 +36,7 @@ try {
         $token = $row['token'];
         $teacher_email = $row['teacher_email'];
         $head_department = $row['head_department'];
-
+//แปลงวันเดือนปีเวลา
         $datetime = new DateTime($created_at);
         $formatted_date = $datetime->format('d/m/Y H:i'); // 15/05/2025 10:45
 
@@ -49,13 +49,13 @@ try {
     $dt = new DateTime($dateStr);
     $day = $dt->format('j');
     $month = (int)$dt->format('n');
-    $year = (int)$dt->format('Y') + 543; // แปลงเป็นปีพุทธศักราช
+    $year = (int)$dt->format('Y') + 543;
     $time = $dt->format('H:i');
 
-    return "$day " . $thaiMonths[$month] . " $year เวลา $time น.";
+    // 👇 ปรับเว้นวรรคตรงนี้ได้เลยตามต้องการ
+    return "$day{$space}{$space}" . $thaiMonths[$month] . "{$space}{$space}$year{$space}{$space}{$space}เวลา $time น.";
 }
 
-$formatted_created_at = formatDateThai($created_at);
 
 
 
@@ -137,10 +137,11 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_head_dep), 0, 1, 'L');
 // $pdf->SetFont('sara', '', 11.5);
 // $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at), 0, 1, 'R');
 
-$pdf->SetY(105);
-$pdf->SetX(30);
-$pdf->SetFont('sara', '', 11.5);
-$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $formatted_created_at), 0, 1, 'R');
+$pdf->Cell(20, 2, iconv('utf-8', 'cp874', "$day"), 0, 0, 'L');
+$pdf->Cell(35, 2, iconv('utf-8', 'cp874', $thaiMonths[$month]), 0, 0, 'L');
+$pdf->Cell(30, 2, iconv('utf-8', 'cp874', "$year"), 0, 0, 'L');
+$pdf->Cell(30, 2, iconv('utf-8', 'cp874', "เวลา $time น."), 0, 1, 'L');
+
 
 
 
