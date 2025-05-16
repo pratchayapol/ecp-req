@@ -76,13 +76,13 @@ $pdf->AddFont('sara', '', 'THSarabun.php');
 $pdf->Image('RE.06bg.jpg', 0, 0, 210, 297);
 $pdf->SetXY(190, 0);
 
-// //เรื่อง
+// //	ภาคเรียน
 $pdf->SetY(40.5);
 $pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $term), 0, 1, 'L');
 
-// //เรียน
+// //ปีการศึกษา	
 $pdf->SetY(49);
 $pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
@@ -94,7 +94,7 @@ $pdf->SetX(32.5);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
-// //คณะ
+// //กลุ่มเรียน
 $pdf->SetY(79);
 $pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
@@ -102,19 +102,19 @@ $pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $group), 0, 1, 'L');
 
 
 
-// //สาขา
+// //รหัสรายวิชา
 $pdf->SetY(79);
 $pdf->SetX(35);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $course_id), 0, 1, 'C');
 
-// //ชั้นปี
+// //ชื่อวิชาภาษาไทย
 $pdf->SetY(79);
 $pdf->SetX(31);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_nameTH), 0, 1, 'R');
 
-// //เหตุผล
+// //ยอดลงทะเบียน
 $pdf->SetY(89);
 $pdf->SetX(50);
 $pdf->SetFont('sara', '', 14);
@@ -127,7 +127,7 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_teacher), 0, 1, 'L');
 
 
-// //ความคิดเห็นหัวหน้าสาขา
+// //เหตุผล
 $pdf->SetY(168.5);
 $pdf->SetX(15);
 $pdf->SetFont('sara', '', 14);
