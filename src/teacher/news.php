@@ -86,6 +86,29 @@ if (isset($_POST['submit_data'])) {
     <!-- animation -->
     <link rel="stylesheet" href="../css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .ckeditor-content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .ckeditor-content h1,
+        .ckeditor-content h2,
+        .ckeditor-content h3 {
+            text-align: center;
+            color: #f97316;
+            /* ตัวอย่างสีส้ม */
+        }
+
+        /* หากมี class ที่ CKEditor ใช้ ให้รองรับไว้ด้วย */
+        .ckeditor-content {
+            font-family: 'Kanit', sans-serif;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
@@ -168,7 +191,7 @@ if (isset($_POST['submit_data'])) {
                                 // Display the article content with HTML tags
                                 // Use `htmlspecialchars` on the title to prevent XSS, but not on content to allow HTML rendering
                                 // Display the article content within a styled div
-                                echo '<div class="my-4 p-4 bg-white rounded-md shadow-md">';
+                                echo '<div class="ckeditor-content">';
                                 echo $row["article_content"];
                                 echo '</div>';
 
