@@ -153,8 +153,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                         ส่วนแก้ไขประชาสัมพันธ์
                     </h1>
 
-                    <!-- ✅ ปรับให้ใช้ Flex และ Layout ของ Tailwind -->
-                    <div class="p-6">
+           
                         <form action="" method="POST" class="max-w-3xl mx-auto flex flex-col gap-6">
                             <?php
                             // ดึงข้อมูลจากฐานข้อมูล
@@ -178,7 +177,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                                     class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-xl cursor-pointer transition duration-200">
                             </div>
                         </form>
-                    </div>
+             
                 </div>
             </div>
 
