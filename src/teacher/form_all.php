@@ -148,12 +148,12 @@ function getNameByEmail($pdo, $email)
                                 <table id="myTable1" class="min-w-full table-auto border-collapse rounded-[12px]">
                                     <thead class="bg-orange-500 text-white text-center shadow-md align-middle">
                                         <tr>
-                                            <th class="px-4 py-2 flex items-center justify-center">เลขคำร้อง</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">ชื่อ - สกุล</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">เรื่อง</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">เรียน</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">สถานะคำร้อง</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">จัดการ</th>
+                                            <th class="px-4 py-2 text-center align-middle">เลขคำร้อง</th>
+                                            <th class="px-4 py-2 text-center align-middle">ชื่อ - สกุล</th>
+                                            <th class="px-4 py-2 text-center align-middle">เรื่อง</th>
+                                            <th class="px-4 py-2 text-center align-middle">เรียน</th>
+                                            <th class="px-4 py-2 text-center align-middle">สถานะคำร้อง</th>
+                                            <th class="px-4 py-2 text-center align-middle">จัดการ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -470,13 +470,13 @@ function getNameByEmail($pdo, $email)
                                 <table id="myTable2" class="min-w-full table-auto border-collapse rounded-[12px]">
                                     <thead class="bg-orange-500 text-white text-center shadow-md align-middle">
                                         <tr>
-                                            <th class="px-4 py-2 flex items-center justify-center">เลขคำร้อง</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">ชื่อ - สกุล</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">ภาคเรียน/ปีการศึกษา</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">รายวิชา</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">กลุ่มเรียน</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">สถานะคำร้อง</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">จัดการ</th>
+                                            <th class="px-4 py-2 text-center align-middle">เลขคำร้อง</th>
+                                            <th class="px-4 py-2 text-center align-middle">ชื่อ - สกุล</th>
+                                            <th class="px-4 py-2 text-center align-middle">ภาคเรียน/ปีการศึกษา</th>
+                                            <th class="px-4 py-2 text-center align-middle">รายวิชา</th>
+                                            <th class="px-4 py-2 text-center align-middle">กลุ่มเรียน</th>
+                                            <th class="px-4 py-2 text-center align-middle">สถานะคำร้อง</th>
+                                            <th class="px-4 py-2 text-center align-middle">จัดการ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -760,13 +760,13 @@ function getNameByEmail($pdo, $email)
                                 <table id="myTable3" class="min-w-full table-auto border-collapse rounded-[12px]">
                                     <thead class="bg-orange-500 text-white text-center shadow-md align-middle">
                                         <tr>
-                                            <th class="px-4 py-2 flex items-center justify-center">เลขคำร้อง</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">ชื่อ - สกุล</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">ภาคเรียน/ปีการศึกษา</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">รายวิชา</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">กลุ่มเรียน</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">สถานะคำร้อง</th>
-                                            <th class="px-4 py-2 flex items-center justify-center">จัดการ</th>
+                                            <th class="px-4 py-2 text-center align-middle">เลขคำร้อง</th>
+                                            <th class="px-4 py-2 text-center align-middle">ชื่อ - สกุล</th>
+                                            <th class="px-4 py-2 text-center align-middle">ภาคเรียน/ปีการศึกษา</th>
+                                            <th class="px-4 py-2 text-center align-middle">รายวิชา</th>
+                                            <th class="px-4 py-2 text-center align-middle">กลุ่มเรียน</th>
+                                            <th class="px-4 py-2 text-center align-middle">สถานะคำร้อง</th>
+                                            <th class="px-4 py-2 text-center align-middle">จัดการ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
