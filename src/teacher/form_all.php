@@ -152,7 +152,7 @@ function getNameByEmail($pdo, $email)
                                         <?php
                                         // การดึงข้อมูลจากฐานข้อมูล
                                         try {
-                                            $stmt1 = $pdo->prepare("SELECT * FROM form_re01 WHERE email = :email ORDER BY form_id DESC");
+                                            $stmt1 = $pdo->prepare("SELECT * FROM form_re01 WHERE teacher_email = :email ORDER BY form_id DESC");
                                             $stmt1->execute(['email' => $email]);
                                             $forms1 = $stmt1->fetchAll();
                                         } catch (PDOException $e) {
@@ -437,7 +437,7 @@ function getNameByEmail($pdo, $email)
                                             c.course_nameTH, c.credits
                                             FROM form_re06 AS f
                                             LEFT JOIN course AS c ON f.course_id = c.course_id
-                                            WHERE f.email = :email
+                                            WHERE f.teacher_email = :email
                                             ORDER BY form_id DESC");
                                             $stmt2->execute(['email' => $email]);
                                             $forms2 = $stmt2->fetchAll();
@@ -702,7 +702,7 @@ f.teacher_email, f.head_department,
 c.course_nameTH, c.credits
 FROM form_re07 AS f
 LEFT JOIN course AS c ON f.course_id = c.course_id
-WHERE f.email = :email
+WHERE f.teacher_email = :email
 ORDER BY form_id DESC");
                                             $stmt3->execute(['email' => $email]);
                                             $forms3 = $stmt3->fetchAll();
