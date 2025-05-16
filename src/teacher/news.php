@@ -154,7 +154,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                     </h1>
 
            
-                        <form action="" method="POST" class="max-w-3xl mx-auto flex flex-col gap-6">
+                        <form action="" method="POST">
                             <?php
                             // ดึงข้อมูลจากฐานข้อมูล
                             $sql = "SELECT * FROM dashboard WHERE id_dash = 1";
