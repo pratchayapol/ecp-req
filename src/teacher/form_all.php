@@ -6,6 +6,7 @@ include '../connect/dbcon.php';
 // echo '</pre>';
 error_reporting(0);
 ini_set('display_errors', 0);
+
 // ตรวจสอบว่ามีข้อมูลใน session หรือไม่
 if (isset($_SESSION['user'])) {
     $name = $_SESSION['user']['name'];
@@ -86,6 +87,14 @@ function getNameByEmail($pdo, $email)
                 <div class="mt-4 space-y-2">
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-center py-2 px-4 rounded-[12px] shadow-md" id="dashboard-btn"> Dashboard </button>
                     <button class="w-full bg-[#EF6526] text-white hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="form_all">คำร้องของนักศึกษา</button>
+                     <?php 
+                    //ถ้า หัวหน้าสาขา dep = TRUE ให้แสดงปุ่มดังนี้
+                    if ($dep === "TRUE") {
+                    ?>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="adviser"> จัดการที่ปรึกษา </button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="course"> จัดการรายวิชา </button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="news"> จัดการข้อมูลประชาสัมพันธ์ </button>
+                  <?php } ?>
                 </div>
             </div>
             <div class="text-center mt-4">

@@ -17,7 +17,7 @@ if (isset($_SESSION['user'])) {
     $course_level = $_SESSION['course_level'] ?? '';
     $faculty = $_SESSION['faculty'] ?? '';
     $field = $_SESSION['field'] ?? '';
-    echo $dep = $_SESSION['dep'] ?? '';
+    $dep = $_SESSION['dep'] ?? '';
     $academicYear = $_SESSION['academic_year'] ?? '';
     $academicLevel = $_SESSION['academic_level'] ?? '';
 } else {
@@ -65,20 +65,17 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 <div class="mt-4 space-y-2">
                     <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] shadow-md" id="dashboard-btn"> Dashboard </button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="form_all">คำร้องของนักศึกษา</button>
+
                     <?php 
                     //ถ้า หัวหน้าสาขา dep = TRUE ให้แสดงปุ่มดังนี้
-
-
                     if ($dep === "TRUE") {
                     ?>
-                    <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] shadow-md" id="adviser"> จัดการที่ปรึกษา </button>
-                    <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] shadow-md" id="couse"> จัดการรายวิชา </button>
-                    <button class="w-full bg-[#EF6526] text-white py-2 rounded-[12px] shadow-md" id="news"> จัดการข้อมูลประชาสัมพันธ์ </button>
-                    
-
-
-
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="adviser"> จัดการที่ปรึกษา </button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="course"> จัดการรายวิชา </button>
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="news"> จัดการข้อมูลประชาสัมพันธ์ </button>
                   <?php } ?>
+
+
                 </div>
             </div>
             <div class="text-center mt-4">
@@ -198,6 +195,15 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
         });
         document.getElementById('form_all').addEventListener('click', function() {
             window.location.href = 'form_all';
+        });
+        document.getElementById('adviser').addEventListener('click', function() {
+            window.location.href = 'adviser';
+        });
+        document.getElementById('course').addEventListener('click', function() {
+            window.location.href = 'course';
+        });
+        document.getElementById('news').addEventListener('click', function() {
+            window.location.href = 'news';
         });
     </script>
 
