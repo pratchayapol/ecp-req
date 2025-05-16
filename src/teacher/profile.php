@@ -87,8 +87,6 @@ if (isset($_SESSION['user'])) {
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $heads = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
     } catch (PDOException $e) {
         // จัดการ error เช่น log หรือแสดงข้อความ
         $teacher_email = 'เกิดข้อผิดพลาด';
@@ -141,6 +139,15 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 <div class="mt-4 space-y-2">
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-center py-2 px-4 rounded-[12px] shadow-md" id="dashboard-btn"> Dashboard </button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="form_all">คำร้องของนักศึกษา</button>
+                    <?php
+                    //ถ้า หัวหน้าสาขา dep = TRUE ให้แสดงปุ่มดังนี้
+                    if ($dep === "TRUE") {
+                    ?>
+                        <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="adviser"> จัดการที่ปรึกษา </button>
+                        <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="course"> จัดการรายวิชา </button>
+                        <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="news"> จัดการข้อมูลประชาสัมพันธ์ </button>
+                    <?php } ?>
+
                 </div>
             </div>
             <div class="text-center mt-4">
@@ -203,7 +210,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                             <input type="text" name="role" value="<?= $role; ?>" class="border p-2 w-full bg-gray-100 text-gray-500 cursor-not-allowed" readonly>
                         </div>
 
-            
+
                         <div class="col-span-2 text-center mt-4">
                             <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-md">บันทึก</button>
                         </div>
@@ -260,7 +267,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
         document.getElementById('form_all').addEventListener('click', function() {
             window.location.href = 'form_all';
         });
-         document.getElementById('adviser').addEventListener('click', function() {
+        document.getElementById('adviser').addEventListener('click', function() {
             window.location.href = 'adviser';
         });
         document.getElementById('course').addEventListener('click', function() {
