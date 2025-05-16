@@ -40,7 +40,7 @@ try {
         $datetime = new DateTime($created_at);
         $formatted_date = $datetime->format('d/m/Y H:i'); // 15/05/2025 10:45
 
-        function formatDateThai($dateStr, $spacing = [' ', ' ', ' ', ' ']) {
+        function formatDateThai($dateStr, $spacing = [' ', '', ' ', ' ']) {
     // spacing[0] = เว้นวรรคหลังวัน
     // spacing[1] = เว้นวรรคหลังเดือน
     // spacing[2] = เว้นวรรคหลังปี
@@ -146,7 +146,7 @@ $created_at_thai = formatDateThai($created_at, ['  ', '   ', '    ', ' ']);
 // เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
 $pdf->SetY(32);
-$pdf->SetX(122);
+$pdf->SetX(123);
 $pdf->SetFont('sara', '', 11.5);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'R');
 
