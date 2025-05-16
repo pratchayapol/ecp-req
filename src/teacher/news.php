@@ -166,7 +166,7 @@ if (isset($_POST['submit_data'])) {
                                 echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
                     ?>
                                 <textarea name="Article_content" id="Article_editor"
-                                    class="w-full h-64 p-4 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"><?php echo htmlspecialchars($row1["article_content"]); ?></textarea>
+                                    class="w-full h-64 p-4 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"><?php echo htmlspecialchars($row["article_content"]); ?></textarea>
                     <?php
                                 // Display the modified date
                                 echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
