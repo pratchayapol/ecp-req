@@ -83,8 +83,8 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $term), 0, 1, 'L');
 
 // //ปีการศึกษา	
-$pdf->SetY(49);
-$pdf->SetX(23);
+$pdf->SetY(21);
+$pdf->SetX(160);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
