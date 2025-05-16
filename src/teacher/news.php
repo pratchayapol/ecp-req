@@ -39,9 +39,24 @@ if (isset($_POST['submit_data'])) {
         $stmt->bindParam(':content', $articleContent, PDO::PARAM_STR);
         $stmt->execute();
 
-        // แจ้งเตือนสำเร็จด้วย JavaScript
-        echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว'); window.location='dashboard';</script>";
-        exit;
+        // แจ้งผลลัพธ์ด้วย SweetAlert
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
+        echo "
+        <script>
+        Swal.fire({
+            title: 'สำเร็จ!',
+            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            icon: 'success',
+            confirmButtonText: 'ตกลง'
+        }).then(() => {
+            window.location.href = 'dashboard';
+        });
+        </script>
+        ";
+        echo "</body></html>";
+
+    
+        exit();
     } catch (PDOException $e) {
         echo "<script>alert('เกิดข้อผิดพลาด: " . $e->getMessage() . "');</script>";
     }
