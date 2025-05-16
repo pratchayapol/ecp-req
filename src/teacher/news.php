@@ -165,8 +165,13 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                                     <div class="input-field">
                                         <textarea name="Article_content" id="Article_editor"><?php echo htmlspecialchars($row1["article_content"]); ?></textarea>
                                         <br>
-                                        <a href="dashboard" class="btn btn-danger">Cancel</a>
-                                        <input type="submit" class="btn btn-primary" name="submit_data" value="Save">
+                                        <a href="dashboard" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-xl">
+                                            Cancel
+                                        </a>
+
+                                        <input type="submit" name="submit_data" value="Save"
+                                            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl ml-2">
+
                                     </div>
                                 </center>
                             </form>
