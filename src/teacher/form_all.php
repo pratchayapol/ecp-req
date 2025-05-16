@@ -71,6 +71,23 @@ function getNameByEmail($pdo, $email)
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
+    <style>
+        #myTable1 th {
+            vertical-align: middle !important;
+            height: 48px;
+            /* หรือขนาดที่ต้องการ */
+        }
+        #myTable2 th {
+            vertical-align: middle !important;
+            height: 48px;
+            /* หรือขนาดที่ต้องการ */
+        }
+        #myTable3 th {
+            vertical-align: middle !important;
+            height: 48px;
+            /* หรือขนาดที่ต้องการ */
+        }
+    </style>
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
