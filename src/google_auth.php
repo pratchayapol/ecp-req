@@ -4,6 +4,10 @@ session_start();
 // เริ่มต้น output buffering
 ob_start();
 
+
+error_reporting(0);
+ini_set('display_errors', 0);
+
 include 'connect/dbcon.php';
 ?>
 <!DOCTYPE html>
