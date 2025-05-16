@@ -224,7 +224,7 @@ function getNameByEmail($pdo, $email)
                                                             <?php endif; ?>
 
                                                             <!-- ปุ่ม พิจารณา (หัวหน้าสาขา) -->
-                                                           <?php if (isset($row1['head_department'], $row1['step']) && $row1['head_department'] == $email && $row1['step'] == 1): ?>
+                                                           <?php if (isset($row1['head_department'], $row1['status']) && $row1['head_department'] == $email && $row1['status'] == 1): ?>
                                                                 <a href="https://ecpreq.pcnone.com/re01_2?token=<?= urlencode($row1['token']) ?>&token_new=<?= urlencode($row1['token_new']) ?>"
                                                                     target="_blank"
                                                                     class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm ml-2">
