@@ -207,11 +207,17 @@ function getNameByEmail($pdo, $email)
                                                                 ดูรายละเอียด
                                                             </button>
 
-                                                            <!-- ปุ่ม PDF สีส้ม -->
+                                                            <!-- ปุ่ม PDF ถ้า status == 2 -->
                                                             <?php if ($row1['status'] == 2): ?>
-                                                                <a href="../PDF/report_pdf_re01?token=<?= $row1['token'] ?>" target="_blank"
+                                                                <a href="../PDF/report_pdf_re01?token=<?= htmlspecialchars($row1['token']) ?>" target="_blank"
                                                                     class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
                                                                     PDF
+                                                                </a>
+                                                            <?php elseif (is_null($row1['status'])): ?>
+                                                                <!-- ปุ่ม พิจารณา ถ้า status เป็น null -->
+                                                                <a href="https://ecpreq.pcnone.com/re01_1?token=<?= urlencode($row1['token']) ?>" target="_blank"
+                                                                    class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+                                                                    พิจารณา
                                                                 </a>
                                                             <?php endif; ?>
                                                         </div>
