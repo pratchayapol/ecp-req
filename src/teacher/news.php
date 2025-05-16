@@ -147,7 +147,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
             </div>
 
-            <div class="p-8">
+            <div class="p-8 t1">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">
                         ส่วนแก้ไขประชาสัมพันธ์
