@@ -63,6 +63,14 @@ function getNameByEmail($pdo, $email)
     <link rel="stylesheet" href="../css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- Datatable -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
@@ -137,7 +145,7 @@ function getNameByEmail($pdo, $email)
                                     <button class="bg-gray-600 text-white px-4 py-2 rounded" onclick="clearFilters1()">ล้างข้อมูล</button>
                                 </div>
                                 <!-- Table -->
-                                <table class="min-w-full table-auto border-collapse rounded-[12px]">
+                                <table id="myTable1" class="min-w-full table-auto border-collapse rounded-[12px]">
                                     <thead class="bg-orange-500 text-white text-center shadow-md">
                                         <tr>
                                             <th class="px-4 py-2">เลขคำร้อง</th>
@@ -224,7 +232,7 @@ function getNameByEmail($pdo, $email)
                                                             <?php endif; ?>
 
                                                             <!-- ปุ่ม พิจารณา (หัวหน้าสาขา) -->
-                                                           <?php if (isset($row1['head_department'], $row1['status']) && $row1['head_department'] == $email && $row1['status'] == 1): ?>
+                                                            <?php if (isset($row1['head_department'], $row1['status']) && $row1['head_department'] == $email && $row1['status'] == 1): ?>
                                                                 <a href="https://ecpreq.pcnone.com/re01_2?token=<?= urlencode($row1['token']) ?>&token_new=<?= urlencode($row1['token_new']) ?>"
                                                                     target="_blank"
                                                                     class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm ml-2">
@@ -247,6 +255,28 @@ function getNameByEmail($pdo, $email)
                                     </tbody>
                                 </table>
 
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#myTable1').DataTable({
+                                            pageLength: 10, // จำนวนเริ่มต้นต่อหน้า
+                                            lengthMenu: [10, 20, 50, 100], // ตัวเลือก dropdown
+                                            language: {
+                                                search: "ค้นหา:",
+                                                lengthMenu: "แสดง _MENU_ รายการต่อหน้า",
+                                                info: "แสดง _START_ ถึง _END_ จาก _TOTAL_ รายการ",
+                                                paginate: {
+                                                    first: "หน้าแรก",
+                                                    last: "หน้าสุดท้าย",
+                                                    next: "ถัดไป",
+                                                    previous: "ก่อนหน้า"
+                                                },
+                                                zeroRecords: "ไม่พบข้อมูลที่ค้นหา",
+                                                infoEmpty: "ไม่มีข้อมูลให้แสดง",
+                                                infoFiltered: "(กรองจากทั้งหมด _MAX_ รายการ)"
+                                            }
+                                        });
+                                    });
+                                </script>
 
                                 <!-- ข้อความแสดงเมื่อกรองแล้วไม่พบข้อมูล -->
                                 <div id="noDataMessage1" class="text-center text-gray-500 py-4" style="display: none;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
