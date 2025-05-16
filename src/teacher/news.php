@@ -66,14 +66,14 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-center py-2 px-4 rounded-[12px] shadow-md" id="dashboard-btn"> Dashboard </button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="form_all">คำร้องของนักศึกษา</button>
 
-                    <?php 
+                    <?php
                     //ถ้า หัวหน้าสาขา dep = TRUE ให้แสดงปุ่มดังนี้
                     if ($dep === "TRUE") {
                     ?>
-                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="adviser"> จัดการที่ปรึกษา </button>
-                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="course"> จัดการรายวิชา </button>
-                    <button class="w-full bg-[#EF6526] text-white hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="news"> จัดการข้อมูลประชาสัมพันธ์ </button>
-                  <?php } ?>
+                        <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="adviser"> จัดการที่ปรึกษา </button>
+                        <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="course"> จัดการรายวิชา </button>
+                        <button class="w-full bg-[#EF6526] text-white hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="news"> จัดการข้อมูลประชาสัมพันธ์ </button>
+                    <?php } ?>
 
 
                 </div>
@@ -145,6 +145,54 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                     }
                     ?>
                 </div>
+
+
+                <div class="bg-white rounded-lg shadow-lg h-auto">
+                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ส่วนแก้ไขประชาสัมพันธ์</h1>
+
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="container">
+                            <form action="" method="POST">
+                                <?php
+                                $sql = "SELECT * FROM dashboard WHERE id_dash = 1";
+                                $result = $conn->query($sql);
+                                $row = mysqli_fetch_assoc($result);
+                                ?>
+                                <center>
+                                    <div class="input-field">
+
+                                        <textarea name="Article_content" id="Article_editor" value=""><?php echo $row["article_content"]; ?></textarea>
+                                        <br>
+                                        <a href="dashboard" class="btn btn-danger">Cancel</a>
+                                        <input type="submit" class="btn btn-primary" name="submit_data" value="Save">
+
+                                    </div>
+                                </center>
+                                <?php
+
+                                ?>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             </div>
 
