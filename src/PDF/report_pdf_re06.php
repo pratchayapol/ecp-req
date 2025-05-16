@@ -89,22 +89,22 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // //email นักศึกษา
-$pdf->SetY(180);
+$pdf->SetY(175);
 $pdf->SetX(32.5);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
 // //กลุ่มเรียน
-$pdf->SetY(150);
-$pdf->SetX(120);
+$pdf->SetY(140);
+$pdf->SetX(115);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $group), 0, 1, 'L');
 
 
 
 // //รหัสรายวิชา
-$pdf->SetY(79);
-$pdf->SetX(35);
+$pdf->SetY(130);
+$pdf->SetX(20);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $course_id), 0, 1, 'C');
 
