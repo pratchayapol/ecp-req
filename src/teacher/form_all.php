@@ -71,23 +71,7 @@ function getNameByEmail($pdo, $email)
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
-    <style>
-        #myTable1 th {
-            vertical-align: middle !important;
-            height: 48px;
-            /* หรือขนาดที่ต้องการ */
-        }
-        #myTable2 th {
-            vertical-align: middle !important;
-            height: 48px;
-            /* หรือขนาดที่ต้องการ */
-        }
-        #myTable3 th {
-            vertical-align: middle !important;
-            height: 48px;
-            /* หรือขนาดที่ต้องการ */
-        }
-    </style>
+    
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
@@ -163,14 +147,14 @@ function getNameByEmail($pdo, $email)
                                 </div>
                                 <!-- Table -->
                                 <table id="myTable1" class="min-w-full table-auto border-collapse rounded-[12px]">
-                                    <thead class="bg-orange-500 text-white text-center shadow-md align-middle">
+                                    <thead class="bg-orange-500 text-white shadow-md">
                                         <tr>
-                                            <th class="px-4 py-2 text-center align-middle">เลขคำร้อง</th>
-                                            <th class="px-4 py-2 text-center align-middle">ชื่อ - สกุล</th>
-                                            <th class="px-4 py-2 text-center align-middle">เรื่อง</th>
-                                            <th class="px-4 py-2 text-center align-middle">เรียน</th>
-                                            <th class="px-4 py-2 text-center align-middle">สถานะคำร้อง</th>
-                                            <th class="px-4 py-2 text-center align-middle">จัดการ</th>
+                                            <th class="px-4 py-3 text-center align-middle">เลขคำร้อง</th>
+                                            <th class="px-4 py-3 text-center align-middle">ชื่อ - สกุล</th>
+                                            <th class="px-4 py-3 text-center align-middle">เรื่อง</th>
+                                            <th class="px-4 py-3 text-center align-middle">เรียน</th>
+                                            <th class="px-4 py-3 text-center align-middle">สถานะคำร้อง</th>
+                                            <th class="px-4 py-3 text-center align-middle">จัดการ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -485,15 +469,15 @@ function getNameByEmail($pdo, $email)
 
                                 <!-- Table -->
                                 <table id="myTable2" class="min-w-full table-auto border-collapse rounded-[12px]">
-                                    <thead class="bg-orange-500 text-white text-center shadow-md align-middle">
+                                    <thead class="bg-orange-500 text-white shadow-md">
                                         <tr>
-                                            <th class="px-4 py-2 text-center align-middle">เลขคำร้อง</th>
-                                            <th class="px-4 py-2 text-center align-middle">ชื่อ - สกุล</th>
-                                            <th class="px-4 py-2 text-center align-middle">ภาคเรียน/ปีการศึกษา</th>
-                                            <th class="px-4 py-2 text-center align-middle">รายวิชา</th>
-                                            <th class="px-4 py-2 text-center align-middle">กลุ่มเรียน</th>
-                                            <th class="px-4 py-2 text-center align-middle">สถานะคำร้อง</th>
-                                            <th class="px-4 py-2 text-center align-middle">จัดการ</th>
+                                            <th class="px-4 py-3 text-center align-middle">เลขคำร้อง</th>
+                                            <th class="px-4 py-3 text-center align-middle">ชื่อ - สกุล</th>
+                                            <th class="px-4 py-3 text-center align-middle">ภาคเรียน/ปีการศึกษา</th>
+                                            <th class="px-4 py-3 text-center align-middle">รายวิชา</th>
+                                            <th class="px-4 py-3 text-center align-middle">กลุ่มเรียน</th>
+                                            <th class="px-4 py-3 text-center align-middle">สถานะคำร้อง</th>
+                                            <th class="px-4 py-3 text-center align-middle">จัดการ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -775,15 +759,15 @@ function getNameByEmail($pdo, $email)
 
                                 <!-- Table -->
                                 <table id="myTable3" class="min-w-full table-auto border-collapse rounded-[12px]">
-                                    <thead class="bg-orange-500 text-white text-center shadow-md align-middle">
+                                    <thead class="bg-orange-500 text-white shadow-md">
                                         <tr>
-                                            <th class="px-4 py-2 text-center align-middle">เลขคำร้อง</th>
-                                            <th class="px-4 py-2 text-center align-middle">ชื่อ - สกุล</th>
-                                            <th class="px-4 py-2 text-center align-middle">ภาคเรียน/ปีการศึกษา</th>
-                                            <th class="px-4 py-2 text-center align-middle">รายวิชา</th>
-                                            <th class="px-4 py-2 text-center align-middle">กลุ่มเรียน</th>
-                                            <th class="px-4 py-2 text-center align-middle">สถานะคำร้อง</th>
-                                            <th class="px-4 py-2 text-center align-middle">จัดการ</th>
+                                            <th class="px-4 py-3 text-center align-middle">เลขคำร้อง</th>
+                                            <th class="px-4 py-3 text-center align-middle">ชื่อ - สกุล</th>
+                                            <th class="px-4 py-3 text-center align-middle">ภาคเรียน/ปีการศึกษา</th>
+                                            <th class="px-4 py-3 text-center align-middle">รายวิชา</th>
+                                            <th class="px-4 py-3 text-center align-middle">กลุ่มเรียน</th>
+                                            <th class="px-4 py-3 text-center align-middle">สถานะคำร้อง</th>
+                                            <th class="px-4 py-3 text-center align-middle">จัดการ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
