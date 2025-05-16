@@ -165,7 +165,7 @@ if (isset($_POST['submit_data'])) {
                                 // Display the article title
                                 echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
                     ?>
-                                <div class="prose prose-lg max-w-full text-gray-800">
+                                <div class="p-4 border border-gray-300 rounded-xl shadow-sm text-gray-800 leading-relaxed">
                                     <?php echo $row["article_content"]; ?>
                                 </div>
 
