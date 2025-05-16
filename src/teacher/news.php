@@ -55,7 +55,7 @@ if (isset($_POST['submit_data'])) {
         ";
         echo "</body></html>";
 
-
+    
         exit();
     } catch (PDOException $e) {
         echo "<script>alert('เกิดข้อผิดพลาด: " . $e->getMessage() . "');</script>";
@@ -163,25 +163,14 @@ if (isset($_POST['submit_data'])) {
                                 $datetime = "วัน $ThDay[$week] ที่ $day $ThMonth[$months] $years เวลา $time น.";
 
                                 // Display the article title
-                                // echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
-                    ?>
-                                <div class="p-6 bg-white rounded-xl shadow text-gray-800">
-                                    <h2 class="text-2xl font-bold mb-4 text-orange-600">
-                                        <?php echo htmlspecialchars($row["article_title"]); ?>
-                                    </h2>
+                                echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
 
-                                    <div class="ck-content">
-                                        <?php echo $row["article_content"]; ?>
-                                    </div>
+                                // Display the article content with HTML tags
+                                // Use `htmlspecialchars` on the title to prevent XSS, but not on content to allow HTML rendering
+                                echo $row["article_content"];
 
-                                    <p class="text-right text-sm text-gray-500 mt-4">
-                                        แก้ไขเมื่อ : <?php echo $datetime; ?>
-                                    </p>
-                                </div>
-
-                    <?php
                                 // Display the modified date
-                                // echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
+                                echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
                             }
                         }
                     } catch (PDOException $e) {
