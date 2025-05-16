@@ -128,20 +128,20 @@ $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_nameTH), 0, 1, 'L');
 
 // //ยอดลงทะเบียน
 $pdf->SetY(138);
-$pdf->SetX(140);
+$pdf->SetX(135);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $coutter), 0, 1, 'L');
 
 // //ความคิดเห็นอาจารย์ที่ปรึกษา
-$pdf->SetY(220);
-$pdf->SetX(30);
+$pdf->SetY(218);
+$pdf->SetX(33);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_teacher), 0, 1, 'L');
 
 
 // //เหตุผล
-$pdf->SetY(100);
-$pdf->SetX(15);
+$pdf->SetY(80);
+$pdf->SetX(25);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $reason), 0, 1, 'L');
 
