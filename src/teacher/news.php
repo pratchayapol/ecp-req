@@ -146,12 +146,12 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                     ?>
                 </div>
             </div>
-
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
-                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ส่วนแก้ไขประชาสัมพันธ์</h1>
+                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">
+                        ส่วนแก้ไขประชาสัมพันธ์
+                    </h1>
 
-                    <!-- Card Body -->
                     <div class="card-body">
                         <div class="container">
                             <form action="" method="POST">
@@ -172,18 +172,16 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                             </form>
                         </div>
                     </div>
-
                 </div>
-
             </div>
 
+            <!-- 🔻 CKEditor CDN -->
+            <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
 
-
-
-
-
-
-
+            <!-- 🔻 Activate CKEditor -->
+            <script>
+                CKEDITOR.replace('Article_editor');
+            </script>
 
 
 
