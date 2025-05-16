@@ -146,48 +146,47 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                     ?>
                 </div>
             </div>
+
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">
                         ส่วนแก้ไขประชาสัมพันธ์
                     </h1>
 
-                    <div class="card-body">
-                        <div class="container">
-                            <form action="" method="POST">
-                                <?php
-                                // ดึงข้อมูลจากฐานข้อมูล
-                                $sql = "SELECT * FROM dashboard WHERE id_dash = 1";
-                                $result = $pdo->query($sql);
-                                $row1 = $result->fetch(PDO::FETCH_ASSOC);
-                                ?>
-                                <center>
-                                    <div class="input-field">
-                                        <textarea name="Article_content" id="Article_editor"><?php echo htmlspecialchars($row1["article_content"]); ?></textarea>
-                                        <br>
-                                        <a href="dashboard" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-xl">
-                                            Cancel
-                                        </a>
+                    <!-- ✅ ปรับให้ใช้ Flex และ Layout ของ Tailwind -->
+                    <div class="p-6">
+                        <form action="" method="POST" class="max-w-3xl mx-auto flex flex-col gap-6">
+                            <?php
+                            // ดึงข้อมูลจากฐานข้อมูล
+                            $sql = "SELECT * FROM dashboard WHERE id_dash = 1";
+                            $result = $pdo->query($sql);
+                            $row1 = $result->fetch(PDO::FETCH_ASSOC);
+                            ?>
 
-                                        <input type="submit" name="submit_data" value="Save"
-                                            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl ml-2">
+                            <!-- ✅ textarea พร้อม styling -->
+                            <textarea name="Article_content" id="Article_editor"
+                                class="w-full h-64 p-4 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"><?php echo htmlspecialchars($row1["article_content"]); ?></textarea>
 
-                                    </div>
-                                </center>
-                            </form>
-                        </div>
+                            <!-- ✅ ปุ่มจัด layout ด้วย Flex -->
+                            <div class="flex justify-center gap-4">
+                                <a href="dashboard"
+                                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-xl transition duration-200">
+                                    Cancel
+                                </a>
+
+                                <input type="submit" name="submit_data" value="Save"
+                                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-xl cursor-pointer transition duration-200">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
 
-            <!-- 🔻 CKEditor CDN -->
+            <!-- ✅ CKEditor Script -->
             <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
-
-            <!-- 🔻 Activate CKEditor -->
             <script>
                 CKEDITOR.replace('Article_editor');
             </script>
-
 
 
 
