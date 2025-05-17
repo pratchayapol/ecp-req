@@ -294,6 +294,24 @@ for ($i = 0; $i < 8; $i++) {
             display: none;
         }
     </style>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $email_advisor = $_POST['email'];
+        echo $advisor = isset($_POST['advisor']) ? implode(", ", $_POST['advisor']) : '';
+
+        // $stmt = $pdo->prepare("UPDATE accounts SET Advisor = :advisor WHERE email = :email");
+        // $stmt->execute([
+        //     'advisor' => $advisor,
+        //     'email' => $email
+        // ]);
+
+        // // Redirect กลับ (หรือส่ง message)
+        // header("Location: teacher_management.php?updated=1");
+        // exit();
+    }
+
+    ?>
     <?php include '../loadtab/f.php'; ?>
 </body>
 
