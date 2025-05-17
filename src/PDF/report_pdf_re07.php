@@ -109,7 +109,7 @@ $pdf->SetX(30);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 
 // // ความคิดเห็นอาจารย์ที่ปรึกษา
-$pdf->SetY(140);
+$pdf->SetY(135);
 $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_teacher), 0, 'L');
 
@@ -120,7 +120,7 @@ $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_head_dep), 0, 'L');
 
 // // email นักศึกษา
-$pdf->SetY(130);
+$pdf->SetY(125);
 $pdf->SetX(30);
 $pdf->Cell(100, 8, iconv('utf-8', 'cp874', $email), 0, 1, 'L');
 
@@ -129,8 +129,8 @@ $pdf->Cell(100, 8, iconv('utf-8', 'cp874', $email), 0, 1, 'L');
 $created_at_thai = formatDateThai($created_at, ['                  ','                  ','    ', ' ']);
 // เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
-$pdf->SetY(32);
-$pdf->SetX(100);
+$pdf->SetY(35);
+$pdf->SetX(115);
 $pdf->SetFont('sara', '', 11.5);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
