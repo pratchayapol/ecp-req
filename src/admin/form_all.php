@@ -73,7 +73,7 @@ function getNameByEmail($pdo, $email)
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
-    
+
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
@@ -168,6 +168,7 @@ function getNameByEmail($pdo, $email)
                                         // การดึงข้อมูลจากฐานข้อมูล
                                         try {
                                             $stmt1 = $pdo->prepare("SELECT * FROM form_re01 ORDER BY form_id DESC");
+                                            $stmt1->execute();
                                             $forms1 = $stmt1->fetchAll();
                                         } catch (PDOException $e) {
                                             echo "Database error: " . $e->getMessage();
@@ -1264,7 +1265,7 @@ ORDER BY form_id DESC");
         document.getElementById('form_all').addEventListener('click', function() {
             window.location.href = 'form_all';
         });
-         document.getElementById('adviser').addEventListener('click', function() {
+        document.getElementById('adviser').addEventListener('click', function() {
             window.location.href = 'adviser';
         });
         document.getElementById('course').addEventListener('click', function() {
