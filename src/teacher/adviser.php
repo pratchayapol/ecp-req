@@ -40,20 +40,20 @@ for ($i = 0; $i < 8; $i++) {
     $yearSuffixes[] = substr((string)($currentYear - $i), -2); // ได้เช่น 67, 66, ...
 }
 
+$showSwal = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_advisor = $_POST['email'];
     $advisor = isset($_POST['advisor']) ? implode(", ", $_POST['advisor']) : '';
-    echo "<pre>Debug: $advisor</pre>"; // ใช้ <pre> เพื่อให้ดูง่ายขึ้น
+    // echo "<pre>Debug: $advisor</pre>"; // ใช้ <pre> เพื่อให้ดูง่ายขึ้น
 
     // Uncomment if needed
-    // $stmt = $pdo->prepare("UPDATE accounts SET Advisor = :advisor WHERE email = :email");
-    // $stmt->execute([
-    //     'advisor' => $advisor,
-    //     'email' => $email_advisor
-    // ]);
-
-    // header("Location: teacher_management.php?updated=1");
-    // exit();
+    $stmt = $pdo->prepare("UPDATE accounts SET Advisor = :advisor WHERE email = :email");
+    $stmt->execute([
+        'advisor' => $advisor,
+        'email' => $email_advisor
+    ]);
+  // trigger ให้แสดง Swal
+    $showSwal = true;
 }
 ?>
 <!DOCTYPE html>
@@ -310,6 +310,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             display: none;
         }
     </style>
+    <?php if ($showSwal): ?>
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            Swal.fire({
+                title: 'อัปเดตสำเร็จ!',
+                text: 'ข้อมูลกลุ่มเรียนของอาจารย์ได้รับการบันทึกแล้ว',
+                icon: 'success',
+                confirmButtonText: 'ตกลง'
+            });
+        });
+    </script>
+<?php endif; ?>
+
     <?php include '../loadtab/f.php'; ?>
 </body>
 
