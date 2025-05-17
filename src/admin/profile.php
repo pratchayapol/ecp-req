@@ -142,7 +142,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="adviser"> จัดการที่ปรึกษา </button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="course"> จัดการรายวิชา </button>
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="news"> จัดการข้อมูลประชาสัมพันธ์ </button>
-
+                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="role"> จัดการสิทธิ์การใช้งาน </button>
 
                 </div>
             </div>
@@ -271,6 +271,9 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
         });
         document.getElementById('news').addEventListener('click', function() {
             window.location.href = 'news';
+        });
+        document.getElementById('role').addEventListener('click', function() {
+            window.location.href = 'role';
         });
     </script>
 
