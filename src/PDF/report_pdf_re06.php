@@ -110,7 +110,7 @@ $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
 // //รหัสรายวิชา2
 $pdf->SetY(150);
-$pdf->SetX(20);
+$pdf->SetX(19);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
