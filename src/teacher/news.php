@@ -128,7 +128,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
 
 
-                    <div class="flex justify-center items-center">
+                    <div class="card-body items-center">
                         <?php
                         try {
                             // Query the database
