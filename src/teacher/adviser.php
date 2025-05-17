@@ -33,6 +33,12 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 $stmt = $pdo->prepare("SELECT * FROM `accounts` WHERE role = 'Teacher'");
 $stmt->execute();
 $teachers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$currentYear = date("Y");
+$yearSuffixes = [];
+for ($i = 0; $i < 8; $i++) {
+    $yearSuffixes[] = substr((string)($currentYear - $i), -2); // ได้เช่น 67, 66, ...
+}
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -120,6 +126,9 @@ $teachers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </thead>
                             <tbody>
                                 <?php foreach ($teachers as $index => $row): ?>
+                                    <?php
+                                    $advisorGroups = explode(",", str_replace(" ", "", $row['Advisor'])); // แปลงเป็น array ลบช่องว่าง
+                                    ?>
                                     <tr class="border-b">
                                         <td class="py-2 px-4 border"><?= htmlspecialchars($row['name']) ?></td>
                                         <td class="py-2 px-4 border"><?= htmlspecialchars($row['faculty']) ?></td>
@@ -133,12 +142,31 @@ $teachers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                                             <!-- Modal -->
                                             <div id="modal-<?= $index ?>" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
-                                                <div class="bg-white rounded-lg shadow-lg p-6 w-96 relative">
-                                                    <h2 class="text-lg font-bold mb-4">ข้อมูลห้องของ <?= htmlspecialchars($row['name']) ?></h2>
-                                                    <!-- ตัวอย่างข้อมูลห้อง -->
-                                                    <p>ข้อมูลห้อง: ห้อง 301 อาคาร A</p>
-                                                    <!-- ปุ่มปิด -->
-                                                    <button onclick="closeModal('modal-<?= $index ?>')" class="absolute top-2 right-2 text-gray-500 hover:text-black">
+                                                <div class="bg-white rounded-lg shadow-lg p-6 w-[500px] relative max-h-[90vh] overflow-y-auto">
+                                                    <h2 class="text-lg font-bold mb-4">แก้ไขกลุ่มเรียนของ <?= htmlspecialchars($row['name']) ?></h2>
+                                                    <form method="post" action="update_advisor.php">
+                                                        <input type="hidden" name="email" value="<?= htmlspecialchars($row['email']) ?>">
+
+                                                        <div class="grid grid-cols-3 gap-2 text-sm mb-4">
+                                                            <?php foreach (['ECP/N', 'ECP/R', 'ECP/Q'] as $prefix): ?>
+                                                                <?php foreach ($yearSuffixes as $year):
+                                                                    $value = "$prefix ($year)";
+                                                                    $checked = in_array($value, $advisorGroups) ? 'checked' : '';
+                                                                ?>
+                                                                    <label class="flex items-center space-x-1">
+                                                                        <input type="checkbox" name="advisor[]" value="<?= $value ?>" class="accent-orange-500" <?= $checked ?>>
+                                                                        <span><?= $value ?></span>
+                                                                    </label>
+                                                                <?php endforeach; ?>
+                                                            <?php endforeach; ?>
+                                                        </div>
+
+                                                        <div class="flex justify-end mt-4 space-x-2">
+                                                            <button type="submit" class="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600">บันทึก</button>
+                                                            <button type="button" onclick="closeModal('modal-<?= $index ?>')" class="bg-gray-300 text-black px-4 py-1 rounded hover:bg-gray-400">ยกเลิก</button>
+                                                        </div>
+                                                    </form>
+                                                    <button onclick="closeModal('modal-<?= $index ?>')" class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">
                                                         ✕
                                                     </button>
                                                 </div>
