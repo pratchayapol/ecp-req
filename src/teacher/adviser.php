@@ -106,7 +106,7 @@ $teachers = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">จัดการที่ปรึกษา</h1>
-                    <div class="overflow-x-auto mt-6 me-6 mb-6">
+                    <div class="overflow-x-auto ms-6 mt-6 me-6 mb-6">
                         <table class="min-w-full text-sm text-center border mb-6">
                             <thead class="bg-gray-100 text-gray-700">
                                 <tr>
