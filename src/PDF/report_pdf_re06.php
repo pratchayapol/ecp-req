@@ -44,8 +44,8 @@ try {
 
         if ($profile) {
             // เก็บข้อมูลจาก accounts
-            $student_id = $profile['id'];
-            $student_name = $profile['name'];
+            $id = $profile['id'];
+            $name = $profile['name'];
             $faculty = $profile['faculty'];
             $field = $profile['field'];
             $course_level = $profile['course_level'];
