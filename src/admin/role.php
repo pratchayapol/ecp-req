@@ -32,7 +32,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 // ดึงข้อมูลจากฐานข้อมูล
 $stmt = $pdo->prepare("SELECT * FROM `accounts` WHERE role IN ('Teacher', 'Student Officer')");
 $stmt->execute();
-$role = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$select_role = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $currentYear = date("Y") + 543;
 $yearSuffixes = [];
@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($role as $index => $row): ?>
+                                <?php foreach ($select_role as $index => $row): ?>
                                     <?php
                                     $advisorGroups = explode(', ', $row['Advisor']); // เว้นวรรคหลัง comma ให้ match กับค่าจริง
                                     ?>
