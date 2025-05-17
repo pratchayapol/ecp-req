@@ -327,12 +327,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     confirmButtonText: 'ตกลง'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        location.reload();
+                        window.location.href = 'teacher/adviser'; // เปลี่ยนเส้นทาง
                     }
                 });
             });
         </script>
     <?php endif; ?>
+
 
 
     <?php include '../loadtab/f.php'; ?>
