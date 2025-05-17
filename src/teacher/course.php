@@ -138,7 +138,7 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
                                                 $email = trim($email); // ตัดช่องว่างข้างหน้า-หลังออก
                                                 foreach ($teachers as $teacher) {
                                                     if ($teacher['email'] === $email) {
-                                                        $names[] = htmlspecialchars($teacher['fullname']);
+                                                        $names[] = htmlspecialchars($teacher['name']);
                                                         break;
                                                     }
                                                 }
