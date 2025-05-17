@@ -183,7 +183,7 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
 
 // //เลขนศ
 $pdf->SetY(55);
-$pdf->SetX(160);
+$pdf->SetX(163);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $id), 0, 1, 'L');
 
@@ -194,14 +194,14 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $faculty), 0, 1, 'L');
 
 // //สาขาวิชา
-$pdf->SetY(95);
+$pdf->SetY(75);
 $pdf->SetX(110);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
 // //ชั้นปี
-$pdf->SetY(70);
-$pdf->SetX(190);
+$pdf->SetY(75);
+$pdf->SetX(180);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'L');
 
