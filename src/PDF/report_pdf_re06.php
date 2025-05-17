@@ -188,14 +188,14 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $id), 0, 1, 'L');
 
 // //คณะ
-$pdf->SetY(60);
+$pdf->SetY(70);
 $pdf->SetX(30.5);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $faculty), 0, 1, 'L');
 
 // //สาขาวิชา
 $pdf->SetY(120);
-$pdf->SetX(68.5);
+$pdf->SetX(100);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
@@ -203,6 +203,6 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 $pdf->SetY(130);
 $pdf->SetX(68.5);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'L');
 
 $pdf->Output();
