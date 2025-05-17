@@ -94,12 +94,12 @@ $pdf->SetX(172);
 $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // // รหัสวิชา
-$pdf->SetY(85);
+$pdf->SetY(85.5);
 $pdf->SetX(35);
 $pdf->Cell(60, 8, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
 // // ชื่อวิชา
-$pdf->SetY(85);
+$pdf->SetY(85.5);
 $pdf->SetX(100);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $course_nameTH), 0, 'L');
 
@@ -109,7 +109,7 @@ $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $course_nameTH), 0, 'L');
 // $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $group), 0, 1, 'L');
 
 // // เหตุผล
-$pdf->SetY(95);
+$pdf->SetY(95.5);
 $pdf->SetX(30);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 
@@ -134,7 +134,7 @@ $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 // $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "คาดว่าจะจบ: $expected_graduation"), 0, 1, 'L');
 
 // // ความคิดเห็นอาจารย์ที่ปรึกษา
-$pdf->SetY(140);
+$pdf->SetY(150);
 $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_teacher), 0, 'L');
 
@@ -154,7 +154,7 @@ $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_head_dep), 0, 'L');
 
 // // email นักศึกษา
-$pdf->SetY(210);
+$pdf->SetY(120);
 $pdf->SetX(30);
 $pdf->Cell(100, 8, iconv('utf-8', 'cp874', $email), 0, 1, 'L');
 
@@ -168,25 +168,25 @@ $pdf->Cell(100, 8, iconv('utf-8', 'cp874', $email), 0, 1, 'L');
 // $pdf->SetX(30);
 // $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "วันที่สร้าง: $created_at"), 0, 1, 'L');
 
-// // email อาจารย์
-$pdf->SetY(260);
-$pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "Email อาจารย์: $teacher_email"), 0, 1, 'L');
+// // // email อาจารย์
+// $pdf->SetY(260);
+// $pdf->SetX(30);
+// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "Email อาจารย์: $teacher_email"), 0, 1, 'L');
 
-// // email หัวหน้าสาขา
-$pdf->SetY(270);
-$pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "Email หัวหน้าสาขา: $head_department"), 0, 1, 'L');
+// // // email หัวหน้าสาขา
+// $pdf->SetY(270);
+// $pdf->SetX(30);
+// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "Email หัวหน้าสาขา: $head_department"), 0, 1, 'L');
 
 
-// // //เวลา่
-// $created_at_thai = formatDateThai($created_at, ['                  ','                  ','    ', ' ']);
-// // เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
+// //เวลา่
+$created_at_thai = formatDateThai($created_at, ['                  ','                  ','    ', ' ']);
+// เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
-// $pdf->SetY(34);
-// $pdf->SetX(136);
-// $pdf->SetFont('sara', '', 11.5);
-// $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
+$pdf->SetY(34);
+$pdf->SetX(136);
+$pdf->SetFont('sara', '', 11.5);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
 
 $pdf->Output();
