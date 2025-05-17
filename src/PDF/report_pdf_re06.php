@@ -49,7 +49,7 @@ try {
             $faculty = $profile['faculty'];
             $field = $profile['field'];
             $course_level = $profile['course_level'];
-        }
+        
         //แปลงวันเดือนปีเวลา
         $datetime = new DateTime($created_at);
         $formatted_date = $datetime->format('d/m/Y H:i'); // 15/05/2025 10:45
@@ -72,6 +72,7 @@ try {
     $time = $dt->format('H:i');
 
     return $day . $spacing[0] . $thaiMonths[$month] . $spacing[1] . $year . $spacing[2] . 'เวลา' . $spacing[3] . $time . ' น.';
+    }
 }
 
     } else {
