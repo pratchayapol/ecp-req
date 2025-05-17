@@ -311,7 +311,7 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if ($course_id && is_array($emails)) {
             // แปลง emails array เป็นสตริงที่คั่นด้วย comma
-            $email_string = implode(',', array_map('trim', $emails));
+            $email_string = implode(', ', array_map('trim', $emails));
 
             // อัปเดตลงฐานข้อมูล
             $update_stmt = $pdo->prepare("UPDATE course SET email = :email WHERE course_id = :course_id");
