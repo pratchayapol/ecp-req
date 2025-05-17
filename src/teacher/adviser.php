@@ -39,6 +39,22 @@ $yearSuffixes = [];
 for ($i = 0; $i < 8; $i++) {
     $yearSuffixes[] = substr((string)($currentYear - $i), -2); // ได้เช่น 67, 66, ...
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email_advisor = $_POST['email'];
+    $advisor = isset($_POST['advisor']) ? implode(", ", $_POST['advisor']) : '';
+    echo "<pre>Debug: $advisor</pre>"; // ใช้ <pre> เพื่อให้ดูง่ายขึ้น
+
+    // Uncomment if needed
+    // $stmt = $pdo->prepare("UPDATE accounts SET Advisor = :advisor WHERE email = :email");
+    // $stmt->execute([
+    //     'advisor' => $advisor,
+    //     'email' => $email_advisor
+    // ]);
+
+    // header("Location: teacher_management.php?updated=1");
+    // exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -294,24 +310,6 @@ for ($i = 0; $i < 8; $i++) {
             display: none;
         }
     </style>
-
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email_advisor = $_POST['email'];
-        echo $advisor = isset($_POST['advisor']) ? implode(", ", $_POST['advisor']) : '';
-
-        // $stmt = $pdo->prepare("UPDATE accounts SET Advisor = :advisor WHERE email = :email");
-        // $stmt->execute([
-        //     'advisor' => $advisor,
-        //     'email' => $email
-        // ]);
-
-        // // Redirect กลับ (หรือส่ง message)
-        // header("Location: teacher_management.php?updated=1");
-        // exit();
-    }
-
-    ?>
     <?php include '../loadtab/f.php'; ?>
 </body>
 
