@@ -327,7 +327,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     confirmButtonText: 'ตกลง'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = 'teacher/adviser'; // เปลี่ยนเส้นทาง
+                        window.location.href = 'adviser'; // เปลี่ยนเส้นทาง
                     }
                 });
             });
