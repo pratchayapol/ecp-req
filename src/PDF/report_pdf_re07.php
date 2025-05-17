@@ -84,23 +84,23 @@ $pdf->SetXY(190, 0);
 $pdf->SetFont('sara', '', 14);
 
 // // ภาคเรียน
-$pdf->SetY(21);
-$pdf->SetX(120);
+$pdf->SetY(20);
+$pdf->SetX(100);
 $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $term), 0, 1, 'L');
 
 // // ปีการศึกษา
-$pdf->SetY(21);
-$pdf->SetX(160);
+$pdf->SetY(20);
+$pdf->SetX(180);
 $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // // รหัสวิชา
-$pdf->SetY(35);
+$pdf->SetY(90);
 $pdf->SetX(30);
 $pdf->Cell(60, 8, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
 // // ชื่อวิชา
-$pdf->SetY(45);
-$pdf->SetX(30);
+$pdf->SetY(100);
+$pdf->SetX(100);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $course_nameTH), 0, 'L');
 
 // // กลุ่มเรียน
