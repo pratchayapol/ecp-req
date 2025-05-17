@@ -169,7 +169,32 @@ $teachers =
                                             </form>
                                         </div>
                                     </div>
-
+                                    <!-- Modal -->
+                                    <div id="modal<?= $index ?>" class="hidden fixed z-10 inset-0 overflow-y-auto">
+                                        <div class="flex items-center justify-center min-h-screen">
+                                            <div class="bg-white p-6 rounded-lg shadow-lg w-[400px]">
+                                                <h2 class="text-lg font-semibold mb-4">เลือกอาจารย์ผู้สอน</h2>
+                                                <form method="POST" action="update_teachers.php">
+                                                    <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>">
+                                                    <?php foreach ($teachers as $teacher): ?>
+                                                        <?php
+                                                        $selected = in_array($teacher['email'], explode(",", $course['email'])) ? 'checked' : '';
+                                                        ?>
+                                                        <div class="mb-2">
+                                                            <label class="inline-flex items-center">
+                                                                <input type="checkbox" name="emails[]" value="<?= $teacher['email'] ?>" <?= $selected ?> class="mr-2">
+                                                                <?= htmlspecialchars($teacher['fullname']) ?> (<?= $teacher['email'] ?>)
+                                                            </label>
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                    <div class="mt-4 flex justify-end space-x-2">
+                                                        <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded">บันทึก</button>
+                                                        <button type="button" onclick="document.getElementById('modal<?= $index ?>').classList.add('hidden')" class="bg-gray-400 text-white px-3 py-1 rounded">ปิด</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
