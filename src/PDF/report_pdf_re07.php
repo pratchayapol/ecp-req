@@ -109,7 +109,7 @@ $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $course_nameTH), 0, 'L');
 // $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $group), 0, 1, 'L');
 
 // // เหตุผล
-$pdf->SetY(90);
+$pdf->SetY(95);
 $pdf->SetX(30);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 
@@ -134,8 +134,8 @@ $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 // $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "คาดว่าจะจบ: $expected_graduation"), 0, 1, 'L');
 
 // // ความคิดเห็นอาจารย์ที่ปรึกษา
-$pdf->SetY(130);
-$pdf->SetX(30);
+$pdf->SetY(140);
+$pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_teacher), 0, 'L');
 
 // // // สถานะอนุมัติอาจารย์
@@ -144,39 +144,29 @@ $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_teacher), 0, 'L');
 // $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "อนุมัติอาจารย์: $approval_status_teacher"), 0, 1, 'L');
 
 // // สถานะอนุมัติหัวหน้าสาขา
-$pdf->SetY(170);
-$pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "อนุมัติหัวหน้าสาขา: $approval_status_dep"), 0, 1, 'L');
+// $pdf->SetY(170);
+// $pdf->SetX(30);
+// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "อนุมัติหัวหน้าสาขา: $approval_status_dep"), 0, 1, 'L');
 
 // // ความคิดเห็นหัวหน้าสาขา
-$pdf->SetY(180);
-$pdf->SetX(30);
-$pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', "ความคิดเห็นหัวหน้าสาขา:\n$comment_head_dep"), 0, 'L');
+$pdf->SetY(175);
+$pdf->SetX(20);
+$pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_head_dep), 0, 'L');
 
 // // email นักศึกษา
 $pdf->SetY(210);
 $pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "Email นักศึกษา: $email"), 0, 1, 'L');
+$pdf->Cell(100, 8, iconv('utf-8', 'cp874', $email), 0, 1, 'L');
 
 // // สถานะคำร้อง
-$pdf->SetY(220);
-$pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "สถานะคำร้อง: $status"), 0, 1, 'L');
+// $pdf->SetY(220);
+// $pdf->SetX(30);
+// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "สถานะคำร้อง: $status"), 0, 1, 'L');
 
-// // วันที่สร้างคำร้อง
-$pdf->SetY(230);
-$pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "วันที่สร้าง: $created_at"), 0, 1, 'L');
-
-// // Token
-$pdf->SetY(240);
-$pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "Token: $token"), 0, 1, 'L');
-
-// // Token ใหม่
-$pdf->SetY(250);
-$pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "Token ยืนยันหัวหน้าสาขา: $token_new"), 0, 1, 'L');
+// // // วันที่สร้างคำร้อง
+// $pdf->SetY(230);
+// $pdf->SetX(30);
+// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "วันที่สร้าง: $created_at"), 0, 1, 'L');
 
 // // email อาจารย์
 $pdf->SetY(260);
