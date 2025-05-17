@@ -100,54 +100,65 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
-                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
-                    <div class="card-body items-center">
-                        <?php
-                        try {
-                            // Query the database
-                            $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 1");
-                            $stmt->execute();
+                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">จัดการที่ปรึกษา</h1>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm text-center border mt-6">
+                            <thead class="bg-gray-100 text-gray-700">
+                                <tr>
+                                    <th class="py-2 px-4 border">ชื่อ - สกุล</th>
+                                    <th class="py-2 px-4 border">คณะ</th>
+                                    <th class="py-2 px-4 border">สาขาวิชา</th>
+                                    <th class="py-2 px-4 border">เมล</th>
+                                    <th class="py-2 px-4 border">ที่ปรึกษา</th>
+                                    <th class="py-2 px-4 border">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($teachers as $index => $row): ?>
+                                    <tr class="border-b">
+                                        <td class="py-2 px-4 border"><?= htmlspecialchars($row['name']) ?></td>
+                                        <td class="py-2 px-4 border"><?= htmlspecialchars($row['faculty']) ?></td>
+                                        <td class="py-2 px-4 border"><?= htmlspecialchars($row['field']) ?></td>
+                                        <td class="py-2 px-4 border"><?= htmlspecialchars($row['email']) ?></td>
+                                        <td class="py-2 px-4 border"><?= htmlspecialchars($row['Advisor']) ?></td>
+                                        <td class="py-2 px-4 border">
+                                            <button onclick="openModal('modal-<?= $index ?>')" class="bg-orange-500 text-white px-4 py-1 rounded hover:bg-orange-600">
+                                                จัดการ
+                                            </button>
 
-                            // Check if any data is returned
-                            if ($stmt->rowCount() == 0) {
-                                echo '<center><br><br><h3 style="color:red">!!! ไม่พบข้อมูลการประกาศข่าว !!!</h3><br><br>';
-                            } else {
-                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                    // วันภาษาไทย
-                                    $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์");
-                                    // เดือนภาษาไทย
-                                    $ThMonth = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-
-                                    // วันที่ ที่ต้องการเอามาเปลี่ยนฟอแมต
-                                    $myDATE = $row['date_published']; // อาจมาจากฐานข้อมูล
-                                    // กำหนดคุณสมบัติ
-                                    $time = date("H:i:s", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-                                    $week = date("w", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-                                    $months = date("m", strtotime($myDATE)) - 1; // ค่าเดือน (1-12)
-                                    $day = date("d", strtotime($myDATE)); // ค่าวันที่(1-31)
-                                    $years = date("Y", strtotime($myDATE)) + 543; // ค่า ค.ศ.บวก 543 ทำให้เป็น ค.ศ.
-                                    $datetime = "วัน $ThDay[$week] ที่ $day $ThMonth[$months] $years เวลา $time น.";
-
-                                    // Display the article title
-                                    echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
-
-                                    // Display the article content with HTML tags
-                                    // Use `htmlspecialchars` on the title to prevent XSS, but not on content to allow HTML rendering
-                                    echo $row["article_content"];
-
-                                    // Display the modified date
-                                    echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
-                                }
-                            }
-                        } catch (PDOException $e) {
-                            // In case of error, output the error message
-                            echo 'Connection failed: ' . $e->getMessage();
-                        }
-                        ?>
+                                            <!-- Modal -->
+                                            <div id="modal-<?= $index ?>" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+                                                <div class="bg-white rounded-lg shadow-lg p-6 w-96 relative">
+                                                    <h2 class="text-lg font-bold mb-4">ข้อมูลห้องของ <?= htmlspecialchars($row['name']) ?></h2>
+                                                    <!-- ตัวอย่างข้อมูลห้อง -->
+                                                    <p>ข้อมูลห้อง: ห้อง 301 อาคาร A</p>
+                                                    <!-- ปุ่มปิด -->
+                                                    <button onclick="closeModal('modal-<?= $index ?>')" class="absolute top-2 right-2 text-gray-500 hover:text-black">
+                                                        ✕
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
             </div>
+
+            <!-- JavaScript สำหรับ Modal -->
+            <script>
+                function openModal(id) {
+                    document.getElementById(id).classList.remove('hidden');
+                    document.getElementById(id).classList.add('flex');
+                }
+
+                function closeModal(id) {
+                    document.getElementById(id).classList.add('hidden');
+                    document.getElementById(id).classList.remove('flex');
+                }
+            </script>
 
 
             <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
