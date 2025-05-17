@@ -28,6 +28,15 @@ $sql = "SELECT name, email FROM accounts WHERE email = :email";
 $stmt = $pdo->prepare($sql);
 $stmt->execute(['email' => $email]);
 $profile = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+$stmt = $pdo->prepare("SELECT * FROM course"); 
+$stmt->execute();
+$courses = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+// ดึงอาจารย์ทั้งหมด 
+$teacher_stmt = $pdo->prepare("SELECT * FROM accounts WHERE role = 'Teacher'"); 
+$teacher_stmt->execute(); $teachers = 
+$teacher_stmt->fetchAll(PDO::FETCH_ASSOC); ?>
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -100,60 +109,78 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
-                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
-                    <div class="card-body">
-                        <?php
-                        try {
-                            // Query the database
-                            $stmt = $pdo->prepare("SELECT * FROM dashboard WHERE id_dash = 1");
-                            $stmt->execute();
+                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">จัดการรายวิชา</h1>
+                    <table class="min-w-full text-sm text-center border mb-6">
+                        <table class="min-w-full text-sm text-center border mb-6">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="border p-2">รหัสวิชา</th>
+                                    <th class="border p-2">ชื่อวิชาภาษาไทย</th>
+                                    <th class="border p-2">ชื่อวิชาภาษาอังกฤษ</th>
+                                    <th class="border p-2">กลุ่มเรียน</th>
+                                    <th class="border p-2">หน่วยกิต</th>
+                                    <th class="border p-2">อาจารย์</th>
+                                    <th class="border p-2">จัดการ</th>
+                                </tr>
+                            </thead>
 
-                            // Check if any data is returned
-                            if ($stmt->rowCount() == 0) {
-                                echo '<center><br><br><h3 style="color:red">!!! ไม่พบข้อมูลการประกาศข่าว !!!</h3><br><br>';
-                            } else {
-                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                    // วันภาษาไทย
-                                    $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์");
-                                    // เดือนภาษาไทย
-                                    $ThMonth = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+                            <tbody>
+                                <?php foreach ($courses as $index => $course): ?>
+                                    <tr class="border">
+                                        <td class="border p-2"><?= htmlspecialchars($course['course_id']) ?></td>
+                                        <td class="border p-2"><?= htmlspecialchars($course['course_nameTH']) ?></td>
+                                        <td class="border p-2"><?= htmlspecialchars($course['course_nameEN']) ?></td>
+                                        <td class="border p-2"><?= htmlspecialchars($course['course_group']) ?></td>
+                                        <td class="border p-2"><?= htmlspecialchars($course['credits']) ?></td>
+                                        <td class="border p-2"><?= htmlspecialchars($course['email']) ?></td>
+                                        <td class="border p-2">
+                                            <button onclick="openModal('modal<?= $index ?>')" class="bg-blue-500 text-white px-3 py-1 rounded">
+                                                จัดการ
+                                            </button>
+                                        </td>
+                                    </tr>
 
-                                    // วันที่ ที่ต้องการเอามาเปลี่ยนฟอแมต
-                                    $myDATE = $row['date_published']; // อาจมาจากฐานข้อมูล
-                                    // กำหนดคุณสมบัติ
-                                    $time = date("H:i:s", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-                                    $week = date("w", strtotime($myDATE)); // ค่าวันในสัปดาห์ (0-6)
-                                    $months = date("m", strtotime($myDATE)) - 1; // ค่าเดือน (1-12)
-                                    $day = date("d", strtotime($myDATE)); // ค่าวันที่(1-31)
-                                    $years = date("Y", strtotime($myDATE)) + 543; // ค่า ค.ศ.บวก 543 ทำให้เป็น ค.ศ.
-                                    $datetime = "วัน $ThDay[$week] ที่ $day $ThMonth[$months] $years เวลา $time น.";
+                                    <!-- Modal สำหรับจัดการอาจารย์ -->
+                                    <div id="modal<?= $index ?>" class="fixed inset-0 bg-black bg-opacity-30 hidden items-center justify-center z-50">
+                                        <div class="bg-white p-6 rounded-lg w-[400px] shadow-lg">
+                                            <h2 class="text-lg font-semibold mb-4 text-center">เลือกอาจารย์ผู้สอน</h2>
 
-                                    // Display the article title
-                                    echo '<h3>' . htmlspecialchars($row["article_title"]) . '</h3>';
+                                            <form method="POST" action="update_teachers.php">
+                                                <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>">
 
-                                    // Display the article content with HTML tags
-                                    // Use `htmlspecialchars` on the title to prevent XSS, but not on content to allow HTML rendering
-                                    echo $row["article_content"];
+                                                <div class="max-h-60 overflow-y-auto mb-4 text-left">
+                                                    <?php
+                                                    $selectedEmails = explode(",", $course['email']);
+                                                    foreach ($teachers as $teacher):
+                                                        $checked = in_array($teacher['email'], $selectedEmails) ? 'checked' : '';
+                                                    ?>
+                                                        <label class="block mb-2">
+                                                            <input type="checkbox" name="emails[]" value="<?= $teacher['email'] ?>" <?= $checked ?> class="mr-2">
+                                                            <?= htmlspecialchars($teacher['fullname']) ?> (<?= htmlspecialchars($teacher['email']) ?>)
+                                                        </label>
+                                                    <?php endforeach; ?>
+                                                </div>
 
-                                    // Display the modified date
-                                    echo '<span class="text-right block">แก้ไขเมื่อ : ' . $datetime . '</span>';
-                                }
-                            }
-                        } catch (PDOException $e) {
-                            // In case of error, output the error message
-                            echo 'Connection failed: ' . $e->getMessage();
-                        }
-                        ?>
-                    </div>
+                                                <div class="flex justify-end space-x-2">
+                                                    <button type="submit" class="bg-green-500 text-white px-4 py-1 rounded">บันทึก</button>
+                                                    <button type="button" onclick="closeModal('modal<?= $index ?>')" class="bg-gray-400 text-white px-4 py-1 rounded">ปิด</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
                 </div>
-
             </div>
-
-
-            <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
-                2025 All rights reserved by Software Engineering 3/67
-            </footer>
         </div>
+
+
+        <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
+            2025 All rights reserved by Software Engineering 3/67
+        </footer>
+    </div>
     </div>
 
     <!-- SweetAlert2 CDN -->
