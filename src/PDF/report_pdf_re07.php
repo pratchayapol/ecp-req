@@ -78,7 +78,7 @@ try {
 $pdf = new FPDF();
 $pdf->AddPage('P');
 $pdf->AddFont('sara', '', 'THSarabun.php');
-$pdf->Image('RE.06bg.jpg', 0, 0, 210, 297);
+$pdf->Image('RE.07bg.jpg', 0, 0, 210, 297);
 $pdf->SetXY(190, 0);
 
 $pdf->SetFont('sara', '', 14);
