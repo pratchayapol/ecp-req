@@ -34,7 +34,7 @@ $stmt = $pdo->prepare("SELECT * FROM `accounts` WHERE role = 'Teacher'");
 $stmt->execute();
 $teachers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$currentYear = date("Y");
+$currentYear = date("Y") + 543;
 $yearSuffixes = [];
 for ($i = 0; $i < 8; $i++) {
     $yearSuffixes[] = substr((string)($currentYear - $i), -2); // ได้เช่น 67, 66, ...
