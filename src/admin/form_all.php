@@ -168,7 +168,6 @@ function getNameByEmail($pdo, $email)
                                         // การดึงข้อมูลจากฐานข้อมูล
                                         try {
                                             $stmt1 = $pdo->prepare("SELECT * FROM form_re01 ORDER BY form_id DESC");
-                                            $stmt1->execute(['email' => $email]);
                                             $forms1 = $stmt1->fetchAll();
                                         } catch (PDOException $e) {
                                             echo "Database error: " . $e->getMessage();
