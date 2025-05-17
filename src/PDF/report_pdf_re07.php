@@ -90,58 +90,58 @@ $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $term), 0, 1, 'L');
 
 // // ปีการศึกษา
 $pdf->SetY(20);
-$pdf->SetX(175);
+$pdf->SetX(172);
 $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // // รหัสวิชา
-$pdf->SetY(85);
+$pdf->SetY(84);
 $pdf->SetX(35);
 $pdf->Cell(60, 8, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
 // // ชื่อวิชา
-$pdf->SetY(85);
+$pdf->SetY(84);
 $pdf->SetX(100);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $course_nameTH), 0, 'L');
 
-// // กลุ่มเรียน
-$pdf->SetY(60);
-$pdf->SetX(30);
-$pdf->Cell(40, 8, iconv('utf-8', 'cp874', $group), 0, 1, 'L');
+// // // กลุ่มเรียน
+// $pdf->SetY(60);
+// $pdf->SetX(30);
+// $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $group), 0, 1, 'L');
 
 // // เหตุผล
-$pdf->SetY(70);
-$pdf->SetX(30);
+$pdf->SetY(100);
+$pdf->SetX(100);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 
-// // GPA
-$pdf->SetY(90);
-$pdf->SetX(30);
-$pdf->Cell(40, 8, iconv('utf-8', 'cp874', "GPA: $gpa"), 0, 1, 'L');
+// // // GPA
+// $pdf->SetY(90);
+// $pdf->SetX(30);
+// $pdf->Cell(40, 8, iconv('utf-8', 'cp874', "GPA: $gpa"), 0, 1, 'L');
 
-// // หน่วยกิตที่ลงทะเบียน
-$pdf->SetY(100);
-$pdf->SetX(30);
-$pdf->Cell(60, 8, iconv('utf-8', 'cp874', "หน่วยกิตที่ลงทะเบียน: $git_unit"), 0, 1, 'L');
+// // // หน่วยกิตที่ลงทะเบียน
+// $pdf->SetY(100);
+// $pdf->SetX(30);
+// $pdf->Cell(60, 8, iconv('utf-8', 'cp874', "หน่วยกิตที่ลงทะเบียน: $git_unit"), 0, 1, 'L');
 
-// // สถานภาพการลงทะเบียน
-$pdf->SetY(110);
-$pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "สถานภาพการลงทะเบียน: $reg_status"), 0, 1, 'L');
+// // // สถานภาพการลงทะเบียน
+// $pdf->SetY(110);
+// $pdf->SetX(30);
+// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "สถานภาพการลงทะเบียน: $reg_status"), 0, 1, 'L');
 
-// // คาดว่าจะจบ
-$pdf->SetY(120);
-$pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "คาดว่าจะจบ: $expected_graduation"), 0, 1, 'L');
+// // // คาดว่าจะจบ
+// $pdf->SetY(120);
+// $pdf->SetX(30);
+// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "คาดว่าจะจบ: $expected_graduation"), 0, 1, 'L');
 
 // // ความคิดเห็นอาจารย์ที่ปรึกษา
 $pdf->SetY(130);
 $pdf->SetX(30);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', "ความคิดเห็นอาจารย์ที่ปรึกษา:\n$comment_teacher"), 0, 'L');
 
-// // สถานะอนุมัติอาจารย์
-$pdf->SetY(160);
-$pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "อนุมัติอาจารย์: $approval_status_teacher"), 0, 1, 'L');
+// // // สถานะอนุมัติอาจารย์
+// $pdf->SetY(160);
+// $pdf->SetX(30);
+// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "อนุมัติอาจารย์: $approval_status_teacher"), 0, 1, 'L');
 
 // // สถานะอนุมัติหัวหน้าสาขา
 $pdf->SetY(170);
