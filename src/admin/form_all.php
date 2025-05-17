@@ -489,13 +489,12 @@ function getNameByEmail($pdo, $email)
                                     <tbody>
                                         <?php
                                         try {
-                                            $stmt2 = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `Group`, status, reason, coutter, 	reg_status, teacher_email, token, f.email,
-                                            c.course_nameTH, c.credits
-                                            FROM form_re06 AS f
-                                            LEFT JOIN course AS c ON f.course_id = c.course_id
-                                            WHERE f.teacher_email = :email
-                                            ORDER BY form_id DESC");
-                                            $stmt2->execute(['email' => $email]);
+                                            $stmt2 = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `Group`, status, reason, coutter, reg_status, teacher_email, token, f.email,
+                            c.course_nameTH, c.credits
+                            FROM form_re06 AS f
+                            LEFT JOIN course AS c ON f.course_id = c.course_id
+                            ORDER BY form_id DESC");
+                                            $stmt2->execute();
                                             $forms2 = $stmt2->fetchAll();
                                         } catch (PDOException $e) {
                                             echo "Database error: " . $e->getMessage();
@@ -781,13 +780,12 @@ function getNameByEmail($pdo, $email)
                                         // การดึงข้อมูลจากฐานข้อมูล
                                         try {
                                             $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit, reg_status, expected_graduation, comment_teacher, comment_head_dep, token, f.email,
-f.teacher_email, f.head_department,
-c.course_nameTH, c.credits
-FROM form_re07 AS f
-LEFT JOIN course AS c ON f.course_id = c.course_id
-WHERE f.teacher_email = :email
-ORDER BY form_id DESC");
-                                            $stmt3->execute(['email' => $email]);
+                            f.teacher_email, f.head_department,
+                            c.course_nameTH, c.credits
+                            FROM form_re07 AS f
+                            LEFT JOIN course AS c ON f.course_id = c.course_id
+                            ORDER BY form_id DESC");
+                                            $stmt3->execute();
                                             $forms3 = $stmt3->fetchAll();
                                         } catch (PDOException $e) {
                                             echo "Database error: " . $e->getMessage();
