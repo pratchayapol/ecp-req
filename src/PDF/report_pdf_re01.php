@@ -155,7 +155,7 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_head_dep), 0, 1, 'L');
 $created_at_thai = formatDateThai($created_at, ['                  ','                  ','    ', ' ']);
 // เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
-$pdf->SetY(60);
+$pdf->SetY(32);
 $pdf->SetX(120);
 $pdf->SetFont('sara', '', 11.5);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
@@ -163,13 +163,13 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
 //ชื่อ
 $pdf->SetY(60);
-$pdf->SetX(70);
+$pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
 
 //เลขนศ
-$pdf->SetY(50);
-$pdf->SetX(150);
+$pdf->SetY(60);
+$pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874',$id), 0, 1, 'L');
 
