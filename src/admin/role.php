@@ -79,6 +79,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- animation -->
     <link rel="stylesheet" href="../css/animation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Datatable -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
@@ -123,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">จัดการสิทธิ์การใช้งาน</h1>
                     <div class="overflow-x-auto ms-6 mt-6 me-6 mb-6">
-                        <table class="min-w-full text-sm text-center border mb-6">
+                        <table id="myTable1" class="min-w-full text-sm text-center border mb-6">
                             <thead class="bg-gray-100 text-gray-700">
                                 <tr>
                                     <th class="py-2 px-4 border">ชื่อ - สกุล</th>
@@ -270,7 +278,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             window.location.href = 'role';
         });
     </script>
-
+    <script>
+        $(document).ready(function() {
+            $('#myTable1').DataTable({
+                pageLength: 10, // จำนวนเริ่มต้นต่อหน้า
+                lengthMenu: [10, 20, 50, 100], // ตัวเลือก dropdown
+                language: {
+                    search: "ค้นหา:",
+                    lengthMenu: "แสดง _MENU_ รายการต่อหน้า",
+                    info: "แสดง _START_ ถึง _END_ จาก _TOTAL_ รายการ",
+                    paginate: {
+                        first: "หน้าแรก",
+                        last: "หน้าสุดท้าย",
+                        next: "ถัดไป",
+                        previous: "ก่อนหน้า"
+                    },
+                    zeroRecords: "ไม่พบข้อมูลที่ค้นหา",
+                    infoEmpty: "ไม่มีข้อมูลให้แสดง",
+                    infoFiltered: "(กรองจากทั้งหมด _MAX_ รายการ)"
+                }
+            });
+        });
+    </script>
     <!-- Custom Style -->
     <style>
         .swal-confirm-btn {
