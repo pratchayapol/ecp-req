@@ -110,7 +110,6 @@ $teacher_stmt->fetchAll(PDO::FETCH_ASSOC); ?>
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">จัดการรายวิชา</h1>
-                    <table class="min-w-full text-sm text-center border mb-6">
                         <table class="min-w-full text-sm text-center border mb-6">
                             <thead>
                                 <tr class="bg-gray-100">
