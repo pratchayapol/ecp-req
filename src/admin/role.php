@@ -38,7 +38,7 @@ $select_role = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $showSwal = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_role = $_POST['email'];
-    echo $role_post = isset($_POST['role']);
+    echo $role_post = $_POST['role'];
     // echo "<pre>Debug: $advisor</pre>"; // ใช้ <pre> เพื่อให้ดูง่ายขึ้น
 
     // Uncomment if needed
