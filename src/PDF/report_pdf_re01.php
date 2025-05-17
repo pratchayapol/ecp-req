@@ -169,7 +169,7 @@ $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
 
 //เลขนศ
 $pdf->SetY(60);
-$pdf->SetX(155);
+$pdf->SetX(160);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874',$id), 0, 1, 'L');
 
