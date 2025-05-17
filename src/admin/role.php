@@ -121,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="flex-1 flex flex-col justify-between bg-white/60 mt-6 me-6 mb-6 rounded-[20px] overflow-auto">
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
-                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">จัดการที่ปรึกษา</h1>
+                    <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">จัดการสิทธิ์การใช้งาน</h1>
                     <div class="overflow-x-auto ms-6 mt-6 me-6 mb-6">
                         <table class="min-w-full text-sm text-center border mb-6">
                             <thead class="bg-gray-100 text-gray-700">
@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <th class="py-2 px-4 border">คณะ</th>
                                     <th class="py-2 px-4 border">สาขาวิชา</th>
                                     <th class="py-2 px-4 border">เมล</th>
-                                    <th class="py-2 px-4 border">ที่ปรึกษากลุ่มเรียน</th>
+                                    <th class="py-2 px-4 border">สิทธิ์การใช้งาน</th>
                                     <th class="py-2 px-4 border">จัดการ</th>
                                 </tr>
                             </thead>
@@ -149,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <td class="py-2 px-4 border"><?= htmlspecialchars($row['faculty']) ?></td>
                                         <td class="py-2 px-4 border"><?= htmlspecialchars($row['field']) ?></td>
                                         <td class="py-2 px-4 border"><?= htmlspecialchars($row['email']) ?></td>
-                                        <td class="py-2 px-4 border"><?= htmlspecialchars($row['Advisor']) ?></td>
+                                        <td class="py-2 px-4 border"><?= htmlspecialchars($row['role']) ?></td>
                                         <td class="py-2 px-4 border">
                                             <button onclick="openModal('modal-<?= $index ?>')" class="bg-orange-500 text-white px-4 py-1 rounded hover:bg-orange-600">
                                                 จัดการ
