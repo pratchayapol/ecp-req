@@ -158,7 +158,7 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <div class="bg-white p-6 rounded-lg w-[400px] shadow-lg">
                                             <h2 class="text-lg font-semibold mb-4 text-center">เลือกอาจารย์ผู้สอน</h2>
 
-                                            <form method="POST" action="update_teachers.php">
+                                            <form method="POST" action="">
                                                 <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>">
 
                                                 <div class="max-h-60 overflow-y-auto mb-4 text-left">
@@ -303,6 +303,34 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
             display: none;
         }
     </style>
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // รับค่า
+        $course_id = $_POST['course_id'] ?? '';
+        $emails = $_POST['emails'] ?? [];
+
+        if ($course_id && is_array($emails)) {
+            // แปลง emails array เป็นสตริงที่คั่นด้วย comma
+            $email_string = implode(',', array_map('trim', $emails));
+
+            // อัปเดตลงฐานข้อมูล
+            $update_stmt = $pdo->prepare("UPDATE course SET email = :email WHERE course_id = :course_id");
+            $update_stmt->bindParam(':email', $email_string);
+            $update_stmt->bindParam(':course_id', $course_id);
+
+            if ($update_stmt->execute()) {
+                echo "<script>alert('บันทึกข้อมูลเรียบร้อย'); window.location.href = window.location.href;</script>";
+                exit;
+            } else {
+                echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');</script>";
+            }
+        } else {
+            echo "<script>alert('ข้อมูลไม่ครบถ้วน');</script>";
+        }
+    }
+    ?>
+
+    ?>
     <?php include '../loadtab/f.php'; ?>
 </body>
 
