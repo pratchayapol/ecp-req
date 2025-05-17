@@ -107,14 +107,14 @@ $teachers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">จัดการที่ปรึกษา</h1>
                     <div class="overflow-x-auto">
-                        <table class="min-w-full text-sm text-center border mt-6">
+                        <table class="min-w-full text-sm text-center border mt-6 me-6 mb-6">
                             <thead class="bg-gray-100 text-gray-700">
                                 <tr>
                                     <th class="py-2 px-4 border">ชื่อ - สกุล</th>
                                     <th class="py-2 px-4 border">คณะ</th>
                                     <th class="py-2 px-4 border">สาขาวิชา</th>
                                     <th class="py-2 px-4 border">เมล</th>
-                                    <th class="py-2 px-4 border">ที่ปรึกษา</th>
+                                    <th class="py-2 px-4 border">ที่ปรึกษากลุ่มเรียน</th>
                                     <th class="py-2 px-4 border">จัดการ</th>
                                 </tr>
                             </thead>
