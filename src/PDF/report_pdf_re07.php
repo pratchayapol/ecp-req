@@ -94,12 +94,12 @@ $pdf->SetX(172);
 $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // // รหัสวิชา
-$pdf->SetY(84);
+$pdf->SetY(85);
 $pdf->SetX(35);
 $pdf->Cell(60, 8, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
 // // ชื่อวิชา
-$pdf->SetY(84);
+$pdf->SetY(85);
 $pdf->SetX(100);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $course_nameTH), 0, 'L');
 
@@ -109,8 +109,8 @@ $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $course_nameTH), 0, 'L');
 // $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $group), 0, 1, 'L');
 
 // // เหตุผล
-$pdf->SetY(100);
-$pdf->SetX(100);
+$pdf->SetY(90);
+$pdf->SetX(30);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 
 // // // GPA
@@ -136,7 +136,7 @@ $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 // // ความคิดเห็นอาจารย์ที่ปรึกษา
 $pdf->SetY(130);
 $pdf->SetX(30);
-$pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', "ความคิดเห็นอาจารย์ที่ปรึกษา:\n$comment_teacher"), 0, 'L');
+$pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_teacher), 0, 'L');
 
 // // // สถานะอนุมัติอาจารย์
 // $pdf->SetY(160);
