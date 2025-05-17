@@ -185,7 +185,7 @@ $teachers =
                                                     ?>
                                                         <label class="block mb-2">
                                                             <input type="checkbox" name="emails[]" value="<?= $teacher['email'] ?>" <?= $checked ?> class="mr-2">
-                                                            <?= htmlspecialchars($teacher['fullname']) ?> (<?= htmlspecialchars($teacher['email']) ?>)
+                                                            <?= htmlspecialchars($teacher['name']) ?> (<?= htmlspecialchars($teacher['email']) ?>)
                                                         </label>
                                                     <?php endforeach; ?>
                                                 </div>
