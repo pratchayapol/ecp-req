@@ -156,7 +156,7 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
                                                     ?>
                                                         <label class="block mb-2">
                                                             <input type="checkbox" name="emails[]" value="<?= $teacher['email'] ?>" <?= $checked ?> class="mr-2">
-                                                            <?= htmlspecialchars($teacher['cname']) ?> (<?= htmlspecialchars($teacher['email']) ?>)
+                                                            <?= htmlspecialchars($teacher['name']) ?> (<?= htmlspecialchars($teacher['email']) ?>)
                                                         </label>
                                                     <?php endforeach; ?>
                                                 </div>
