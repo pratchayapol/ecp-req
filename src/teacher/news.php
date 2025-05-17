@@ -30,38 +30,6 @@ $stmt->execute(['email' => $email]);
 $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-if (isset($_POST['submit_data'])) {
-    $articleContent = $_POST['Article_content'];
-
-    try {
-        $sql = "UPDATE dashboard SET article_content = :content WHERE id_dash = 1";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':content', $articleContent, PDO::PARAM_STR);
-        $stmt->execute();
-
-        // แจ้งผลลัพธ์ด้วย SweetAlert
-        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
-        echo "
-        <script>
-        Swal.fire({
-            title: 'สำเร็จ!',
-            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-            icon: 'success',
-            confirmButtonText: 'ตกลง'
-        }).then(() => {
-            window.location.href = 'dashboard';
-        });
-        </script>
-        ";
-        echo "</body></html>";
-
-
-        exit();
-    } catch (PDOException $e) {
-        echo "<script>alert('เกิดข้อผิดพลาด: " . $e->getMessage() . "');</script>";
-    }
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -159,7 +127,7 @@ if (isset($_POST['submit_data'])) {
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">ประชาสัมพันธ์</h1>
 
-                    
+
                     <div class="card-body">
                         <?php
                         try {
@@ -354,6 +322,43 @@ if (isset($_POST['submit_data'])) {
             display: none;
         }
     </style>
+
+
+    <?php
+
+    if (isset($_POST['submit_data'])) {
+        $articleContent = $_POST['Article_content'];
+
+        try {
+            $sql = "UPDATE dashboard SET article_content = :content WHERE id_dash = 1";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':content', $articleContent, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // แจ้งผลลัพธ์ด้วย SweetAlert
+            echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>";
+            echo "
+        <script>
+        Swal.fire({
+            title: 'สำเร็จ!',
+            text: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            icon: 'success',
+            confirmButtonText: 'ตกลง'
+        }).then(() => {
+            window.location.href = 'dashboard';
+        });
+        </script>
+        ";
+            echo "</body></html>";
+
+
+            exit();
+        } catch (PDOException $e) {
+            echo "<script>alert('เกิดข้อผิดพลาด: " . $e->getMessage() . "');</script>";
+        }
+    }
+
+    ?>
     <?php include '../loadtab/f.php'; ?>
 </body>
 
