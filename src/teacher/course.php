@@ -130,7 +130,7 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <td class="border p-2"><?= htmlspecialchars($course['course_nameTH']) ?></td>
                                         <td class="border p-2"><?= htmlspecialchars($course['course_nameEN']) ?></td>
                                         <td class="border p-2"><?= htmlspecialchars($course['credits']) ?></td>
-                                        <td class="border p-2"><?= htmlspecialchars($course['email']) ?></td>
+                                        <td class="border p-2"><?= htmlspecialchars($teacher['email']) ?></td>
                                         <td class="border p-2">
                                             <button onclick="openModal('modal<?= $index ?>')" class="bg-blue-500 text-white px-3 py-1 rounded">
                                                 จัดการ
