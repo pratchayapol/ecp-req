@@ -144,7 +144,7 @@ for ($i = 0; $i < 8; $i++) {
                                             <div id="modal-<?= $index ?>" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
                                                 <div class="bg-white rounded-lg shadow-lg p-6 w-[500px] relative max-h-[90vh] overflow-y-auto">
                                                     <h2 class="text-lg font-bold mb-4">แก้ไขกลุ่มเรียนของ <?= htmlspecialchars($row['name']) ?></h2>
-                                                    <form method="post" action="update_advisor.php">
+                                                    <form method="post" action="">
                                                         <input type="hidden" name="email" value="<?= htmlspecialchars($row['email']) ?>">
 
                                                         <div class="grid grid-cols-3 gap-2 text-sm mb-4">
