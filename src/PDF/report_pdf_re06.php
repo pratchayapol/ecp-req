@@ -76,60 +76,72 @@ $pdf->AddFont('sara', '', 'THSarabun.php');
 $pdf->Image('RE.06bg.jpg', 0, 0, 210, 297);
 $pdf->SetXY(190, 0);
 
-// //เรื่อง
-$pdf->SetY(40.5);
-$pdf->SetX(23);
+// //	ภาคเรียน
+$pdf->SetY(21);
+$pdf->SetX(120);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $term), 0, 1, 'L');
 
-// //เรียน
-$pdf->SetY(49);
-$pdf->SetX(23);
+// //ปีการศึกษา	
+$pdf->SetY(21);
+$pdf->SetX(155);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // //email นักศึกษา
-$pdf->SetY(121.5);
+$pdf->SetY(184);
 $pdf->SetX(32.5);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
-// //คณะ
-$pdf->SetY(79);
-$pdf->SetX(23);
+// //กลุ่มเรียน
+$pdf->SetY(138);
+$pdf->SetX(116);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $group), 0, 1, 'L');
 
 
 
-// //สาขา
-$pdf->SetY(79);
-$pdf->SetX(35);
+// //รหัสรายวิชา1
+$pdf->SetY(130);
+$pdf->SetX(20);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(165, 2, iconv('utf-8', 'cp874', $course_id), 0, 1, 'C');
+$pdf->Cell(165, 2, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
-// //ชั้นปี
-$pdf->SetY(79);
-$pdf->SetX(31);
+// //รหัสรายวิชา2
+$pdf->SetY(150);
+$pdf->SetX(20);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_nameTH), 0, 1, 'R');
+$pdf->Cell(165, 2, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
-// //เหตุผล
-$pdf->SetY(89);
-$pdf->SetX(50);
+// //ชื่อวิชาภาษาไทย1
+$pdf->SetY(130);
+$pdf->SetX(52);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_nameTH), 0, 1, 'L');
+
+// //ชื่อวิชาภาษาไทย2
+$pdf->SetY(150);
+$pdf->SetX(52);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_nameTH), 0, 1, 'L');
+
+// //ยอดลงทะเบียน
+$pdf->SetY(138);
+$pdf->SetX(135);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $coutter), 0, 1, 'L');
 
 // //ความคิดเห็นอาจารย์ที่ปรึกษา
-$pdf->SetY(140.5);
-$pdf->SetX(15);
+$pdf->SetY(218);
+$pdf->SetX(50);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_teacher), 0, 1, 'L');
 
 
-// //ความคิดเห็นหัวหน้าสาขา
-$pdf->SetY(168.5);
-$pdf->SetX(15);
+// //เหตุผล
+$pdf->SetY(80);
+$pdf->SetX(50);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $reason), 0, 1, 'L');
 
@@ -137,8 +149,8 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $reason), 0, 1, 'L');
 $created_at_thai = formatDateThai($created_at, ['                  ','                  ','    ', ' ']);
 // เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
-$pdf->SetY(30);
-$pdf->SetX(134);
+$pdf->SetY(34);
+$pdf->SetX(136);
 $pdf->SetFont('sara', '', 11.5);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
