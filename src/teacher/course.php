@@ -339,7 +339,7 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
             document.addEventListener("DOMContentLoaded", function() {
                 Swal.fire({
                     title: 'อัปเดตสำเร็จ!',
-                    text: 'ข้อมูลกลุ่มเรียนของอาจารย์ได้รับการบันทึกแล้ว',
+                    text: 'ข้อมูลอาจารย์ประจำรายวิชาได้รับการบันทึกแล้ว',
                     icon: 'success',
                     confirmButtonText: 'ตกลง'
                 }).then((result) => {
