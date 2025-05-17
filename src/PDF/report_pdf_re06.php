@@ -24,7 +24,7 @@ try {
         $term = $row['term'];
         $year = $row['year'];
         $reason = $row['reason'];
-        $group_name = $row['Group']; // เปลี่ยนชื่อเพื่อไม่ให้ชนกับ keyword
+        $group = $row['Group']; // เปลี่ยนชื่อเพื่อไม่ให้ชนกับ keyword
         $course_id = $row['course_id'];
         $course_nameTH = $row['course_nameTH'];
         $coutter = $row['coutter'];
