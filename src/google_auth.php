@@ -112,6 +112,9 @@ include 'connect/dbcon.php';
                         case 'Student':
                             header("Location: student/dashboard");
                             exit();
+                        case 'Officer':
+                            header("Location: officer/dashboard");
+                            exit();
                         default:
                             // ถ้า role ไม่ตรงกับที่คาดหวัง
                             header("Location: index");
@@ -160,6 +163,8 @@ include 'connect/dbcon.php';
                 echo '<a href="teacher/dashboard" class="mt-6 bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-lg transition">ไปยังแผงควบคุมอาจารย์</a>';
             } elseif ($role == 'Student') {
                 echo '<a href="student/dashboard" class="mt-6 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-6 rounded-lg transition">ไปยังแผงควบคุมของนักเรียน</a>';
+            } elseif ($role == 'Officer') {
+                echo '<a href="officer/dashboard" class="mt-6 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-6 rounded-lg transition">ไปยังแผงควบคุมของนักเรียน</a>';
             }
 
             echo '<a href="?logout=true" class="mt-6 bg-red-500 hover:bg-red-600 text-white py-2 px-6 rounded-lg transition">Logout</a>';
