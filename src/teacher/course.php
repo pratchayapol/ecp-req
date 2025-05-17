@@ -36,8 +36,7 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // ดึงอาจารย์ทั้งหมด 
 $teacher_stmt = $pdo->prepare("SELECT * FROM accounts WHERE role = 'Teacher'");
 $teacher_stmt->execute();
-$teachers =
-    $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
+$teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -157,7 +156,7 @@ $teachers =
                                                     ?>
                                                         <label class="block mb-2">
                                                             <input type="checkbox" name="emails[]" value="<?= $teacher['email'] ?>" <?= $checked ?> class="mr-2">
-                                                            <?= htmlspecialchars($teacher['fullname']) ?> (<?= htmlspecialchars($teacher['email']) ?>)
+                                                            <?= htmlspecialchars($teacher['cname']) ?> (<?= htmlspecialchars($teacher['email']) ?>)
                                                         </label>
                                                     <?php endforeach; ?>
                                                 </div>
