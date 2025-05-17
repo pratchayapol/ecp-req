@@ -127,7 +127,7 @@ for ($i = 0; $i < 8; $i++) {
                             <tbody>
                                 <?php foreach ($teachers as $index => $row): ?>
                                     <?php
-                                    $advisorGroups = explode(",", str_replace(" ", "", $row['Advisor'])); // แปลงเป็น array ลบช่องว่าง
+                                    $advisorGroups = explode(', ', $row['Advisor']); // เว้นวรรคหลัง comma ให้ match กับค่าจริง
                                     ?>
                                     <tr class="border-b">
                                         <td class="py-2 px-4 border"><?= htmlspecialchars($row['name']) ?></td>
@@ -159,6 +159,7 @@ for ($i = 0; $i < 8; $i++) {
                                                                     </label>
                                                                 <?php endforeach; ?>
                                                             <?php endforeach; ?>
+
                                                         </div>
 
                                                         <div class="flex justify-end mt-4 space-x-2">
