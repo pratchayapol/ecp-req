@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'advisor' => $advisor,
         'email' => $email_advisor
     ]);
-  // trigger ให้แสดง Swal
+    // trigger ให้แสดง Swal
     $showSwal = true;
 }
 ?>
@@ -146,7 +146,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $advisorGroups = explode(', ', $row['Advisor']); // เว้นวรรคหลัง comma ให้ match กับค่าจริง
                                     ?>
                                     <tr class="border-b">
-                                        <td class="py-2 px-4 border"><?= htmlspecialchars($row['name']) ?></td>
+                                        <td class="py-2 px-4 border">
+                                            <?= htmlspecialchars($row['name']) ?>
+                                            <?php if (!empty($row['dep'])): ?>
+                                                <span class="text-sm text-gray-500">(หัวหน้าสาขา)</span>
+                                            <?php endif; ?>
+                                        </td>
                                         <td class="py-2 px-4 border"><?= htmlspecialchars($row['faculty']) ?></td>
                                         <td class="py-2 px-4 border"><?= htmlspecialchars($row['field']) ?></td>
                                         <td class="py-2 px-4 border"><?= htmlspecialchars($row['email']) ?></td>
@@ -311,19 +316,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </style>
     <?php if ($showSwal): ?>
-    <!-- SweetAlert2 CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            Swal.fire({
-                title: 'อัปเดตสำเร็จ!',
-                text: 'ข้อมูลกลุ่มเรียนของอาจารย์ได้รับการบันทึกแล้ว',
-                icon: 'success',
-                confirmButtonText: 'ตกลง'
+        <!-- SweetAlert2 CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    title: 'อัปเดตสำเร็จ!',
+                    text: 'ข้อมูลกลุ่มเรียนของอาจารย์ได้รับการบันทึกแล้ว',
+                    icon: 'success',
+                    confirmButtonText: 'ตกลง'
+                });
             });
-        });
-    </script>
-<?php endif; ?>
+        </script>
+    <?php endif; ?>
 
     <?php include '../loadtab/f.php'; ?>
 </body>
