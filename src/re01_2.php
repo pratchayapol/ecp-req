@@ -351,7 +351,7 @@ include 'connect/dbcon.php';
              <p><strong>ชั้นปีที่:</strong> ' . htmlspecialchars($course_level) . '</p>
              <p><strong>ความประสงค์:</strong> ' . nl2br(htmlspecialchars($request_text)) . '</p>
 <hr>
-<p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> ไม่อนุมัติ</p>
+<p><strong>สถานะการพิจารณาจากอาจารย์ที่ปรึกษา:</strong> อนุมัติ</p>
 <p><strong>ความคิดเห็นของอาจารย์ที่ปรึกษา:</strong> ' . htmlspecialchars($comment_teacher) . '</p>
 <hr>
 <p><strong>สถานะการพิจารณาจากหัวหน้าสาขา:</strong> ไม่อนุมัติ</p>
