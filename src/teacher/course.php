@@ -117,7 +117,6 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <th class="border p-2">รหัสวิชา</th>
                                     <th class="border p-2">ชื่อวิชาภาษาไทย</th>
                                     <th class="border p-2">ชื่อวิชาภาษาอังกฤษ</th>
-                                    <th class="border p-2">กลุ่มเรียน</th>
                                     <th class="border p-2">หน่วยกิต</th>
                                     <th class="border p-2">อาจารย์</th>
                                     <th class="border p-2">จัดการ</th>
@@ -130,7 +129,6 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <td class="border p-2"><?= htmlspecialchars($course['course_id']) ?></td>
                                         <td class="border p-2"><?= htmlspecialchars($course['course_nameTH']) ?></td>
                                         <td class="border p-2"><?= htmlspecialchars($course['course_nameEN']) ?></td>
-                                        <td class="border p-2"><?= htmlspecialchars($course['course_group']) ?></td>
                                         <td class="border p-2"><?= htmlspecialchars($course['credits']) ?></td>
                                         <td class="border p-2"><?= htmlspecialchars($course['email']) ?></td>
                                         <td class="border p-2">
