@@ -162,9 +162,9 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
 
 // //ชื่อ
-$pdf->SetY(40.5);
-$pdf->SetX(23);
-$pdf->SetFont('sara', '', 14);
-$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
+// $pdf->SetY(40.5);
+// $pdf->SetX(23);
+// $pdf->SetFont('sara', '', 14);
+// $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
 
 $pdf->Output();
