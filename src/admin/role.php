@@ -38,17 +38,17 @@ $select_role = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $showSwal = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_role = $_POST['email'];
-    echo $role_post = $_POST['role'];
+    $role_post = $_POST['role'];
     // echo "<pre>Debug: $advisor</pre>"; // ใช้ <pre> เพื่อให้ดูง่ายขึ้น
 
     // Uncomment if needed
-    // $stmt = $pdo->prepare("UPDATE accounts SET role = :role_post WHERE email = :email");
-    // $stmt->execute([
-    //     'role_post' => $role_post,
-    //     'email' => $email_role
-    // ]);
-    // // trigger ให้แสดง Swal
-    // $showSwal = true;
+    $stmt = $pdo->prepare("UPDATE accounts SET role = :role_post WHERE email = :email");
+    $stmt->execute([
+        'role_post' => $role_post,
+        'email' => $email_role
+    ]);
+    // trigger ให้แสดง Swal
+    $showSwal = true;
 }
 ?>
 <!DOCTYPE html>
@@ -335,12 +335,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             document.addEventListener("DOMContentLoaded", function() {
                 Swal.fire({
                     title: 'อัปเดตสำเร็จ!',
-                    text: 'ข้อมูลกลุ่มเรียนของอาจารย์ได้รับการบันทึกแล้ว',
+                    text: 'ข้อมูลสิทธิ์การใช้งานได้รับการบันทึกแล้ว',
                     icon: 'success',
                     confirmButtonText: 'ตกลง'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = 'adviser'; // เปลี่ยนเส้นทาง
+                        window.location.href = 'role'; // เปลี่ยนเส้นทาง
                     }
                 });
             });
