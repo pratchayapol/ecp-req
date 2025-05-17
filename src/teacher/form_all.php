@@ -48,7 +48,7 @@ function getNameByEmail($pdo, $email)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>คำร้องที่ขอของนักศึกษา</title>
+    <title>คำร้องของนักศึกษา</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- FontAwesome (สำหรับไอคอน) -->
