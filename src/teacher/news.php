@@ -37,7 +37,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>แก้ไขข้อมูลประชาสัมพันธ์</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- FontAwesome (สำหรับไอคอน) -->
