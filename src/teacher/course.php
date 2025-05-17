@@ -30,13 +30,14 @@ $stmt->execute(['email' => $email]);
 $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-$stmt = $pdo->prepare("SELECT * FROM course"); 
+$stmt = $pdo->prepare("SELECT * FROM course");
 $stmt->execute();
-$courses = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+$courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // ดึงอาจารย์ทั้งหมด 
-$teacher_stmt = $pdo->prepare("SELECT * FROM accounts WHERE role = 'Teacher'"); 
-$teacher_stmt->execute(); $teachers = 
-$teacher_stmt->fetchAll(PDO::FETCH_ASSOC); ?>
+$teacher_stmt = $pdo->prepare("SELECT * FROM accounts WHERE role = 'Teacher'");
+$teacher_stmt->execute();
+$teachers =
+    $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -110,6 +111,7 @@ $teacher_stmt->fetchAll(PDO::FETCH_ASSOC); ?>
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow-lg h-auto">
                     <h1 class="text-orange-500 bg-white p-2 text-xl h-12 font-bold shadow-md rounded-[12px] text-center">จัดการรายวิชา</h1>
+                    <div class="overflow-x-auto ms-6 mt-6 me-6 mb-6">
                         <table class="min-w-full text-sm text-center border mb-6">
                             <thead>
                                 <tr class="bg-gray-100">
@@ -171,15 +173,15 @@ $teacher_stmt->fetchAll(PDO::FETCH_ASSOC); ?>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                    </div>
                 </div>
             </div>
+
+
+            <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
+                2025 All rights reserved by Software Engineering 3/67
+            </footer>
         </div>
-
-
-        <footer class="text-center py-4 bg-orange-500 text-white m-4 rounded-[12px]">
-            2025 All rights reserved by Software Engineering 3/67
-        </footer>
-    </div>
     </div>
 
     <!-- SweetAlert2 CDN -->
