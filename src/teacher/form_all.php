@@ -73,7 +73,7 @@ function getNameByEmail($pdo, $email)
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
-    
+
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat t1" style="background-image: url('/image/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 100vh;">
@@ -87,14 +87,14 @@ function getNameByEmail($pdo, $email)
                 <div class="mt-4 space-y-2">
                     <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-center py-2 px-4 rounded-[12px] shadow-md" id="dashboard-btn"> Dashboard </button>
                     <button class="w-full bg-[#EF6526] text-white hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="form_all">คำร้องของนักศึกษา</button>
-                     <?php 
+                    <?php
                     //ถ้า หัวหน้าสาขา dep = TRUE ให้แสดงปุ่มดังนี้
                     if ($dep === "TRUE") {
                     ?>
-                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="adviser"> จัดการที่ปรึกษา </button>
-                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="course"> จัดการรายวิชา </button>
-                    <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="news"> จัดการข้อมูลประชาสัมพันธ์ </button>
-                  <?php } ?>
+                        <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="adviser"> จัดการที่ปรึกษา </button>
+                        <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="course"> จัดการรายวิชา </button>
+                        <button class="w-full bg-white text-[#EF6526] hover:bg-[#EF6526] hover:text-white text-left py-2 px-4 rounded-[12px] shadow-md" id="news"> จัดการข้อมูลประชาสัมพันธ์ </button>
+                    <?php } ?>
                 </div>
             </div>
             <div class="text-center mt-4">
@@ -167,103 +167,218 @@ function getNameByEmail($pdo, $email)
                                             <th class="px-4 py-3 text-center align-middle">จัดการ</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <?php
-                                        // การดึงข้อมูลจากฐานข้อมูล
-                                        try {
-                                            $stmt1 = $pdo->prepare("SELECT * FROM form_re01 WHERE teacher_email = :email ORDER BY form_id DESC");
-                                            $stmt1->execute(['email' => $email]);
-                                            $forms1 = $stmt1->fetchAll();
-                                        } catch (PDOException $e) {
-                                            echo "Database error: " . $e->getMessage();
-                                            exit;
-                                        }
 
-                                        if (!empty($forms1)): ?>
-                                            <?php foreach ($forms1 as $row1): ?>
-                                                <tr data-status="<?= $row1['status'] === null ? 'null' : $row1['status'] ?>">
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row1['form_id']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
-                                                    <td class="px-4 py-2 text-center 
+                                    <?php if ($dep === "TRUE") { ?>
+
+                                        <tbody>
+                                            <?php
+                                            // การดึงข้อมูลจากฐานข้อมูล
+                                            try {
+                                                $stmt1 = $pdo->prepare("SELECT * FROM form_re01 ORDER BY form_id DESC");
+                                                $stmt1->execute();
+                                                $forms1 = $stmt1->fetchAll();
+                                            } catch (PDOException $e) {
+                                                echo "Database error: " . $e->getMessage();
+                                                exit;
+                                            }
+
+                                            if (!empty($forms1)): ?>
+                                                <?php foreach ($forms1 as $row1): ?>
+                                                    <tr data-status="<?= $row1['status'] === null ? 'null' : $row1['status'] ?>">
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row1['form_id']) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
+                                                        <td class="px-4 py-2 text-center 
         <?= $row1['status'] === null ? 'text-red-600' : ($row1['status'] == 1 ? 'text-yellow-600' : ($row1['status'] == 2 ? 'text-green-600' : '')) ?>">
-                                                        <?= $row1['status'] === null ? 'รอพิจารณา' : ($row1['status'] == 0 ? 'ไม่ผ่านการพิจารณา' : ($row1['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row1['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : ''))) ?>
-                                                    </td>
+                                                            <?= $row1['status'] === null ? 'รอพิจารณา' : ($row1['status'] == 0 ? 'ไม่ผ่านการพิจารณา' : ($row1['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row1['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : ''))) ?>
+                                                        </td>
 
-                                                    <td class="px-4 py-2 text-center">
-                                                        <?php
-                                                        try {
-                                                            // ดึงชื่ออาจารย์ที่ปรึกษา
-                                                            $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
-                                                            $stmt->execute(['email' => $row1['teacher_email']]);
-                                                            $advisor = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                        <td class="px-4 py-2 text-center">
+                                                            <?php
+                                                            try {
+                                                                // ดึงชื่ออาจารย์ที่ปรึกษา
+                                                                $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                                $stmt->execute(['email' => $row1['teacher_email']]);
+                                                                $advisor = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                                                            // ดึงชื่อหัวหน้าสาขา
-                                                            $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
-                                                            $stmt->execute(['email' => $row1['head_department']]);
-                                                            $head = $stmt->fetch(PDO::FETCH_ASSOC);
-                                                        } catch (PDOException $e) {
-                                                            $advisor['name'] = 'เกิดข้อผิดพลาด';
-                                                            $head['name'] = 'เกิดข้อผิดพลาด';
-                                                            error_log("PDO Error: " . $e->getMessage());
-                                                        }
+                                                                // ดึงชื่อหัวหน้าสาขา
+                                                                $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                                $stmt->execute(['email' => $row1['head_department']]);
+                                                                $head = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                            } catch (PDOException $e) {
+                                                                $advisor['name'] = 'เกิดข้อผิดพลาด';
+                                                                $head['name'] = 'เกิดข้อผิดพลาด';
+                                                                error_log("PDO Error: " . $e->getMessage());
+                                                            }
 
-                                                        ?>
-                                                        <div class="flex justify-center space-x-2">
-                                                            <!-- ปุ่มดูรายละเอียด -->
-                                                            <button
-                                                                class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal1 text-sm"
-                                                                data-id="<?= $row1['form_id'] ?>"
-                                                                data-name="<?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?>"
-                                                                data-title="<?= htmlspecialchars($row1['title']) ?>"
-                                                                data-to="<?= htmlspecialchars($row1['to']) ?>"
-                                                                data-request="<?= htmlspecialchars($row1['request_text']) ?>"
-                                                                data-advisor-comment="<?= htmlspecialchars($row1['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
-                                                                data-advisor-name="<?= htmlspecialchars($advisor['name']) ?>"
-                                                                data-head-comment="<?= htmlspecialchars($row1['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
-                                                                data-head-name="<?= htmlspecialchars($head['name']) ?>">
-                                                                ดูรายละเอียด
-                                                            </button>
+                                                            ?>
+                                                            <div class="flex justify-center space-x-2">
+                                                                <!-- ปุ่มดูรายละเอียด -->
+                                                                <button
+                                                                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal1 text-sm"
+                                                                    data-id="<?= $row1['form_id'] ?>"
+                                                                    data-name="<?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?>"
+                                                                    data-title="<?= htmlspecialchars($row1['title']) ?>"
+                                                                    data-to="<?= htmlspecialchars($row1['to']) ?>"
+                                                                    data-request="<?= htmlspecialchars($row1['request_text']) ?>"
+                                                                    data-advisor-comment="<?= htmlspecialchars($row1['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                                    data-advisor-name="<?= htmlspecialchars($advisor['name']) ?>"
+                                                                    data-head-comment="<?= htmlspecialchars($row1['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                                    data-head-name="<?= htmlspecialchars($head['name']) ?>">
+                                                                    ดูรายละเอียด
+                                                                </button>
 
-                                                            <!-- ปุ่ม PDF ถ้า status == 2 -->
-                                                            <?php if ($row1['status'] == 2): ?>
-                                                                <a href="../PDF/report_pdf_re01?token=<?= htmlspecialchars($row1['token']) ?>" target="_blank"
-                                                                    class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
-                                                                    PDF
-                                                                </a>
+                                                                <!-- ปุ่ม PDF ถ้า status == 2 -->
+                                                                <?php if ($row1['status'] == 2): ?>
+                                                                    <a href="../PDF/report_pdf_re01?token=<?= htmlspecialchars($row1['token']) ?>" target="_blank"
+                                                                        class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
+                                                                        PDF
+                                                                    </a>
 
-                                                            <?php elseif (is_null($row1['status'])): ?>
-                                                                <!-- ปุ่ม พิจารณา (อาจารย์ผู้สอน) -->
-                                                                <a href="https://ecpreq.pcnone.com/re01_1?token=<?= urlencode($row1['token']) ?>" target="_blank"
-                                                                    class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm">
-                                                                    พิจารณา
-                                                                </a>
+                                                                <?php elseif (is_null($row1['status'])): ?>
+                                                                    <!-- ปุ่ม พิจารณา (อาจารย์ผู้สอน) -->
+                                                                    <a href="https://ecpreq.pcnone.com/re01_1?token=<?= urlencode($row1['token']) ?>" target="_blank"
+                                                                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm">
+                                                                        พิจารณา
+                                                                    </a>
 
-                                                            <?php endif; ?>
+                                                                <?php endif; ?>
 
-                                                            <!-- ปุ่ม พิจารณา (หัวหน้าสาขา) -->
-                                                            <?php if (isset($row1['head_department'], $row1['status']) && $row1['head_department'] == $email && $row1['status'] == 1): ?>
-                                                                <a href="https://ecpreq.pcnone.com/re01_2?token=<?= urlencode($row1['token']) ?>&token_new=<?= urlencode($row1['token_new']) ?>"
-                                                                    target="_blank"
-                                                                    class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm ml-2">
-                                                                    พิจารณา (หัวหน้า)
-                                                                </a>
-                                                            <?php endif; ?>
+                                                                <!-- ปุ่ม พิจารณา (หัวหน้าสาขา) -->
+                                                                <?php if (isset($row1['head_department'], $row1['status']) && $row1['head_department'] == $email && $row1['status'] == 1): ?>
+                                                                    <a href="https://ecpreq.pcnone.com/re01_2?token=<?= urlencode($row1['token']) ?>&token_new=<?= urlencode($row1['token_new']) ?>"
+                                                                        target="_blank"
+                                                                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm ml-2">
+                                                                        พิจารณา (หัวหน้า)
+                                                                    </a>
+                                                                <?php endif; ?>
 
-                                                        </div>
-                                                    </td>
+                                                            </div>
+                                                        </td>
 
+                                                    </tr>
+
+
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <tr>
+                                                    <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
                                                 </tr>
+                                            <?php endif; ?>
+                                        </tbody>
 
 
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <tr>
-                                                <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
-                                            </tr>
-                                        <?php endif; ?>
-                                    </tbody>
+
+
+
+                                    <?php
+                                    } else { ?>
+                                        <tbody>
+                                            <?php
+                                            // การดึงข้อมูลจากฐานข้อมูล
+                                            try {
+                                                $stmt1 = $pdo->prepare("SELECT * FROM form_re01 WHERE teacher_email = :email ORDER BY form_id DESC");
+                                                $stmt1->execute(['email' => $email]);
+                                                $forms1 = $stmt1->fetchAll();
+                                            } catch (PDOException $e) {
+                                                echo "Database error: " . $e->getMessage();
+                                                exit;
+                                            }
+
+                                            if (!empty($forms1)): ?>
+                                                <?php foreach ($forms1 as $row1): ?>
+                                                    <tr data-status="<?= $row1['status'] === null ? 'null' : $row1['status'] ?>">
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.01' . '-' . $row1['form_id']) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['title']) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row1['to']) ?></td>
+                                                        <td class="px-4 py-2 text-center 
+        <?= $row1['status'] === null ? 'text-red-600' : ($row1['status'] == 1 ? 'text-yellow-600' : ($row1['status'] == 2 ? 'text-green-600' : '')) ?>">
+                                                            <?= $row1['status'] === null ? 'รอพิจารณา' : ($row1['status'] == 0 ? 'ไม่ผ่านการพิจารณา' : ($row1['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row1['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : ''))) ?>
+                                                        </td>
+
+                                                        <td class="px-4 py-2 text-center">
+                                                            <?php
+                                                            try {
+                                                                // ดึงชื่ออาจารย์ที่ปรึกษา
+                                                                $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                                $stmt->execute(['email' => $row1['teacher_email']]);
+                                                                $advisor = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                                                // ดึงชื่อหัวหน้าสาขา
+                                                                $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                                $stmt->execute(['email' => $row1['head_department']]);
+                                                                $head = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                            } catch (PDOException $e) {
+                                                                $advisor['name'] = 'เกิดข้อผิดพลาด';
+                                                                $head['name'] = 'เกิดข้อผิดพลาด';
+                                                                error_log("PDO Error: " . $e->getMessage());
+                                                            }
+
+                                                            ?>
+                                                            <div class="flex justify-center space-x-2">
+                                                                <!-- ปุ่มดูรายละเอียด -->
+                                                                <button
+                                                                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal1 text-sm"
+                                                                    data-id="<?= $row1['form_id'] ?>"
+                                                                    data-name="<?= htmlspecialchars(getNameByEmail($pdo, $row1['email'])) ?>"
+                                                                    data-title="<?= htmlspecialchars($row1['title']) ?>"
+                                                                    data-to="<?= htmlspecialchars($row1['to']) ?>"
+                                                                    data-request="<?= htmlspecialchars($row1['request_text']) ?>"
+                                                                    data-advisor-comment="<?= htmlspecialchars($row1['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                                    data-advisor-name="<?= htmlspecialchars($advisor['name']) ?>"
+                                                                    data-head-comment="<?= htmlspecialchars($row1['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                                    data-head-name="<?= htmlspecialchars($head['name']) ?>">
+                                                                    ดูรายละเอียด
+                                                                </button>
+
+                                                                <!-- ปุ่ม PDF ถ้า status == 2 -->
+                                                                <?php if ($row1['status'] == 2): ?>
+                                                                    <a href="../PDF/report_pdf_re01?token=<?= htmlspecialchars($row1['token']) ?>" target="_blank"
+                                                                        class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
+                                                                        PDF
+                                                                    </a>
+
+                                                                <?php elseif (is_null($row1['status'])): ?>
+                                                                    <!-- ปุ่ม พิจารณา (อาจารย์ผู้สอน) -->
+                                                                    <a href="https://ecpreq.pcnone.com/re01_1?token=<?= urlencode($row1['token']) ?>" target="_blank"
+                                                                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm">
+                                                                        พิจารณา
+                                                                    </a>
+
+                                                                <?php endif; ?>
+
+                                                                <!-- ปุ่ม พิจารณา (หัวหน้าสาขา) -->
+                                                                <?php if (isset($row1['head_department'], $row1['status']) && $row1['head_department'] == $email && $row1['status'] == 1): ?>
+                                                                    <a href="https://ecpreq.pcnone.com/re01_2?token=<?= urlencode($row1['token']) ?>&token_new=<?= urlencode($row1['token_new']) ?>"
+                                                                        target="_blank"
+                                                                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm ml-2">
+                                                                        พิจารณา (หัวหน้า)
+                                                                    </a>
+                                                                <?php endif; ?>
+
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+
+
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <tr>
+                                                    <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
+                                                </tr>
+                                            <?php endif; ?>
+                                        </tbody>
+
+                                    <?php } ?>
+
+
+
+
+
+
                                 </table>
 
                                 <script>
@@ -490,92 +605,183 @@ function getNameByEmail($pdo, $email)
                                             <th class="px-4 py-3 text-center align-middle">จัดการ</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <?php
-                                        try {
-                                            $stmt2 = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `Group`, status, reason, coutter, 	reg_status, teacher_email, token, f.email,
+
+                                    <?php if ($dep === "TRUE") { ?>
+                                        <tbody>
+                                            <?php
+                                            try {
+                                                $stmt2 = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `Group`, status, reason, coutter, reg_status, teacher_email, token, f.email,
+                            c.course_nameTH, c.credits
+                            FROM form_re06 AS f
+                            LEFT JOIN course AS c ON f.course_id = c.course_id
+                            ORDER BY form_id DESC");
+                                                $stmt2->execute();
+                                                $forms2 = $stmt2->fetchAll();
+                                            } catch (PDOException $e) {
+                                                echo "Database error: " . $e->getMessage();
+                                                exit;
+                                            }
+
+                                            if (!empty($forms2)) :
+                                                foreach ($forms2 as $row2) :
+                                                    $statusText = $row2['status'] === null
+                                                        ? 'รอพิจารณา'
+                                                        : ($row2['status'] == 1
+                                                            ? 'อาจารย์ประจำรายวิชาพิจารณาแล้ว'
+                                                            : ($row2['status'] == 0
+                                                                ? 'ไม่ผ่านการพิจารณา'
+                                                                : ''));
+
+                                                    $statusClass = $row2['status'] === null
+                                                        ? 'text-red-600'
+                                                        : ($row2['status'] == 1
+                                                            ? 'text-green-600'
+                                                            : ($row2['status'] == 0
+                                                                ? 'text-gray-500'
+                                                                : 'text-orange-600'));
+                                            ?>
+                                                    <tr data-status="<?= is_null($row2['status']) ? 'null' : $row2['status'] ?>">
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row2['email'])) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'] . ' / ' . $row2['year']) ?></td>
+                                                        <td class="px-4 py-2"><?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?></td>
+                                                        <td class="text-center px-4 py-2"><?= $row2['Group'] ?? '-' ?></td>
+                                                        <td class="text-center px-4 py-2 <?= $statusClass ?>"><?= $statusText ?></td>
+                                                        <?php
+                                                        try {
+
+                                                            // ดึงชื่ออาจารย์ประจำวิชา
+                                                            $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                            $stmt->execute(['email' => $row2['teacher_email']]);
+                                                            $CommentTeacher = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                        } catch (PDOException $e) {
+                                                            $advisor['name'] = 'เกิดข้อผิดพลาด';
+                                                            echo "Database error: " . $e->getMessage();
+                                                        }
+                                                        ?>
+                                                        <td>
+                                                            <div class="flex justify-center space-x-2">
+                                                                <button class="open-modal2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
+                                                                    data-form-id="<?= $row2['form_id'] ?>"
+                                                                    data-term="<?= $row2['term'] ?>"
+                                                                    data-year="<?= $row2['year'] ?>"
+                                                                    data-reason="<?= htmlspecialchars($row2['reason']) ?>"
+                                                                    data-group="<?= htmlspecialchars($row2['Group'] ?? '-') ?>"
+                                                                    data-course-id="<?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?>"
+                                                                    data-counter="<?= $row2['coutter'] ?? '-' ?>"
+                                                                    data-reg-status="<?= $row2['reg_status'] ?? '-' ?>"
+                                                                    data-comment-teacher="<?= $row2['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา' ?>"
+                                                                    data-teacher-email="<?= htmlspecialchars($CommentTeacher['name']) ?>">
+                                                                    ดูรายละเอียด
+                                                                </button>
+                                                                <!-- ปุ่ม PDF สีส้ม -->
+                                                                <?php if ($row2['status'] == 1): ?>
+                                                                    <a href="../PDF/report_pdf_re06?token=<?= $row2['token'] ?>" target="_blank"
+                                                                        class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
+                                                                        PDF
+                                                                    </a>
+                                                                <?php endif; ?>
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <tr>
+                                                    <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
+                                                </tr>
+                                            <?php endif; ?>
+                                        </tbody>
+
+
+                                    <?php } else { ?>
+                                        <tbody>
+                                            <?php
+                                            try {
+                                                $stmt2 = $pdo->prepare("SELECT 'RE06' as form_type, form_id as form_id, term, year, f.course_id, `Group`, status, reason, coutter, 	reg_status, teacher_email, token, f.email,
                                             c.course_nameTH, c.credits
                                             FROM form_re06 AS f
                                             LEFT JOIN course AS c ON f.course_id = c.course_id
                                             WHERE f.teacher_email = :email
                                             ORDER BY form_id DESC");
-                                            $stmt2->execute(['email' => $email]);
-                                            $forms2 = $stmt2->fetchAll();
-                                        } catch (PDOException $e) {
-                                            echo "Database error: " . $e->getMessage();
-                                            exit;
-                                        }
+                                                $stmt2->execute(['email' => $email]);
+                                                $forms2 = $stmt2->fetchAll();
+                                            } catch (PDOException $e) {
+                                                echo "Database error: " . $e->getMessage();
+                                                exit;
+                                            }
 
-                                        if (!empty($forms2)) :
-                                            foreach ($forms2 as $row2) :
-                                                $statusText = $row2['status'] === null
-                                                    ? 'รอพิจารณา'
-                                                    : ($row2['status'] == 1
-                                                        ? 'อาจารย์ประจำรายวิชาพิจารณาแล้ว'
-                                                        : ($row2['status'] == 0
-                                                            ? 'ไม่ผ่านการพิจารณา'
-                                                            : ''));
+                                            if (!empty($forms2)) :
+                                                foreach ($forms2 as $row2) :
+                                                    $statusText = $row2['status'] === null
+                                                        ? 'รอพิจารณา'
+                                                        : ($row2['status'] == 1
+                                                            ? 'อาจารย์ประจำรายวิชาพิจารณาแล้ว'
+                                                            : ($row2['status'] == 0
+                                                                ? 'ไม่ผ่านการพิจารณา'
+                                                                : ''));
 
-                                                $statusClass = $row2['status'] === null
-                                                    ? 'text-red-600'
-                                                    : ($row2['status'] == 1
-                                                        ? 'text-green-600'
-                                                        : ($row2['status'] == 0
-                                                            ? 'text-gray-500'
-                                                            : 'text-orange-600'));
-                                        ?>
-                                                <tr data-status="<?= is_null($row2['status']) ? 'null' : $row2['status'] ?>">
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row2['email'])) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'] . ' / ' . $row2['year']) ?></td>
-                                                    <td class="px-4 py-2"><?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?></td>
-                                                    <td class="text-center px-4 py-2"><?= $row2['Group'] ?? '-' ?></td>
-                                                    <td class="text-center px-4 py-2 <?= $statusClass ?>"><?= $statusText ?></td>
-                                                    <?php
-                                                    try {
+                                                    $statusClass = $row2['status'] === null
+                                                        ? 'text-red-600'
+                                                        : ($row2['status'] == 1
+                                                            ? 'text-green-600'
+                                                            : ($row2['status'] == 0
+                                                                ? 'text-gray-500'
+                                                                : 'text-orange-600'));
+                                            ?>
+                                                    <tr data-status="<?= is_null($row2['status']) ? 'null' : $row2['status'] ?>">
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.06' . '-' . $row2['form_id']) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row2['email'])) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row2['term'] . ' / ' . $row2['year']) ?></td>
+                                                        <td class="px-4 py-2"><?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?></td>
+                                                        <td class="text-center px-4 py-2"><?= $row2['Group'] ?? '-' ?></td>
+                                                        <td class="text-center px-4 py-2 <?= $statusClass ?>"><?= $statusText ?></td>
+                                                        <?php
+                                                        try {
 
-                                                        // ดึงชื่ออาจารย์ประจำวิชา
-                                                        $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
-                                                        $stmt->execute(['email' => $row2['teacher_email']]);
-                                                        $CommentTeacher = $stmt->fetch(PDO::FETCH_ASSOC);
-                                                    } catch (PDOException $e) {
-                                                        $advisor['name'] = 'เกิดข้อผิดพลาด';
-                                                        echo "Database error: " . $e->getMessage();
-                                                    }
-                                                    ?>
-                                                    <td>
-                                                        <div class="flex justify-center space-x-2">
-                                                            <button class="open-modal2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
-                                                                data-form-id="<?= $row2['form_id'] ?>"
-                                                                data-term="<?= $row2['term'] ?>"
-                                                                data-year="<?= $row2['year'] ?>"
-                                                                data-reason="<?= htmlspecialchars($row2['reason']) ?>"
-                                                                data-group="<?= htmlspecialchars($row2['Group'] ?? '-') ?>"
-                                                                data-course-id="<?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?>"
-                                                                data-counter="<?= $row2['coutter'] ?? '-' ?>"
-                                                                data-reg-status="<?= $row2['reg_status'] ?? '-' ?>"
-                                                                data-comment-teacher="<?= $row2['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา' ?>"
-                                                                data-teacher-email="<?= htmlspecialchars($CommentTeacher['name']) ?>">
-                                                                ดูรายละเอียด
-                                                            </button>
-                                                            <!-- ปุ่ม PDF สีส้ม -->
-                                                            <?php if ($row2['status'] == 1): ?>
-                                                                <a href="../PDF/report_pdf_re06?token=<?= $row2['token'] ?>" target="_blank"
-                                                                    class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
-                                                                    PDF
-                                                                </a>
-                                                            <?php endif; ?>
-                                                        </div>
+                                                            // ดึงชื่ออาจารย์ประจำวิชา
+                                                            $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                            $stmt->execute(['email' => $row2['teacher_email']]);
+                                                            $CommentTeacher = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                        } catch (PDOException $e) {
+                                                            $advisor['name'] = 'เกิดข้อผิดพลาด';
+                                                            echo "Database error: " . $e->getMessage();
+                                                        }
+                                                        ?>
+                                                        <td>
+                                                            <div class="flex justify-center space-x-2">
+                                                                <button class="open-modal2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
+                                                                    data-form-id="<?= $row2['form_id'] ?>"
+                                                                    data-term="<?= $row2['term'] ?>"
+                                                                    data-year="<?= $row2['year'] ?>"
+                                                                    data-reason="<?= htmlspecialchars($row2['reason']) ?>"
+                                                                    data-group="<?= htmlspecialchars($row2['Group'] ?? '-') ?>"
+                                                                    data-course-id="<?= htmlspecialchars($row2['course_id'] . ' ' . $row2['course_nameTH'] . ' (' . $row2['credits'] . ' หน่วยกิต)') ?>"
+                                                                    data-counter="<?= $row2['coutter'] ?? '-' ?>"
+                                                                    data-reg-status="<?= $row2['reg_status'] ?? '-' ?>"
+                                                                    data-comment-teacher="<?= $row2['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา' ?>"
+                                                                    data-teacher-email="<?= htmlspecialchars($CommentTeacher['name']) ?>">
+                                                                    ดูรายละเอียด
+                                                                </button>
+                                                                <!-- ปุ่ม PDF สีส้ม -->
+                                                                <?php if ($row2['status'] == 1): ?>
+                                                                    <a href="../PDF/report_pdf_re06?token=<?= $row2['token'] ?>" target="_blank"
+                                                                        class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
+                                                                        PDF
+                                                                    </a>
+                                                                <?php endif; ?>
+                                                            </div>
 
-                                                    </td>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <tr>
+                                                    <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
                                                 </tr>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <tr>
-                                                <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
-                                            </tr>
-                                        <?php endif; ?>
-                                    </tbody>
+                                            <?php endif; ?>
+                                        </tbody>
+                                    <?php } ?>
                                 </table>
 
 
@@ -780,95 +986,189 @@ function getNameByEmail($pdo, $email)
                                             <th class="px-4 py-3 text-center align-middle">จัดการ</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <?php
-                                        // การดึงข้อมูลจากฐานข้อมูล
-                                        try {
-                                            $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit, reg_status, expected_graduation, comment_teacher, comment_head_dep, token, f.email,
+
+                                    <?php if ($dep === "TRUE") { ?>
+                                        <tbody>
+                                            <?php
+                                            // การดึงข้อมูลจากฐานข้อมูล
+                                            try {
+                                                $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit, reg_status, expected_graduation, comment_teacher, comment_head_dep, token, f.email,
+                            f.teacher_email, f.head_department,
+                            c.course_nameTH, c.credits
+                            FROM form_re07 AS f
+                            LEFT JOIN course AS c ON f.course_id = c.course_id
+                            ORDER BY form_id DESC");
+                                                $stmt3->execute();
+                                                $forms3 = $stmt3->fetchAll();
+                                            } catch (PDOException $e) {
+                                                echo "Database error: " . $e->getMessage();
+                                                exit;
+                                            }
+
+                                            if (!empty($forms3)): ?>
+                                                <?php foreach ($forms3 as $row3): ?>
+                                                    <tr data-status="<?= is_null($row3['status']) ? 'null' : $row3['status'] ?>">
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
+                                                        <td class="px-4 py-2"><?= htmlspecialchars($row3['course_id'] . ' ' . $row3['course_nameTH'] . ' (' . $row3['credits'] . ' หน่วยกิต)') ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></td>
+                                                        <td class="px-4 py-2 text-center 
+    <?= $row3['status'] === null ? 'text-red-600' : ($row3['status'] == 1 ? 'text-yellow-600' : ($row3['status'] == 2 ? 'text-green-600' : 'text-gray-500')) ?>">
+                                                            <?= $row3['status'] === null ? 'รอพิจารณา' : ($row3['status'] == 0 ? 'ไม่ผ่านการพิจารณา' : ($row3['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row3['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : 'สถานะไม่ถูกต้อง'))) ?>
+                                                        </td>
+
+                                                        <?php
+                                                        try {
+                                                            // ดึงชื่ออาจารย์ที่ปรึกษา
+                                                            $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                            $stmt->execute(['email' => $row3['teacher_email']]);
+                                                            $advisor2 = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                                            // ดึงชื่อหัวหน้าสาขา
+                                                            $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                            $stmt->execute(['email' => $row3['head_department']]);
+                                                            $head2 = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                        } catch (PDOException $e) {
+                                                            $advisor2['name'] = 'เกิดข้อผิดพลาด';
+                                                            $head2['name'] = 'เกิดข้อผิดพลาด';
+                                                            error_log("PDO Error: " . $e->getMessage());
+                                                        }
+
+                                                        ?>
+                                                        <td>
+                                                            <div class="flex justify-center space-x-2">
+                                                                <button
+                                                                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal3"
+                                                                    data-form-id="<?= $row3['form_id'] ?>"
+                                                                    data-term="<?= $row3['term'] ?>"
+                                                                    data-year="<?= $row3['year'] ?>"
+                                                                    data-reason="<?= htmlspecialchars($row3['reason']) ?>"
+                                                                    data-group="<?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?>"
+                                                                    data-course-id="<?= $row3['course_id'] ?>"
+                                                                    data-gpa="<?= $row3['gpa'] ?>"
+                                                                    data-gpa-all="<?= $row3['git_unit'] ?>"
+                                                                    data-reg-status="<?= htmlspecialchars($row3['reg_status']) ?>"
+                                                                    data-expected-graduation="<?= $row3['expected_graduation'] ?>"
+                                                                    data-advisor-comment="<?= htmlspecialchars($row3['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                                    data-head-comment="<?= htmlspecialchars($row3['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                                    data-teacher-email="<?= htmlspecialchars($advisor2['name'] ?? '-') ?>"
+                                                                    data-head-department="<?= htmlspecialchars($head2['name'] ?? '-') ?>"
+
+                                                                    data-status="<?= $row3['status'] === null ? 'null' : $row3['status'] ?>">
+                                                                    ดูรายละเอียด
+                                                                </button>
+                                                                <!-- ปุ่ม PDF สีส้ม -->
+                                                                <?php if ($row3['status'] == 2): ?>
+                                                                    <a href="../PDF/report_pdf_re07?token=<?= $row3['token'] ?>" target="_blank"
+                                                                        class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
+                                                                        PDF
+                                                                    </a>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <tr>
+                                                    <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
+                                                </tr>
+                                            <?php endif; ?>
+                                        </tbody>
+
+                                    <?php } else { ?>
+                                        <tbody>
+                                            <?php
+                                            // การดึงข้อมูลจากฐานข้อมูล
+                                            try {
+                                                $stmt3 = $pdo->prepare("SELECT 'RE07' as form_type, form_id as form_id, term, year, f.course_id, `group`, status, reason, gpa, git_unit, reg_status, expected_graduation, comment_teacher, comment_head_dep, token, f.email,
 f.teacher_email, f.head_department,
 c.course_nameTH, c.credits
 FROM form_re07 AS f
 LEFT JOIN course AS c ON f.course_id = c.course_id
 WHERE f.teacher_email = :email
 ORDER BY form_id DESC");
-                                            $stmt3->execute(['email' => $email]);
-                                            $forms3 = $stmt3->fetchAll();
-                                        } catch (PDOException $e) {
-                                            echo "Database error: " . $e->getMessage();
-                                            exit;
-                                        }
+                                                $stmt3->execute(['email' => $email]);
+                                                $forms3 = $stmt3->fetchAll();
+                                            } catch (PDOException $e) {
+                                                echo "Database error: " . $e->getMessage();
+                                                exit;
+                                            }
 
-                                        if (!empty($forms3)): ?>
-                                            <?php foreach ($forms3 as $row3): ?>
-                                                <tr data-status="<?= is_null($row3['status']) ? 'null' : $row3['status'] ?>">
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
-                                                    <td class="px-4 py-2"><?= htmlspecialchars($row3['course_id'] . ' ' . $row3['course_nameTH'] . ' (' . $row3['credits'] . ' หน่วยกิต)') ?></td>
-                                                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></td>
-                                                    <td class="px-4 py-2 text-center 
+                                            if (!empty($forms3)): ?>
+                                                <?php foreach ($forms3 as $row3): ?>
+                                                    <tr data-status="<?= is_null($row3['status']) ? 'null' : $row3['status'] ?>">
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars('RE.07' . '-' . $row3['form_id']) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars(getNameByEmail($pdo, $row3['email'])) ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['term'] . ' / ' . $row3['year']) ?></td>
+                                                        <td class="px-4 py-2"><?= htmlspecialchars($row3['course_id'] . ' ' . $row3['course_nameTH'] . ' (' . $row3['credits'] . ' หน่วยกิต)') ?></td>
+                                                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?></td>
+                                                        <td class="px-4 py-2 text-center 
     <?= $row3['status'] === null ? 'text-red-600' : ($row3['status'] == 1 ? 'text-yellow-600' : ($row3['status'] == 2 ? 'text-green-600' : 'text-gray-500')) ?>">
-                                                        <?= $row3['status'] === null ? 'รอพิจารณา' : ($row3['status'] == 0 ? 'ไม่ผ่านการพิจารณา' : ($row3['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row3['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : 'สถานะไม่ถูกต้อง'))) ?>
-                                                    </td>
+                                                            <?= $row3['status'] === null ? 'รอพิจารณา' : ($row3['status'] == 0 ? 'ไม่ผ่านการพิจารณา' : ($row3['status'] == 1 ? 'ที่ปรึกษาพิจารณาแล้ว' : ($row3['status'] == 2 ? 'หัวหน้าสาขาพิจารณาแล้ว' : 'สถานะไม่ถูกต้อง'))) ?>
+                                                        </td>
 
-                                                    <?php
-                                                    try {
-                                                        // ดึงชื่ออาจารย์ที่ปรึกษา
-                                                        $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
-                                                        $stmt->execute(['email' => $row3['teacher_email']]);
-                                                        $advisor2 = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                        <?php
+                                                        try {
+                                                            // ดึงชื่ออาจารย์ที่ปรึกษา
+                                                            $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                            $stmt->execute(['email' => $row3['teacher_email']]);
+                                                            $advisor2 = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                                                        // ดึงชื่อหัวหน้าสาขา
-                                                        $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
-                                                        $stmt->execute(['email' => $row3['head_department']]);
-                                                        $head2 = $stmt->fetch(PDO::FETCH_ASSOC);
-                                                    } catch (PDOException $e) {
-                                                        $advisor2['name'] = 'เกิดข้อผิดพลาด';
-                                                        $head2['name'] = 'เกิดข้อผิดพลาด';
-                                                        error_log("PDO Error: " . $e->getMessage());
-                                                    }
+                                                            // ดึงชื่อหัวหน้าสาขา
+                                                            $stmt = $pdo->prepare("SELECT name FROM accounts WHERE email = :email LIMIT 1");
+                                                            $stmt->execute(['email' => $row3['head_department']]);
+                                                            $head2 = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                        } catch (PDOException $e) {
+                                                            $advisor2['name'] = 'เกิดข้อผิดพลาด';
+                                                            $head2['name'] = 'เกิดข้อผิดพลาด';
+                                                            error_log("PDO Error: " . $e->getMessage());
+                                                        }
 
-                                                    ?>
-                                                    <td>
-                                                        <div class="flex justify-center space-x-2">
-                                                            <button
-                                                                class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal3"
-                                                                data-form-id="<?= $row3['form_id'] ?>"
-                                                                data-term="<?= $row3['term'] ?>"
-                                                                data-year="<?= $row3['year'] ?>"
-                                                                data-reason="<?= htmlspecialchars($row3['reason']) ?>"
-                                                                data-group="<?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?>"
-                                                                data-course-id="<?= $row3['course_id'] ?>"
-                                                                data-gpa="<?= $row3['gpa'] ?>"
-                                                                data-gpa-all="<?= $row3['git_unit'] ?>"
-                                                                data-reg-status="<?= htmlspecialchars($row3['reg_status']) ?>"
-                                                                data-expected-graduation="<?= $row3['expected_graduation'] ?>"
-                                                                data-advisor-comment="<?= htmlspecialchars($row3['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
-                                                                data-head-comment="<?= htmlspecialchars($row3['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
-                                                                data-teacher-email="<?= htmlspecialchars($advisor2['name'] ?? '-') ?>"
-                                                                data-head-department="<?= htmlspecialchars($head2['name'] ?? '-') ?>"
+                                                        ?>
+                                                        <td>
+                                                            <div class="flex justify-center space-x-2">
+                                                                <button
+                                                                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded open-modal3"
+                                                                    data-form-id="<?= $row3['form_id'] ?>"
+                                                                    data-term="<?= $row3['term'] ?>"
+                                                                    data-year="<?= $row3['year'] ?>"
+                                                                    data-reason="<?= htmlspecialchars($row3['reason']) ?>"
+                                                                    data-group="<?= htmlspecialchars($row3['group'] ?? $row3['academic_group']) ?>"
+                                                                    data-course-id="<?= $row3['course_id'] ?>"
+                                                                    data-gpa="<?= $row3['gpa'] ?>"
+                                                                    data-gpa-all="<?= $row3['git_unit'] ?>"
+                                                                    data-reg-status="<?= htmlspecialchars($row3['reg_status']) ?>"
+                                                                    data-expected-graduation="<?= $row3['expected_graduation'] ?>"
+                                                                    data-advisor-comment="<?= htmlspecialchars($row3['comment_teacher'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                                    data-head-comment="<?= htmlspecialchars($row3['comment_head_dep'] ?? 'จึงเรียนมาเพื่อโปรดพิจารณา') ?>"
+                                                                    data-teacher-email="<?= htmlspecialchars($advisor2['name'] ?? '-') ?>"
+                                                                    data-head-department="<?= htmlspecialchars($head2['name'] ?? '-') ?>"
 
-                                                                data-status="<?= $row3['status'] === null ? 'null' : $row3['status'] ?>">
-                                                                ดูรายละเอียด
-                                                            </button>
-                                                            <!-- ปุ่ม PDF สีส้ม -->
-                                                            <?php if ($row3['status'] == 2): ?>
-                                                                <a href="../PDF/report_pdf_re07?token=<?= $row3['token'] ?>" target="_blank"
-                                                                    class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
-                                                                    PDF
-                                                                </a>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </td>
+                                                                    data-status="<?= $row3['status'] === null ? 'null' : $row3['status'] ?>">
+                                                                    ดูรายละเอียด
+                                                                </button>
+                                                                <!-- ปุ่ม PDF สีส้ม -->
+                                                                <?php if ($row3['status'] == 2): ?>
+                                                                    <a href="../PDF/report_pdf_re07?token=<?= $row3['token'] ?>" target="_blank"
+                                                                        class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
+                                                                        PDF
+                                                                    </a>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </td>
 
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <tr>
+                                                    <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
                                                 </tr>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <tr>
-                                                <td colspan="6" class="text-center text-gray-500 py-4">ไม่พบข้อมูล</td>
-                                            </tr>
-                                        <?php endif; ?>
-                                    </tbody>
+                                            <?php endif; ?>
+                                        </tbody>
+
+                                    <?php } ?>
                                 </table>
 
                                 <script>
@@ -1269,7 +1569,7 @@ ORDER BY form_id DESC");
         document.getElementById('form_all').addEventListener('click', function() {
             window.location.href = 'form_all';
         });
-         document.getElementById('adviser').addEventListener('click', function() {
+        document.getElementById('adviser').addEventListener('click', function() {
             window.location.href = 'adviser';
         });
         document.getElementById('course').addEventListener('click', function() {
