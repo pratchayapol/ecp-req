@@ -39,17 +39,20 @@ $showSwal = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_role = $_POST['email'];
     $role_post = $_POST['role'];
-    // echo "<pre>Debug: $advisor</pre>"; // ใช้ <pre> เพื่อให้ดูง่ายขึ้น
+    $dep_post = isset($_POST['dep']) ? $_POST['dep'] : ''; // ถ้าไม่ได้ส่ง dep มา ให้เก็บเป็นค่าว่าง
 
-    // Uncomment if needed
-    $stmt = $pdo->prepare("UPDATE accounts SET role = :role_post WHERE email = :email");
+    // เตรียม SQL ที่อัปเดตทั้ง role และ dep
+    $stmt = $pdo->prepare("UPDATE accounts SET role = :role_post, dep = :dep_post WHERE email = :email");
     $stmt->execute([
         'role_post' => $role_post,
+        'dep_post' => $dep_post,
         'email' => $email_role
     ]);
+
     // trigger ให้แสดง Swal
     $showSwal = true;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="th">
