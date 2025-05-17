@@ -130,7 +130,22 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <td class="border p-2"><?= htmlspecialchars($course['course_nameTH']) ?></td>
                                         <td class="border p-2"><?= htmlspecialchars($course['course_nameEN']) ?></td>
                                         <td class="border p-2"><?= htmlspecialchars($course['credits']) ?></td>
-                                        <td class="border p-2"><?= htmlspecialchars($teacher['email']) ?></td>
+                                        <td class="border p-2">
+                                            <?php
+                                            $emails = explode(',', $course['email']); // แยกอีเมลออกมาเป็น array
+                                            $names = [];
+                                            foreach ($emails as $email) {
+                                                $email = trim($email); // ตัดช่องว่างข้างหน้า-หลังออก
+                                                foreach ($teachers as $teacher) {
+                                                    if ($teacher['email'] === $email) {
+                                                        $names[] = htmlspecialchars($teacher['fullname']);
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            echo implode(', ', $names); // รวมชื่ออาจารย์แล้วแสดง
+                                            ?>
+                                        </td>
                                         <td class="border p-2">
                                             <button onclick="openModal('modal<?= $index ?>')" class="bg-blue-500 text-white px-3 py-1 rounded">
                                                 จัดการ
@@ -166,8 +181,8 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
                                             </form>
                                         </div>
                                     </div>
-                                
-                                
+
+
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
