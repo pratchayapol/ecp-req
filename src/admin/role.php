@@ -30,7 +30,7 @@ $stmt->execute(['email' => $email]);
 $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // ดึงข้อมูลจากฐานข้อมูล
-$stmt = $pdo->prepare("SELECT * FROM `accounts` WHERE role IN ('Teacher', 'Student Officer')");
+$stmt = $pdo->prepare("SELECT * FROM `accounts` WHERE role IN ('Teacher', 'Student', 'Officer')");
 $stmt->execute();
 $select_role = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
