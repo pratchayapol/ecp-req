@@ -173,7 +173,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                                 <option value="Officer" <?= $row['role'] === 'Officer' ? 'selected' : '' ?>>เจ้าหน้าที่</option>
                                                             </select>
                                                         </div>
-
+                                                        <?php if ($row['role'] === 'Teacher'): ?>
+                                                            <div class="mb-4">
+                                                                <label class="block font-medium mb-1">สถานะหัวหน้าสาขา</label>
+                                                                <div class="space-y-2">
+                                                                    <label class="flex items-center">
+                                                                        <input type="radio" name="dep" value="TRUE" <?= $row['dep'] === 'TRUE' ? 'checked' : '' ?> class="mr-2">
+                                                                        มอบหมายให้เป็นหัวหน้าสาขา
+                                                                    </label>
+                                                                    <label class="flex items-center">
+                                                                        <input type="radio" name="dep" value="" <?= $row['dep'] === '' ? 'checked' : '' ?> class="mr-2">
+                                                                        ไม่ได้เป็นหัวหน้าสาขา
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        <?php endif; ?>
                                                         <div class="flex justify-end mt-4 space-x-2">
                                                             <button type="submit" class="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600">บันทึก</button>
                                                             <button type="button" onclick="closeModal('modal-<?= $index ?>')" class="bg-gray-300 text-black px-4 py-1 rounded hover:bg-gray-400">ยกเลิก</button>
