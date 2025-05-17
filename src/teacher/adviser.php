@@ -325,10 +325,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     text: 'ข้อมูลกลุ่มเรียนของอาจารย์ได้รับการบันทึกแล้ว',
                     icon: 'success',
                     confirmButtonText: 'ตกลง'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
                 });
             });
         </script>
     <?php endif; ?>
+
 
     <?php include '../loadtab/f.php'; ?>
 </body>
