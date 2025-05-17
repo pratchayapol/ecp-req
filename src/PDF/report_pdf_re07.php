@@ -81,6 +81,8 @@ $pdf->AddFont('sara', '', 'THSarabun.php');
 $pdf->Image('RE.07bg.jpg', 0, 0, 210, 297);
 $pdf->SetXY(190, 0);
 
+$pdf->SetFont('sara', '', 14);
+
 // // ภาคเรียน
 $pdf->SetY(20);
 $pdf->SetX(150);
@@ -88,11 +90,11 @@ $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $term), 0, 1, 'L');
 
 // // ปีการศึกษา
 $pdf->SetY(20);
-$pdf->SetX(170);
+$pdf->SetX(160);
 $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // // รหัสวิชา
-$pdf->SetY(90);
+$pdf->SetY(100);
 $pdf->SetX(30);
 $pdf->Cell(60, 8, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
