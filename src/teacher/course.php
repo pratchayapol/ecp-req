@@ -304,8 +304,11 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     </style>
     <?php
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // รับค่า
+
+        $showSwal = false;
         $course_id = $_POST['course_id'] ?? '';
         $emails = $_POST['emails'] ?? [];
 
@@ -319,8 +322,8 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
             $update_stmt->bindParam(':course_id', $course_id);
 
             if ($update_stmt->execute()) {
-                echo "<script>alert('บันทึกข้อมูลเรียบร้อย'); window.location.href = window.location.href;</script>";
-                exit;
+                // trigger ให้แสดง Swal
+                $showSwal = true;
             } else {
                 echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');</script>";
             }
@@ -329,8 +332,24 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
     ?>
-
-    ?>
+    <?php if ($showSwal): ?>
+        <!-- SweetAlert2 CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    title: 'อัปเดตสำเร็จ!',
+                    text: 'ข้อมูลกลุ่มเรียนของอาจารย์ได้รับการบันทึกแล้ว',
+                    icon: 'success',
+                    confirmButtonText: 'ตกลง'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'course'; // เปลี่ยนเส้นทาง
+                    }
+                });
+            });
+        </script>
+    <?php endif; ?>
     <?php include '../loadtab/f.php'; ?>
 </body>
 
