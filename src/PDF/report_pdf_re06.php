@@ -24,7 +24,7 @@ try {
         $term = $row['term'];
         $year = $row['year'];
         $reason = $row['reason'];
-        $group = $row['Group']; // เปลี่ยนชื่อเพื่อไม่ให้ชนกับ keyword
+        $Group = $row['Group']; // เปลี่ยนชื่อเพื่อไม่ให้ชนกับ keyword
         $course_id = $row['course_id'];
         $course_nameTH = $row['course_nameTH'];
         $coutter = $row['coutter'];
@@ -112,7 +112,7 @@ $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 $pdf->SetY(138);
 $pdf->SetX(116);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $group), 0, 1, 'L');
+$pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $Group), 0, 1, 'L');
 
 
 
