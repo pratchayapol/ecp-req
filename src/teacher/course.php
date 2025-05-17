@@ -132,7 +132,7 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <td class="border p-2"><?= htmlspecialchars($course['credits']) ?></td>
                                         <td class="border p-2">
                                             <?php
-                                            $emails = explode(',', $course['email']); // แยกอีเมลออกมาเป็น array
+                                            $emails = explode(', ', $course['email']); // แยกอีเมลออกมาเป็น array
                                             $names = [];
                                             foreach ($emails as $email) {
                                                 $email = trim($email); // ตัดช่องว่างข้างหน้า-หลังออก
