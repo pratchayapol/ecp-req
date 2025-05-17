@@ -150,13 +150,13 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
 
                                                 <div class="max-h-60 overflow-y-auto mb-4 text-left">
                                                     <?php
-                                                    $selectedEmails = explode(",", $course['email']);
+                                                    $selectedEmails = explode(", ", $course['email']);
                                                     foreach ($teachers as $teacher):
                                                         $checked = in_array($teacher['email'], $selectedEmails) ? 'checked' : '';
                                                     ?>
                                                         <label class="block mb-2">
                                                             <input type="checkbox" name="emails[]" value="<?= $teacher['email'] ?>" <?= $checked ?> class="mr-2">
-                                                            <?= htmlspecialchars($teacher['name']) ?> (<?= htmlspecialchars($teacher['email']) ?>)
+                                                            <?= htmlspecialchars($teacher['name']) ?>
                                                         </label>
                                                     <?php endforeach; ?>
                                                 </div>
