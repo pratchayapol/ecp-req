@@ -28,6 +28,11 @@ $sql = "SELECT name, email FROM accounts WHERE email = :email";
 $stmt = $pdo->prepare($sql);
 $stmt->execute(['email' => $email]);
 $profile = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// ดึงข้อมูลจากฐานข้อมูล
+$stmt = $pdo->prepare("SELECT * FROM `accounts` WHERE role = 'Teacher'");
+$stmt->execute();
+$teachers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="th">
