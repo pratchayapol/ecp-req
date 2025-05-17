@@ -176,19 +176,19 @@ $pdf->SetFont('sara', '', 11.5);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
 // //ชื่อ สกุล
-$pdf->SetY(50);
+$pdf->SetY(55);
 $pdf->SetX(68.5);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
 
 // //เลขนศ
-$pdf->SetY(50);
-$pdf->SetX(150);
+$pdf->SetY(55);
+$pdf->SetX(160);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $id), 0, 1, 'L');
 
 // //คณะ
-$pdf->SetY(70);
+$pdf->SetY(60);
 $pdf->SetX(30.5);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $faculty), 0, 1, 'L');
