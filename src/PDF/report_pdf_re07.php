@@ -94,59 +94,25 @@ $pdf->SetX(172);
 $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // // รหัสวิชา
-$pdf->SetY(85);
+$pdf->SetY(85.5);
 $pdf->SetX(35);
 $pdf->Cell(60, 8, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
 // // ชื่อวิชา
-$pdf->SetY(85);
+$pdf->SetY(85.5);
 $pdf->SetX(100);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $course_nameTH), 0, 'L');
 
-// // // กลุ่มเรียน
-// $pdf->SetY(60);
-// $pdf->SetX(30);
-// $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $group), 0, 1, 'L');
-
 // // เหตุผล
-$pdf->SetY(95);
+$pdf->SetY(95.5);
 $pdf->SetX(30);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
-
-// // // GPA
-// $pdf->SetY(90);
-// $pdf->SetX(30);
-// $pdf->Cell(40, 8, iconv('utf-8', 'cp874', "GPA: $gpa"), 0, 1, 'L');
-
-// // // หน่วยกิตที่ลงทะเบียน
-// $pdf->SetY(100);
-// $pdf->SetX(30);
-// $pdf->Cell(60, 8, iconv('utf-8', 'cp874', "หน่วยกิตที่ลงทะเบียน: $git_unit"), 0, 1, 'L');
-
-// // // สถานภาพการลงทะเบียน
-// $pdf->SetY(110);
-// $pdf->SetX(30);
-// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "สถานภาพการลงทะเบียน: $reg_status"), 0, 1, 'L');
-
-// // // คาดว่าจะจบ
-// $pdf->SetY(120);
-// $pdf->SetX(30);
-// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "คาดว่าจะจบ: $expected_graduation"), 0, 1, 'L');
 
 // // ความคิดเห็นอาจารย์ที่ปรึกษา
 $pdf->SetY(140);
 $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_teacher), 0, 'L');
 
-// // // สถานะอนุมัติอาจารย์
-// $pdf->SetY(160);
-// $pdf->SetX(30);
-// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "อนุมัติอาจารย์: $approval_status_teacher"), 0, 1, 'L');
-
-// // สถานะอนุมัติหัวหน้าสาขา
-// $pdf->SetY(170);
-// $pdf->SetX(30);
-// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "อนุมัติหัวหน้าสาขา: $approval_status_dep"), 0, 1, 'L');
 
 // // ความคิดเห็นหัวหน้าสาขา
 $pdf->SetY(175);
@@ -154,39 +120,19 @@ $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_head_dep), 0, 'L');
 
 // // email นักศึกษา
-$pdf->SetY(210);
+$pdf->SetY(130);
 $pdf->SetX(30);
 $pdf->Cell(100, 8, iconv('utf-8', 'cp874', $email), 0, 1, 'L');
 
-// // สถานะคำร้อง
-// $pdf->SetY(220);
-// $pdf->SetX(30);
-// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "สถานะคำร้อง: $status"), 0, 1, 'L');
 
-// // // วันที่สร้างคำร้อง
-// $pdf->SetY(230);
-// $pdf->SetX(30);
-// $pdf->Cell(100, 8, iconv('utf-8', 'cp874', "วันที่สร้าง: $created_at"), 0, 1, 'L');
+// //เวลา่
+$created_at_thai = formatDateThai($created_at, ['                  ','                  ','    ', ' ']);
+// เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
-// // email อาจารย์
-$pdf->SetY(260);
-$pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "Email อาจารย์: $teacher_email"), 0, 1, 'L');
-
-// // email หัวหน้าสาขา
-$pdf->SetY(270);
-$pdf->SetX(30);
-$pdf->Cell(100, 8, iconv('utf-8', 'cp874', "Email หัวหน้าสาขา: $head_department"), 0, 1, 'L');
-
-
-// // //เวลา่
-// $created_at_thai = formatDateThai($created_at, ['                  ','                  ','    ', ' ']);
-// // เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
-
-// $pdf->SetY(34);
-// $pdf->SetX(136);
-// $pdf->SetFont('sara', '', 11.5);
-// $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
+$pdf->SetY(32);
+$pdf->SetX(100);
+$pdf->SetFont('sara', '', 11.5);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
 
 $pdf->Output();
