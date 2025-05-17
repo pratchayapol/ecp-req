@@ -166,34 +166,8 @@ $teachers = $teacher_stmt->fetchAll(PDO::FETCH_ASSOC);
                                             </form>
                                         </div>
                                     </div>
-                                    <!-- Modal สำหรับจัดการอาจารย์ -->
-                                    <div id="modal<?= $index ?>" class="fixed inset-0 bg-black bg-opacity-30 hidden items-center justify-center z-50">
-                                        <div class="bg-white p-6 rounded-lg w-[400px] shadow-lg">
-                                            <h2 class="text-lg font-semibold mb-4 text-center">เลือกอาจารย์ผู้สอน</h2>
-
-                                            <form method="POST" action="update_teachers.php">
-                                                <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>">
-
-                                                <div class="max-h-60 overflow-y-auto mb-4 text-left">
-                                                    <?php
-                                                    $selectedEmails = explode(",", $course['email']);
-                                                    foreach ($teachers as $teacher):
-                                                        $checked = in_array($teacher['email'], $selectedEmails) ? 'checked' : '';
-                                                    ?>
-                                                        <label class="block mb-2">
-                                                            <input type="checkbox" name="emails[]" value="<?= $teacher['email'] ?>" <?= $checked ?> class="mr-2">
-                                                            <?= htmlspecialchars($teacher['name']) ?> (<?= htmlspecialchars($teacher['email']) ?>)
-                                                        </label>
-                                                    <?php endforeach; ?>
-                                                </div>
-
-                                                <div class="flex justify-end space-x-2">
-                                                    <button type="submit" class="bg-green-500 text-white px-4 py-1 rounded">บันทึก</button>
-                                                    <button type="button" onclick="closeModal('modal<?= $index ?>')" class="bg-gray-400 text-white px-4 py-1 rounded">ปิด</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
+                                
+                                
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
