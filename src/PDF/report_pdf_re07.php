@@ -136,7 +136,7 @@ $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 // // ความคิดเห็นอาจารย์ที่ปรึกษา
 $pdf->SetY(130);
 $pdf->SetX(30);
-$pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', "ความคิดเห็นอาจารย์ที่ปรึกษา:\n$comment_teacher"), 0, 'L');
+$pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_teacher), 0, 'L');
 
 // // // สถานะอนุมัติอาจารย์
 // $pdf->SetY(160);
