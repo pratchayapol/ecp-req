@@ -17,6 +17,12 @@ try {
     $stmt->bindParam(':token', $token, PDO::PARAM_STR);
     $stmt->execute();
 
+    $sql = "SELECT id, name, email FROM accounts WHERE email = :email";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['email' => $email]);
+
+
+    $profile = $stmt->fetch(PDO::FETCH_ASSOC);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($row) {
@@ -36,6 +42,9 @@ try {
         $token = $row['token'];
         $teacher_email = $row['teacher_email'];
         $head_department = $row['head_department'];
+        $name = $profile['name'];
+        $id = $profile['id'];
+
 //แปลงวันเดือนปีเวลา
         $datetime = new DateTime($created_at);
         $formatted_date = $datetime->format('d/m/Y H:i'); // 15/05/2025 10:45
@@ -146,13 +155,11 @@ $pdf->SetX(120);
 $pdf->SetFont('sara', '', 11.5);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
-
-
-
-
-// $id = $_GET['id'];
-// $cer = "SELECT * FROM img_event WHERE id_van = $id";
-// $query_cer = $q1 = $conn->query($cer);
+// //เรื่อง
+$pdf->SetY(40.5);
+$pdf->SetX(23);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
 
 
 
