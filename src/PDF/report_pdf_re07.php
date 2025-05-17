@@ -109,7 +109,7 @@ $pdf->SetX(30);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 
 // // ความคิดเห็นอาจารย์ที่ปรึกษา
-$pdf->SetY(135);
+$pdf->SetY(140);
 $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_teacher), 0, 'L');
 
@@ -130,7 +130,7 @@ $created_at_thai = formatDateThai($created_at, ['                  ','          
 // เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
 $pdf->SetY(35);
-$pdf->SetX(115);
+$pdf->SetX(117);
 $pdf->SetFont('sara', '', 11.5);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
