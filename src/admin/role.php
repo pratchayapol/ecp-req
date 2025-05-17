@@ -34,11 +34,6 @@ $stmt = $pdo->prepare("SELECT * FROM `accounts` WHERE role IN ('Teacher', 'Stude
 $stmt->execute();
 $select_role = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$currentYear = date("Y") + 543;
-$yearSuffixes = [];
-for ($i = 0; $i < 8; $i++) {
-    $yearSuffixes[] = substr((string)($currentYear - $i), -2); // ได้เช่น 67, 66, ...
-}
 
 $showSwal = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -166,23 +161,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <!-- Modal -->
                                             <div id="modal-<?= $index ?>" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
                                                 <div class="bg-white rounded-lg shadow-lg p-6 w-[500px] relative max-h-[90vh] overflow-y-auto">
-                                                    <h2 class="text-lg font-bold mb-4">แก้ไขกลุ่มเรียนของ <?= htmlspecialchars($row['name']) ?></h2>
+                                                    <h2 class="text-lg font-bold mb-4">แก้ไขสิทธิ์การใช้งานของ <?= htmlspecialchars($row['name']) ?></h2>
                                                     <form method="post" action="">
                                                         <input type="hidden" name="email" value="<?= htmlspecialchars($row['email']) ?>">
 
-                                                        <div class="grid grid-cols-3 gap-2 text-sm mb-4">
-                                                            <?php foreach (['ECP/N', 'ECP/R', 'ECP/Q'] as $prefix): ?>
-                                                                <?php foreach ($yearSuffixes as $year):
-                                                                    $value = "$prefix ($year)";
-                                                                    $checked = in_array($value, $advisorGroups) ? 'checked' : '';
-                                                                ?>
-                                                                    <label class="flex items-center space-x-1">
-                                                                        <input type="checkbox" name="advisor[]" value="<?= $value ?>" class="accent-orange-500" <?= $checked ?>>
-                                                                        <span><?= $value ?></span>
-                                                                    </label>
-                                                                <?php endforeach; ?>
-                                                            <?php endforeach; ?>
-
+                                                        <div class="mb-4">
+                                                            <label for="role" class="block font-medium mb-1">สิทธิ์การใช้งาน</label>
+                                                            <select name="role" id="role" class="w-full border border-gray-300 rounded px-3 py-2">
+                                                                <option value="Student" <?= $row['role'] === 'Student' ? 'selected' : '' ?>>นักศึกษา</option>
+                                                                <option value="Teacher" <?= $row['role'] === 'Teacher' ? 'selected' : '' ?>>อาจารย์</option>
+                                                                <option value="Officer" <?= $row['role'] === 'Officer' ? 'selected' : '' ?>>เจ้าหน้าที่</option>
+                                                            </select>
                                                         </div>
 
                                                         <div class="flex justify-end mt-4 space-x-2">
@@ -190,9 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                             <button type="button" onclick="closeModal('modal-<?= $index ?>')" class="bg-gray-300 text-black px-4 py-1 rounded hover:bg-gray-400">ยกเลิก</button>
                                                         </div>
                                                     </form>
-                                                    <button onclick="closeModal('modal-<?= $index ?>')" class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">
-                                                        ✕
-                                                    </button>
+
                                                 </div>
                                             </div>
                                         </td>
