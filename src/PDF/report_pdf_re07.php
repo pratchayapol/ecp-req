@@ -50,8 +50,8 @@ try {
 
         if ($profile) {
             // เก็บข้อมูลจาก accounts
-            $student_id = $profile['id'];
-            $student_name = $profile['name'];
+            $id = $profile['id'];
+            $name = $profile['name'];
             $faculty = $profile['faculty'];
             $field = $profile['field'];
             $course_level = $profile['course_level'];
@@ -144,6 +144,36 @@ $pdf->SetY(36);
 $pdf->SetX(117);
 $pdf->SetFont('sara', '', 11.5);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
+
+// //ชื่อ สกุล
+$pdf->SetY(56);
+$pdf->SetX(68.5);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
+
+// //เลขนศ
+$pdf->SetY(56);
+$pdf->SetX(163);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $id), 0, 1, 'L');
+
+// //คณะ
+$pdf->SetY(75);
+$pdf->SetX(30.5);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $faculty), 0, 1, 'L');
+
+// //สาขาวิชา
+$pdf->SetY(75);
+$pdf->SetX(110);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
+
+// //ชั้นปี
+$pdf->SetY(75);
+$pdf->SetX(185);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'L');
 
 
 $pdf->Output();
