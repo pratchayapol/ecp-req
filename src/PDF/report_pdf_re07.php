@@ -106,12 +106,12 @@ $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // // ภาคเรียน2
 $pdf->SetY(78);
-$pdf->SetX(140);
+$pdf->SetX(145;
 $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $term), 0, 1, 'L');
 
 // // ปีการศึกษา2
 $pdf->SetY(78);
-$pdf->SetX(172);
+$pdf->SetX(177);
 $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // // รหัสวิชา
