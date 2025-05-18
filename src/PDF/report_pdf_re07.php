@@ -142,7 +142,7 @@ $created_at_thai = formatDateThai($created_at, ['                  ','          
 
 $pdf->SetY(36);
 $pdf->SetX(117);
-$pdf->SetFont('sara', '', 11.5);
+$pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
 // //ชื่อ สกุล
