@@ -20,51 +20,61 @@ try {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($row) {
-            $term = $row['term'];
-            $year = $row['year'];
-            $course_id = $row['course_id'];
-            $course_nameTH = $row['course_nameTH'];
-            $group = $row['Group'];
-            $reason = $row['reason'];
-            $gpa = $row['gpa'];
-            $git_unit = $row['git_unit'];
-            $reg_status = $row['reg_status'];
-            $expected_graduation = $row['expected_graduation'];
-            $comment_teacher = $row['comment_teacher'];
-            $approval_status_teacher = $row['approval_status_teacher'];
-            $approval_status_dep = $row['approval_status_dep'];
-            $comment_head_dep = $row['comment_head_dep'];
-            $email = $row['email'];
-            $status = $row['status'];
-            $created_at = $row['created_at'];
-            $token = $row['token'];
-            $token_new = $row['token_new'];
-            $teacher_email = $row['teacher_email'];
-            $head_department = $row['head_department'];
+        // เก็บข้อมูลจาก form_re07
+        $term = $row['term'];
+        $year = $row['year'];
+        $course_id = $row['course_id'];
+        $course_nameTH = $row['course_nameTH'];
+        $group = $row['Group'];
+        $reason = $row['reason'];
+        $gpa = $row['gpa'];
+        $git_unit = $row['git_unit'];
+        $reg_status = $row['reg_status'];
+        $expected_graduation = $row['expected_graduation'];
+        $comment_teacher = $row['comment_teacher'];
+        $approval_status_teacher = $row['approval_status_teacher'];
+        $approval_status_dep = $row['approval_status_dep'];
+        $comment_head_dep = $row['comment_head_dep'];
+        $email = $row['email'];
+        $status = $row['status'];
+        $created_at = $row['created_at'];
+        $token = $row['token'];
+        $token_new = $row['token_new'];
+        $teacher_email = $row['teacher_email'];
+        $head_department = $row['head_department'];
 
-        //แปลงวันเดือนปีเวลา
+        // ดึงข้อมูลจาก accounts โดยใช้ email
+        $stmtAcc = $pdo->prepare("SELECT id, name, faculty, field, course_level FROM accounts WHERE email = :email");
+        $stmtAcc->execute(['email' => $email]);
+        $profile = $stmtAcc->fetch(PDO::FETCH_ASSOC);
+
+        if ($profile) {
+            // เก็บข้อมูลจาก accounts
+            $student_id = $profile['id'];
+            $student_name = $profile['name'];
+            $faculty = $profile['faculty'];
+            $field = $profile['field'];
+            $course_level = $profile['course_level'];
+        }
+
+        // แปลงวันเดือนปีเวลา
         $datetime = new DateTime($created_at);
-        $formatted_date = $datetime->format('d/m/Y H:i'); // 15/05/2025 10:45
+        $formatted_date = $datetime->format('d/m/Y H:i'); // เช่น 15/05/2025 10:45
 
         function formatDateThai($dateStr, $spacing = [' ', ' ', ' ', ' ']) {
-    // spacing[0] = เว้นวรรคหลังวัน
-    // spacing[1] = เว้นวรรคหลังเดือน
-    // spacing[2] = เว้นวรรคหลังปี
-    // spacing[3] = เว้นวรรคหลัง "เวลา"
+            $thaiMonths = [
+                "", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+                "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+            ];
 
-    $thaiMonths = [
-        "", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
-        "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-    ];
+            $dt = new DateTime($dateStr);
+            $day = $dt->format('j');
+            $month = (int)$dt->format('n');
+            $year = (int)$dt->format('Y') + 543;
+            $time = $dt->format('H:i');
 
-    $dt = new DateTime($dateStr);
-    $day = $dt->format('j');
-    $month = (int)$dt->format('n');
-    $year = (int)$dt->format('Y') + 543;
-    $time = $dt->format('H:i');
-
-    return $day . $spacing[0] . $thaiMonths[$month] . $spacing[1] . $year . $spacing[2] . 'เวลา' . $spacing[3] . $time . ' น.';
-}
+            return $day . $spacing[0] . $thaiMonths[$month] . $spacing[1] . $year . $spacing[2] . 'เวลา' . $spacing[3] . $time . ' น.';
+        }
 
     } else {
         echo "ไม่พบข้อมูลที่ตรงกับ token นี้";
@@ -72,6 +82,7 @@ try {
 } catch (PDOException $e) {
     echo "เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล: " . $e->getMessage();
 }
+
 
 
 
