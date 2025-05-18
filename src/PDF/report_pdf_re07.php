@@ -137,7 +137,7 @@ $pdf->Cell(100, 8, iconv('utf-8', 'cp874', $email), 0, 1, 'L');
 
 
 // //เวลา่
-$created_at_thai = formatDateThai($created_at, ['                  ','                  ','    ', ' ']);
+$created_at_thai = formatDateThai($created_at, ['              ','             ','    ', ' ']);
 // เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
 $pdf->SetY(36);
