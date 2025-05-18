@@ -94,13 +94,23 @@ $pdf->SetXY(190, 0);
 
 $pdf->SetFont('sara', '', 14);
 
-// // ภาคเรียน
+// // ภาคเรียน1
 $pdf->SetY(20);
 $pdf->SetX(140);
 $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $term), 0, 1, 'L');
 
-// // ปีการศึกษา
+// // ปีการศึกษา1
 $pdf->SetY(20);
+$pdf->SetX(172);
+$pdf->Cell(40, 8, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
+
+// // ภาคเรียน2
+$pdf->SetY(80);
+$pdf->SetX(140);
+$pdf->Cell(40, 8, iconv('utf-8', 'cp874', $term), 0, 1, 'L');
+
+// // ปีการศึกษา2
+$pdf->SetY(80);
 $pdf->SetX(172);
 $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
