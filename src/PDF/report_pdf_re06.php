@@ -13,18 +13,18 @@ if (!isset($_GET['token'])) {
 $token = $_GET['token'];
 
 try {
-    $stmt = $pdo->prepare("SELECT * FROM form_re06 WHERE token = :token");
-    $stmt->bindParam(':token', $token, PDO::PARAM_STR);
-    $stmt->execute();
-
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmtForm = $pdo->prepare("SELECT * FROM form_re06 WHERE token = :token");
+    $stmtForm->bindParam(':token', $token, PDO::PARAM_STR);
+    $stmtForm->execute();
+    $row = $stmtForm->fetch(PDO::FETCH_ASSOC);
 
     if ($row) {
-         $form_id = $row['form_id'];
+        // เก็บข้อมูลจาก form_re06
+        $form_id = $row['form_id'];
         $term = $row['term'];
         $year = $row['year'];
         $reason = $row['reason'];
-        $group = $row['Group']; // ระวังชื่อตัวแปร PHP ไม่ควรใช้ชื่อตรงกับ keyword (แนะนำให้เปลี่ยนเป็น $group_name หรือ $group_code)
+        $Group = $row['Group']; // เปลี่ยนชื่อเพื่อไม่ให้ชนกับ keyword
         $course_id = $row['course_id'];
         $course_nameTH = $row['course_nameTH'];
         $coutter = $row['coutter'];
@@ -37,6 +37,19 @@ try {
         $teacher_email = $row['teacher_email'];
         $token = $row['token'];
 
+        // 2. ดึงข้อมูลจาก accounts โดยใช้ email ที่ได้จาก form_re06
+        $stmtAcc = $pdo->prepare("SELECT id, name, faculty, field, course_level FROM accounts WHERE email = :email");
+        $stmtAcc->execute(['email' => $email]);
+        $profile = $stmtAcc->fetch(PDO::FETCH_ASSOC);
+
+        if ($profile) {
+            // เก็บข้อมูลจาก accounts
+            $id = $profile['id'];
+            $name = $profile['name'];
+            $faculty = $profile['faculty'];
+            $field = $profile['field'];
+            $course_level = $profile['course_level'];
+        }
         //แปลงวันเดือนปีเวลา
         $datetime = new DateTime($created_at);
         $formatted_date = $datetime->format('d/m/Y H:i'); // 15/05/2025 10:45
@@ -59,7 +72,8 @@ try {
     $time = $dt->format('H:i');
 
     return $day . $spacing[0] . $thaiMonths[$month] . $spacing[1] . $year . $spacing[2] . 'เวลา' . $spacing[3] . $time . ' น.';
-}
+    }
+
 
     } else {
         echo "ไม่พบข้อมูลที่ตรงกับ token นี้";
@@ -98,7 +112,13 @@ $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 $pdf->SetY(138);
 $pdf->SetX(116);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $group), 0, 1, 'L');
+$pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $Group), 0, 1, 'L');
+
+// //กลุ่มเรียน2
+$pdf->SetY(138);
+$pdf->SetX(116);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $Group), 0, 1, 'L');
 
 
 
@@ -155,102 +175,34 @@ $pdf->SetX(136);
 $pdf->SetFont('sara', '', 11.5);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
-// $id = $_GET['id'];
-// $cer = "SELECT * FROM img_event WHERE id_van = $id";
-// $query_cer = $q1 = $conn->query($cer);
+// //ชื่อ สกุล
+$pdf->SetY(56);
+$pdf->SetX(68.5);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
 
+// //เลขนศ
+$pdf->SetY(56);
+$pdf->SetX(163);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $id), 0, 1, 'L');
 
+// //คณะ
+$pdf->SetY(75);
+$pdf->SetX(30.5);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $faculty), 0, 1, 'L');
 
-// $stmt6 = $conn->query("SELECT * FROM signature WHERE id_van = $id");
-// $row6 = $stmt6->fetch(PDO::FETCH_ASSOC);
-// extract($row6);
-// $id4 = $row6['signature_user'];
-// $id5 = $row6['signature_inspector'];
-// $id6 = $row6['signature_manager'];
+// //สาขาวิชา
+$pdf->SetY(75);
+$pdf->SetX(110);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
-
-// //ลายเซนต์ผู้เข้าเวร
-// $pdf->Image("../signatures/$id4", 130, 110, 15.5, 12.5);
-
-// //ตำแหน่ง ครูเวร / นักการ
-// $pdf->SetY(120.5);
-// $pdf->SetX(90);
-// $pdf->SetFont('sara', '', 14);
-// $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $row['position']), 0, 1, 'C');
-
-// //ชื่อผู้เข้าเวร ล่าง
-// $pdf->SetY(126.5);
-// $pdf->SetX(68.5);
-// $pdf->SetFont('sara', '', 14);
-// $pdf->Cell(143, 2, iconv('utf-8', 'cp874', $row2['firstname'] . '  ' . $row2['lastname']), 0, 1, 'C');
-
-// //ชื่อผู้ตรวจเวร บน
-// $pdf->SetY(137);
-// $pdf->SetX(43);
-// $pdf->SetFont('sara', '', 14);
-// $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $row3['firstname'] . '  ' . $row3['lastname']), 0, 1, 'L');
-
-// //บันทึกข้อความผู้ตรวจเวร
-// $ins_text = $row['ins_text'];
-// if ($row['ins_text'] != null) {
-//     $pdf->SetY(152);
-//     $pdf->SetX(30);
-//     $pdf->SetFont('sara', '', 11.5);
-//     $pdf->Cell(42, 2, iconv('utf-8', 'cp874', "$ins_text"), 0, 1, 'L');
-// } else {
-
-//     $pdf->SetY(152);
-//     $pdf->SetX(30);
-//     $pdf->SetFont('sara', '', 11.5);
-//     $pdf->Cell(42, 2, iconv('utf-8', 'cp874', "$ins_text"), 0, 1, 'L');
-// }
-
-
-// //ลายเซนต์ผู้ตรวจเวร
-// $pdf->Image("../signatures/$id5", 130, 165, 15.5, 12.5);
-
-// //ชื่อผู้ตรวจเวร ล่าง
-// $pdf->SetY(181.5);
-// $pdf->SetX(68.5);
-// $pdf->SetFont('sara', '', 14);
-// $pdf->Cell(143, 2, iconv('utf-8', 'cp874', $row3['firstname'] . '  ' . $row3['lastname']), 0, 1, 'C');
-
-// //บันทึกข้อความผู้อำนวยการ
-// $mana_text = $row['mana_text'];
-// if ($row['mana_text'] != null) {
-//     $pdf->SetY(196);
-//     $pdf->SetX(30);
-//     $pdf->SetFont('sara', '', 11.5);
-//     $pdf->Cell(42, 2, iconv('utf-8', 'cp874', "$mana_text"), 0, 1, 'L');
-// } else {
-//     $pdf->SetY(196);
-//     $pdf->SetX(30);
-//     $pdf->SetFont('sara', '', 11.5);
-//     $pdf->Cell(42, 2, iconv('utf-8', 'cp874', "$mana_text"), 0, 1, 'L');
-// }
-
-
-// //ลายเซนต์ผู้อำนวยการ
-// $pdf->Image("../signatures/$id6", 130, 216, 15.5, 12.5);
-
-// //ชื่อผู้อำนวยการ
-// $pdf->SetY(233.5);
-// $pdf->SetX(68.5);
-// $pdf->SetFont('sara', '', 14);
-// $pdf->Cell(143, 2, iconv('utf-8', 'cp874', $row4['firstname'] . '  ' . $row4['lastname']), 0, 1, 'C');
-
-// //บันทึกเกี่ยวกับเหตุการณ์ทั่วไป
-// $mana_text1 = $row['mana_text1'];
-// if ($row['mana_text'] != null) {
-//     $pdf->SetY(248.5);
-//     $pdf->SetX(30);
-//     $pdf->SetFont('sara', '', 11.5);
-//     $pdf->Cell(42, 2, iconv('utf-8', 'cp874', "$mana_text1"), 0, 1, 'L');
-// } else {
-//     $pdf->SetY(248.5);
-//     $pdf->SetX(30);
-//     $pdf->SetFont('sara', '', 11.5);
-//     $pdf->Cell(42, 2, iconv('utf-8', 'cp874', "$mana_text1"), 0, 1, 'L');
-// }
+// //ชั้นปี
+$pdf->SetY(75);
+$pdf->SetX(185);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'L');
 
 $pdf->Output();
