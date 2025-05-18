@@ -106,7 +106,7 @@ $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // // รหัสวิชา
 $pdf->SetY(85.5);
-$pdf->SetX(35);
+$pdf->SetX(40);
 $pdf->Cell(60, 8, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
 // // ชื่อวิชา
@@ -165,7 +165,7 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $faculty), 0, 1, 'L');
 
 // //สาขาวิชา
 $pdf->SetY(71.5);
-$pdf->SetX(110);
+$pdf->SetX(90);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
