@@ -70,7 +70,7 @@ try {
     $year = (int)$dt->format('Y') + 543;
     
 
-    return $day . $spacing[0] . $thaiMonths[$month] . $spacing[1] . $year . $spacing[2] . 'เวลา' ;
+    return $day . $spacing[0] . $thaiMonths[$month] . $spacing[1] . $year . $spacing[2] . '' ;
  }
 }
 
