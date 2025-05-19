@@ -68,9 +68,9 @@ try {
     $day = $dt->format('j');
     $month = (int)$dt->format('n');
     $year = (int)$dt->format('Y') + 543;
-    $time = $dt->format('H:i');
+    
 
-    return $day . $spacing[0] . $thaiMonths[$month] . $spacing[1] . $year . $spacing[2] . 'เวลา' . $spacing[3] . $time . ' น.';
+    return $day . $spacing[0] . $thaiMonths[$month] . $spacing[1] . $year . $spacing[2] . 'เวลา' ;
  }
 }
 
@@ -152,7 +152,7 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_head_dep), 0, 1, 'L');
 
 // // //เวลา่
 
-$created_at_thai = formatDateThai($created_at, ['                  ','                  ','    ', ' ']);
+$created_at_thai = formatDateThai($created_at, ['              ','            ','    ', ' ']);
 // เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
 $pdf->SetY(32);
