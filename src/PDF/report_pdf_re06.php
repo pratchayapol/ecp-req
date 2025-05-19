@@ -71,7 +71,7 @@ try {
     $year = (int)$dt->format('Y') + 543;
     $time = $dt->format('H:i');
 
-    return $day . $spacing[0] . $thaiMonths[$month] . $spacing[1] . $year . $spacing[2] . 'เวลา' . $spacing[3] . $time . ' น.';
+    return $day . $spacing[0] . $thaiMonths[$month] . $spacing[1] . $year . $spacing[2] ;
     }
 
 
