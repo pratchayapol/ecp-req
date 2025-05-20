@@ -680,7 +680,14 @@ function getNameByEmail($pdo, $email)
                                                                         class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
                                                                         PDF
                                                                     </a>
-                                                                <?php endif; ?>
+                                                                 <?php elseif (is_null($row2['status'])): ?>
+                                                                    <!-- ปุ่ม พิจารณา (อาจารย์ผู้สอน) -->
+                                                                    <a href="https://ecpreq.pcnone.com/re06_1?token=<?= urlencode($row2['token']) ?>" target="_blank"
+                                                                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm">
+                                                                        พิจารณา
+                                                                    </a>
+
+                                                                <?php endif; ?>              
                                                             </div>
 
                                                         </td>
@@ -769,6 +776,13 @@ function getNameByEmail($pdo, $email)
                                                                         class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
                                                                         PDF
                                                                     </a>
+                                                                 <?php elseif (is_null($row2['status'])): ?>
+                                                                    <!-- ปุ่ม พิจารณา (อาจารย์ผู้สอน) -->
+                                                                    <a href="https://ecpreq.pcnone.com/re06_1?token=<?= urlencode($row6['token']) ?>" target="_blank"
+                                                                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm">
+                                                                        พิจารณา
+                                                                    </a>
+
                                                                 <?php endif; ?>
                                                             </div>
 
@@ -1064,6 +1078,22 @@ function getNameByEmail($pdo, $email)
                                                                         class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
                                                                         PDF
                                                                     </a>
+                                                                <?php elseif (is_null($row3['status'])): ?>
+                                                                    <!-- ปุ่ม พิจารณา (อาจารย์ผู้สอน) -->
+                                                                    <a href="https://ecpreq.pcnone.com/re07_1?token=<?= urlencode($row3['token']) ?>" target="_blank"
+                                                                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm">
+                                                                        พิจารณา
+                                                                    </a>
+
+                                                                <?php endif; ?>
+
+                                                                <!-- ปุ่ม พิจารณา (หัวหน้าสาขา) -->
+                                                                <?php if (isset($row3['head_department'], $row3['status']) && $row3['head_department'] == $email && $row3['status'] == 1): ?>
+                                                                    <a href="https://ecpreq.pcnone.com/re07_2?token=<?= urlencode($row3['token']) ?>&token_new=<?= urlencode($row3['token_new']) ?>"
+                                                                        target="_blank"
+                                                                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm ml-2">
+                                                                        พิจารณา (หัวหน้า)
+                                                                    </a>
                                                                 <?php endif; ?>
                                                             </div>
                                                         </td>
@@ -1154,6 +1184,22 @@ ORDER BY form_id DESC");
                                                                     <a href="../PDF/report_pdf_re07?token=<?= $row3['token'] ?>" target="_blank"
                                                                         class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
                                                                         PDF
+                                                                    </a>
+                                                                  <?php elseif (is_null($row3['status'])): ?>
+                                                                    <!-- ปุ่ม พิจารณา (อาจารย์ผู้สอน) -->
+                                                                    <a href="https://ecpreq.pcnone.com/re07_1?token=<?= urlencode($row3['token']) ?>" target="_blank"
+                                                                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm">
+                                                                        พิจารณา
+                                                                    </a>
+
+                                                                <?php endif; ?>
+
+                                                                <!-- ปุ่ม พิจารณา (หัวหน้าสาขา) -->
+                                                                <?php if (isset($row3['head_department'], $row3['status']) && $row3['head_department'] == $email && $row3['status'] == 1): ?>
+                                                                    <a href="https://ecpreq.pcnone.com/re07_2?token=<?= urlencode($row3['token']) ?>&token_new=<?= urlencode($row3['token_new']) ?>"
+                                                                        target="_blank"
+                                                                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm ml-2">
+                                                                        พิจารณา (หัวหน้า)
                                                                     </a>
                                                                 <?php endif; ?>
                                                             </div>
