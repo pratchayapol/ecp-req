@@ -680,13 +680,7 @@ function getNameByEmail($pdo, $email)
                                                                         class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-sm">
                                                                         PDF
                                                                     </a>
-                                                                 <?php elseif (is_null($row2['status'])): ?>
-                                                                    <!-- ปุ่ม พิจารณา (อาจารย์ผู้สอน) -->
-                                                                    <a href="https://ecpreq.pcnone.com/re06_1?token=<?= urlencode($row2['token']) ?>" target="_blank"
-                                                                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm">
-                                                                        พิจารณา
-                                                                    </a>
-
+                                                                 
                                                                 <?php endif; ?>              
                                                             </div>
 
