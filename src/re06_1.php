@@ -401,7 +401,7 @@ include 'connect/dbcon.php';
 
                                 $mail->setFrom('botpcnone@gmail.com', 'ECP Online Petition');
                                 $mail->addAddress($email, 'นักศึกษา');
-                                $mail->Subject = 'คำร้องขอเพิ่มที่นั่ง (RE.06) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากหัวหน้าสาขาแล้ว';
+                                $mail->Subject = 'คำร้องขอเพิ่มที่นั่ง (RE.06) ของ ' . htmlspecialchars($profile['name']) . ' ผ่านการพิจารณา จากอาจารย์ประจำรายวิชาแล้ว';
                                 $mail->isHTML(true); // เพิ่มบรรทัดนี้เพื่อให้รองรับ HTML
 
 
