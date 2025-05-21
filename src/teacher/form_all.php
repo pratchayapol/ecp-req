@@ -1073,12 +1073,7 @@ function getNameByEmail($pdo, $email)
                                                                         PDF
                                                                     </a>
                                                                 <?php elseif (is_null($row3['status'])): ?>
-                                                                    <!-- ปุ่ม พิจารณา (อาจารย์ผู้สอน) -->
-                                                                    <a href="https://ecpreq.pcnone.com/re07_1?token=<?= urlencode($row3['token']) ?>" target="_blank"
-                                                                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm">
-                                                                        พิจารณา
-                                                                    </a>
-
+                                        
                                                                 <?php endif; ?>
 
                                                                 <!-- ปุ่ม พิจารณา (หัวหน้าสาขา) -->
