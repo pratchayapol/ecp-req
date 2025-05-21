@@ -772,7 +772,7 @@ function getNameByEmail($pdo, $email)
                                                                     </a>
                                                                  <?php elseif (is_null($row2['status'])): ?>
                                                                     <!-- ปุ่ม พิจารณา (อาจารย์ผู้สอน) -->
-                                                                    <a href="https://ecpreq.pcnone.com/re06_1?token=<?= urlencode($row6['token']) ?>" target="_blank"
+                                                                    <a href="https://ecpreq.pcnone.com/re06_1?token=<?= urlencode($row2['token']) ?>" target="_blank"
                                                                         class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded text-sm">
                                                                         พิจารณา
                                                                     </a>
