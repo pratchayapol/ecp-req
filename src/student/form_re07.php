@@ -261,7 +261,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
                         <div>
                             <label class="block font-medium mb-1 text-red-600">ขอเปิดนอกแผนการเรียน เนื่องจาก *</label>
                             <select class="w-full border rounded px-3 py-2" name="reason" id="reason-select" required onchange="toggleOtherReason()">
-                                <option value="" disabled selected>เลือกเหตุผลที่ขอเพิ่มที่นั่ง</option>
+                                <option value="" disabled selected>เลือกเหตุผลที่ขอเปิดนอกแผนการเรียน</option>
                                 <option value="เป็นรายวิชาตามแผนการเรียนที่ต้องเรียนในภาคการศึกษานี้เพื่อสำเร็จการศึกษา">เป็นรายวิชาตามแผนการเรียนที่ต้องเรียนในภาคการศึกษานี้เพื่อสำเร็จการศึกษา</option>
                                 <option value="ต้องการเรียนเพื่อเสริมความรู้และทักษะที่จำเป็นสำหรับการทำงานในอนาคต">ต้องการเรียนเพื่อเสริมความรู้และทักษะที่จำเป็นสำหรับการทำงานในอนาคต</option>
                                 <option value="วิชานี้เป็นพื้นฐานสำหรับการเรียนวิชาอื่นๆ ที่สำคัญในหลักสูตร">วิชานี้เป็นพื้นฐานสำหรับการเรียนวิชาอื่นๆ ที่สำคัญในหลักสูตร</option>
@@ -320,7 +320,7 @@ $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
                         <div>
-                            <label class="block font-medium mb-2 text-red-600">สถานภาพการลงทะเบียนวิชาที่ขอเพิ่มที่นั่ง *</label>
+                            <label class="block font-medium mb-2 text-red-600">สถานภาพการลงทะเบียนวิชา *</label>
                             <div class="space-y-2">
                                 <label class="flex items-center gap-2">
                                     <input type="radio" name="reg_status" value="ลงปกติ" required />
