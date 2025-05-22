@@ -15,6 +15,8 @@ https://docs.docker.com/engine/install/ubuntu/
 4.docker compose up -d
 
 สำเร็จ
-(อย่าลืม Set timezone utc+7 ด้วยนะครับ)
+
+[หน้าบ้าน 
  
-ฐานข้อมูลใน [http://203.158.201.73:8080](http://203.158.201.73:8080/)
+ฐานข้อมูลใน [http://203.158.201.73:8080](http://203.158.201.73:8080/)](https://ecpreq.pcnone.com  หรือ http://203.158.201.73 100%
+https://ecpreq-data.pcnone.com หรือ http://203.158.201.73:8080)
