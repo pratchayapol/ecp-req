@@ -1,7 +1,12 @@
+วิธีการติดตั้ง 
+
+os ubuntu server
+
 1.git clone https://github.com/pratchayapol/ecp_online_petition_php.git
 
 
 2.install docker 
+https://docs.docker.com/engine/install/ubuntu/
 
 
 3.cd เข้าไปที่ path งาน
