@@ -1,8 +1,8 @@
 <?php
 $servername = "mariadb";
 $port = 3306;
-$username = "root";
-$password = "adminecp";
+$username = "system";
+$password = "!?K#\Uy|Wt6:5g£49O{y&,MH8smnhG(506f";
 $dbname = "ecp_req";
 
 try {
