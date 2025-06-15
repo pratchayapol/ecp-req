@@ -134,7 +134,7 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
 // //เหตุผล
-$pdf->SetY(100);
+$pdf->SetY(95);
 $pdf->SetX(69);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $reason), 0, 1, 'L');
