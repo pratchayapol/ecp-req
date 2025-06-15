@@ -136,7 +136,7 @@ $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_teacher), 0, 'L');
 
 
 // // ความคิดเห็นหัวหน้าสาขา
-$pdf->SetY(155);
+$pdf->SetY(157);
 $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_head_dep), 0, 'L');
 
