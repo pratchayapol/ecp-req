@@ -141,38 +141,38 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $reason), 0, 1, 'L');
 
 
 // //กลุ่มเรียน1
-$pdf->SetY(145);
+$pdf->SetY(144.5);
 $pdf->SetX(116);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $Group), 0, 1, 'L');
 
 // //รหัสรายวิชา1
-$pdf->SetY(145);
+$pdf->SetY(144.5);
 $pdf->SetX(20);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
 // //ชื่อวิชาภาษาไทย1
-$pdf->SetY(145);
+$pdf->SetY(144.5);
 $pdf->SetX(52);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_nameTH), 0, 1, 'L');
 
 // //กลุ่มเรียน2
-$pdf->SetY(154);
+$pdf->SetY(159);
 $pdf->SetX(116);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $Group), 0, 1, 'L');
 
 // //รหัสรายวิชา2
-$pdf->SetY(154);
+$pdf->SetY(159);
 $pdf->SetX(20);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $course_id), 0, 1, 'L');
 
 
 // //ชื่อวิชาภาษาไทย2
-$pdf->SetY(154);
+$pdf->SetY(159);
 $pdf->SetX(52);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_nameTH), 0, 1, 'L');
