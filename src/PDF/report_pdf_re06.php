@@ -179,7 +179,7 @@ $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_nameTH), 0, 1, 'L');
 
 // //ยอดลงทะเบียน
 $pdf->SetY(154);
-$pdf->SetX(135);
+$pdf->SetX(137);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $coutter), 0, 1, 'L');
 
