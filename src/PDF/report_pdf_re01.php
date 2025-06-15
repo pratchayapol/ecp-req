@@ -137,8 +137,8 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_teacher), 0, 1, 'L');
 
 
 // //ความคิดเห็นหัวหน้าสาขา
-$pdf->SetY(145);
-$pdf->SetX(100);
+$pdf->SetY(144);
+$pdf->SetX(120);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_head_dep), 0, 1, 'L');
 
