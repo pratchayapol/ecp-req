@@ -169,7 +169,7 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $id), 0, 1, 'L');
 
 // //สาขาวิชา
 $pdf->SetY(74);
-$pdf->SetX(40);
+$pdf->SetX(37);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
