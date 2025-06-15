@@ -93,6 +93,13 @@ $pdf->AddFont('sara', '', 'THSarabun.php');
 $pdf->Image('RE.01bg.jpg', 0, 0, 210, 297);
 $pdf->SetXY(190, 0);
 
+
+//ชื่อ
+$pdf->SetY(56);
+$pdf->SetX(62);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
+
 // //เรื่อง
 $pdf->SetY(36.5);
 $pdf->SetX(23);
@@ -153,11 +160,7 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
 
-//ชื่อ
-$pdf->SetY(56);
-$pdf->SetX(62);
-$pdf->SetFont('sara', '', 14);
-$pdf->Cell(40, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
+
 
 //เลขนศ
 $pdf->SetY(56);
