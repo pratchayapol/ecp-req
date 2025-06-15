@@ -125,7 +125,7 @@ $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
 
 // //เหตุผล
 $pdf->SetY(95);
-$pdf->SetX(53);
+$pdf->SetX(43);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $request_text), 0, 1, 'L');
 
@@ -154,13 +154,13 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
 
 //ชื่อ
-$pdf->SetY(55);
+$pdf->SetY(56);
 $pdf->SetX(65);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
 
 //เลขนศ
-$pdf->SetY(55);
+$pdf->SetY(56);
 $pdf->SetX(160);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874',$id), 0, 1, 'L');
