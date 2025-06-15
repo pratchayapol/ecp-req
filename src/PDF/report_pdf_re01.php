@@ -94,13 +94,13 @@ $pdf->Image('RE.01bg.jpg', 0, 0, 210, 297);
 $pdf->SetXY(190, 0);
 
 // //เรื่อง
-$pdf->SetY(36);
+$pdf->SetY(36.5);
 $pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $title), 0, 1, 'L');
 
 // //เรียน
-$pdf->SetY(46);
+$pdf->SetY(45.5);
 $pdf->SetX(23);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $to), 0, 1, 'L');
@@ -112,14 +112,14 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
 // //สาขา
-$pdf->SetY(83);
+$pdf->SetY(85);
 $pdf->SetX(20);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'C');
+$pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
 // //ชั้นปี
-$pdf->SetY(79);
-$pdf->SetX(20);
+$pdf->SetY(81);
+$pdf->SetX(40);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
 
