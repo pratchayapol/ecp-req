@@ -128,13 +128,13 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
 // //กลุ่มเรียน
-$pdf->SetY(138);
+$pdf->SetY(158);
 $pdf->SetX(116);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $Group), 0, 1, 'L');
 
 // //กลุ่มเรียน2
-$pdf->SetY(138);
+$pdf->SetY(178);
 $pdf->SetX(116);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874',  $Group), 0, 1, 'L');
