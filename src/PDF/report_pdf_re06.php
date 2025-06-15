@@ -115,8 +115,8 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $id), 0, 1, 'L');
 
 // //ชั้นปี
-$pdf->SetY(70);
-$pdf->SetX(125);
+$pdf->SetY(90);
+$pdf->SetX(135);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'L');
 
@@ -126,6 +126,25 @@ $pdf->SetY(184);
 $pdf->SetX(32.5);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
+
+// //คณะ
+$pdf->SetY(85);
+$pdf->SetX(30.5);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $faculty), 0, 1, 'L');
+
+// //สาขาวิชา
+$pdf->SetY(85);
+$pdf->SetX(110);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
+
+// //เหตุผล
+$pdf->SetY(120);
+$pdf->SetX(68.5);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $reason), 0, 1, 'L');
+
 
 // //กลุ่มเรียน
 $pdf->SetY(158);
@@ -178,11 +197,7 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_teacher), 0, 1, 'L');
 
 
-// //เหตุผล
-$pdf->SetY(84);
-$pdf->SetX(68.5);
-$pdf->SetFont('sara', '', 14);
-$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $reason), 0, 1, 'L');
+
 
 // //เวลา่
 $created_at_thai = formatDateThai($created_at, ['              ','            ','    ', ' ']);
@@ -194,17 +209,6 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
 
-// //คณะ
-$pdf->SetY(75);
-$pdf->SetX(30.5);
-$pdf->SetFont('sara', '', 14);
-$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $faculty), 0, 1, 'L');
-
-// //สาขาวิชา
-$pdf->SetY(75);
-$pdf->SetX(110);
-$pdf->SetFont('sara', '', 14);
-$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
 
 
