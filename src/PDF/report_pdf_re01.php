@@ -113,13 +113,13 @@ $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
 // //สาขา
 $pdf->SetY(86);
-$pdf->SetX(5);
+$pdf->SetX(22);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
 // //ชั้นปี
 $pdf->SetY(85);
-$pdf->SetX(5);
+$pdf->SetX(10);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
 
