@@ -119,7 +119,7 @@ $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
 // //ชั้นปี
 $pdf->SetY(85);
-$pdf->SetX(10);
+$pdf->SetX(5);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
 
@@ -137,8 +137,8 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_teacher), 0, 1, 'L');
 
 
 // //ความคิดเห็นหัวหน้าสาขา
-$pdf->SetY(168.5);
-$pdf->SetX(15);
+$pdf->SetY(140.5);
+$pdf->SetX(40);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_head_dep), 0, 1, 'L');
 
