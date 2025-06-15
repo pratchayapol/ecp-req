@@ -106,7 +106,7 @@ $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
 
 // // ภาคเรียน2
 $pdf->SetY(78.5);
-$pdf->SetX(159.5);
+$pdf->SetX(160);
 $pdf->Cell(40, 8, iconv('utf-8', 'cp874', $term), 0, 1, 'L');
 
 // // ปีการศึกษา2
@@ -130,19 +130,19 @@ $pdf->SetX(30);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 
 // // ความคิดเห็นอาจารย์ที่ปรึกษา
-$pdf->SetY(144);
+$pdf->SetY(120);
 $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_teacher), 0, 'L');
 
 
 // // ความคิดเห็นหัวหน้าสาขา
-$pdf->SetY(175);
+$pdf->SetY(155);
 $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_head_dep), 0, 'L');
 
 // // email นักศึกษา
 $pdf->SetY(112);
-$pdf->SetX(75);
+$pdf->SetX(85);
 $pdf->Cell(100, 8, iconv('utf-8', 'cp874', $email), 0, 1, 'L');
 
 
@@ -150,7 +150,7 @@ $pdf->Cell(100, 8, iconv('utf-8', 'cp874', $email), 0, 1, 'L');
 $created_at_thai = formatDateThai($created_at, ['              ','            ','    ', ' ']);
 // เว้นวรรคหลัง: วัน 2 ช่อง, เดือน 3 ช่อง, ปี 4 ช่อง, "เวลา" 1 ช่อง
 
-$pdf->SetY(27.5);
+$pdf->SetY(28);
 $pdf->SetX(122);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
@@ -174,8 +174,8 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
 // //ชั้นปี
-$pdf->SetY(75);
-$pdf->SetX(185);
+$pdf->SetY(74);
+$pdf->SetX(160);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'L');
 
