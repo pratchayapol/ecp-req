@@ -123,7 +123,7 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'L');
 
 // //email นักศึกษา
 $pdf->SetY(188);
-$pdf->SetX(60);
+$pdf->SetX(85);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
