@@ -125,7 +125,7 @@ $pdf->SetX(100);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $course_nameTH), 0, 'L');
 
 // // เหตุผล
-$pdf->SetY(95);
+$pdf->SetY(94);
 $pdf->SetX(30);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 
@@ -141,8 +141,8 @@ $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_head_dep), 0, 'L');
 
 // // email นักศึกษา
-$pdf->SetY(110);
-$pdf->SetX(60);
+$pdf->SetY(112);
+$pdf->SetX(75);
 $pdf->Cell(100, 8, iconv('utf-8', 'cp874', $email), 0, 1, 'L');
 
 
