@@ -112,19 +112,19 @@ $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
 // //สาขา
-$pdf->SetY(85);
-$pdf->SetX(20);
+$pdf->SetY(82);
+$pdf->SetX(22);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
 // //ชั้นปี
-$pdf->SetY(81);
-$pdf->SetX(40);
+$pdf->SetY(84);
+$pdf->SetX(60);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
 
 // //เหตุผล
-$pdf->SetY(89);
+$pdf->SetY(93);
 $pdf->SetX(50);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $request_text), 0, 1, 'L');
