@@ -107,12 +107,12 @@ $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $to), 0, 1, 'L');
 
 // //email นักศึกษา
 $pdf->SetY(118.5);
-$pdf->SetX(40.5);
+$pdf->SetX(50);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
 // //สาขา
-$pdf->SetY(82);
+$pdf->SetY(85);
 $pdf->SetX(22);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
@@ -125,7 +125,7 @@ $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
 
 // //เหตุผล
 $pdf->SetY(93);
-$pdf->SetX(50);
+$pdf->SetX(53);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(168, 2, iconv('utf-8', 'cp874', $request_text), 0, 1, 'L');
 
