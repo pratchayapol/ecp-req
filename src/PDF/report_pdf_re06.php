@@ -127,15 +127,9 @@ $pdf->SetX(32.5);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
-// //คณะ
-$pdf->SetY(85);
-$pdf->SetX(30.5);
-$pdf->SetFont('sara', '', 14);
-$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $faculty), 0, 1, 'L');
-
 // //สาขาวิชา
 $pdf->SetY(85);
-$pdf->SetX(110);
+$pdf->SetX(30.5);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
