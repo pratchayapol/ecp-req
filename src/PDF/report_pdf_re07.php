@@ -130,13 +130,13 @@ $pdf->SetX(30);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $reason), 0, 'L');
 
 // // ความคิดเห็นอาจารย์ที่ปรึกษา
-$pdf->SetY(120);
+$pdf->SetY(130);
 $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_teacher), 0, 'L');
 
 
 // // ความคิดเห็นหัวหน้าสาขา
-$pdf->SetY(155);
+$pdf->SetY(160);
 $pdf->SetX(20);
 $pdf->MultiCell(150, 8, iconv('utf-8', 'cp874', $comment_head_dep), 0, 'L');
 
