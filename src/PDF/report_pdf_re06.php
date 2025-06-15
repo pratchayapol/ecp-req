@@ -92,15 +92,28 @@ $pdf->SetXY(190, 0);
 
 // //	ภาคเรียน
 $pdf->SetY(21);
-$pdf->SetX(119);
+$pdf->SetX(120);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $term), 0, 1, 'L');
 
 // //ปีการศึกษา	
 $pdf->SetY(21);
-$pdf->SetX(154);
+$pdf->SetX(155);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(40, 2, iconv('utf-8', 'cp874', $year), 0, 1, 'L');
+
+// //ชื่อ สกุล
+$pdf->SetY(55);
+$pdf->SetX(68.5);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
+
+// //เลขนศ
+$pdf->SetY(55);
+$pdf->SetX(163);
+$pdf->SetFont('sara', '', 14);
+$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $id), 0, 1, 'L');
+
 
 // //email นักศึกษา
 $pdf->SetY(184);
@@ -175,17 +188,6 @@ $pdf->SetX(136);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $created_at_thai), 0, 1, 'L');
 
-// //ชื่อ สกุล
-$pdf->SetY(56);
-$pdf->SetX(68.5);
-$pdf->SetFont('sara', '', 14);
-$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $name), 0, 1, 'L');
-
-// //เลขนศ
-$pdf->SetY(56);
-$pdf->SetX(163);
-$pdf->SetFont('sara', '', 14);
-$pdf->Cell(42, 2, iconv('utf-8', 'cp874', $id), 0, 1, 'L');
 
 // //คณะ
 $pdf->SetY(75);
