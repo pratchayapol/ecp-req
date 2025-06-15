@@ -119,9 +119,9 @@ $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
 // //ชั้นปี
 $pdf->SetY(85);
-$pdf->SetX(20);
+$pdf->SetX(145);
 $pdf->SetFont('sara', '', 14);
-$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'R');
+$pdf->Cell(168, 2, iconv('utf-8', 'cp874', $course_level), 0, 1, 'L');
 
 // //เหตุผล
 $pdf->SetY(95);
