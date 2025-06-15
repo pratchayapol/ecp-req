@@ -113,7 +113,7 @@ $pdf->Cell(70, 2, iconv('utf-8', 'cp874',  $email), 0, 1, 'L');
 
 // //สาขา
 $pdf->SetY(86);
-$pdf->SetX(22);
+$pdf->SetX(5);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(165, 2, iconv('utf-8', 'cp874', $field), 0, 1, 'L');
 
@@ -138,7 +138,7 @@ $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_teacher), 0, 1, 'L');
 
 // //ความคิดเห็นหัวหน้าสาขา
 $pdf->SetY(144);
-$pdf->SetX(120);
+$pdf->SetX(115);
 $pdf->SetFont('sara', '', 14);
 $pdf->Cell(42, 2, iconv('utf-8', 'cp874', $comment_head_dep), 0, 1, 'L');
 
